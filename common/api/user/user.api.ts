@@ -1,4 +1,4 @@
-import { ILoginUser } from "@/common/interfaces/user.interface";
+import { ILoginUser } from "@/interfaces/user.interface";
 import axios from "../api";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
