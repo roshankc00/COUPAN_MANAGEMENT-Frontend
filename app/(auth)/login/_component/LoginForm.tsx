@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -23,8 +23,19 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "@/common/api/user/user.api";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import useUserStore from "@/store";
 
 function LoginForm() {
+  const router = useRouter();
+  const userLoginStatus = useUserStore((state) => state.isLoggedInStatus);
+  if (userLoginStatus) {
+    router.push("/");
+  }
+  const setUser = useUserStore((state) => state.setUser);
   const formSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8, {
@@ -32,9 +43,6 @@ function LoginForm() {
     }),
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-  };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,6 +50,20 @@ function LoginForm() {
       password: "",
     },
   });
+
+  const { mutate } = useMutation({
+    mutationFn: loginUser,
+    onSuccess(data, variables, context) {
+      toast.success("User LoggedIn successfully");
+      setUser(data?.user);
+      router.push("/");
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    mutate(values);
+  };
+
   return (
     <div>
       <Card className="py-4">

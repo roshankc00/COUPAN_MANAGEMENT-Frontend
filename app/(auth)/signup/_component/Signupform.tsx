@@ -23,8 +23,13 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { loginUser, signupUser } from "@/common/api/user/user.api";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 function SignupForm() {
+  const router = useRouter();
   const formSchema = z.object({
     name: z.string().min(3, {
       message: "Name must be of 3 charecter ",
@@ -40,9 +45,6 @@ function SignupForm() {
     }),
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-  };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,6 +52,18 @@ function SignupForm() {
       password: "",
     },
   });
+
+  const { mutate } = useMutation({
+    mutationFn: signupUser,
+    onSuccess() {
+      router.push("/login");
+      toast.success("User Registered successfully");
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+  };
   return (
     <div>
       <Card>
@@ -123,7 +137,7 @@ function SignupForm() {
           </Form>
         </CardContent>
         <CardFooter>
-          <Link href="/login" className="text-center text-sky-400">
+          <Link href="/login" className="text-center text-sky-400 w-full">
             Already have an Accoun?Login
           </Link>
           <p></p>
