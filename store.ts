@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { User } from "../server/src/users/entities/user.entity";
+import { IUser } from "./interfaces/user.interface";
 
 export interface UserStore {
-  user: User | undefined;
+  user: IUser | undefined;
   isLoggedInStatus: boolean;
-  setUser: (data: User) => void;
+  setUser: (data: IUser) => void;
 }
 
 const useUserStore = create<UserStore>()(
@@ -13,7 +13,7 @@ const useUserStore = create<UserStore>()(
     (set) => ({
       user: undefined,
       isLoggedInStatus: false,
-      setUser: (data: User) =>
+      setUser: (data: IUser) =>
         set(() => ({ user: data, isLoggedInStatus: true })),
     }),
     { name: "user-store" }
