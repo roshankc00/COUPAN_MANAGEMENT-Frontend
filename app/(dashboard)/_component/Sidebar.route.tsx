@@ -27,7 +27,7 @@ function SidebarRoutes({}: Props) {
     {
       icon: Compass,
       label: "Sub-Category",
-      href: "/sub-Category",
+      href: "/sub-category",
     },
     {
       icon: Compass,

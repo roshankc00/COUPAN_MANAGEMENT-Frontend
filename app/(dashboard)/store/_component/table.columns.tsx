@@ -128,6 +128,46 @@ export const columns: ColumnDef<ICategory>[] = [
     },
   },
   {
+    accessorKey: "createdAt",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          CreatedAt
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const date: string = row.getValue("createdAt");
+      return (
+        <div className="text-center"> {moment(date).format("YYYY-MM-DD")}</div>
+      );
+    },
+  },
+  {
+    accessorKey: "updatedAt",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          UpdatedAt
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const title: string = row.getValue("updatedAt");
+      return (
+        <div className="text-center"> {moment(title).format("YYYY-MM-DD")}</div>
+      );
+    },
+  },
+  {
     id: "action",
     cell: ({ row }) => {
       const { id } = row.original;

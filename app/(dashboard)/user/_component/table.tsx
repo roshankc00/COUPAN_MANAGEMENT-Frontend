@@ -2,7 +2,7 @@
 import React from "react";
 import { columns } from "./table.columns";
 import { Datatable } from "./data.table";
-import { UseGetAllUsers } from "@/hooks/users/get_all_user.hook";
+import { UseGetAllUsers } from "@/hooks/react-query/users/get_all_user.hook";
 
 const CategoryTable = () => {
   const { data, isFetching, isLoading } = UseGetAllUsers();

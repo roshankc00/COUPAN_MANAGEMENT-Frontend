@@ -1,5 +1,5 @@
 "use client";
-import { UseGetAllCategory } from "@/hooks/categories/get_all_category.hook";
+import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import React from "react";
 import { columns } from "./table.columns";
 import { Datatable } from "./data.table";

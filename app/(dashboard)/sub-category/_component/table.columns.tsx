@@ -75,7 +75,29 @@ export const columns: ColumnDef<ICategory>[] = [
       return <span className="text-center flex justify-center">{title}</span>;
     },
   },
-
+  {
+    accessorKey: "category",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="text-center flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Category
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const category: any = row.getValue("category");
+      return (
+        <span className="text-center flex justify-center">
+          {category.title}
+        </span>
+      );
+    },
+  },
   {
     accessorKey: "status",
     header: ({ column }) => {
@@ -101,32 +123,7 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
   },
-  {
-    accessorKey: "featured",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="flex justify-center"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Featured
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const isFeatured = parseFloat(row.getValue("featured"));
 
-      return (
-        <div className="text-center flex justify-center">
-          <Badge className={cn("bg-slate-500 text-center")}>
-            {isFeatured ? "YES" : "NO"}
-          </Badge>
-        </div>
-      );
-    },
-  },
   {
     id: "action",
     cell: ({ row }) => {

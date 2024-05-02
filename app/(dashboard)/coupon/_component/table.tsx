@@ -2,10 +2,11 @@
 import React from "react";
 import { columns } from "./table.columns";
 import { Datatable } from "./data.table";
-import { UseGetAllStore } from "@/hooks/stores/get_all_store_hook";
+import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
+import { UseGetAllCoupons } from "@/hooks/react-query/coupons/get_all_category.hook";
 
 const CategoryTable = () => {
-  const { data, isFetching, isLoading } = UseGetAllStore();
+  const { data, isFetching, isLoading } = UseGetAllCoupons();
   return (
     <div className="">
       {!isFetching && !isLoading ? (

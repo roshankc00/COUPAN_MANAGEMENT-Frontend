@@ -102,6 +102,54 @@ export const columns: ColumnDef<ICategory>[] = [
     },
   },
   {
+    accessorKey: "isVerified",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          verified
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const isActive: boolean = row.getValue("isVerified");
+      return (
+        <div className="flex justify-center">
+          <Badge className={cn("bg-slate-500 text-center")}>
+            {isActive ? "YES" : "NO"}
+          </Badge>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "phoneNumber",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          phoneNumber
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const title: string = row.getValue("phoneNumber");
+      return (
+        <div className="flex justify-center font-bold">
+          {title ? title : "null"}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "role",
     header: ({ column }) => {
       return (

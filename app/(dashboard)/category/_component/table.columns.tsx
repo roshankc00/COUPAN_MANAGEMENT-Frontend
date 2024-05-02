@@ -15,8 +15,6 @@ import { cn } from "@/lib/utils";
 import { ICategory } from "@/interfaces/category.interface";
 import moment from "moment";
 
-const dateFormat = moment();
-
 export const columns: ColumnDef<ICategory>[] = [
   {
     accessorKey: "id",
@@ -165,9 +163,9 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = row.getValue("createdAt");
+      const date: string = row.getValue("createdAt");
       return (
-        <div className="text-center">{dateFormat.format("YYYY-MM-DD")}</div>
+        <div className="text-center"> {moment(date).format("YYYY-MM-DD")}</div>
       );
     },
   },
@@ -185,9 +183,9 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const isPubished = row.getValue("updatedAt");
+      const title: string = row.getValue("updatedAt");
       return (
-        <div className="text-center">{dateFormat.format("YYYY-MM-DD")}</div>
+        <div className="text-center"> {moment(title).format("YYYY-MM-DD")}</div>
       );
     },
   },

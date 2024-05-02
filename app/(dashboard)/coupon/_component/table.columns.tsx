@@ -57,7 +57,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
   },
   {
-    accessorKey: "description",
+    accessorKey: "tagLine",
     header: ({ column }) => {
       return (
         <Button
@@ -65,17 +65,81 @@ export const columns: ColumnDef<ICategory>[] = [
           className="text-center flex justify-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Description
+          TagLine
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const title: string = row.getValue("description");
+      const title: string = row.getValue("tagLine");
       return <span className="text-center flex justify-center">{title}</span>;
     },
   },
-
+  {
+    accessorKey: "code",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="text-center flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Code
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const title: string = row.getValue("code");
+      return <span className="text-center flex justify-center">{title}</span>;
+    },
+  },
+  {
+    accessorKey: "startDate",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="text-center flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          startDate
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const title: string = row.getValue("expireDate");
+      return (
+        <span className="text-center flex justify-center">
+          {moment(title).format("YYYY-MM-DD")}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "expireDate",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="text-center flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ExpireDate
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const title: string = row.getValue("expireDate");
+      return (
+        <span className="text-center flex justify-center">
+          {moment(title).format("YYYY-MM-DD")}
+        </span>
+      );
+    },
+  },
   {
     accessorKey: "status",
     header: ({ column }) => {
