@@ -24,7 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "@/common/api/user/user.api";
+import { loginUser } from "@/common/api/users/user.api";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import useUserStore from "@/store";

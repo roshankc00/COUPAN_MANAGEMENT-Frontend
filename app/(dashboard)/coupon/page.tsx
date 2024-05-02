@@ -1,7 +1,7 @@
 import React from "react";
 import CategoryTable from "./_component/table";
 
-const StoresPage = () => {
+const CouponPage = () => {
   return (
     <div className="flex justify-center">
       <div>
@@ -11,4 +11,4 @@ const StoresPage = () => {
   );
 };
 
-export default StoresPage;
+export default CouponPage;

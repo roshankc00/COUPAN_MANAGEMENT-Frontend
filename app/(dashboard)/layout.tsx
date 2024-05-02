@@ -16,7 +16,7 @@ const DashboardLayout: React.FC<Props> = ({ children }) => {
           <MobileSideBar />
         </div>
       </div>
-      <main className="md:pl-52 h-full pt-[80px] ">{children}</main>
+      <main className="md:pl-52 h-full pt-[80px] mr-20 ">{children}</main>
     </div>
   );
 };

@@ -12,7 +12,7 @@ const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 //   return data;
 // };
 
-export const getAllCategory = async () => {
-  const { data } = await axios.get(`/category`);
+export const getAllStores = async () => {
+  const { data } = await axios.get(`/store`);
   return data;
 };

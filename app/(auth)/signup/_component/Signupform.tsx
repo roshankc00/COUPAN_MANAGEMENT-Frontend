@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { loginUser, signupUser } from "@/common/api/user/user.api";
+import { loginUser, signupUser } from "@/common/api/users/user.api";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";

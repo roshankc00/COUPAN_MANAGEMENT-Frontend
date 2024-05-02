@@ -1,11 +1,11 @@
 "use client";
-import { UseGetAllCategory } from "@/hooks/categories/get_all_category.hook";
 import React from "react";
 import { columns } from "./table.columns";
 import { Datatable } from "./data.table";
+import { UseGetAllUsers } from "@/hooks/users/get_all_user.hook";
 
 const CategoryTable = () => {
-  const { data, isFetching, isLoading } = UseGetAllCategory();
+  const { data, isFetching, isLoading } = UseGetAllUsers();
   return (
     <div className="">
       {!isFetching && !isLoading ? (

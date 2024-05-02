@@ -38,7 +38,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
   },
   {
-    accessorKey: "title",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
@@ -46,38 +46,38 @@ export const columns: ColumnDef<ICategory>[] = [
           className="flex justify-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const title: string = row.getValue("title");
+      const title: string = row.getValue("name");
       return <span className="text-center flex justify-center">{title}</span>;
     },
   },
   {
-    accessorKey: "description",
+    accessorKey: "email",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          className="text-center flex justify-center"
+          className="flex justify-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Description
+          Email
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const title: string = row.getValue("description");
+      const title: string = row.getValue("email");
       return <span className="text-center flex justify-center">{title}</span>;
     },
   },
 
   {
-    accessorKey: "status",
+    accessorKey: "isActive",
     header: ({ column }) => {
       return (
         <Button
@@ -85,24 +85,24 @@ export const columns: ColumnDef<ICategory>[] = [
           className="flex justify-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Status
+          isActive
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const isShowinMenu = row.getValue("status");
+      const isActive: boolean = row.getValue("isActive");
       return (
         <div className="flex justify-center">
           <Badge className={cn("bg-slate-500 text-center")}>
-            {isShowinMenu ? "YES" : "NO"}
+            {isActive ? "YES" : "NO"}
           </Badge>
         </div>
       );
     },
   },
   {
-    accessorKey: "featured",
+    accessorKey: "role",
     header: ({ column }) => {
       return (
         <Button
@@ -110,23 +110,21 @@ export const columns: ColumnDef<ICategory>[] = [
           className="flex justify-center"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Featured
+          Role
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const isFeatured = parseFloat(row.getValue("featured"));
-
+      const role: string = row.getValue("role");
       return (
-        <div className="text-center flex justify-center">
-          <Badge className={cn("bg-slate-500 text-center")}>
-            {isFeatured ? "YES" : "NO"}
-          </Badge>
+        <div className="flex justify-center">
+          <Badge className={cn("bg-slate-500 text-center")}>{role}</Badge>
         </div>
       );
     },
   },
+
   {
     id: "action",
     cell: ({ row }) => {
