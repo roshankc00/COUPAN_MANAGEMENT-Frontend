@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ArchiveRestore,
   BarChart,
   Compass,
   Globe2,
@@ -7,20 +8,23 @@ import {
   Layout,
   List,
   Timer,
+  Users,
+  Component,
 } from "lucide-react";
 import SidebarItem from "./Sidebar.item";
-
+import { MdCategory, MdDashboard } from "react-icons/md";
+import { SiMicrosoftstore } from "react-icons/si";
 type Props = {};
 
 function SidebarRoutes({}: Props) {
   const routes = [
     {
-      icon: Layout,
+      icon: MdDashboard,
       label: "Dashboard",
       href: "/dashboard",
     },
     {
-      icon: Compass,
+      icon: MdCategory,
       label: "Category",
       href: "/category",
     },
@@ -30,17 +34,17 @@ function SidebarRoutes({}: Props) {
       href: "/sub-category",
     },
     {
-      icon: Compass,
+      icon: Component,
       label: "Coupon",
       href: "/coupon",
     },
     {
-      icon: Compass,
+      icon: SiMicrosoftstore,
       label: "Store",
       href: "/store",
     },
     {
-      icon: Compass,
+      icon: Users,
       label: "User",
       href: "/user",
     },

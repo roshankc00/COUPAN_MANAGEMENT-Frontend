@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
-
+import { IconType } from "react-icons";
 type Props = {
-  icon: LucideIcon;
+  icon: LucideIcon | IconType;
   label: string;
   href: string;
 };
@@ -26,7 +26,7 @@ const SidebarItem: React.FC<Props> = ({ href, icon: Icon, label }) => {
       onClick={onClick}
       type="button"
       className={cn(
-        "flex items-center gap-x-2 text-slat e-500 text-sm font-[500] pl-6 transition-all hover:text-slate-500 hover:bg-slate-300/20",
+        "flex items-center gap-x-2 text-slat e-500 text-sm font-[500] pl-6 transition-all hover:text-slate-500 hover:bg-slate-300/20 mt-4",
         isActive && "text-slate-700 bg-slate-200/20"
       )}
     >

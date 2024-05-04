@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Card,
@@ -8,8 +9,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Component, Cylinder, Layers3, UsersRound } from "lucide-react";
+import { UseGetLast12MonthStoresAnalytics } from "@/hooks/react-query/analytics/get-store-12-month-analytics";
+import { UseGetAllCounts } from "@/hooks/react-query/analytics/getAllCounts";
 
 function UpperHeader() {
+  const { data, isFetching, isLoading } = UseGetAllCounts();
   return (
     <div className="ms-24 md:ms-0 lg:ms-24 flex  justify-center">
       <div className="w-full grid-cols-1  md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid  gap-8">
@@ -23,7 +27,9 @@ function UpperHeader() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="font-medium  text-3xl  ">10000</p>
+            <p className="font-medium  text-3xl  ">
+              {data && !isLoading && !isFetching && data?.users}
+            </p>
           </CardContent>
         </Card>
         {/* store  */}
@@ -36,7 +42,9 @@ function UpperHeader() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="font-medium  text-3xl  ">20000</p>
+            <p className="font-medium  text-3xl  ">
+              {data && !isLoading && !isFetching && data?.stores}
+            </p>
           </CardContent>
         </Card>
         {/* coupons */}
@@ -49,7 +57,9 @@ function UpperHeader() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="font-medium  text-3xl  ">30000</p>
+            <p className="font-medium  text-3xl  ">
+              {data && !isLoading && !isFetching && data?.coupons}
+            </p>
           </CardContent>
         </Card>
         {/* category */}
@@ -62,7 +72,9 @@ function UpperHeader() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="font-medium  text-3xl  ">40000</p>
+            <p className="font-medium  text-3xl  ">
+              {data && !isLoading && !isFetching && data?.categories}
+            </p>
           </CardContent>
         </Card>
       </div>
