@@ -17,7 +17,7 @@ function SidebarRoutes({}: Props) {
     {
       icon: Layout,
       label: "Dashboard",
-      href: "/",
+      href: "/dashboard",
     },
     {
       icon: Compass,
