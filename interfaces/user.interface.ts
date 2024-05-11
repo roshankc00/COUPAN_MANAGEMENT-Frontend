@@ -16,3 +16,8 @@ export interface IUser {
   role: string;
   isActive: boolean;
 }
+
+export interface IResetPassword {
+  newPassword: string;
+  token: string;
+}

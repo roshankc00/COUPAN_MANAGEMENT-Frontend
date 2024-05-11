@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { SiVelog } from "react-icons/si";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
@@ -22,23 +23,15 @@ api.interceptors.response.use(
   },
   (error) => {
     new Promise((res) => setTimeout(res, 300));
-    if (
-      error.response.method === "post" ||
-      error.response.method === "put" ||
-      error.response.method === "delete"
-    ) {
-      if (error.response.status === 401) {
-        toast.error(
-          error.response.data.message ||
-            "You are not authorized to perform the action!"
-        );
-        window.location.href = "/login";
-        Cookies.remove("Authentication");
-      } else {
-        toast.error(
-          error.reponse.data.message || "Somehow request failed, Contact Admin"
-        );
-      }
+    if (error.response.status === 401) {
+      toast.error(
+        error.response.data.message ||
+          "You are not authorized to perform the action!"
+      );
+      window.location.href = "/login";
+      Cookies.remove("Authentication");
+    } else {
+      toast.error(error?.response?.data.message || "Something went wrong");
     }
 
     return Promise.reject(error?.response?.data);

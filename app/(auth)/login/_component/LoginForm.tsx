@@ -24,14 +24,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "@/common/api/users/user.api";
-import { useRouter } from "next/navigation";
+import { loginUser, verifyEmail } from "@/common/api/users/user.api";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import useUserStore from "@/store";
+import axios from "axios";
 
 function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const userLoginStatus = useUserStore((state) => state.isLoggedInStatus);
+  const queryToken = searchParams.get("token");
   if (userLoginStatus) {
     router.push("/");
   }
@@ -53,7 +56,7 @@ function LoginForm() {
 
   const { mutate } = useMutation({
     mutationFn: loginUser,
-    onSuccess(data, variables, context) {
+    onSuccess(data) {
       toast.success("User LoggedIn successfully");
       setUser(data?.user);
       router.push("/");
@@ -64,9 +67,21 @@ function LoginForm() {
     mutate(values);
   };
 
+  const verifyEmailHandler = async () => {
+    if (queryToken) {
+      const response: any = await verifyEmail(queryToken);
+    }
+  };
+
+  useEffect(() => {
+    if (queryToken) {
+      verifyEmailHandler();
+    }
+  }, []);
+
   return (
     <div>
-      <Card className="py-4">
+      <Card className="py-4 opacity-100">
         <CardHeader>
           <CardTitle className="text-center">Login User</CardTitle>
         </CardHeader>
@@ -118,7 +133,13 @@ function LoginForm() {
           </Form>
         </CardContent>
         <CardFooter>
-          <div className="flex justify-center w-full">
+          <div className="flex flex-col justify-center w-full">
+            <Link
+              href="/forget-password"
+              className="text-center text-sky-600 block my-2"
+            >
+              Forget Password
+            </Link>
             <Link href="/signup" className="text-center text-sky-600">
               Not Registered ? Create an account
             </Link>

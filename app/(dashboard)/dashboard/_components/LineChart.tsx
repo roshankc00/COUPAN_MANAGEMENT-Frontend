@@ -45,7 +45,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, title }) => {
   return (
     <div className="border border-b-white rounded-sm">
       <h1 className="text-xl  p-2 text-center mt-2 mb-[-10px]">
-        {title} Bargraph
+        {title} LineChart
       </h1>
       <ReactEcharts
         option={getOption()}

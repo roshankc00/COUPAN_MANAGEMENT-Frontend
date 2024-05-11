@@ -29,7 +29,6 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 function SignupForm() {
-  const router = useRouter();
   const formSchema = z.object({
     name: z.string().min(3, {
       message: "Name must be of 3 charecter ",
@@ -56,13 +55,12 @@ function SignupForm() {
   const { mutate } = useMutation({
     mutationFn: signupUser,
     onSuccess() {
-      router.push("/login");
-      toast.success("User Registered successfully");
+      toast.success("Check your Mail Please");
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    mutate(values);
   };
   return (
     <div>
