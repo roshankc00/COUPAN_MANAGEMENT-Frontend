@@ -1,11 +1,10 @@
+"use client";
 import React from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import {
   DropdownMenu,
@@ -17,25 +16,46 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
+import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 
 const BreadCrumCom = () => {
+  const {
+    data: allCategory,
+    isFetching: catFetching,
+    isLoading: catLoading,
+  } = UseGetAllCategory();
+  const {
+    data: allStore,
+    isFetching: storeFetching,
+    isLoading: storeLoading,
+  } = UseGetAllStore();
+
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 lg-px-8 py-5">
       <Breadcrumb>
-        <BreadcrumbList className="flex justify-between  w-full">
+        <BreadcrumbList className="flex justify-between items-center w-full ">
           <div className="flex gap-4">
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger className="border-none flex gap-2 text-black">
                   Categories
-                  <ChevronDown />
+                  <ChevronDown className="h-5 w-5" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="flex flex-col justify-center items-center">
                   <DropdownMenuLabel>Categories</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  {!catFetching &&
+                    !catLoading &&
+                    allCategory?.slice(0, 5).map((item: any) => {
+                      return (
+                        <DropdownMenuItem key={item.id}>
+                          <Link href={`/browse/category/${item.id}`}>
+                            {item.title}
+                          </Link>
+                        </DropdownMenuItem>
+                      );
+                    })}
                   <DropdownMenuItem>
                     <Link href="/browse/category" className="underline">
                       View All Category
@@ -48,16 +68,22 @@ const BreadCrumCom = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger className="border-none flex gap-2 text-black">
                   Stores
-                  <ChevronDown />
+                  <ChevronDown className="h-5 w-5" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="flex flex-col justify-center items-center">
                   <DropdownMenuLabel>Stores</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  {!storeFetching &&
+                    !storeLoading &&
+                    allStore?.slice(0, 5).map((item: any) => {
+                      return (
+                        <DropdownMenuItem key={item.id}>
+                          {item.title}
+                        </DropdownMenuItem>
+                      );
+                    })}
                   <DropdownMenuItem>
-                    <Link href="/browse/category" className="underline">
+                    <Link href="/browse/store" className="underline">
                       View All Stores
                     </Link>
                   </DropdownMenuItem>
@@ -68,7 +94,7 @@ const BreadCrumCom = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger className="border-none flex gap-2 text-black">
                   Coupons
-                  <ChevronDown />
+                  <ChevronDown className="h-5 w-5" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="flex flex-col justify-center items-center">
                   <DropdownMenuLabel>Coupons</DropdownMenuLabel>

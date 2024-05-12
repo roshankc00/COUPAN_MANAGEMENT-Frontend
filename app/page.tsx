@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import useUserStore from "@/store";
 import { Sidebar } from "lucide-react";
 import Image from "next/image";
 import MobileSideBar from "./(dashboard)/_component/smallscreen.sidebar";
 import logo from "../public/logo.jpg";
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
 
 export async function generateMetadata() {
   const ogImageUrl = logo;
@@ -21,8 +22,27 @@ export async function generateMetadata() {
 
 export default function Home() {
   return (
-    <div className="h-[100vh]">
+    <div>
       <Navbar />
+      {/* hero section */}
+      <div className="shadow-sm border border-b-slate-100">
+        <div className="py-20 mx-auto text-center flex flex-col items-center max-w-3xl">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+            Your Infrastructure
+            <span className="text-blue-600"> For Coupon</span>.
+          </h1>
+          <p className="mt-6 text-lg max-w-prose text-muted-foreground">
+            Welcome to Nepque. Pick the coupon and grab the discount. Enjoy
+            shopping. Online shopping means Nepque
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <Link href="/browse/coupons" className={buttonVariants()}>
+              Browse Coupons &rarr;
+            </Link>
+          </div>
+        </div>
+      </div>
+      {/* featured product  */}
     </div>
   );
 }

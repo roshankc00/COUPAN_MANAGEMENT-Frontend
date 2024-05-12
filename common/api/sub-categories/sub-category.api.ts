@@ -6,3 +6,10 @@ export const getAllSubCategories = async () => {
   const { data } = await axios.get(`/sub-categories`);
   return data;
 };
+
+export const getAllSubcategoriesOfParticularCategory = async (
+  categoryId: number
+) => {
+  const { data } = await axios.get(`/sub-categories?categoryId=${categoryId}`);
+  return data;
+};

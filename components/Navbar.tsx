@@ -15,7 +15,7 @@ const Navbar = () => {
         <div>
           <Link href="/">
             <img
-              className="w-[150px] h-[80px] rounded-md shadow-sm"
+              className="w-[120px] h-[80px] rounded-md shadow-sm"
               src="../logo.jpg"
               alt="Logo"
             />
@@ -23,14 +23,22 @@ const Navbar = () => {
         </div>
         <div className="flex gap-4">
           <Input
-            className="w-[400px] px-7"
+            className="w-[150px] sm:w-[250px] md:w-[300px] px-7"
             placeholder="Search for Store Coupon"
           />
           <Search className="absolute top-[32px] ms-2 h-4 w-5" />
-          <Button variant="outline" onClick={() => router.push("/login")}>
+          <Button
+            variant="outline"
+            className="w-[40px] text-[11px] sm:text-[14px] sm:w-[70px]"
+            onClick={() => router.push("/login")}
+          >
             Login
           </Button>
-          <Button variant="outline" onClick={() => router.push("/signup")}>
+          <Button
+            className="w-[40px] text-[11px] sm:text-[14px] sm:w-[70px]"
+            variant="outline"
+            onClick={() => router.push("/signup")}
+          >
             Signup
           </Button>
         </div>
