@@ -1,6 +1,5 @@
 import { ILoginUser, IResetPassword } from "@/interfaces/user.interface";
 import axios from "../api";
-import exp from "constants";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
