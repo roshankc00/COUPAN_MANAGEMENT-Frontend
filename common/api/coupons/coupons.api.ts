@@ -17,7 +17,13 @@ export const getAllCouponsOfCategoryAndSubcategory = async (
   return data;
 };
 
-export const getAllCouponsOfStore = async (storeId: number) => {
-  const { data } = await axios.get(`/coupons?stroreId=${storeId}`);
+export const getAllCouponsOfStore = async (
+  storeId: number,
+  page: number,
+  pageSize: number
+) => {
+  const { data } = await axios.get(
+    `/coupons?stroreId=${storeId}&page=${page}&pageSize=${pageSize}`
+  );
   return data;
 };

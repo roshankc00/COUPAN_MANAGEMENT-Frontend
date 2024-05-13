@@ -78,7 +78,12 @@ const BreadCrumCom = () => {
                     allStore?.slice(0, 5).map((item: any) => {
                       return (
                         <DropdownMenuItem key={item.id}>
-                          {item.title}
+                          <Link
+                            href={`/browse/store/${item.id}`}
+                            className="underline"
+                          >
+                            {item.title}
+                          </Link>
                         </DropdownMenuItem>
                       );
                     })}

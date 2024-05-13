@@ -1,7 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { SiVelog } from "react-icons/si";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
