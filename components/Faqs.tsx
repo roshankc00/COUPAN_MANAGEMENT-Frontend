@@ -11,7 +11,7 @@ import { UseGetAllFAQS } from "@/hooks/react-query/faqs/get-all-faqs";
 const FaqsCom = () => {
   const { data, isLoading, isFetching } = UseGetAllFAQS();
   return (
-    <div className="">
+    <div className="my-16">
       {!isLoading && !isFetching && (
         <Accordion
           type="single"

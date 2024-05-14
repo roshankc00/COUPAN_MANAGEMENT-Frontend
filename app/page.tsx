@@ -7,6 +7,8 @@ import logo from "../public/logo.jpg";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import FaqsCom from "@/components/Faqs";
+import Featuredcoupons from "@/components/home/Featured.coupons";
+import FeaturedStore from "@/components/home/FeaturedStore";
 
 export async function generateMetadata() {
   const ogImageUrl = logo;
@@ -43,12 +45,26 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* featured stores */}
+      <div>
+        <h1 className="font-medium text-3xl my-5  text-center mt-10">
+          Most Popular Store
+        </h1>
+        <FeaturedStore />
+      </div>
+
       {/* featured product  */}
-      <div></div>
+      <div>
+        <h1 className="font-medium text-3xl my-5  text-center mt-10">
+          Today's Most Popular Coupons & Deals
+        </h1>
+        <Featuredcoupons />
+      </div>
 
       {/* faqs section */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8">
-        <h1 className="font-medium text-3xl my-5  text-center ">
+        <h1 className="font-medium text-3xl my-5  text-center">
           {" "}
           Frequently Asked Questions
         </h1>

@@ -14,7 +14,7 @@ type Props = {
 const Couponcard: React.FC = () => {
   return (
     <div>
-      <div className="shadow-sm rounded-md p-4 flex justify-between items-center">
+      <div className="shadow-sm rounded-lg p-4 flex justify-between items-center border border-slate-200">
         <div className="flex items-center gap-5">
           <img
             src="https://cdn0.dontpayfull.com/media/logos/size/160x160/brighton.com..jpg?v=20220628144652202906"

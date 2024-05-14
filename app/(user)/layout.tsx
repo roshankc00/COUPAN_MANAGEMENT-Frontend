@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Providers from "@/components/Provider";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 export default function UserLayout({
   children,
 }: Readonly<{
@@ -16,6 +17,7 @@ export default function UserLayout({
             <Toaster />
             {children}
           </div>
+          <Footer />
         </Providers>
       </body>
     </html>

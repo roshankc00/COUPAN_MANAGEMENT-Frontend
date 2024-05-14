@@ -9,3 +9,10 @@ export const getSingleStoreInfo = async (id: number) => {
   const { data } = await axios.get(`/store/${id}`);
   return data;
 };
+
+export const getSearchData = async (text: string) => {
+  const { data } = await axios.get(
+    `/store/store-cat/search?searchText=${text}`
+  );
+  return data;
+};

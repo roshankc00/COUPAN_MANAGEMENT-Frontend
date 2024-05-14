@@ -6,7 +6,9 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import BreadCrumCom from "./BreadCrum";
-
+import SearchBar from "./SearchBar";
+import Logo from "../public/logo.jpg";
+import Image from "next/image";
 const Navbar = () => {
   const router = useRouter();
   return (
@@ -14,19 +16,15 @@ const Navbar = () => {
       <div className="flex justify-center items-center gap-5 bg-[#5271ff] w-full">
         <div>
           <Link href="/">
-            <img
+            <Image
               className="w-[120px] h-[80px] rounded-md shadow-sm"
-              src="../logo.jpg"
+              src={Logo}
               alt="Logo"
             />
           </Link>
         </div>
         <div className="flex gap-4">
-          <Input
-            className="w-[150px] sm:w-[250px] md:w-[300px] px-7"
-            placeholder="Search for Store Coupon"
-          />
-          <Search className="absolute top-[32px] ms-2 h-4 w-5" />
+          <SearchBar />
           <Button
             variant="outline"
             className="w-[40px] text-[11px] sm:text-[14px] sm:w-[70px]"
