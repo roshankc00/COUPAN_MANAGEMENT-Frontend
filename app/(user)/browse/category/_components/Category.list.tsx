@@ -1,5 +1,6 @@
 "use client";
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
+import { ICategory } from "@/interfaces/category.interface";
 import { Component } from "lucide-react";
 import React from "react";
 
@@ -11,7 +12,7 @@ const Categorylist = () => {
         Coupons, Promo Codes & Deals by Category
       </h1>
       <div className="grid grid-cols-4">
-        {data?.map((el: any) => {
+        {data?.map((el: ICategory) => {
           return (
             <div className="flex shadow-md gap-5 p-4 rounded-sm">
               <Component />

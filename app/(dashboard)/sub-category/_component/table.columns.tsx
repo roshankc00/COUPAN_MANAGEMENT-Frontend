@@ -90,7 +90,7 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const category: any = row.getValue("category");
+      const category: ICategory = row.getValue("category");
       return (
         <span className="text-center flex justify-center">
           {category.title}

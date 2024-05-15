@@ -32,6 +32,15 @@ const Couponcard: React.FC = () => {
       toast.success("Failed to copy");
     }
   };
+
+  interface Props {
+    title: string;
+    status: string;
+    description: string;
+    expireDate: string;
+    imageName: string;
+  }
+
   return (
     <div>
       <div className="shadow-sm rounded-lg p-4 flex justify-between items-center border border-slate-200">

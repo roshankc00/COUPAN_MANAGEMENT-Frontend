@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { useRouter } from "next/navigation";
+import { IStore } from "@/interfaces/Store.interface";
 
 const AlpaStore = () => {
   const { data, isFetching, isLoading } = UseGetAllStore();
@@ -23,7 +24,7 @@ const AlpaStore = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 place-content-center">
         {!isLoading &&
           !isFetching &&
-          data?.map((item: any) => {
+          data?.map((item: IStore) => {
             return (
               <div
                 className="flex items-center gap-5 shadow-sm rounded-md px-2 border border-slate-200"

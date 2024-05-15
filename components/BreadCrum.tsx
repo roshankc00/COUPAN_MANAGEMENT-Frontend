@@ -18,6 +18,8 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
+import { IStore } from "@/interfaces/Store.interface";
+import { ICategory } from "@/interfaces/category.interface";
 
 const BreadCrumCom = () => {
   const {
@@ -47,7 +49,7 @@ const BreadCrumCom = () => {
                   <DropdownMenuSeparator />
                   {!catFetching &&
                     !catLoading &&
-                    allCategory?.slice(0, 5).map((item: any) => {
+                    allCategory?.slice(0, 5).map((item: ICategory) => {
                       return (
                         <DropdownMenuItem key={item.id}>
                           <Link href={`/browse/category/${item.id}`}>
@@ -75,7 +77,7 @@ const BreadCrumCom = () => {
                   <DropdownMenuSeparator />
                   {!storeFetching &&
                     !storeLoading &&
-                    allStore?.slice(0, 5).map((item: any) => {
+                    allStore?.slice(0, 5).map((item: IStore) => {
                       return (
                         <DropdownMenuItem key={item.id}>
                           <Link

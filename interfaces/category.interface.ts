@@ -1,3 +1,6 @@
+import { ISubcategory } from "./Subcategory.interface";
+import { ICoupon, ISEO } from "./coupon.interface";
+
 export interface ISeo {
   title: string;
   description: string;
@@ -5,11 +8,15 @@ export interface ISeo {
 
 export interface ICategory {
   id: number;
-  title: string;
-  description: string;
-  showInMenu: boolean;
-  featured: boolean;
-  status: boolean;
   createdAt: string;
   updatedAt: string;
+  title: string;
+  description: string;
+  imageName: string;
+  status: string;
+  showInMenu: boolean;
+  featured: boolean;
+  coupons: ICoupon[];
+  Seo: ISEO;
+  subcategories: ISubcategory[];
 }

@@ -6,6 +6,8 @@ import { useOnClickOutside } from "@/hooks/out-side.click.ts";
 import { UseSeachCategoryStore } from "@/hooks/react-query/stores/search-cat-store";
 import { Separator } from "./ui/separator";
 import debounce from "lodash.debounce";
+import { IStore } from "@/interfaces/Store.interface";
+import { ICategory } from "@/interfaces/category.interface";
 const SearchBar = () => {
   const [showSuggestions, setshowSuggestions] = useState(false);
   const [searchText, setsearchText] = useState("");
@@ -47,7 +49,7 @@ const SearchBar = () => {
               <h1 className="font-medium mb-2 bg-slate-100 p-2 rounded-md my-2 ">
                 Stores
               </h1>
-              {data?.stores?.map((item: any) => (
+              {data?.stores?.map((item: IStore) => (
                 <>
                   <Separator className="mb-2" />
                   <div className="flex justify-between items-center">
@@ -78,7 +80,7 @@ const SearchBar = () => {
                 Categories
               </h1>
               <div className="grid grid-cols-4  ">
-                {data?.categories?.map((item: any) => (
+                {data?.categories?.map((item: ICategory) => (
                   <div className="border border-slate-200 p-2 rounded-md">
                     <h1>{item.title}</h1>
                   </div>

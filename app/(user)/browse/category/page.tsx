@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import { useRouter } from "next/navigation";
+import { ICategory } from "@/interfaces/category.interface";
 
 export default function BrowseCategoryPage() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function BrowseCategoryPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 place-content-center">
         {!isFetching &&
           !isLoading &&
-          data?.map((item: any) => (
+          data?.map((item: ICategory) => (
             <div
               className="flex items-center justify-between shadow-sm rounded-md px-2 border border-slate-200"
               onClick={() => router.push(`/browse/category/${item.id}`)}

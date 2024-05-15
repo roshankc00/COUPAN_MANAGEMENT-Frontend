@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import debounce from "lodash.debounce";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ICoupon } from "@/interfaces/coupon.interface";
 type Props = {
   storeId: number;
 };
@@ -36,7 +37,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
     <div>
       {!isLoading &&
         !isFetching &&
-        allCoupons?.coupons?.map((item: any) => <Couponcard />)}
+        allCoupons?.coupons?.map((item: ICoupon) => <Couponcard />)}
       <div className="flex items-center gap-4 justify-center mt-10 border border-slate-100 p-2 rounded-md my-10">
         <p>
           Page {allCoupons?.currentPage} of {allCoupons?.totalPage}
@@ -64,7 +65,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
           Next <ArrowRight className="h-4 w-4" />
         </Button>
         <Select
-          onValueChange={(val: any) => {
+          onValueChange={(val: string) => {
             setpage({ pageNo: 1, noOfPages: Number(val) });
             _debounceSubmit();
           }}

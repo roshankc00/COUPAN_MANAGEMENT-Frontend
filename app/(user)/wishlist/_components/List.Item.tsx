@@ -9,6 +9,7 @@ import Couponcard from "@/components/Coupon.card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import debounce from "lodash.debounce";
+import { ICoupon } from "@/interfaces/coupon.interface";
 const ListWishlists = () => {
   const ALL_ROUTES = ["All", "Active", "Expire"];
   const [activeRoute, setactiveRoute] = useState("all");
@@ -41,7 +42,7 @@ const ListWishlists = () => {
         })}
       </div>
       <div className="grid grid-cols-1 my-10  lg:grid-cols-2 gap-4 place-content-center">
-        {data?.coupons?.map((item: any) => (
+        {data?.coupons?.map((item: ICoupon) => (
           <Couponcard />
         ))}
       </div>

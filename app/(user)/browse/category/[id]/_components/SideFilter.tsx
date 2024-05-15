@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ISubcategory } from "@/interfaces/Subcategory.interface";
+import { ICoupon } from "@/interfaces/coupon.interface";
 
 const SideFilter = ({ categoryId }: { categoryId: number }) => {
   const [filter, setfilter] = useState<number[]>([]);
@@ -83,7 +85,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
                 </li>
                 {!subCatFetching &&
                   !subCatLoading &&
-                  allsubCat?.map((option: any) => {
+                  allsubCat?.map((option: ISubcategory) => {
                     return (
                       <li key={option.id} className="flex items-center">
                         <input
@@ -112,7 +114,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
         <div className="col-span-7 md:col-span-5">
           {!couponFetching &&
             !couponLoading &&
-            allCoupons?.coupons?.map((item: any) => <Couponcard />)}
+            allCoupons?.coupons?.map((item: ICoupon) => <Couponcard />)}
           <div className="flex items-center gap-4 justify-center mt-10 border border-slate-100 p-2 rounded-md my-10">
             <p>
               Page {allCoupons?.currentPage} of {allCoupons?.totalPage}
@@ -140,7 +142,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
               Next <ArrowRight className="h-4 w-4" />
             </Button>
             <Select
-              onValueChange={(val: any) => {
+              onValueChange={(val: string) => {
                 setpage({ pageNo: 1, noOfPages: Number(val) });
                 _debounceSubmit();
               }}
