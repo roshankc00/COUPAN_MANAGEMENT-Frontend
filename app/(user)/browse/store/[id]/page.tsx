@@ -2,6 +2,10 @@ import React from "react";
 import Description from "./_components/Description";
 import CouponStore from "./_components/CouponsStore";
 
+export const metadata = {
+  title: "Store | NepQue ",
+  description: "NepQue: Your CouponPartner",
+};
 const SingleStoreBrowsePage = ({ params }: { params: { id: number } }) => {
   return (
     <div>

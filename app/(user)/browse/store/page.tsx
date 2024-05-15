@@ -12,6 +12,10 @@ import { NextPage } from "next";
 import { Button } from "@/components/ui/button";
 import AlpaStore from "./_component/Alpa";
 
+export const metadata = {
+  title: "Store | NepQue ",
+  description: "NepQue: Your CouponPartner",
+};
 const StorePage: NextPage = () => {
   return (
     <div>

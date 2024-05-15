@@ -1,6 +1,10 @@
 import React from "react";
 import SignupForm from "./_component/Signupform";
 
+export const metadata = {
+  title: "Signup | NepQue ",
+  description: "NepQue: Your CouponPartner",
+};
 function SignupPage() {
   return (
     <div className="flex justify-center mt-[10%] backdrop-blur-3xl  ">

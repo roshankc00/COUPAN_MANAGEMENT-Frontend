@@ -7,6 +7,10 @@ import CouponAnalytics from "./_components/CouponAnalytics";
 
 type Props = {};
 
+export const metadata = {
+  title: "Dashboard | NepQue ",
+  description: "NepQue: Your CouponPartner",
+};
 const DashboardPage: NextPage = (props: Props) => {
   return (
     <div className="grid grid-cols-1">

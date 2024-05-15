@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 export async function generateMetadata() {
   const ogImageUrl = logo;
   return {
-    title: "Nepque",
+    title: "Home | Nepque",
     description: `Get a Discount save money`,
     keywords: ["Coupon-store", "store", "discount", "Coupons"],
     openGraph: {
@@ -22,7 +22,6 @@ export async function generateMetadata() {
   };
 }
 
-console.log(Cookies.get("Authentication"));
 export default function Home() {
   return (
     <div>
