@@ -2,7 +2,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Input } from "./ui/input";
 import { File, Search } from "lucide-react";
-import { useOnClickOutside } from "@/hooks/out-side.click.ts";
+import { useOnClickOutside } from "@/hooks/out-side.click";
 import { UseSeachCategoryStore } from "@/hooks/react-query/stores/search-cat-store";
 import { Separator } from "./ui/separator";
 import debounce from "lodash.debounce";

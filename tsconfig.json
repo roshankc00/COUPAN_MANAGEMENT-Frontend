@@ -21,6 +21,13 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(dashboard)/dashboard/_components/CouponAnalytics.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/(dashboard)/dashboard/_components/CouponAnalytics.tsx",
+    "hooks/out-side.click"
+  ],
   "exclude": ["node_modules"]
 }

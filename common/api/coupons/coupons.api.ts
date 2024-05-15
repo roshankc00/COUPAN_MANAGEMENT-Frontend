@@ -32,3 +32,15 @@ export const getAllUserWishlistCoupons = async (status: string) => {
   const { data } = await axios.get(`/wishlists/my?status=${status}`);
   return data;
 };
+
+export const getAllCouponsOfCategoryAndStore = async (
+  categoryIds: number[],
+  storeIds: number[],
+  page: number,
+  pageSize: number
+) => {
+  const { data } = await axios.get(
+    `/coupons?categoryIds=${categoryIds}&storeIds=${storeIds}&page=${page}&pageSize=${pageSize}`
+  );
+  return data;
+};
