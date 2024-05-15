@@ -63,6 +63,24 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
             <Separator />
             <div className="mt-3">
               <ul className="space-y-4">
+                <li key="all" className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id={`color-${"all"}`}
+                    className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
+                    onChange={() => {
+                      setfilter([]);
+                      _debounceSubmit();
+                    }}
+                    checked={filter.length === 0}
+                  />
+                  <label
+                    htmlFor={`checkbox`}
+                    className="ml-3 text-sm text-gray-600"
+                  >
+                    All
+                  </label>
+                </li>
                 {!subCatFetching &&
                   !subCatLoading &&
                   allsubCat?.map((option: any) => {

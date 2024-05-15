@@ -5,7 +5,7 @@ import CouponStore from "./_components/CouponsStore";
 const SingleStoreBrowsePage = ({ params }: { params: { id: number } }) => {
   return (
     <div>
-      <div className="grid grid-cols-7 place-content-center">
+      <div className="grid grid-cols-7 place-content-center gap-4">
         <div className="col-span-2">
           <Description storeId={params.id} />
         </div>

@@ -27,3 +27,8 @@ export const getAllCouponsOfStore = async (
   );
   return data;
 };
+
+export const getAllUserWishlistCoupons = async (status: string) => {
+  const { data } = await axios.get(`/wishlists/my?status=${status}`);
+  return data;
+};

@@ -16,3 +16,8 @@ export const getSearchData = async (text: string) => {
   );
   return data;
 };
+
+export const getAllFollowedStore = async () => {
+  const { data } = await axios.get(`/followers/my`);
+  return data;
+};

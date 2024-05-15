@@ -1,5 +1,4 @@
 import { Button, buttonVariants } from "@/components/ui/button";
-import useUserStore from "@/store";
 import { Sidebar } from "lucide-react";
 import Image from "next/image";
 import MobileSideBar from "./(dashboard)/_component/smallscreen.sidebar";
@@ -9,7 +8,7 @@ import Link from "next/link";
 import FaqsCom from "@/components/Faqs";
 import Featuredcoupons from "@/components/home/Featured.coupons";
 import FeaturedStore from "@/components/home/FeaturedStore";
-
+import Cookies from "js-cookie";
 export async function generateMetadata() {
   const ogImageUrl = logo;
   return {
@@ -23,6 +22,7 @@ export async function generateMetadata() {
   };
 }
 
+console.log(Cookies.get("Authentication"));
 export default function Home() {
   return (
     <div>

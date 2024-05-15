@@ -27,24 +27,25 @@ import { useMutation } from "@tanstack/react-query";
 import { loginUser, verifyEmail } from "@/common/api/users/user.api";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
-import useUserStore from "@/store";
-import axios from "axios";
-
+import Cookies from "js-cookie";
+import { getUserLoginStatus } from "@/common/api/api";
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const userLoginStatus = useUserStore((state) => state.isLoggedInStatus);
   const queryToken = searchParams.get("token");
-  if (userLoginStatus) {
-    router.push("/");
-  }
-  const setUser = useUserStore((state) => state.setUser);
+
   const formSchema = z.object({
     email: z.string().email(),
     password: z.string().min(8, {
       message: "Password must be of 8 charecter ",
     }),
   });
+
+  useEffect(() => {
+    if (getUserLoginStatus()) {
+      router.back();
+    }
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -57,8 +58,8 @@ function LoginForm() {
   const { mutate } = useMutation({
     mutationFn: loginUser,
     onSuccess(data) {
+      Cookies.set("Authentication", data.token);
       toast.success("User LoggedIn successfully");
-      setUser(data?.user);
       router.push("/");
     },
   });
@@ -69,7 +70,7 @@ function LoginForm() {
 
   const verifyEmailHandler = async () => {
     if (queryToken) {
-      const response: any = await verifyEmail(queryToken);
+      await verifyEmail(queryToken);
     }
   };
 

@@ -23,7 +23,7 @@ export default function RootLayout({
         <Providers>
           <Toaster />
           <div className="">{children}</div>
-          {pathName !== "/login" && pathName !== "/signup" && <Footer />}
+          {/* {pathName !== "/login" && pathName !== "/signup" && <Footer />} */}
         </Providers>
       </body>
     </html>
