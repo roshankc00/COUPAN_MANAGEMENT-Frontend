@@ -114,7 +114,9 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
         <div className="col-span-7 md:col-span-5">
           {!couponFetching &&
             !couponLoading &&
-            allCoupons?.coupons?.map((item: ICoupon) => <Couponcard />)}
+            allCoupons?.coupons?.map((item: ICoupon) => (
+              <Couponcard coupon={item} />
+            ))}
           <div className="flex items-center gap-4 justify-center mt-10 border border-slate-100 p-2 rounded-md my-10">
             <p>
               Page {allCoupons?.currentPage} of {allCoupons?.totalPage}

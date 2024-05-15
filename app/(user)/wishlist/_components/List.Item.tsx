@@ -43,7 +43,7 @@ const ListWishlists = () => {
       </div>
       <div className="grid grid-cols-1 my-10  lg:grid-cols-2 gap-4 place-content-center">
         {data?.coupons?.map((item: ICoupon) => (
-          <Couponcard />
+          <Couponcard coupon={item} />
         ))}
       </div>
     </main>

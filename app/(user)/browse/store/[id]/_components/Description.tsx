@@ -14,7 +14,7 @@ const Description: React.FC<Props> = ({ storeId }) => {
       <div className="border border-slate-200 p-2 rounded-md  ">
         <div className="flex justify-center items-center ">
           <img
-            src="https://cdn0.dontpayfull.com/media/logos/size/160x160/brighton.com..jpg?v=20220628144652202906"
+            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${data?.imageName}`}
             alt=""
             className="h-3/3 w-3/3"
           />

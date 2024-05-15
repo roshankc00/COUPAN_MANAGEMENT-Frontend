@@ -9,17 +9,9 @@ const Featuredcoupons = () => {
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
-        {/* {!isLoading && !isFetching && data?.map((item: ICoupon) => <Couponcard />)} */}
-        <Couponcard />
-        <Couponcard />
-        <Couponcard />
-        <Couponcard />
-        <Couponcard />
-        <Couponcard />
-        <Couponcard />
-        <Couponcard />
-        <Couponcard />
-        <Couponcard />
+        {!isLoading &&
+          !isFetching &&
+          data?.map((item: ICoupon) => <Couponcard coupon={item} />)}
       </div>
     </main>
   );

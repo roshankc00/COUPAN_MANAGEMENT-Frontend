@@ -20,7 +20,7 @@ const ListWishlists = () => {
           >
             <div className="flex gap-3 items-center">
               <img
-                src="https://cdn0.dontpayfull.com/media/logos/size/160x160/brighton.com..jpg?v=20220628144652202906"
+                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${item?.imageName}`}
                 alt=""
                 className="h-20 w-20"
               />

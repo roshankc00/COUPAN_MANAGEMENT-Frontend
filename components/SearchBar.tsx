@@ -8,6 +8,7 @@ import { Separator } from "./ui/separator";
 import debounce from "lodash.debounce";
 import { IStore } from "@/interfaces/Store.interface";
 import { ICategory } from "@/interfaces/category.interface";
+import Image from "next/image";
 const SearchBar = () => {
   const [showSuggestions, setshowSuggestions] = useState(false);
   const [searchText, setsearchText] = useState("");
@@ -55,8 +56,8 @@ const SearchBar = () => {
                   <div className="flex justify-between items-center">
                     <div className="flex gap-3 items-center">
                       <img
-                        src="https://cdn0.dontpayfull.com/media/logos/size/160x160/brighton.com..jpg?v=20220628144652202906"
-                        alt=""
+                        src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${item?.imageName}`}
+                        alt="Image"
                         className="h-20 w-20"
                       />
                       <h1>{item.title}</h1>

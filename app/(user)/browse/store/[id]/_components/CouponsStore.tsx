@@ -37,7 +37,9 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
     <div>
       {!isLoading &&
         !isFetching &&
-        allCoupons?.coupons?.map((item: ICoupon) => <Couponcard />)}
+        allCoupons?.coupons?.map((item: ICoupon) => (
+          <Couponcard coupon={item} />
+        ))}
       <div className="flex items-center gap-4 justify-center mt-10 border border-slate-100 p-2 rounded-md my-10">
         <p>
           Page {allCoupons?.currentPage} of {allCoupons?.totalPage}
