@@ -15,8 +15,8 @@ import { UseGetAllCounts } from "@/hooks/react-query/analytics/getAllCounts";
 function UpperHeader() {
   const { data, isFetching, isLoading } = UseGetAllCounts();
   return (
-    <div className="ms-24 md:ms-0 lg:ms-24 flex  justify-center">
-      <div className="w-full grid-cols-1  md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid  gap-8">
+    <div className="flex  justify-center">
+      <div className="w-full grid-cols-1  md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid  gap-8 my-16">
         {/* user */}
         <Card className="">
           <CardHeader>

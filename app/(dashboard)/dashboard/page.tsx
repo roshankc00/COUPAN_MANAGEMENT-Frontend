@@ -4,6 +4,7 @@ import UpperHeader from "./_components/UpperHeader";
 import UserAnalytics from "./_components/UserAnalytics";
 import StoreAnalytics from "./_components/StoreAnalytics";
 import CouponAnalytics from "./_components/CouponAnalytics";
+import DataCarts from "./_components/DataCarts";
 
 type Props = {};
 
@@ -13,9 +14,9 @@ export const metadata = {
 };
 const DashboardPage: NextPage = (props: Props) => {
   return (
-    <div className="grid grid-cols-1">
+    <div className="">
       <UpperHeader />
-      <div className="ms-24 my-10">
+      <div className="grid grid-cols-1 2xl:grid-cols-2 w-full z-0 gap-5">
         <UserAnalytics />
         <StoreAnalytics />
         <CouponAnalytics />
