@@ -12,7 +12,7 @@ const ListWishlists = () => {
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-16">
       <h1 className="text-2xl font-medium my-10">Followed Stores </h1>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 place-content-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 place-content-center">
         {data?.stores?.map((item: IStore) => (
           <div
             className="flex items-center justify-between shadow-sm rounded-md px-4 border border-slate-200"

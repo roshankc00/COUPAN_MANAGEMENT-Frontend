@@ -9,6 +9,7 @@ import FaqsCom from "@/components/Faqs";
 import Featuredcoupons from "@/components/home/Featured.coupons";
 import FeaturedStore from "@/components/home/FeaturedStore";
 import Cookies from "js-cookie";
+import Footer from "@/components/Footer";
 export async function generateMetadata() {
   const ogImageUrl = logo;
   return {
@@ -69,6 +70,7 @@ export default function Home() {
         </h1>
         <FaqsCom />
       </div>
+      <Footer />
     </div>
   );
 }

@@ -98,24 +98,9 @@ const BreadCrumCom = () => {
               </DropdownMenu>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger className="border-none flex gap-2 text-black">
-                  Coupons
-                  <ChevronDown className="h-5 w-5" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="flex flex-col justify-center items-center">
-                  <DropdownMenuLabel>Coupons</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/browse/category" className="underline">
-                      View All coupons
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Link className="text-black" href="/browse/coupon">
+                Coupon{" "}
+              </Link>
             </BreadcrumbItem>
           </div>
           <div className="flex gap-3">
