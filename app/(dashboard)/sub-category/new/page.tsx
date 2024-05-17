@@ -34,7 +34,6 @@ import {
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import { ICategory } from "@/interfaces/category.interface";
 import AdminHeader from "../../_component/Header";
-import { UseCreateSubCategory } from "@/hooks/react-query/sub-categories/create-subcategory";
 import { useMutation } from "@tanstack/react-query";
 import { postSubCategory } from "@/common/api/sub-categories/sub-category.api";
 import { client } from "@/components/Provider";
