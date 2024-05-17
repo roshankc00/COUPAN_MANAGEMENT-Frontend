@@ -7,6 +7,7 @@ import { UseGetAllCoupons } from "@/hooks/react-query/coupons/get_all_coupons.ho
 
 const CategoryTable = () => {
   const { data, isFetching, isLoading } = UseGetAllCoupons();
+  console.log(data);
   return (
     <div className="">
       {!isFetching && !isLoading ? (

@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -52,6 +53,8 @@ export function Datatable<TData, TValue>({
     },
   });
 
+  const router = useRouter();
+
   return (
     <div className=" w-[80vw] mr-4 ms-0 2xl:ms-20 ">
       <div className="flex items-center py-4 justify-between">
@@ -63,12 +66,10 @@ export function Datatable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <Link href="#">
-          <Button>
-            <PlusCircle className="h-4 w-4 mr-2" />
-            Add Sub-Category
-          </Button>
-        </Link>
+        <Button onClick={() => router.push("/sub-category/new")}>
+          <PlusCircle className="h-4 w-4 mr-2" />
+          Add Sub-Category
+        </Button>
       </div>
       <div className="rounded-md border">
         <Table>

@@ -36,54 +36,31 @@ import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_catego
 import { ICategory } from "@/interfaces/category.interface";
 import AdminHeader from "../../_component/Header";
 import { ImagePlus } from "lucide-react";
-import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
-import { UseGetAllSubCategory } from "@/hooks/react-query/sub-categories/get_all_sub-categories.hook";
-import { ISubcategory } from "@/interfaces/Subcategory.interface";
-import { IStore } from "@/interfaces/Store.interface";
 
-function NewCouponForm() {
+function NewSubCategoryForm() {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(3, {
-      message: "must be of 8 charecter ",
+      message: " must be of 3 charecter ",
     }),
     description: z.string().min(10, {
-      message: " must be of 10 charecter ",
+      message: "must be of 10 charecter ",
     }),
-    tagLine: z.string().min(3, {
-      message: " must be of 8 charecter ",
-    }),
-    code: z.string().min(10, {
-      message: " must be of 10 charecter ",
-    }),
-    startDate: z.string().min(3, {
-      message: " must be of 8 charecter ",
-    }),
-    expireDate: z.string().min(10, {
-      message: " must be of 10 charecter ",
-    }),
-    url: z.string().min(10, {
-      message: " must be of 10 charecter ",
-    }),
+    showInMenu: z.string(),
     featured: z.string(),
-    categoryId: z.number(),
-    subCategoryId: z.number(),
-    storeId: z.number(),
-    verified: z.string(),
-    exclusive: z.string(),
     seo: z.object({
       title: z.string().min(3, {
-        message: "must be of 3 charecter ",
+        message: " must be of 3 charecter ",
       }),
       description: z.string().min(10, {
-        message: "must be of 10 charecter ",
+        message: " must be of 10 charecter ",
       }),
     }),
-    status: z.string(),
     image: z
       .instanceof(File)
       .refine((file) => file.size !== 0, "Please upload an image"),
+    status: z.string(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -128,13 +105,10 @@ function NewCouponForm() {
       accept: { "image/png": [], "image/jpg": [], "image/jpeg": [] },
     });
 
-  const { data: allCat, isLoading: catLoading } = UseGetAllCategory();
-  const { data: allSubCat, isLoading: subCatLoading } = UseGetAllSubCategory();
-  const { data: allstore, isLoading: storeLoading } = UseGetAllStore();
-
+  const { data, isFetching, isLoading } = UseGetAllCategory();
   return (
-    <div className="mt-10 pb-32">
-      <AdminHeader title="Edit-Coupon" />
+    <div className="mt-10">
+      <AdminHeader title="New-Category" />
       <div>
         <Card className=" ms-24">
           <CardHeader></CardHeader>
@@ -183,98 +157,27 @@ function NewCouponForm() {
                       </>
                     )}
                   />
-                  <FormField
-                    name="tagLine"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>Tagline</FormLabel>
-                          <FormControl>
-                            <Input
-                              className="border border-[#d3d3d1]"
-                              placeholder="Enter the Tagline"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    name="code"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>Code</FormLabel>
-                          <FormControl>
-                            <Input
-                              className="border border-[#d3d3d1]"
-                              placeholder="Enter the Code"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    name="startDate"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>StartDate</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="date"
-                              className="border border-[#d3d3d1]"
-                              placeholder="Enter the startDate"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    name="expireDate"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>ExpireDate</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="date"
-                              className="border border-[#d3d3d1]"
-                              placeholder="Enter the ExpireDate"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
 
                   <FormField
-                    name="url"
+                    name="showInMenu"
                     control={form.control}
                     render={({ field }) => (
                       <>
                         <FormItem className="mb-3">
-                          <FormLabel>Url</FormLabel>
+                          <FormLabel className="">ShowInMenu</FormLabel>
                           <FormControl>
-                            <Input
-                              className="border border-[#d3d3d1]"
-                              placeholder="Enter the url"
-                              {...field}
-                            />
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field?.value?.toString()}
+                            >
+                              <SelectTrigger className="">
+                                <SelectValue placeholder="Select the ShowInMenu " />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value={"true"}>Yes</SelectItem>
+                                <SelectItem value={"false"}>No</SelectItem>
+                              </SelectContent>
+                            </Select>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -307,144 +210,6 @@ function NewCouponForm() {
                       </>
                     )}
                   />
-                  <FormField
-                    name="exclusive"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel className="">Exclusive</FormLabel>
-                          <FormControl>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field?.value?.toString()}
-                            >
-                              <SelectTrigger className="">
-                                <SelectValue placeholder="Select the exclusive" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value={"true"}>Yes</SelectItem>
-                                <SelectItem value={"false"}>No</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    name="verified"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel className="">Verified</FormLabel>
-                          <FormControl>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field?.value?.toString()}
-                            >
-                              <SelectTrigger className="">
-                                <SelectValue placeholder="Select the Verified" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value={"true"}>Yes</SelectItem>
-                                <SelectItem value={"false"}>No</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-
-                  <FormField
-                    name="categoryId"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>Category</FormLabel>
-                          <Select onValueChange={field.onChange}>
-                            <SelectTrigger className="">
-                              <SelectValue placeholder="Select the Category" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {!catLoading &&
-                                allCat?.map((item: ICategory) => (
-                                  <SelectItem
-                                    value={item?.id?.toString()}
-                                    key={item.id}
-                                  >
-                                    {item.title}
-                                  </SelectItem>
-                                ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    name="storeId"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>Store</FormLabel>
-                          <Select onValueChange={field.onChange}>
-                            <SelectTrigger className="">
-                              <SelectValue placeholder="Select the Store" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {!storeLoading &&
-                                allstore?.map((item: IStore) => (
-                                  <SelectItem
-                                    value={item?.id?.toString()}
-                                    key={item.id}
-                                  >
-                                    {item.title}
-                                  </SelectItem>
-                                ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    name="subCategoryId"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>SubCategory</FormLabel>
-                          <Select onValueChange={field.onChange}>
-                            <SelectTrigger className="">
-                              <SelectValue placeholder="Select the SubCategory" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {!subCatLoading &&
-                                allSubCat?.map((item: ISubcategory) => (
-                                  <SelectItem
-                                    value={item?.id?.toString()}
-                                    key={item.id}
-                                  >
-                                    {item.title}
-                                  </SelectItem>
-                                ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-
                   <FormField
                     name="seo.title"
                     control={form.control}
@@ -580,4 +345,4 @@ function NewCouponForm() {
   );
 }
 
-export default NewCouponForm;
+export default NewSubCategoryForm;

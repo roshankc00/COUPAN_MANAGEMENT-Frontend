@@ -53,7 +53,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("title");
-      return <span className="text-center flex justify-center">{title}</span>;
+      return <span className="">{title}</span>;
     },
   },
   {
@@ -62,7 +62,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-center flex justify-center"
+          className=""
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           TagLine
@@ -72,7 +72,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("tagLine");
-      return <span className="text-center flex justify-center">{title}</span>;
+      return <span className="">{title}</span>;
     },
   },
   {
@@ -186,6 +186,32 @@ export const columns: ColumnDef<ICategory>[] = [
         <div className="text-center flex justify-center">
           <Badge className={cn("bg-slate-500 text-center")}>
             {isFeatured ? "YES" : "NO"}
+          </Badge>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "featured",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Verified
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const isVerified = parseFloat(row.getValue("verified"));
+
+      return (
+        <div className="text-center flex justify-center">
+          <Badge className={cn("bg-slate-500 text-center")}>
+            {isVerified ? "YES" : "NO"}
           </Badge>
         </div>
       );

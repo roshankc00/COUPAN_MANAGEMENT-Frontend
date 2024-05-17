@@ -43,7 +43,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return (
         <Button
           variant="ghost"
-          className="flex justify-center"
+          className=""
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Title
@@ -53,7 +53,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("title");
-      return <span className="text-center flex justify-center">{title}</span>;
+      return <span className="">{title}</span>;
     },
   },
   {
@@ -62,7 +62,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-center flex justify-center"
+          className=""
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Description
@@ -72,7 +72,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("description");
-      return <span className="text-center flex justify-center">{title}</span>;
+      return <span className="">{title}</span>;
     },
   },
 
@@ -82,7 +82,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return (
         <Button
           variant="ghost"
-          className="flex justify-center"
+          className=""
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Status
@@ -93,7 +93,7 @@ export const columns: ColumnDef<ICategory>[] = [
     cell: ({ row }) => {
       const isShowinMenu = row.getValue("status");
       return (
-        <div className="flex justify-center">
+        <div className="">
           <Badge className={cn("bg-slate-500 text-center")}>
             {isShowinMenu ? "YES" : "NO"}
           </Badge>
@@ -107,7 +107,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return (
         <Button
           variant="ghost"
-          className="flex justify-center"
+          className=""
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Featured
@@ -119,7 +119,7 @@ export const columns: ColumnDef<ICategory>[] = [
       const isFeatured = parseFloat(row.getValue("featured"));
 
       return (
-        <div className="text-center flex justify-center">
+        <div className="">
           <Badge className={cn("bg-slate-500 text-center")}>
             {isFeatured ? "YES" : "NO"}
           </Badge>
@@ -142,9 +142,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const date: string = row.getValue("createdAt");
-      return (
-        <div className="text-center"> {moment(date).format("YYYY-MM-DD")}</div>
-      );
+      return <div className=""> {moment(date).format("YYYY-MM-DD")}</div>;
     },
   },
   {
@@ -162,9 +160,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("updatedAt");
-      return (
-        <div className="text-center"> {moment(title).format("YYYY-MM-DD")}</div>
-      );
+      return <div className=""> {moment(title).format("YYYY-MM-DD")}</div>;
     },
   },
   {

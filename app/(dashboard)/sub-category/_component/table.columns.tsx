@@ -24,7 +24,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-center flex justify-center"
+          className=""
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           ID
@@ -34,7 +34,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("id");
-      return <span className="text-center flex justify-center">{title}</span>;
+      return <span className="">{title}</span>;
     },
   },
   {
@@ -53,7 +53,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("title");
-      return <span className="text-center flex justify-center">{title}</span>;
+      return <span className="">{title}</span>;
     },
   },
   {
@@ -62,7 +62,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-center flex justify-center"
+          className="r"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Description
@@ -72,7 +72,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("description");
-      return <span className="text-center flex justify-center">{title}</span>;
+      return <span className="">{title}</span>;
     },
   },
   {
@@ -81,7 +81,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return (
         <Button
           variant="ghost"
-          className="text-center flex justify-center"
+          className=""
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Category
@@ -91,11 +91,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const category: ICategory = row.getValue("category");
-      return (
-        <span className="text-center flex justify-center">
-          {category.title}
-        </span>
-      );
+      return <span className="">{category.title}</span>;
     },
   },
   {
@@ -113,12 +109,10 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const isShowinMenu = row.getValue("status");
+      const status: any = row.getValue("status");
       return (
-        <div className="flex justify-center">
-          <Badge className={cn("bg-slate-500 text-center")}>
-            {isShowinMenu ? "YES" : "NO"}
-          </Badge>
+        <div className="">
+          <Badge className={cn("bg-slate-500 text-center")}>{status}</Badge>
         </div>
       );
     },

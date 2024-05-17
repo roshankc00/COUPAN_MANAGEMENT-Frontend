@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Couponcard from "@/components/Coupon.card";
 import { UseGetAllCouponsOfStore } from "@/hooks/react-query/coupons/get-all-coupons-of-store";
 import {
@@ -13,25 +13,28 @@ import { Button } from "@/components/ui/button";
 import debounce from "lodash.debounce";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ICoupon } from "@/interfaces/coupon.interface";
+import Pagination, { usePagination } from "@/components/ui/pagination";
 type Props = {
   storeId: number;
 };
 
 const CouponStore: React.FC<Props> = ({ storeId }) => {
-  const [page, setpage] = useState({
-    pageNo: 1,
-    noOfPages: 10,
-  });
+  const paginationProps = usePagination();
   const {
     data: allCoupons,
     isFetching,
     isLoading,
     refetch,
-  } = UseGetAllCouponsOfStore(storeId, page.pageNo, page.noOfPages);
+  } = UseGetAllCouponsOfStore(storeId, paginationProps.currentPage, 10);
 
   const onSubmit = () => refetch();
   const debouncedSubmit = debounce(onSubmit, 400);
   const _debounceSubmit = useCallback(debouncedSubmit, []);
+
+  useEffect(() => {
+    _debounceSubmit();
+  }, [paginationProps.currentPage]);
+
   console.log(allCoupons);
   return (
     <div>
@@ -40,51 +43,9 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
         allCoupons?.coupons?.map((item: ICoupon) => (
           <Couponcard coupon={item} />
         ))}
-      <div className="flex items-center gap-4 justify-center mt-10 border border-slate-100 p-2 rounded-md my-10">
-        <p>
-          Page {allCoupons?.currentPage} of {allCoupons?.totalPage}
-        </p>
-        <Button
-          variant={"ghost"}
-          disabled={page.pageNo === 1}
-          className="flex  gap-1 items-center"
-          onClick={() => {
-            setpage({ ...page, pageNo: page.pageNo - 1 });
-            _debounceSubmit();
-          }}
-        >
-          <ArrowLeft className="h-4 w-4" /> Previous
-        </Button>
-        <Button
-          variant={"ghost"}
-          disabled={allCoupons?.totalPage <= page.pageNo}
-          className="flex  gap-1 items-center"
-          onClick={() => {
-            setpage({ ...page, pageNo: page.pageNo + 1 });
-            _debounceSubmit();
-          }}
-        >
-          Next <ArrowRight className="h-4 w-4" />
-        </Button>
-        <Select
-          onValueChange={(val: string) => {
-            setpage({ pageNo: 1, noOfPages: Number(val) });
-            _debounceSubmit();
-          }}
-          defaultValue={page.noOfPages.toString()}
-        >
-          <SelectTrigger className="w-[60px]">
-            <SelectValue placeholder="Theme" />
-          </SelectTrigger>
-          <SelectContent className="border border-black">
-            <SelectItem value={"5"}>5</SelectItem>
-            <SelectItem value={"1"}>1</SelectItem>
-            <SelectItem value={"10"}>10</SelectItem>
-            <SelectItem value={"15"}>15</SelectItem>
-            <SelectItem value={"20"}>20</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      {allCoupons?.totalPage && (
+        <Pagination {...paginationProps} totalPages={allCoupons?.totalPage} />
+      )}
     </div>
   );
 };

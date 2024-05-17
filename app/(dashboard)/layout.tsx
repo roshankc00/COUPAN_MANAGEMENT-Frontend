@@ -8,11 +8,11 @@ type Props = {
 
 const DashboardLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div className="h-full w-full bg-[#ededed]">
+    <div className="h-full w-full bg-[#f3f5f7] ">
       <div className="">
         <TopNavbar />
       </div>
-      <main className=" mx-20">{children}</main>
+      <main className=" mx-20 min-h-[89vh]">{children}</main>
     </div>
   );
 };

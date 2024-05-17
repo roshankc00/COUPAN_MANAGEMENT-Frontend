@@ -17,8 +17,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { ICoupon } from "@/interfaces/coupon.interface";
+import Pagination, { usePagination } from "@/components/ui/pagination";
 
 const SideFilter = ({ categoryId }: { categoryId: number }) => {
+  const paginationProps = usePagination();
   const [filter, setfilter] = useState<number[]>([]);
   const [page, setpage] = useState({
     pageNo: 1,
@@ -37,8 +39,8 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
   } = UseGetAllCouponsOfCatSubcat(
     categoryId,
     filter,
-    page.pageNo,
-    page.noOfPages
+    paginationProps.currentPage,
+    10
   );
 
   const handleChange = (id: number) => {
@@ -56,6 +58,9 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
 
   const debouncedSubmit = debounce(onSubmit, 400);
   const _debounceSubmit = useCallback(debouncedSubmit, []);
+  useEffect(() => {
+    _debounceSubmit();
+  }, [paginationProps.currentPage]);
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8">
       <div className="sm:grid grid-cols-7 ">
@@ -117,51 +122,13 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
             allCoupons?.coupons?.map((item: ICoupon) => (
               <Couponcard coupon={item} />
             ))}
-          <div className="flex items-center gap-4 justify-center mt-10 border border-slate-100 p-2 rounded-md my-10">
-            <p>
-              Page {allCoupons?.currentPage} of {allCoupons?.totalPage}
-            </p>
-            <Button
-              variant={"ghost"}
-              disabled={page.pageNo === 1}
-              className="flex  gap-1 items-center"
-              onClick={() => {
-                setpage({ ...page, pageNo: page.pageNo - 1 });
-                _debounceSubmit();
-              }}
-            >
-              <ArrowLeft className="h-4 w-4" /> Previous
-            </Button>
-            <Button
-              variant={"ghost"}
-              disabled={allCoupons?.totalPage <= page.pageNo}
-              className="flex  gap-1 items-center"
-              onClick={() => {
-                setpage({ ...page, pageNo: page.pageNo + 1 });
-                _debounceSubmit();
-              }}
-            >
-              Next <ArrowRight className="h-4 w-4" />
-            </Button>
-            <Select
-              onValueChange={(val: string) => {
-                setpage({ pageNo: 1, noOfPages: Number(val) });
-                _debounceSubmit();
-              }}
-              defaultValue={page.noOfPages.toString()}
-            >
-              <SelectTrigger className="w-[60px]">
-                <SelectValue placeholder="Theme" />
-              </SelectTrigger>
-              <SelectContent className="border border-black">
-                <SelectItem value={"5"}>5</SelectItem>
-                <SelectItem value={"1"}>1</SelectItem>
-                <SelectItem value={"10"}>10</SelectItem>
-                <SelectItem value={"15"}>15</SelectItem>
-                <SelectItem value={"20"}>20</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+
+          {allCoupons?.totalPage && (
+            <Pagination
+              {...paginationProps}
+              totalPages={allCoupons?.totalPage}
+            />
+          )}
         </div>
       </div>
     </main>

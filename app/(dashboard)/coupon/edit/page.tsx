@@ -41,7 +41,7 @@ import { UseGetAllSubCategory } from "@/hooks/react-query/sub-categories/get_all
 import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { IStore } from "@/interfaces/Store.interface";
 
-function NewCouponForm() {
+function EditCouponForm() {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
   const router = useRouter();
   const formSchema = z.object({
@@ -580,4 +580,4 @@ function NewCouponForm() {
   );
 }
 
-export default NewCouponForm;
+export default EditCouponForm;
