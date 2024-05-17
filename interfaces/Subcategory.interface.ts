@@ -12,3 +12,16 @@ export interface ISubcategory {
   category: ICategory;
   coupon: ICoupon[];
 }
+
+export interface ISubcategoryBody {
+  title: string;
+  description: string;
+  categoryId: number;
+  status: string;
+  seo: ISeoBody;
+}
+
+export interface ISeoBody {
+  title: string;
+  description: string;
+}

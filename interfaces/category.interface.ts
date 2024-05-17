@@ -1,4 +1,4 @@
-import { ISubcategory } from "./Subcategory.interface";
+import { ISeoBody, ISubcategory } from "./Subcategory.interface";
 import { ICoupon, ISEO } from "./coupon.interface";
 
 export interface ISeo {
@@ -19,4 +19,13 @@ export interface ICategory {
   coupons: ICoupon[];
   Seo: ISEO;
   subcategories: ISubcategory[];
+}
+
+export interface ICategoryBody {
+  title: string;
+  description: string;
+  showInMenu: boolean;
+  featured: boolean;
+  status: string;
+  seo: ISeoBody;
 }

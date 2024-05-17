@@ -34,6 +34,10 @@ import {
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import { ICategory } from "@/interfaces/category.interface";
 import AdminHeader from "../../_component/Header";
+import { UseCreateSubCategory } from "@/hooks/react-query/sub-categories/create-subcategory";
+import { useMutation } from "@tanstack/react-query";
+import { postSubCategory } from "@/common/api/sub-categories/sub-category.api";
+import { client } from "@/components/Provider";
 
 function NewSubCategoryForm() {
   const router = useRouter();
@@ -44,8 +48,12 @@ function NewSubCategoryForm() {
     description: z.string().min(10, {
       message: "must be of 10 charecter ",
     }),
-    featured: z.string(),
-    categoryId: z.number(),
+    // featured: z.string(),
+    // // .enum(["true", "false"]).transform((val) => val === "true"),
+    categoryId: z
+      .string()
+      .refine((val) => !isNaN(Number(val)))
+      .transform((val) => Number(val)),
     seo: z.object({
       title: z.string().min(3, {
         message: " must be of 3 charecter ",
@@ -70,8 +78,21 @@ function NewSubCategoryForm() {
     },
   });
 
+  // data post related stups
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: postSubCategory,
+  });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    mutateAsync(values)
+      .then(() => {
+        toast.success("sub-categories created successfully");
+        router.push("/sub-category");
+        client.invalidateQueries({ queryKey: ["sub-categories"] });
+        client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
+      })
+      .catch(() => {
+        toast.error("Unable to create sub-categories");
+      });
   };
 
   const { data, isFetching, isLoading } = UseGetAllCategory();

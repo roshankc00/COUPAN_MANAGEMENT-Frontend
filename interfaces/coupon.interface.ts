@@ -1,5 +1,5 @@
 import { IStore } from "./Store.interface";
-import { ISubcategory } from "./Subcategory.interface";
+import { ISeoBody, ISubcategory } from "./Subcategory.interface";
 import { ICategory } from "./category.interface";
 
 export interface ISEO {
@@ -33,4 +33,22 @@ export interface ICoupon {
   seo: ISEO;
   store: IStore;
   subCategory: ISubcategory;
+}
+
+export interface ICouponBody {
+  title: string;
+  description: string;
+  tagLine: string;
+  url: string;
+  code: string;
+  startDate: string;
+  expireDate: string;
+  featured: boolean;
+  categoryId: number;
+  subCategoryId: number;
+  storeId: number;
+  verified: boolean;
+  exclusive: boolean;
+  seo: ISeoBody;
+  status: string;
 }
