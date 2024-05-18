@@ -40,6 +40,9 @@ import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { UseGetAllSubCategory } from "@/hooks/react-query/sub-categories/get_all_sub-categories.hook";
 import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { IStore } from "@/interfaces/Store.interface";
+import { useMutation } from "@tanstack/react-query";
+import { postCoupon } from "@/common/api/coupons/coupons.api";
+import { client } from "@/components/Provider";
 
 function NewCouponForm() {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
@@ -67,9 +70,9 @@ function NewCouponForm() {
       message: " must be of 10 charecter ",
     }),
     featured: z.string(),
-    categoryId: z.number(),
-    subCategoryId: z.number(),
-    storeId: z.number(),
+    categoryId: z.string(),
+    subCategoryId: z.string(),
+    storeId: z.string(),
     verified: z.string(),
     exclusive: z.string(),
     seo: z.object({
@@ -100,9 +103,38 @@ function NewCouponForm() {
     },
   });
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: postCoupon,
+  });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    alert("");
-    console.log(values);
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("tagLine", values.tagLine);
+    formData.append("code", values.code);
+    formData.append("startDate", values.startDate);
+    formData.append("expireDate", values.expireDate);
+    formData.append("url", values.url);
+    formData.append("featured", values.featured);
+    formData.append("categoryId", values.categoryId);
+    formData.append("subCategoryId", values.subCategoryId);
+    formData.append("storeId", values.storeId);
+    formData.append("exclusive", values.exclusive);
+    formData.append("verified", values.verified);
+    formData.append("image", values.image);
+    formData.append("seo[title]", values.seo.title);
+    formData.append("seo[description]", values.seo.description);
+    formData.append("status", values.status);
+    mutateAsync(formData as any)
+      .then(() => {
+        toast.success("Coupon created successfully");
+        router.push("/coupon");
+        client.invalidateQueries({ queryKey: ["coupons"] });
+        client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
+      })
+      .catch(() => {
+        toast.error("Unable to create Coupon");
+      });
   };
 
   const onDrop = React.useCallback(

@@ -33,9 +33,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
-import { ICategory } from "@/interfaces/category.interface";
+import { ICategory, ICategoryBody } from "@/interfaces/category.interface";
 import AdminHeader from "../../_component/Header";
 import { ImagePlus } from "lucide-react";
+import { postCategory } from "@/common/api/categories/category.api";
+import { useMutation } from "@tanstack/react-query";
+import { client } from "@/components/Provider";
 
 function NewSubCategoryForm() {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
@@ -47,8 +50,8 @@ function NewSubCategoryForm() {
     description: z.string().min(10, {
       message: "must be of 10 charecter ",
     }),
-    showInMenu: z.string(),
-    featured: z.string(),
+    showInMenu: z.enum(["true", "false"]),
+    featured: z.enum(["true", "false"]),
     seo: z.object({
       title: z.string().min(3, {
         message: " must be of 3 charecter ",
@@ -77,9 +80,31 @@ function NewSubCategoryForm() {
     },
   });
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: postCategory,
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    alert("");
-    console.log(values);
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("status", values.status);
+    formData.append("showInMenu", values.showInMenu);
+    formData.append("featured", values.featured);
+    formData.append("image", values.image);
+    formData.append("seo[title]", values.seo.title);
+    formData.append("seo[description]", values.seo.description);
+    console.log(formData, values);
+    mutateAsync(formData as any)
+      .then(() => {
+        toast.success("Categories created successfully");
+        router.push("/category");
+        client.invalidateQueries({ queryKey: ["category"] });
+        client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
+      })
+      .catch(() => {
+        toast.error("Unable to create categories");
+      });
   };
 
   const onDrop = React.useCallback(
@@ -251,8 +276,8 @@ function NewSubCategoryForm() {
                 </div>
                 <div className="col-span-1 ">
                   <FormField
-                    control={form.control}
                     name="image"
+                    control={form.control}
                     render={() => (
                       <FormItem className=" mb-4">
                         <FormLabel

@@ -47,11 +47,11 @@ export const getAllCouponsOfCategoryAndStore = async (
 };
 
 export const postCoupon = async (body: ICouponBody) => {
-  const { data } = await axios.post("/sub-categories", body);
+  const { data } = await axios.post("/coupons", body);
   return data;
 };
 
 export const updateCoupon = async (body: Partial<ICouponBody>) => {
-  const { data } = await axios.patch("/sub-categories", body);
+  const { data } = await axios.patch("/coupons", body);
   return data;
 };

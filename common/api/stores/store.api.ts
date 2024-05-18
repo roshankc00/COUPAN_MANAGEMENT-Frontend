@@ -24,11 +24,11 @@ export const getAllFollowedStore = async () => {
 };
 
 export const postStore = async (body: IStoreBody) => {
-  const { data } = await axios.post("/sub-categories", body);
+  const { data } = await axios.post("/store", body);
   return data;
 };
 
 export const updateStore = async (body: Partial<IStoreBody>) => {
-  const { data } = await axios.patch("/sub-categories", body);
+  const { data } = await axios.patch("/store", body);
   return data;
 };

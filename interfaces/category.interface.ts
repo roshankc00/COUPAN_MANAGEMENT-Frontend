@@ -28,4 +28,5 @@ export interface ICategoryBody {
   featured: boolean;
   status: string;
   seo: ISeoBody;
+  image: string | ArrayBuffer | null;
 }

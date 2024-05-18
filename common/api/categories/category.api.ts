@@ -9,11 +9,11 @@ export const getAllCategories = async () => {
 };
 
 export const postCategory = async (body: ICategoryBody) => {
-  const { data } = await axios.post("/sub-categories", body);
+  const { data } = await axios.post("/category", body);
   return data;
 };
 
 export const updateCategory = async (body: Partial<ICategoryBody>) => {
-  const { data } = await axios.patch("/sub-categories", body);
+  const { data } = await axios.patch("/category", body);
   return data;
 };

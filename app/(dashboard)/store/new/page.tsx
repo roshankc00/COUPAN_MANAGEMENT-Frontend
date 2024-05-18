@@ -36,6 +36,9 @@ import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_catego
 import { ICategory } from "@/interfaces/category.interface";
 import AdminHeader from "../../_component/Header";
 import { ImagePlus } from "lucide-react";
+import { postStore } from "@/common/api/stores/store.api";
+import { useMutation } from "@tanstack/react-query";
+import { client } from "@/components/Provider";
 
 function NewStoreForm() {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
@@ -76,9 +79,28 @@ function NewStoreForm() {
     },
   });
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: postStore,
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    alert("");
-    console.log(values);
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("status", values.status);
+    formData.append("featured", values.featured);
+    formData.append("image", values.image);
+    formData.append("seo[title]", values.seo.title);
+    formData.append("seo[description]", values.seo.description);
+    mutateAsync(formData as any)
+      .then(() => {
+        toast.success("Store created successfully");
+        router.push("/store");
+        client.invalidateQueries({ queryKey: ["store"] });
+      })
+      .catch(() => {
+        toast.error("Unable to create Store");
+      });
   };
 
   const onDrop = React.useCallback(
