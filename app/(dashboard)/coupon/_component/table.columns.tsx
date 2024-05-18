@@ -2,7 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, PenBox, Pencil } from "lucide-react";
+import {
+  ArrowUpDown,
+  Delete,
+  MoreHorizontal,
+  PenBox,
+  Pencil,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -230,12 +236,16 @@ export const columns: ColumnDef<ICategory>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/teacher/courses/${id}`}>
+            <Link href={`/coupon/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit
               </DropdownMenuItem>
             </Link>
+            <DropdownMenuItem>
+              <Delete className="h-4 w-4 mr-2" />
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

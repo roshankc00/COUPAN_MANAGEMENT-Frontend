@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -24,7 +24,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useDropzone } from "react-dropzone";
 import {
   Select,
   SelectContent,
@@ -34,11 +33,19 @@ import {
 } from "@/components/ui/select";
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import { ICategory } from "@/interfaces/category.interface";
-import AdminHeader from "../../_component/Header";
-import { ImagePlus } from "lucide-react";
+import AdminHeader from "../../../../_component/Header";
+import { UseGetSingleSubCategory } from "@/hooks/react-query/sub-categories/get_single_sub-category";
+import { ISubcategory } from "@/interfaces/Subcategory.interface";
+import { useMutation } from "@tanstack/react-query";
+import { updateSubCategory } from "@/common/api/sub-categories/sub-category.api";
+import { client } from "@/components/Provider";
 
-function EditStoreForm() {
-  const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
+type Props = {
+  singleData: ISubcategory;
+  id: number;
+};
+
+function EditSubCategoryForm({ id, singleData }: Props) {
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(3, {
@@ -47,7 +54,7 @@ function EditStoreForm() {
     description: z.string().min(10, {
       message: "must be of 10 charecter ",
     }),
-    featured: z.string(),
+    categoryId: z.number(),
     seo: z.object({
       title: z.string().min(3, {
         message: " must be of 3 charecter ",
@@ -56,58 +63,44 @@ function EditStoreForm() {
         message: " must be of 10 charecter ",
       }),
     }),
-    image: z
-      .instanceof(File)
-      .refine((file) => file.size !== 0, "Please upload an image"),
     status: z.string(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: singleData?.title,
+      description: singleData?.description,
       seo: {
-        description: "",
-        title: "",
+        description: singleData?.seo?.description,
+        title: singleData?.seo?.title,
       },
-      status: "enabled",
-      image: new File([""], "filename"),
+      status: singleData?.status,
+      categoryId: singleData?.category?.id,
     },
   });
 
+  const { mutateAsync } = useMutation({
+    mutationFn: updateSubCategory,
+  });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    alert("");
-    console.log(values);
+    mutateAsync({ id, values })
+      .then(() => {
+        toast.success("sub-categories updated successfully");
+        router.push("/sub-category");
+        client.invalidateQueries({ queryKey: ["sub-categories"] });
+        client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
+      })
+      .catch(() => {
+        toast.error("Unable to update sub-categories");
+      });
   };
 
-  const onDrop = React.useCallback(
-    (acceptedFiles: File[]) => {
-      const reader = new FileReader();
-      try {
-        reader.onload = () => setPreview(reader.result);
-        reader.readAsDataURL(acceptedFiles[0]);
-        form.setValue("image", acceptedFiles[0]);
-        form.clearErrors("image");
-      } catch (error) {
-        setPreview(null);
-        form.resetField("image");
-      }
-    },
-    [form]
-  );
-  const { getRootProps, getInputProps, isDragActive, fileRejections } =
-    useDropzone({
-      onDrop,
-      maxFiles: 1,
-      maxSize: 1000000,
-      accept: { "image/png": [], "image/jpg": [], "image/jpeg": [] },
-    });
-
   const { data, isFetching, isLoading } = UseGetAllCategory();
+
   return (
     <div className="mt-10">
-      <AdminHeader title="New-Category" />
+      <AdminHeader title="New-Subcategory" />
       <div>
         <Card className=" ms-24">
           <CardHeader></CardHeader>
@@ -156,28 +149,35 @@ function EditStoreForm() {
                       </>
                     )}
                   />
-
                   <FormField
-                    name="featured"
+                    name="categoryId"
                     control={form.control}
                     render={({ field }) => (
                       <>
                         <FormItem className="mb-3">
-                          <FormLabel className="">Featured</FormLabel>
-                          <FormControl>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field?.value?.toString()}
-                            >
-                              <SelectTrigger className="">
-                                <SelectValue placeholder="Select the Featured" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value={"true"}>Yes</SelectItem>
-                                <SelectItem value={"false"}>No</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
+                          <FormLabel>Category</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field?.value?.toString()}
+                          >
+                            <SelectTrigger className="">
+                              <SelectValue
+                                placeholder={`${singleData.category.title}`}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {!isLoading &&
+                                !isFetching &&
+                                data?.map((item: ICategory) => (
+                                  <SelectItem
+                                    value={item?.id?.toString()}
+                                    key={item.id}
+                                  >
+                                    {item.title}
+                                  </SelectItem>
+                                ))}
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       </>
@@ -224,55 +224,6 @@ function EditStoreForm() {
                 </div>
                 <div className="col-span-1 ">
                   <FormField
-                    control={form.control}
-                    name="image"
-                    render={() => (
-                      <FormItem className=" mb-4">
-                        <FormLabel
-                          className={`${
-                            fileRejections.length !== 0 && "text-destructive"
-                          }`}
-                        >
-                          Select File
-                        </FormLabel>
-                        <FormControl>
-                          <div
-                            {...getRootProps()}
-                            className="mx-auto flex cursor-pointer flex-col items-center justify-center gap-y-2 border rounded-lg  p-8 shadow-sm shadow-foreground"
-                          >
-                            {preview && (
-                              <img
-                                src={preview as string}
-                                alt="Uploaded image"
-                                className="max-h-[400px] rounded-lg"
-                              />
-                            )}
-                            <Input
-                              {...getInputProps()}
-                              type="file"
-                              className="border-none"
-                            />
-                            {isDragActive ? (
-                              <p>Drop the image!</p>
-                            ) : (
-                              <p className="text-gray-500">
-                                Click here or drag an image to upload it
-                              </p>
-                            )}
-                          </div>
-                        </FormControl>
-                        <FormMessage>
-                          {fileRejections.length !== 0 && (
-                            <p>
-                              Image must be less than 1MB and of type png, jpg,
-                              or jpeg
-                            </p>
-                          )}
-                        </FormMessage>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
                     name="status"
                     control={form.control}
                     render={({ field }) => (
@@ -282,7 +233,7 @@ function EditStoreForm() {
                           <FormControl>
                             <Select
                               onValueChange={field.onChange}
-                              defaultValue={field.value.toString()}
+                              defaultValue={field?.value?.toString()}
                             >
                               <SelectTrigger className="">
                                 <SelectValue placeholder="Select the Status" />
@@ -318,4 +269,4 @@ function EditStoreForm() {
   );
 }
 
-export default EditStoreForm;
+export default EditSubCategoryForm;

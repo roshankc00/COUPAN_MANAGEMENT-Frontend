@@ -2,7 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, PenBox, Pencil } from "lucide-react";
+import {
+  ArrowUpDown,
+  Delete,
+  MoreHorizontal,
+  PenBox,
+  Pencil,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -16,6 +22,10 @@ import { ICategory } from "@/interfaces/category.interface";
 import moment from "moment";
 
 const dateFormat = moment();
+
+const handleDelete = () => {
+  console.log("delete");
+};
 
 export const columns: ColumnDef<ICategory>[] = [
   {
@@ -131,12 +141,16 @@ export const columns: ColumnDef<ICategory>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/teacher/courses/${id}`}>
+            <Link href={`/sub-category/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit
               </DropdownMenuItem>
             </Link>
+            <DropdownMenuItem>
+              <Delete className="h-4 w-4 mr-2" />
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

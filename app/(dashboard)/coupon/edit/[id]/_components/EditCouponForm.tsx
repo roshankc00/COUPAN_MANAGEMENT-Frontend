@@ -34,17 +34,24 @@ import {
 } from "@/components/ui/select";
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import { ICategory } from "@/interfaces/category.interface";
-import AdminHeader from "../../_component/Header";
+import AdminHeader from "../../../../_component/Header";
 import { ImagePlus } from "lucide-react";
 import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { UseGetAllSubCategory } from "@/hooks/react-query/sub-categories/get_all_sub-categories.hook";
 import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { IStore } from "@/interfaces/Store.interface";
+import { ICoupon } from "@/interfaces/coupon.interface";
+import moment from "moment";
+import { updateCoupon } from "@/common/api/coupons/coupons.api";
 import { useMutation } from "@tanstack/react-query";
-import { postCoupon } from "@/common/api/coupons/coupons.api";
 import { client } from "@/components/Provider";
 
-function NewCouponForm() {
+type Props = {
+  singleData: ICoupon;
+  id: number;
+};
+
+function EditCouponForm({ singleData, id }: Props) {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
   const router = useRouter();
   const formSchema = z.object({
@@ -57,7 +64,7 @@ function NewCouponForm() {
     tagLine: z.string().min(3, {
       message: " must be of 8 charecter ",
     }),
-    code: z.string().min(5, {
+    code: z.string().min(10, {
       message: " must be of 10 charecter ",
     }),
     startDate: z.string().min(3, {
@@ -66,13 +73,13 @@ function NewCouponForm() {
     expireDate: z.string().min(10, {
       message: " must be of 10 charecter ",
     }),
-    url: z.string().min(10, {
+    url: z.string().min(5, {
       message: " must be of 10 charecter ",
     }),
     featured: z.string(),
-    categoryId: z.string(),
-    subCategoryId: z.string(),
-    storeId: z.string(),
+    categoryId: z.number(),
+    subCategoryId: z.number(),
+    storeId: z.number(),
     verified: z.string(),
     exclusive: z.string(),
     seo: z.object({
@@ -90,51 +97,74 @@ function NewCouponForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: singleData?.title,
+      description: singleData?.description,
+      tagLine: singleData?.tagLine,
+      code: singleData?.code,
+      startDate: moment(singleData?.startDate).format("YYYY-MM-DD"),
+      expireDate: moment(singleData?.expireDate).format("YYYY-MM-DD"),
+      url: singleData?.url,
+      featured: singleData?.featured?.toString(),
+      categoryId: singleData?.categoryId,
+      subCategoryId: singleData?.subCategoryId,
+      storeId: singleData?.storeId,
+      verified: singleData?.verified?.toString(),
+      exclusive: singleData?.exclusive?.toString(),
       seo: {
-        description: "",
-        title: "",
+        description: singleData?.seo?.description,
+        title: singleData?.seo?.title,
       },
-      status: "enabled",
+      status: singleData?.status,
       image: new File([""], "filename"),
     },
   });
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: postCoupon,
+  const { mutateAsync } = useMutation({
+    mutationFn: updateCoupon,
   });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("description", values.description);
-    formData.append("tagLine", values.tagLine);
-    formData.append("code", values.code);
-    formData.append("startDate", values.startDate);
-    formData.append("expireDate", values.expireDate);
-    formData.append("url", values.url);
-    formData.append("featured", values.featured);
-    formData.append("categoryId", values.categoryId);
-    formData.append("subCategoryId", values.subCategoryId);
-    formData.append("storeId", values.storeId);
-    formData.append("exclusive", values.exclusive);
-    formData.append("verified", values.verified);
-    if (values?.image) {
-      formData.append("image", values.image);
+    if (!preview && !values?.image) {
+      mutateAsync({ id, values } as any)
+        .then(() => {
+          toast.success("Coupon updated successfully");
+          router.push("/coupon");
+          client.invalidateQueries({ queryKey: ["coupons"] });
+        })
+        .catch(() => {
+          toast.error("Unable to update Coupon");
+        });
+    } else {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("tagLine", values.tagLine);
+      formData.append("code", values.code);
+      formData.append("startDate", values.startDate);
+      formData.append("expireDate", values.expireDate);
+      formData.append("url", values.url);
+      formData.append("featured", values.featured);
+      formData.append("categoryId", values.categoryId.toString());
+      formData.append("subCategoryId", values.subCategoryId.toString());
+      formData.append("storeId", values.storeId.toString());
+      formData.append("exclusive", values.exclusive);
+      formData.append("verified", values.verified);
+      if (values.image) {
+        formData.append("image", values.image);
+      }
+      formData.append("seo[title]", values.seo.title);
+      formData.append("seo[description]", values.seo.description);
+      formData.append("status", values.status);
+      mutateAsync({ id, values: formData } as any)
+        .then(() => {
+          toast.success("Coupon updated successfully");
+          router.push("/coupon");
+          client.invalidateQueries({ queryKey: ["coupons"] });
+        })
+        .catch(() => {
+          toast.error("Unable to update Coupon");
+        });
     }
-    formData.append("seo[title]", values.seo.title);
-    formData.append("seo[description]", values.seo.description);
-    formData.append("status", values.status);
-    mutateAsync(formData as any)
-      .then(() => {
-        toast.success("Coupon created successfully");
-        router.push("/coupon");
-        client.invalidateQueries({ queryKey: ["coupons"] });
-        client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
-      })
-      .catch(() => {
-        toast.error("Unable to create Coupon");
-      });
   };
 
   const onDrop = React.useCallback(
@@ -262,6 +292,9 @@ function NewCouponForm() {
                           <FormLabel>StartDate</FormLabel>
                           <FormControl>
                             <Input
+                              defaultValue={moment(
+                                singleData?.startDate
+                              ).format("YYYY-MM-DD")}
                               type="date"
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the startDate"
@@ -283,6 +316,9 @@ function NewCouponForm() {
                           <FormControl>
                             <Input
                               type="date"
+                              defaultValue={moment(
+                                singleData?.expireDate
+                              ).format("YYYY-MM-DD")}
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the ExpireDate"
                               {...field}
@@ -326,7 +362,9 @@ function NewCouponForm() {
                               defaultValue={field?.value?.toString()}
                             >
                               <SelectTrigger className="">
-                                <SelectValue placeholder="Select the Featured" />
+                                <SelectValue
+                                  placeholder={`${singleData?.featured}`}
+                                />
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value={"true"}>Yes</SelectItem>
@@ -352,7 +390,9 @@ function NewCouponForm() {
                               defaultValue={field?.value?.toString()}
                             >
                               <SelectTrigger className="">
-                                <SelectValue placeholder="Select the exclusive" />
+                                <SelectValue
+                                  placeholder={`${singleData?.exclusive}`}
+                                />
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value={"true"}>Yes</SelectItem>
@@ -378,7 +418,9 @@ function NewCouponForm() {
                               defaultValue={field?.value?.toString()}
                             >
                               <SelectTrigger className="">
-                                <SelectValue placeholder="Select the Verified" />
+                                <SelectValue
+                                  placeholder={`${singleData?.verified}`}
+                                />
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value={"true"}>Yes</SelectItem>
@@ -401,7 +443,9 @@ function NewCouponForm() {
                           <FormLabel>Category</FormLabel>
                           <Select onValueChange={field.onChange}>
                             <SelectTrigger className="">
-                              <SelectValue placeholder="Select the Category" />
+                              <SelectValue
+                                placeholder={`${singleData?.category?.title}`}
+                              />
                             </SelectTrigger>
                             <SelectContent>
                               {!catLoading &&
@@ -429,7 +473,9 @@ function NewCouponForm() {
                           <FormLabel>Store</FormLabel>
                           <Select onValueChange={field.onChange}>
                             <SelectTrigger className="">
-                              <SelectValue placeholder="Select the Store" />
+                              <SelectValue
+                                placeholder={`${singleData?.store?.title}`}
+                              />
                             </SelectTrigger>
                             <SelectContent>
                               {!storeLoading &&
@@ -457,7 +503,9 @@ function NewCouponForm() {
                           <FormLabel>SubCategory</FormLabel>
                           <Select onValueChange={field.onChange}>
                             <SelectTrigger className="">
-                              <SelectValue placeholder="Select the SubCategory" />
+                              <SelectValue
+                                placeholder={`${singleData?.subCategory?.title}`}
+                              />
                             </SelectTrigger>
                             <SelectContent>
                               {!subCatLoading &&
@@ -534,9 +582,15 @@ function NewCouponForm() {
                             {...getRootProps()}
                             className="mx-auto flex cursor-pointer flex-col items-center justify-center gap-y-2 border rounded-lg  p-8 shadow-sm shadow-foreground"
                           >
-                            {preview && (
+                            {preview ? (
                               <img
                                 src={preview as string}
+                                alt="Uploaded image"
+                                className="max-h-[400px] rounded-lg"
+                              />
+                            ) : (
+                              <img
+                                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${singleData?.imageName}`}
                                 alt="Uploaded image"
                                 className="max-h-[400px] rounded-lg"
                               />
@@ -576,7 +630,7 @@ function NewCouponForm() {
                           <FormControl>
                             <Select
                               onValueChange={field.onChange}
-                              defaultValue={field.value.toString()}
+                              defaultValue={field?.value?.toString()}
                             >
                               <SelectTrigger className="">
                                 <SelectValue placeholder="Select the Status" />
@@ -612,4 +666,4 @@ function NewCouponForm() {
   );
 }
 
-export default NewCouponForm;
+export default EditCouponForm;

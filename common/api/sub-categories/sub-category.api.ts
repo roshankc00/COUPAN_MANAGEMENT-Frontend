@@ -1,5 +1,6 @@
 import { ISubcategoryBody } from "@/interfaces/Subcategory.interface";
 import axios from "../api";
+import { number } from "zod";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -20,7 +21,18 @@ export const postSubCategory = async (body: ISubcategoryBody) => {
   return data;
 };
 
-export const updateSubCategory = async (body: Partial<ISubcategoryBody>) => {
-  const { data } = await axios.patch("/sub-categories", body);
+export const updateSubCategory = async ({
+  id,
+  values,
+}: {
+  id: number;
+  values: ISubcategoryBody;
+}) => {
+  const { data } = await axios.patch(`/sub-categories/${id}`, values);
+  return data;
+};
+
+export const getSingleSubcategory = async (id: number) => {
+  const { data } = await axios.get(`/sub-categories/${id}`);
   return data;
 };

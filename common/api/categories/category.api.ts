@@ -13,7 +13,15 @@ export const postCategory = async (body: ICategoryBody) => {
   return data;
 };
 
-export const updateCategory = async (body: Partial<ICategoryBody>) => {
-  const { data } = await axios.patch("/category", body);
+export const updateCategory = async (body: {
+  id: number;
+  values: Partial<ICategoryBody>;
+}) => {
+  const { data } = await axios.patch(`/category/${body.id}`, body.values);
+  return data;
+};
+
+export const getSingleCategory = async (id: number) => {
+  const { data } = await axios.get(`/category/${id}`);
   return data;
 };

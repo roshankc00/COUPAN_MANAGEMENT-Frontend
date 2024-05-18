@@ -34,11 +34,21 @@ import {
 } from "@/components/ui/select";
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import { ICategory } from "@/interfaces/category.interface";
-import AdminHeader from "../../_component/Header";
 import { ImagePlus } from "lucide-react";
+import AdminHeader from "@/app/(dashboard)/_component/Header";
+import { IStore } from "@/interfaces/Store.interface";
+import { updateStore } from "@/common/api/stores/store.api";
+import { useMutation } from "@tanstack/react-query";
+import { client } from "@/components/Provider";
 
-function EditCategoryForm() {
+type Props = {
+  singleData: IStore;
+  id: number;
+};
+
+function EditStoreForm({ singleData, id }: Props) {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
+
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(3, {
@@ -47,7 +57,6 @@ function EditCategoryForm() {
     description: z.string().min(10, {
       message: "must be of 10 charecter ",
     }),
-    showInMenu: z.string(),
     featured: z.string(),
     seo: z.object({
       title: z.string().min(3, {
@@ -57,29 +66,61 @@ function EditCategoryForm() {
         message: " must be of 10 charecter ",
       }),
     }),
-    image: z
-      .instanceof(File)
-      .refine((file) => file.size !== 0, "Please upload an image"),
+    image: z.instanceof(File).optional(),
+    // .refine((file) => file?.size !== 0, "Please upload an image"),
     status: z.string(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: singleData?.title,
+      description: singleData?.description,
+      featured: singleData?.featured?.toString(),
       seo: {
-        description: "",
-        title: "",
+        description: singleData?.seo?.description,
+        title: singleData?.seo?.title,
       },
-      status: "enabled",
+      status: singleData?.status,
       image: new File([""], "filename"),
     },
   });
 
+  const { mutateAsync } = useMutation({
+    mutationFn: updateStore,
+  });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    alert("");
-    console.log(values);
+    if (!preview && !values.image) {
+      mutateAsync({ id, values } as any)
+        .then(() => {
+          toast.success("Store created successfully");
+          router.push("/store");
+          client.invalidateQueries({ queryKey: ["store"] });
+        })
+        .catch(() => {
+          toast.error("Unable to create Store");
+        });
+    } else {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("status", values.status);
+      formData.append("featured", values.featured);
+      if (values?.image) {
+        formData.append("image", values.image);
+      }
+      formData.append("seo[title]", values.seo.title);
+      formData.append("seo[description]", values.seo.description);
+      mutateAsync({ id, values: formData } as any)
+        .then(() => {
+          toast.success("Store created successfully");
+          router.push("/store");
+          client.invalidateQueries({ queryKey: ["store"] });
+        })
+        .catch(() => {
+          toast.error("Unable to create Store");
+        });
+    }
   };
 
   const onDrop = React.useCallback(
@@ -159,32 +200,6 @@ function EditCategoryForm() {
                   />
 
                   <FormField
-                    name="showInMenu"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel className="">ShowInMenu</FormLabel>
-                          <FormControl>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field?.value?.toString()}
-                            >
-                              <SelectTrigger className="">
-                                <SelectValue placeholder="Select the ShowInMenu " />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value={"true"}>Yes</SelectItem>
-                                <SelectItem value={"false"}>No</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
                     name="featured"
                     control={form.control}
                     render={({ field }) => (
@@ -197,7 +212,9 @@ function EditCategoryForm() {
                               defaultValue={field?.value?.toString()}
                             >
                               <SelectTrigger className="">
-                                <SelectValue placeholder="Select the Featured" />
+                                <SelectValue
+                                  placeholder={`${singleData?.featured}`}
+                                />
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value={"true"}>Yes</SelectItem>
@@ -267,9 +284,15 @@ function EditCategoryForm() {
                             {...getRootProps()}
                             className="mx-auto flex cursor-pointer flex-col items-center justify-center gap-y-2 border rounded-lg  p-8 shadow-sm shadow-foreground"
                           >
-                            {preview && (
+                            {preview ? (
                               <img
                                 src={preview as string}
+                                alt="Uploaded image"
+                                className="max-h-[400px] rounded-lg"
+                              />
+                            ) : (
+                              <img
+                                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${singleData?.imageName}`}
                                 alt="Uploaded image"
                                 className="max-h-[400px] rounded-lg"
                               />
@@ -345,4 +368,4 @@ function EditCategoryForm() {
   );
 }
 
-export default EditCategoryForm;
+export default EditStoreForm;

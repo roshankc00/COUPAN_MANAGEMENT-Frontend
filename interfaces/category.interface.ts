@@ -17,7 +17,7 @@ export interface ICategory {
   showInMenu: boolean;
   featured: boolean;
   coupons: ICoupon[];
-  Seo: ISEO;
+  seo: ISEO;
   subcategories: ISubcategory[];
 }
 

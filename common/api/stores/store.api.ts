@@ -28,7 +28,10 @@ export const postStore = async (body: IStoreBody) => {
   return data;
 };
 
-export const updateStore = async (body: Partial<IStoreBody>) => {
-  const { data } = await axios.patch("/store", body);
+export const updateStore = async (body: {
+  id: number;
+  values: Partial<IStoreBody>;
+}) => {
+  const { data } = await axios.patch(`/store/${body.id}`, body.values);
   return data;
 };
