@@ -20,6 +20,21 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ICategory } from "@/interfaces/category.interface";
 import moment from "moment";
+import toast from "react-hot-toast";
+import { MdDelete } from "react-icons/md";
+import { CiCircleAlert } from "react-icons/ci";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useMutation } from "@tanstack/react-query";
+import { deleteStore } from "@/common/api/stores/store.api";
+import { client } from "@/components/Provider";
 
 const dateFormat = moment();
 
@@ -173,6 +188,17 @@ export const columns: ColumnDef<ICategory>[] = [
     id: "action",
     cell: ({ row }) => {
       const { id } = row.original;
+      const { mutateAsync } = useMutation({
+        mutationFn: deleteStore,
+      });
+
+      const handleDelete = async (id: number) => {
+        await mutateAsync(id).then(() => {
+          toast.success("Deleted successfully");
+          client.invalidateQueries({ queryKey: ["store"] });
+        });
+      };
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -188,10 +214,36 @@ export const columns: ColumnDef<ICategory>[] = [
                 Edit
               </DropdownMenuItem>
             </Link>
-            <DropdownMenuItem>
-              <Delete className="h-4 w-4 mr-2" />
-              Delete
-            </DropdownMenuItem>
+            <Dialog>
+              <DialogTrigger className="flex">
+                <MdDelete color="red" className="h-4 w-4 mr-2" />
+                Delete
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
+                    <CiCircleAlert size={30} color="red" />
+                    Are You sure ?
+                  </DialogTitle>
+                </DialogHeader>
+                <DialogDescription>
+                  <p className="text-center">
+                    You Wont be able to recover this Store Again
+                  </p>
+                </DialogDescription>
+                <DialogFooter>
+                  <div className="flex flex-row-reverse mt-4 ">
+                    <Button
+                      variant={"destructive"}
+                      className="w-[200px]"
+                      onClick={() => handleDelete(id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </DropdownMenuContent>
         </DropdownMenu>
       );

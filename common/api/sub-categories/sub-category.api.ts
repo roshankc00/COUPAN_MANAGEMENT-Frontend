@@ -36,3 +36,7 @@ export const getSingleSubcategory = async (id: number) => {
   const { data } = await axios.get(`/sub-categories/${id}`);
   return data;
 };
+export const deleteSubcategory = async (id: number) => {
+  const { data } = await axios.delete(`/sub-categories/${id}`);
+  return data;
+};

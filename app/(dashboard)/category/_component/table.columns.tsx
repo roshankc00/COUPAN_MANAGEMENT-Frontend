@@ -20,6 +20,21 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ICategory } from "@/interfaces/category.interface";
 import moment from "moment";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { deleteCategory } from "@/common/api/categories/category.api";
+import { useMutation } from "@tanstack/react-query";
+import { client } from "@/components/Provider";
+import toast from "react-hot-toast";
+import { MdDelete } from "react-icons/md";
+import { CiCircleAlert } from "react-icons/ci";
 
 export const columns: ColumnDef<ICategory>[] = [
   {
@@ -198,6 +213,20 @@ export const columns: ColumnDef<ICategory>[] = [
     id: "action",
     cell: ({ row }) => {
       const { id } = row.original;
+
+      const { mutateAsync } = useMutation({
+        mutationFn: deleteCategory,
+      });
+
+      const handleDeleteCategory = async (id: number) => {
+        await mutateAsync(id).then(() => {
+          toast.success("Deleted successfully");
+          client.invalidateQueries({ queryKey: ["category"] });
+          client.invalidateQueries({
+            queryKey: ["sub-categories-by-category"],
+          });
+        });
+      };
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -212,11 +241,37 @@ export const columns: ColumnDef<ICategory>[] = [
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Delete className="h-4 w-4 mr-2" />
-                Delete
-              </DropdownMenuItem>
             </Link>
+            <Dialog>
+              <DialogTrigger className="flex">
+                <MdDelete color="red" className="h-4 w-4 mr-2" />
+                Delete
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
+                    <CiCircleAlert size={30} color="red" />
+                    Are You sure ?
+                  </DialogTitle>
+                </DialogHeader>
+                <DialogDescription>
+                  <p className="text-center">
+                    You Wont be able to recover this Category Again
+                  </p>
+                </DialogDescription>
+                <DialogFooter>
+                  <div className="flex flex-row-reverse mt-4 ">
+                    <Button
+                      variant={"destructive"}
+                      className="w-[200px]"
+                      onClick={() => handleDeleteCategory(id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </DropdownMenuContent>
         </DropdownMenu>
       );

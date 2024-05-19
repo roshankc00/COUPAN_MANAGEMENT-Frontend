@@ -63,3 +63,8 @@ export const getSingleCoupon = async (id: number) => {
   const { data } = await axios.get(`/coupons/${id}`);
   return data;
 };
+
+export const deleteCoupon = async (id: number) => {
+  const { data } = await axios.delete(`/coupons/${id}`);
+  return data;
+};

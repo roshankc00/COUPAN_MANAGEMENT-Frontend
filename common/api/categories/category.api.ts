@@ -25,3 +25,7 @@ export const getSingleCategory = async (id: number) => {
   const { data } = await axios.get(`/category/${id}`);
   return data;
 };
+export const deleteCategory = async (id: number) => {
+  const { data } = await axios.delete(`/category/${id}`);
+  return data;
+};

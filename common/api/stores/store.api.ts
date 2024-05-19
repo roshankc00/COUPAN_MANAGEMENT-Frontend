@@ -35,3 +35,8 @@ export const updateStore = async (body: {
   const { data } = await axios.patch(`/store/${body.id}`, body.values);
   return data;
 };
+
+export const deleteStore = async (id: number) => {
+  const { data } = await axios.delete(`/store/${id}`);
+  return data;
+};
