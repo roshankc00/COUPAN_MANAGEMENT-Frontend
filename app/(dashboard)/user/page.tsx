@@ -1,5 +1,6 @@
 import React from "react";
 import CategoryTable from "./_component/table";
+import AdminHeader from "../_component/Header";
 
 export const metadata = {
   title: "User | NepQue ",
@@ -8,7 +9,10 @@ export const metadata = {
 
 const UsersPage = () => {
   return (
-    <div className="flex justify-center">
+    <div className="">
+      <div className="mt-10 pr-24 -mb-[15px]">
+        <AdminHeader title="User" />
+      </div>
       <div>
         <CategoryTable />
       </div>

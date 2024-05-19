@@ -14,6 +14,7 @@ import debounce from "lodash.debounce";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";
+import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
 type Props = {
   storeId: number;
 };
@@ -38,12 +39,17 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
   console.log(allCoupons);
   return (
     <div>
+      {isLoading &&
+        isFetching &&
+        new Array(12)
+          .fill(null)
+          .map((el, index) => <SkeletonCouponCard key={index} />)}
       {!isLoading &&
         !isFetching &&
         allCoupons?.coupons?.map((item: ICoupon) => (
           <Couponcard coupon={item} />
         ))}
-      {allCoupons?.totalPage && (
+      {!isLoading && !isFetching && allCoupons?.totalPage && (
         <Pagination {...paginationProps} totalPages={allCoupons?.totalPage} />
       )}
     </div>

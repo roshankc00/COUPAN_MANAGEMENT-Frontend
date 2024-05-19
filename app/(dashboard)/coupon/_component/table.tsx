@@ -4,6 +4,7 @@ import { columns } from "./table.columns";
 import { Datatable } from "./data.table";
 import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { UseGetAllCoupons } from "@/hooks/react-query/coupons/get_all_coupons.hook";
+import TableSkeleton from "@/components/TableSkeleton";
 
 const CategoryTable = () => {
   const { data, isFetching, isLoading } = UseGetAllCoupons();
@@ -14,7 +15,9 @@ const CategoryTable = () => {
       {!isFetching && !isLoading ? (
         <Datatable columns={columns} data={data} />
       ) : (
-        <h1> Loading</h1>
+        <div className="w-full mt-10">
+          <TableSkeleton />
+        </div>
       )}
     </div>
   );

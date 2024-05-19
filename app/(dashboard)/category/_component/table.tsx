@@ -3,15 +3,19 @@ import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_catego
 import React from "react";
 import { columns } from "./table.columns";
 import { Datatable } from "./data.table";
+import TableSkeleton from "@/components/TableSkeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CategoryTable = () => {
   const { data, isFetching, isLoading } = UseGetAllCategory();
   return (
-    <div className="">
+    <div className="w-full">
       {!isFetching && !isLoading ? (
         <Datatable columns={columns} data={data} />
       ) : (
-        <h1> Loading</h1>
+        <div className="w-full mt-10">
+          <TableSkeleton />
+        </div>
       )}
     </div>
   );

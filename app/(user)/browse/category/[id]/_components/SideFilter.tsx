@@ -18,6 +18,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";
+import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
 
 const SideFilter = ({ categoryId }: { categoryId: number }) => {
   const paginationProps = usePagination();
@@ -117,13 +118,18 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
         </div>
 
         <div className="col-span-7 md:col-span-5">
+          {couponFetching &&
+            couponLoading &&
+            new Array(12)
+              .fill(null)
+              .map((el, index) => <SkeletonCouponCard key={index} />)}
           {!couponFetching &&
             !couponLoading &&
             allCoupons?.coupons?.map((item: ICoupon) => (
               <Couponcard coupon={item} />
             ))}
 
-          {allCoupons?.totalPage && (
+          {!couponFetching && !couponLoading && allCoupons?.totalPage && (
             <Pagination
               {...paginationProps}
               totalPages={allCoupons?.totalPage}

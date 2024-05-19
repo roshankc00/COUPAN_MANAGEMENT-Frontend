@@ -23,6 +23,7 @@ import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { ICategory } from "@/interfaces/category.interface";
 import { IStore } from "@/interfaces/Store.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";
+import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
 type IFilter = {
   categoryIds: number[];
   storeIds: number[];
@@ -189,12 +190,20 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
         </div>
 
         <div className="col-span-7 md:col-span-5">
-          {allCoupons?.coupons?.map((item: ICoupon) => (
-            <>
-              <Couponcard coupon={item} />
-            </>
-          ))}
-          {allCoupons?.totalPage && (
+          {couponFetching &&
+            couponLoading &&
+            new Array(12)
+              .fill(null)
+              .map((el, index) => <SkeletonCouponCard key={index} />)}
+
+          {!couponFetching &&
+            !couponLoading &&
+            allCoupons?.coupons?.map((item: ICoupon) => (
+              <>
+                <Couponcard coupon={item} />
+              </>
+            ))}
+          {!couponFetching && !couponLoading && allCoupons?.totalPage && (
             <Pagination
               {...paginationProps}
               totalPages={allCoupons?.totalPage}

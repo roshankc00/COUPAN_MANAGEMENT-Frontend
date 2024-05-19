@@ -10,6 +10,7 @@ import Featuredcoupons from "@/components/home/Featured.coupons";
 import FeaturedStore from "@/components/home/FeaturedStore";
 import Cookies from "js-cookie";
 import Footer from "@/components/Footer";
+import TableSkeleton from "@/components/TableSkeleton";
 export async function generateMetadata() {
   const ogImageUrl = logo;
   return {
@@ -54,6 +55,7 @@ export default function Home() {
         <FeaturedStore />
       </div>
 
+      <TableSkeleton />
       {/* featured product  */}
       <div>
         <h1 className="font-medium text-3xl my-5  text-center mt-10">
