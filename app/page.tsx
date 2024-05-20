@@ -55,7 +55,6 @@ export default function Home() {
         <FeaturedStore />
       </div>
 
-      <TableSkeleton />
       {/* featured product  */}
       <div>
         <h1 className="font-medium text-3xl my-5  text-center mt-10">
