@@ -17,6 +17,9 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Editor } from "@/components/editor";
 import { Input } from "@/components/ui/input";
+import { postBlog } from "@/common/api/blogs/blogs.api";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   description: z.string().min(1, {
@@ -44,7 +47,6 @@ const formSchema = z.object({
 
 export const AddNewBlogs = () => {
   const router = useRouter();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,16 +64,35 @@ export const AddNewBlogs = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    alert("");
-    console.log(values);
-  };
-
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",
   });
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: postBlog,
+  });
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("description", values.description.toString());
+    formData.append("files", values.thumbnail);
+    values.items.forEach((item, index) => {
+      formData.append(`items[${index}][title]`, item.title);
+      formData.append(`items[${index}][content]`, item.description.toString());
+      if (item.isImage && item?.image) {
+        formData.append(`files`, item.image);
+      }
+      formData.append(`items[${index}][isImage]`, item.isImage.toString());
+    });
+    mutateAsync(formData as any)
+      .then(() => {
+        toast.success("Blog created successfully");
+      })
+      .catch(() => {
+        toast.error("Unable to create Blog");
+      });
+  };
   return (
     <div className="mt-6 border bg-white  rounded-md p-4">
       <Form {...form}>
