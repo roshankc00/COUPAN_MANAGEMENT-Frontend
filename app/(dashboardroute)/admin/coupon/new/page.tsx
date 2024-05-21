@@ -57,9 +57,7 @@ function NewCouponForm() {
     tagLine: z.string().min(3, {
       message: " must be of 8 charecter ",
     }),
-    code: z.string().min(5, {
-      message: " must be of 10 charecter ",
-    }),
+    code: z.string().optional(),
     startDate: z.string().min(3, {
       message: " must be of 8 charecter ",
     }),
@@ -109,7 +107,12 @@ function NewCouponForm() {
     formData.append("title", values.title);
     formData.append("description", values.description);
     formData.append("tagLine", values.tagLine);
-    formData.append("code", values.code);
+    if (values?.code) {
+      formData.append("code", values.code);
+      formData.append("isDeal", "false");
+    } else {
+      formData.append("isDeal", "true");
+    }
     formData.append("startDate", values.startDate);
     formData.append("expireDate", values.expireDate);
     formData.append("url", values.url);

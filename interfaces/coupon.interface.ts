@@ -20,7 +20,6 @@ export interface ICoupon {
   code: string;
   startDate: string;
   expireDate: string;
-  url: string;
   featured: boolean;
   categoryId: number;
   subCategoryId: number;
@@ -33,6 +32,7 @@ export interface ICoupon {
   seo: ISEO;
   store: IStore;
   subCategory: ISubcategory;
+  isDeal: boolean;
 }
 
 export interface ICouponBody {

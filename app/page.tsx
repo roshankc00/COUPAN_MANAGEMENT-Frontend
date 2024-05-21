@@ -1,7 +1,6 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sidebar } from "lucide-react";
 import Image from "next/image";
-import MobileSideBar from "./(dashboard)/_component/smallscreen.sidebar";
 import logo from "../public/logo.jpg";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
