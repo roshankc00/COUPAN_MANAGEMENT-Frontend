@@ -10,6 +10,9 @@ import {
   Timer,
   Users,
   Component,
+  CircleHelp,
+  BadgeEuro,
+  MessageCircleX,
 } from "lucide-react";
 import SidebarItem from "./Sidebar.item";
 import { MdCategory, MdDashboard } from "react-icons/md";
@@ -21,32 +24,47 @@ function SidebarRoutes({}: Props) {
     {
       icon: MdDashboard,
       label: "Dashboard",
-      href: "/dashboard",
+      href: "/admin/dashboard",
     },
     {
       icon: MdCategory,
       label: "Category",
-      href: "/category",
+      href: "/admin/category",
     },
     {
       icon: Compass,
       label: "Sub-Category",
-      href: "/sub-category",
+      href: "/admin/sub-category",
     },
     {
       icon: Component,
       label: "Coupon",
-      href: "/coupon",
+      href: "/admin/coupon",
     },
     {
       icon: SiMicrosoftstore,
       label: "Store",
-      href: "/store",
+      href: "/admin/store",
+    },
+    {
+      icon: CircleHelp,
+      label: "Faqs",
+      href: "/admin/faqs",
+    },
+    {
+      icon: BadgeEuro,
+      label: "User-Send-Offer",
+      href: "/admin/offer",
+    },
+    {
+      icon: MessageCircleX,
+      label: "Feedbacks",
+      href: "/admin/userFeedback",
     },
     {
       icon: Users,
       label: "User",
-      href: "/user",
+      href: "/admin/user",
     },
   ] as const;
   return (

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Button } from "./ui/button";
 
@@ -13,12 +14,14 @@ import toast from "react-hot-toast";
 import { Input } from "./ui/input";
 import { File } from "lucide-react";
 import { ICoupon } from "@/interfaces/coupon.interface";
+import { useRouter } from "next/navigation";
 
 interface Props {
   coupon: ICoupon;
 }
 
 const Couponcard: React.FC<Props> = ({ coupon }) => {
+  const router = useRouter();
   const handleCopyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -29,7 +32,7 @@ const Couponcard: React.FC<Props> = ({ coupon }) => {
   };
 
   return (
-    <div>
+    <div onClick={() => router.push(`/user/browse/coupom/${coupon?.id}`)}>
       <div className="shadow-sm rounded-lg p-4 flex justify-between items-center border border-slate-200">
         <div className="flex items-center gap-5">
           <img
@@ -49,6 +52,7 @@ const Couponcard: React.FC<Props> = ({ coupon }) => {
               {coupon?.description}
             </p>
             {/* <p className="deadline  text-gray-500 mt-2">{coupon?.expireDate}</p> */}
+            <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, nemo.</h1>
           </div>
         </div>
         <div className="relative">

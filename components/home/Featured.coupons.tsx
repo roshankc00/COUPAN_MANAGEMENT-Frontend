@@ -4,6 +4,8 @@ import React from "react";
 import Couponcard from "../Coupon.card";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import { SkeletonCouponCard } from "../CouponCard.skeleton";
+import { handleLogin } from "@/common/api/users/user.api";
+import { Button } from "../ui/button";
 
 const Featuredcoupons = () => {
   const { data, isFetching, isLoading } = UseGetAllCoupons();

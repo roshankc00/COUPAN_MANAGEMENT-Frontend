@@ -10,6 +10,7 @@ import FeaturedStore from "@/components/home/FeaturedStore";
 import Cookies from "js-cookie";
 import Footer from "@/components/Footer";
 import TableSkeleton from "@/components/TableSkeleton";
+import { handleLogin } from "@/common/api/users/user.api";
 export async function generateMetadata() {
   const ogImageUrl = logo;
   return {

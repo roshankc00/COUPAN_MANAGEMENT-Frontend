@@ -13,8 +13,10 @@ import { UseGetCurrentUser } from "@/hooks/react-query/users/get-current-user";
 import { IoPersonCircle } from "react-icons/io5";
 import { Button } from "./ui/button";
 import { LogoutUser } from "@/common/api/api";
+import { useRouter } from "next/navigation";
 
 const LogoutButton = () => {
+  const router = useRouter();
   const { data } = UseGetCurrentUser();
   return (
     <div>
@@ -35,6 +37,11 @@ const LogoutButton = () => {
           <DropdownMenuItem onClick={() => LogoutUser()}>
             Logout
           </DropdownMenuItem>
+          {data?.role === "ADMIN" && (
+            <DropdownMenuItem onClick={() => router.push("/admin/dashboard")}>
+              Dashboard
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

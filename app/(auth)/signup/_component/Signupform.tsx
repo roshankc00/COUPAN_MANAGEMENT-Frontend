@@ -23,10 +23,15 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { loginUser, signupUser } from "@/common/api/users/user.api";
+import {
+  handleLogin,
+  loginUser,
+  signupUser,
+} from "@/common/api/users/user.api";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { FaGoogle } from "react-icons/fa";
 
 function SignupForm() {
   const formSchema = z.object({
@@ -130,6 +135,18 @@ function SignupForm() {
               />
               <Button type="submit" className="w-full">
                 Submit
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => handleLogin()}
+                className="flex gap-5 items-center w-full "
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                  alt=""
+                />{" "}
+                Sign up With Google
               </Button>
             </form>
           </Form>

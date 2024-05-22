@@ -22,7 +22,8 @@ import {
 const Navbar = () => {
   const router = useRouter();
   return (
-    <div>
+    <div className="">
+      {/* <div className="fixed w-full mb-0 z-100 -mt-[40px]"> */}
       <div className="flex justify-center items-center gap-5 bg-[#5271ff] w-full">
         <div>
           <Link href="/">
@@ -38,7 +39,7 @@ const Navbar = () => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Link href={"/userFollowedStore"}>
+                <Link href={"/user/userFollowedStore"}>
                   <FaHeart color="red" size={25} />
                 </Link>
               </TooltipTrigger>
@@ -50,7 +51,7 @@ const Navbar = () => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Link href="/wishlist">
+                <Link href="/user/wishlist">
                   <IoIosBookmark color="white" size={25} />
                 </Link>
               </TooltipTrigger>

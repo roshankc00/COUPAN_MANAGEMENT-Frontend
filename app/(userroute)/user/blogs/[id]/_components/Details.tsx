@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Preview } from "@/components/Preview";
 import { UseGetSingleBlog } from "@/hooks/react-query/blogs/get-single-blog.hook";
 import React from "react";
+import Link from "next/link";
 
 type Props = {
   id: number;
@@ -10,59 +11,35 @@ type Props = {
 
 const BlogDetails: React.FC<Props> = ({ id }) => {
   const { data, isFetching, isLoading } = UseGetSingleBlog(id);
-  const [activeItemId, setActiveItemId] = useState<number | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const blogItems = document.querySelectorAll(".blog-item");
-      let activeId: number | null = null;
-
-      blogItems.forEach((item: any) => {
-        const rect = item.getBoundingClientRect();
-        if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-          activeId = parseInt(item.getAttribute("data-id") || "");
-        }
-      });
-
-      setActiveItemId(activeId);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 lg-px-8">
       {!isFetching && !isLoading && (
-        <div className="grid grid-cols-3 place-content-center">
-          <div className="col-span-1">
+        <div className="grid grid-cols-2 place-content-center">
+          <div
+            className={`col-span-1 fixed  border px-10 rounded-md py-5 pb-10  top-36`}
+          >
             <h1 className="text-2xl font-medium mb-5">In This Article </h1>
             {data?.blogItems.map((item: any) => (
-              <div key={item.id} className={`my-2 `} data-id={item.id}>
-                <h1
-                  className={`text-[16px] font-medium ${
-                    activeItemId === item.id
-                      ? " border-l-2 border-black text-black"
-                      : "text-gray-600"
-                  }`}
-                >
+              <Link
+                href={`#${item.title}`}
+                key={item.id}
+                className={`my-2  block`}
+                data-id={item.id}
+              >
+                <span className={`text-[16px] font-medium }`}>
                   <span className="ms-2">{item.title}</span>
-                </h1>
-              </div>
+                </span>
+              </Link>
             ))}
           </div>
-          <div className="col-span-2">
+          <div className="col-span-2 ms-[33%]">
             {data?.blogItems?.map((item: any) => (
-              <div key={item.id}>
+              <div key={item.id} id={`${item?.title}`}>
                 <h1
                   data-id={item.id}
-                  className={`blog-item ${
-                    activeItemId === item.id
-                      ? " border-b-2 border-black text-black"
-                      : ""
-                  }`}
+                  className={`blog-item text-2xl font-semibold
+                `}
                 >
                   {item.title}
                 </h1>
@@ -85,5 +62,4 @@ const BlogDetails: React.FC<Props> = ({ id }) => {
     </div>
   );
 };
-
 export default BlogDetails;

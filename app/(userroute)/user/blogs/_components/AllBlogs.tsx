@@ -4,6 +4,7 @@ import { UseGetAllBlogs } from "@/hooks/react-query/blogs/get-all-blogs.hook";
 import debounce from "lodash.debounce";
 import React, { useCallback, useEffect } from "react";
 import Pagination, { usePagination } from "@/components/ui/pagination";
+import BlogSkeleton from "@/components/BlogSkeleton";
 
 const AllBlogs = () => {
   const paginationProps = usePagination();
@@ -49,6 +50,12 @@ const AllBlogs = () => {
               </Card>
             </div>
           ))}
+
+        {isLoading &&
+          isFetching &&
+          new Array(12)
+            .fill(null)
+            .map((el, index) => <BlogSkeleton key={index} />)}
       </div>
       <div className="flex justify-center mt-10">
         {!isFetching && !isLoading && data?.totalPage && (

@@ -15,7 +15,12 @@ export const Preview: React.FC<PreviewProps> = ({ value }) => {
 
   return (
     <div className="bg-white">
-      <ReactQuill theme="bubble" value={value} readOnly />
+      <ReactQuill
+        theme="bubble"
+        value={value}
+        readOnly
+        className="text-[16px] font-medium"
+      />
     </div>
   );
 };

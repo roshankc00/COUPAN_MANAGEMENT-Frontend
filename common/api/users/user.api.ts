@@ -40,3 +40,7 @@ export const resetPassword = async (resetPasswordData: IResetPassword) => {
 export const verifyEmail = async (token: string) => {
   const data = await axios.get(`/users/verify-email/${token}`);
 };
+
+export const handleLogin = () => {
+  window.location.href = "http://localhost:8000/api/v1/auth/google/callback";
+};
