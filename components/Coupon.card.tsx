@@ -29,6 +29,7 @@ const Couponcard: React.FC<Props> = ({ coupon }) => {
     } catch (err) {
       toast.success("Failed to copy");
     }
+    //
   };
 
   return (
@@ -52,7 +53,10 @@ const Couponcard: React.FC<Props> = ({ coupon }) => {
               {coupon?.description}
             </p>
             {/* <p className="deadline  text-gray-500 mt-2">{coupon?.expireDate}</p> */}
-            <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, nemo.</h1>
+            <h1>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga,
+              nemo.
+            </h1>
           </div>
         </div>
         <div className="relative">
