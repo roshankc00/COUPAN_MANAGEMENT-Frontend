@@ -36,7 +36,7 @@ const BreadCrumCom = () => {
   return (
     <div className=" z-100  w-full z-100">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg-px-8 py-5  ">
-        <Breadcrumb>
+        <Breadcrumb className="text-[16px]">
           <BreadcrumbList className="flex justify-between items-center w-full ">
             <div className="flex gap-4">
               <BreadcrumbItem>

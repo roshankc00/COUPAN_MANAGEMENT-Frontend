@@ -6,13 +6,13 @@ import { ICoupon } from "@/interfaces/coupon.interface";
 import { SkeletonCouponCard } from "../CouponCard.skeleton";
 import { handleLogin } from "@/common/api/users/user.api";
 import { Button } from "../ui/button";
+import CouponCard2 from "../cards/Coupon.card";
 
 const Featuredcoupons = () => {
   const { data, isFetching, isLoading } = UseGetAllCoupons();
-  console.log(data);
   return (
-    <main className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-16">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-10">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
         {isLoading &&
           isFetching &&
           new Array(12)
@@ -21,8 +21,15 @@ const Featuredcoupons = () => {
         {!isLoading &&
           !isFetching &&
           data?.map((item: ICoupon) => <Couponcard coupon={item} />)}
+      </div> */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 ">
+        <CouponCard2 />
+        <CouponCard2 />
+        <CouponCard2 />
+        <CouponCard2 />
+        <CouponCard2 />
       </div>
-    </main>
+    </div>
   );
 };
 

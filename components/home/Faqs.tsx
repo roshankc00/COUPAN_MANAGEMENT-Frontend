@@ -13,16 +13,12 @@ const FaqsCom = () => {
   return (
     <div className="my-16">
       {!isLoading && !isFetching && (
-        <Accordion
-          type="single"
-          collapsible
-          className="grid grid-cols-1 gap-5 lg:grid-cols-2"
-        >
+        <Accordion type="single" collapsible>
           {data?.map((item: any) => (
             <>
               <AccordionItem
                 value={item.id}
-                className="border border-slate-200 px-3"
+                className="border border-slate-200 px-3 my-5 rounded-lg"
               >
                 <AccordionTrigger>{item.question}</AccordionTrigger>
                 <AccordionContent>{item.answer}</AccordionContent>
