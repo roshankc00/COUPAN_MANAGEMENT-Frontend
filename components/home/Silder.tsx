@@ -11,7 +11,6 @@ import { UseGetAllHomeDetails } from "@/hooks/react-query/home/get-all-home-deta
 
 const Silder = () => {
   const { data, isFetching, isLoading } = UseGetAllHomeDetails();
-  console.log(data);
   return (
     <div>
       <Carousel>

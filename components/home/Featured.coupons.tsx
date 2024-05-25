@@ -12,7 +12,7 @@ const Featuredcoupons = () => {
   const { data, isFetching, isLoading } = UseGetAllCoupons();
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-10">
-      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 ">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 ">
         {isLoading &&
           isFetching &&
           new Array(12)
@@ -20,14 +20,7 @@ const Featuredcoupons = () => {
             .map((el, index) => <SkeletonCouponCard key={index} />)}
         {!isLoading &&
           !isFetching &&
-          data?.map((item: ICoupon) => <Couponcard coupon={item} />)}
-      </div> */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 ">
-        <CouponCard2 />
-        <CouponCard2 />
-        <CouponCard2 />
-        <CouponCard2 />
-        <CouponCard2 />
+          data?.map((item: ICoupon) => <CouponCard2 coupon={item} />)}
       </div>
     </div>
   );

@@ -1,12 +1,17 @@
+import { IStore } from "@/interfaces/Store.interface";
 import React from "react";
 
-const StoreCard2 = () => {
+type Props = {
+  store: IStore;
+};
+
+const StoreCard2: React.FC<Props> = ({ store }) => {
   return (
     <div className="shadow-sm rounded-2xl">
       <img
-        src="https://images.unsplash.com/photo-1565692936545-c23bd329340a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHN0YXJidWNrc3xlbnwwfHwwfHx8MA%3D%3D"
+        src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${store?.imageName}`}
         alt=""
-        className="shadow-sm rounded-2xl"
+        className="shadow-sm rounded-2xl h-[100px] w-[200px]"
       />
     </div>
   );
