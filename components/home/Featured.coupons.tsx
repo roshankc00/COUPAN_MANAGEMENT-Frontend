@@ -1,12 +1,12 @@
 "use client";
 import { UseGetAllCoupons } from "@/hooks/react-query/coupons/get_all_coupons.hook";
 import React from "react";
-import Couponcard from "../Coupon.card";
+import Couponcard from "../Review.Coupon.card";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import { SkeletonCouponCard } from "../CouponCard.skeleton";
 import { handleLogin } from "@/common/api/users/user.api";
 import { Button } from "../ui/button";
-import CouponCard2 from "../cards/Coupon.card";
+import CouponCard from "../cards/Coupon.card";
 
 const Featuredcoupons = () => {
   const { data, isFetching, isLoading } = UseGetAllCoupons();
@@ -20,7 +20,7 @@ const Featuredcoupons = () => {
             .map((el, index) => <SkeletonCouponCard key={index} />)}
         {!isLoading &&
           !isFetching &&
-          data?.map((item: ICoupon) => <CouponCard2 coupon={item} />)}
+          data?.map((item: ICoupon) => <CouponCard coupon={item} />)}
       </div>
     </div>
   );

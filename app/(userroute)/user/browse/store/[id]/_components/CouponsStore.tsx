@@ -1,6 +1,5 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import Couponcard from "@/components/Coupon.card";
 import { UseGetAllCouponsOfStore } from "@/hooks/react-query/coupons/get-all-coupons-of-store";
 import {
   Select,
@@ -15,6 +14,14 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";
 import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
+import CouponCard from "@/components/cards/Coupon.card";
+import { UseGetStoreInfo } from "@/hooks/react-query/stores/get-single-store";
+import { UseGetCurrentUser } from "@/hooks/react-query/users/get-current-user";
+import { isStoreFollowed } from "@/common/helpers/followedUserOrNot";
+import { useMutation } from "@tanstack/react-query";
+import { followUnfollowstore } from "@/common/api/stores/store.api";
+import toast from "react-hot-toast";
+import { client } from "@/components/Provider";
 type Props = {
   storeId: number;
 };
@@ -31,27 +38,86 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
   const onSubmit = () => refetch();
   const debouncedSubmit = debounce(onSubmit, 400);
   const _debounceSubmit = useCallback(debouncedSubmit, []);
-
   useEffect(() => {
     _debounceSubmit();
   }, [paginationProps.currentPage]);
 
-  console.log(allCoupons);
+  const {
+    data: storeDetails,
+    isFetching: storeDetailsLoading,
+    isLoading: storeDetailsFetching,
+    refetch: storeDetailsRefetch,
+  } = UseGetStoreInfo(storeId);
+
+  const { mutate: handleFollowUnFollowClick } = useMutation({
+    mutationFn: followUnfollowstore,
+    onSuccess(data) {
+      toast.success(data?.message);
+      client.invalidateQueries({
+        queryKey: ["followed-store"],
+      });
+    },
+  });
+
+  useEffect(() => {
+    storeDetailsRefetch();
+  }, [storeId]);
+
   return (
     <div>
-      {isLoading &&
-        isFetching &&
-        new Array(12)
-          .fill(null)
-          .map((el, index) => <SkeletonCouponCard key={index} />)}
-      {!isLoading &&
-        !isFetching &&
-        allCoupons?.coupons?.map((item: ICoupon) => (
-          <Couponcard coupon={item} />
-        ))}
-      {!isLoading && !isFetching && allCoupons?.totalPage && (
-        <Pagination {...paginationProps} totalPages={allCoupons?.totalPage} />
-      )}
+      <div className=" border-b-2 pb-10">
+        {!storeDetailsLoading && !storeDetailsFetching && (
+          <div className="flex gap-3 items-center mt-4">
+            <img
+              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${storeDetails?.imageName}`}
+              alt=""
+              className="w-[20%] h-[30%]"
+            />
+            <div>
+              <h1 className="font-bold   text-2xl ">{storeDetails?.title}</h1>
+              <div>
+                <span>{storeDetails?.followers?.length} followers</span>
+                <span>{storeDetails?.coupons?.length} coupons</span>
+                <span>active coupons</span>
+              </div>
+              <p className="p-2">{storeDetails?.description}</p>
+              <button
+                className="p-1 px-5 bg-blue-600 text-white rounded-md shadow-sm"
+                onClick={() =>
+                  handleFollowUnFollowClick({
+                    storeId: +storeId,
+                  })
+                }
+              >
+                {isStoreFollowed(+storeId, storeDetails)
+                  ? "Unfollow"
+                  : "Follow"}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <h1 className=" text-3xl font-semibold text-blue-700 flex justify-center my-10">
+        All Coupons
+      </h1>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mt-12">
+        {isLoading &&
+          isFetching &&
+          new Array(12)
+            .fill(null)
+            .map((el, index) => <SkeletonCouponCard key={index} />)}
+        {!isLoading &&
+          !isFetching &&
+          allCoupons?.coupons?.map((item: ICoupon) => (
+            <CouponCard coupon={item} />
+          ))}
+      </div>
+      <div className="flex justify-center">
+        {!isLoading && !isFetching && allCoupons?.totalPage && (
+          <Pagination {...paginationProps} totalPages={allCoupons?.totalPage} />
+        )}
+      </div>
     </div>
   );
 };

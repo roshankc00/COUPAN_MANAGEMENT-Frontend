@@ -40,3 +40,8 @@ export const deleteStore = async (id: number) => {
   const { data } = await axios.delete(`/store/${id}`);
   return data;
 };
+
+export const followUnfollowstore = async (body: { storeId: number }) => {
+  const { data } = await axios.post(`/followers/follow-unfollow`, body);
+  return data;
+};

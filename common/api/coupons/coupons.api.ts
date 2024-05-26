@@ -68,3 +68,14 @@ export const deleteCoupon = async (id: number) => {
   const { data } = await axios.delete(`/coupons/${id}`);
   return data;
 };
+
+export const existInWatchList = async (couponId: number) => {
+  const { data } = await axios.get(
+    `/wishlists/coupon/exist?couponId=${couponId}`
+  );
+  return data;
+};
+export const addRemoveInWatchList = async (couponId: number) => {
+  const { data } = await axios.post(`/wishlists/add-remove`, { couponId });
+  return data;
+};

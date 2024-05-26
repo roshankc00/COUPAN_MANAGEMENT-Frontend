@@ -4,7 +4,6 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import debounce from "lodash.debounce";
 import { UseGetAllSubCategoryOfParticularCategory } from "@/hooks/react-query/sub-categories/getAllsubcategories-of-category";
-import Couponcard from "@/components/Coupon.card";
 import { UseGetAllCouponsOfCatSubcat } from "@/hooks/react-query/coupons/get_all_coupons_cat-subcat.hook ";
 import {
   Select,
@@ -19,6 +18,7 @@ import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";
 import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
+import CouponCard from "@/components/cards/Coupon.card";
 
 const SideFilter = ({ categoryId }: { categoryId: number }) => {
   const paginationProps = usePagination();
@@ -63,8 +63,8 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
     _debounceSubmit();
   }, [paginationProps.currentPage]);
   return (
-    <main className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8">
-      <div className="sm:grid grid-cols-7 ">
+    <main className="mx-auto max-w-7xl px-1">
+      <div className="sm:grid grid-cols-9">
         <div className="col-span-2 hidden md:block">
           <div className="shadow-sm p-3 rounded-md bg-slate-50 ">
             <h1 className="mb-3 font-medium">All SubCategory</h1>
@@ -117,18 +117,19 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
           </div>
         </div>
 
-        <div className="col-span-7 md:col-span-5">
-          {couponFetching &&
-            couponLoading &&
-            new Array(12)
-              .fill(null)
-              .map((el, index) => <SkeletonCouponCard key={index} />)}
-          {!couponFetching &&
-            !couponLoading &&
-            allCoupons?.coupons?.map((item: ICoupon) => (
-              <Couponcard coupon={item} />
-            ))}
-
+        <div className="col-span-9 md:col-span-7">
+          <div className="grid grid-cols-1  md:grid-cols-3 gap-x-2 gap-y-4">
+            {couponFetching &&
+              couponLoading &&
+              new Array(12)
+                .fill(null)
+                .map((el, index) => <SkeletonCouponCard key={index} />)}
+            {!couponFetching &&
+              !couponLoading &&
+              allCoupons?.coupons?.map((item: ICoupon) => (
+                <CouponCard coupon={item} />
+              ))}
+          </div>
           {!couponFetching && !couponLoading && allCoupons?.totalPage && (
             <Pagination
               {...paginationProps}

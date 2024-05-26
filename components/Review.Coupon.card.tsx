@@ -20,7 +20,7 @@ interface Props {
   coupon: ICoupon;
 }
 
-const Couponcard: React.FC<Props> = ({ coupon }) => {
+const ReviewCouponcard: React.FC<Props> = ({ coupon }) => {
   const router = useRouter();
   const handleCopyToClipboard = async (text: string) => {
     try {
@@ -88,4 +88,4 @@ const Couponcard: React.FC<Props> = ({ coupon }) => {
   );
 };
 
-export default Couponcard;
+export default ReviewCouponcard;

@@ -5,15 +5,14 @@ import { FaHeart } from "react-icons/fa";
 import React, { useCallback, useState } from "react";
 import AlpaStore from "../../browse/store/_component/Alpa";
 import { UseGetAllUserWishlistCoupons } from "@/hooks/react-query/coupons/get-all-wishlist.coupons";
-import Couponcard from "@/components/Coupon.card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import debounce from "lodash.debounce";
 import { ICoupon } from "@/interfaces/coupon.interface";
+import CouponCard from "@/components/cards/Coupon.card";
 const ListWishlists = () => {
   const ALL_ROUTES = ["All", "Active", "Expire"];
   const [activeRoute, setactiveRoute] = useState("all");
-  const router = useRouter();
   const { data, refetch } = UseGetAllUserWishlistCoupons(activeRoute);
   const onSubmit = () => refetch();
 
@@ -41,9 +40,9 @@ const ListWishlists = () => {
           );
         })}
       </div>
-      <div className="grid grid-cols-1 my-10  lg:grid-cols-2 gap-4 place-content-center">
+      <div className="grid grid-cols-1 my-20  lg:grid-cols-3 gap-4 place-content-center ">
         {data?.coupons?.map((item: ICoupon) => (
-          <Couponcard coupon={item} />
+          <CouponCard coupon={item} />
         ))}
       </div>
     </main>

@@ -5,7 +5,7 @@ type Props = {
   store: IStore;
 };
 
-const StoreCard2: React.FC<Props> = ({ store }) => {
+const StoreCard: React.FC<Props> = ({ store }) => {
   return (
     <div className="shadow-sm rounded-2xl">
       <img
@@ -17,4 +17,4 @@ const StoreCard2: React.FC<Props> = ({ store }) => {
   );
 };
 
-export default StoreCard2;
+export default StoreCard;
