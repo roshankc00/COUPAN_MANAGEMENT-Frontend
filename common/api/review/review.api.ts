@@ -11,7 +11,7 @@ interface ReviewFormData {
 }
 import axios from "../api";
 export const postReview = async (body: any) => {
-  const { data } = await axios.post(`/reviews`, body);
+  const { data } = await axios.post(`/review`, body);
   return data;
 };
 export const getAllReviews = async (

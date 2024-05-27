@@ -10,7 +10,7 @@ export const UseGetAllReviews = (
   searchText: string | null
 ) => {
   const { data, isLoading, isFetching, refetch } = useQuery({
-    queryKey: ["all-reviews"],
+    queryKey: [""],
     queryFn: () => getAllReviews(page, noOfPages, couponId, rating, searchText),
   });
   return { data, isFetching, isLoading, refetch };

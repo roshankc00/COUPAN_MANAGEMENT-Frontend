@@ -107,21 +107,9 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
               </SelectContent>
             </Select>
           </div>
-          <Dialog>
-            <DialogTrigger>
-              <button className="bg-blue-600 text-white  p-2 px-3 rounded-md shadow-sm col-span-1">
-                Add Review
-              </button>
-            </DialogTrigger>
-            <DialogContent className="col-span-1">
-              <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
-                Add a Review
-              </DialogTitle>
-              <DialogDescription>
-                <ReviewForm />
-              </DialogDescription>
-            </DialogContent>
-          </Dialog>
+          <div className="col-span-1">
+            <ReviewForm couponId={+id} />
+          </div>
         </div>
 
         <div>
