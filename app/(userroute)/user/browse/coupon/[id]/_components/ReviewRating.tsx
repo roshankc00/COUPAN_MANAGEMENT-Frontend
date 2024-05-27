@@ -1,5 +1,4 @@
 "use client";
-import Couponcard from "@/components/Coupon.card";
 import { Input } from "@/components/ui/input";
 import { UseGetSingleCoupon } from "@/hooks/react-query/coupons/get-single-coupon";
 import React, { useCallback, useState } from "react";
@@ -19,6 +18,17 @@ import { UseGetReviewStatus } from "@/hooks/react-query/reviews/get-review.statu
 import { Progress } from "@/components/ui/progress";
 import { FaStar } from "react-icons/fa";
 import { Separator } from "@/components/ui/separator";
+import ReviewCouponcard from "@/components/Review.Coupon.card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import ReviewForm from "@/components/Review.form";
 type Props = {
   id: number;
 };
@@ -43,7 +53,7 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
     <div>
       {!isLoading && !isFetching && (
         <div>
-          <Couponcard coupon={data} />
+          <ReviewCouponcard coupon={data} />
         </div>
       )}
       <div className=" my-10 p-5 border">
@@ -67,34 +77,51 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
         <div className="my-10">
           <h1 className="text-2xl font-bold">Reviews and Rating</h1>
         </div>
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid grid-cols-7 gap-5">
           <Input
             placeholder="Search For a  Review"
-            className="col-span-3"
+            className="col-span-4"
             value={searchText}
             onChange={(e) => {
               setsearchText(e.target.value);
               _debounceSubmit();
             }}
           />
-          <Select
-            onValueChange={(val) => {
-              setrating(+val);
-              _debounceSubmit();
-            }}
-          >
-            <SelectTrigger className="">
-              <SelectValue placeholder="Filter by Rating" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={"0"}>allRating</SelectItem>
-              <SelectItem value={"1"}>OneStar</SelectItem>
-              <SelectItem value={"2"}>TwoStar</SelectItem>
-              <SelectItem value={"3"}>ThreeStar</SelectItem>
-              <SelectItem value={"4"}>FourStar</SelectItem>
-              <SelectItem value={"5"}>FiveStar</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="col-span-2">
+            <Select
+              onValueChange={(val) => {
+                setrating(+val);
+                _debounceSubmit();
+              }}
+            >
+              <SelectTrigger className="">
+                <SelectValue placeholder="Filter by Rating" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={"0"}>allRating</SelectItem>
+                <SelectItem value={"1"}>OneStar</SelectItem>
+                <SelectItem value={"2"}>TwoStar</SelectItem>
+                <SelectItem value={"3"}>ThreeStar</SelectItem>
+                <SelectItem value={"4"}>FourStar</SelectItem>
+                <SelectItem value={"5"}>FiveStar</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <Dialog>
+            <DialogTrigger>
+              <button className="bg-blue-600 text-white  p-2 px-3 rounded-md shadow-sm col-span-1">
+                Add Review
+              </button>
+            </DialogTrigger>
+            <DialogContent className="col-span-1">
+              <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
+                Add a Review
+              </DialogTitle>
+              <DialogDescription>
+                <ReviewForm />
+              </DialogDescription>
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div>
