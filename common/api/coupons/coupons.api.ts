@@ -79,3 +79,8 @@ export const addRemoveInWatchList = async (couponId: number) => {
   const { data } = await axios.post(`/wishlists/add-remove`, { couponId });
   return data;
 };
+
+export const getLatestCoupons = async () => {
+  const { data } = await axios.get(`/coupons/featured/coupons?no=9`);
+  return data;
+};

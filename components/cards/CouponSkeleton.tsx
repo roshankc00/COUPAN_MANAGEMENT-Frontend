@@ -1,4 +1,4 @@
-const BlogSkeleton = () => {
+const CouponSkeletonCard = () => {
   return (
     <div className="relative animate-pulse">
       <div className="aspect-square aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lh:h-80">
@@ -13,4 +13,4 @@ const BlogSkeleton = () => {
   );
 };
 
-export default BlogSkeleton;
+export default CouponSkeletonCard;

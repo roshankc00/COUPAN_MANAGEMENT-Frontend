@@ -8,6 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { UseGetAllHomeDetails } from "@/hooks/react-query/home/get-all-home-details";
+import SliderSkeletion from "./SliderSkeletion";
 
 const Silder = () => {
   const { data, isFetching, isLoading } = UseGetAllHomeDetails();
@@ -15,6 +16,11 @@ const Silder = () => {
     <div>
       <Carousel>
         <CarouselContent>
+          {isLoading && isFetching && (
+            <CarouselItem>
+              <SliderSkeletion />
+            </CarouselItem>
+          )}
           {!isLoading &&
             !isFetching &&
             data &&

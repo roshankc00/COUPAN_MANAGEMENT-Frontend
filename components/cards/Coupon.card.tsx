@@ -70,13 +70,19 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
         <div className="flex gap-2 items-center">
           <SlCalender />
           <h3 className="text-sm text-gray-700">
-            {calculateRemaingDays(coupon?.expireDate) >= 0 ? (
+            {calculateRemaingDays(coupon?.expireDate) > 0 ? (
               `${calculateRemaingDays(coupon?.expireDate)} Days Left`
             ) : (
-              <div className="flex items-center gap-1">
-                <div className="bg-red-500 h-2 w-2 rounded-full "></div>
-                Expired
-              </div>
+              <>
+                {calculateRemaingDays(coupon?.expireDate) === 0 ? (
+                  <h3 className="text-sm text-gray-700">Final Day Left</h3>
+                ) : (
+                  <div className="flex items-center gap-1">
+                    <div className="bg-red-500 h-2 w-2 rounded-full "></div>
+                    Expired
+                  </div>
+                )}
+              </>
             )}
           </h3>
         </div>

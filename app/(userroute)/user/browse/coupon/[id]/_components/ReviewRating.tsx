@@ -29,6 +29,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import ReviewForm from "@/components/Review.form";
+import { XCircle } from "lucide-react";
 type Props = {
   id: number;
 };
@@ -56,24 +57,35 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
           <ReviewCouponcard coupon={data} />
         </div>
       )}
-      <div className=" my-10 p-5 border">
+
+      {isLoading && isFetching && (
         <div>
-          <h1 className="my-10 font-bold text-2xl">What Our User Says </h1>
-          {!statusLoading && (
+          <ReviewCardSkeleton coupon={data} />
+        </div>
+      )}
+
+      <div className=" my-10 p-5 border">
+        {!reviewFetching &&
+          !reviewLoading &&
+          allReview?.reviews?.length > 0 && (
             <div>
-              {statusData?.map((item: any) => (
-                <div className="flex gap-2 items-center justify-center my-10">
-                  <div className="flex items-center gap-1 ">
-                    <h1 className="text-bold">{item.rating} </h1>
-                    <FaStar color="orange" />
-                  </div>
-                  <Progress value={item?.per} />
-                  <h1 className="text-bold">{item.per.toFixed(2)}</h1>
+              <h1 className="my-10 font-bold text-2xl">What Our User Says </h1>
+              {!statusLoading && (
+                <div>
+                  {statusData?.map((item: any) => (
+                    <div className="flex gap-2 items-center justify-center my-10">
+                      <div className="flex items-center gap-1 ">
+                        <h1 className="text-bold">{item.rating} </h1>
+                        <FaStar color="orange" />
+                      </div>
+                      <Progress value={item?.per} />
+                      <h1 className="text-bold">{item.per.toFixed(2)}</h1>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
           )}
-        </div>
         <div className="my-10">
           <h1 className="text-2xl font-bold">Reviews and Rating</h1>
         </div>
@@ -111,13 +123,14 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
             <ReviewForm couponId={+id} />
           </div>
         </div>
-
+      </div>
+      {reviewFetching &&
+        reviewLoading &&
+        new Array(12)
+          .fill(null)
+          .map((el, index) => <ReviewCardSkeleton key={index} />)}
+      {!reviewFetching && !reviewLoading && allReview?.reviews?.length > 0 ? (
         <div>
-          {reviewFetching &&
-            reviewLoading &&
-            new Array(12)
-              .fill(null)
-              .map((el, index) => <ReviewCardSkeleton key={index} />)}
           {!reviewFetching &&
             !reviewLoading &&
             allReview?.reviews?.map((item: any) => <ReviewCard data={item} />)}
@@ -128,7 +141,14 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
             />
           )}
         </div>
-      </div>
+      ) : (
+        <div className="relative col-span-full h-80 bg-gray-50 w-full p-12 flex flex-col items-center justify-center">
+          <h3 className="font-semibold text-xl">No Review found</h3>
+          <p className="text-zinc-500 text-sm">
+            We found no associated with reviews
+          </p>
+        </div>
+      )}
     </div>
   );
 };

@@ -10,10 +10,13 @@ import { cn } from "@/lib/utils";
 import debounce from "lodash.debounce";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import CouponCard from "@/components/cards/Coupon.card";
+import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
+import EmptyState from "@/components/EmptyState";
 const ListWishlists = () => {
   const ALL_ROUTES = ["All", "Active", "Expire"];
   const [activeRoute, setactiveRoute] = useState("all");
-  const { data, refetch } = UseGetAllUserWishlistCoupons(activeRoute);
+  const { isLoading, isFetching, data, refetch } =
+    UseGetAllUserWishlistCoupons(activeRoute);
   const onSubmit = () => refetch();
 
   const debouncedSubmit = debounce(onSubmit, 400);
@@ -41,9 +44,18 @@ const ListWishlists = () => {
         })}
       </div>
       <div className="grid grid-cols-1 my-20  lg:grid-cols-3 gap-4 place-content-center ">
-        {data?.coupons?.map((item: ICoupon) => (
-          <CouponCard coupon={item} />
-        ))}
+        {!isFetching &&
+          !isLoading &&
+          data?.coupons?.map((item: ICoupon) => <CouponCard coupon={item} />)}
+        {isLoading &&
+          isFetching &&
+          new Array(12)
+            .fill(null)
+            .map((el, index) => <CouponSkeletonCard key={index} />)}
+
+        {!isFetching && !isLoading && data?.coupons?.length <= 0 && (
+          <EmptyState />
+        )}
       </div>
     </main>
   );

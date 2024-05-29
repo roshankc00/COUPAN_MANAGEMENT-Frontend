@@ -19,6 +19,8 @@ import { ICoupon } from "@/interfaces/coupon.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";
 import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
 import CouponCard from "@/components/cards/Coupon.card";
+import EmptyStateFilter from "@/components/EmptyFilterState";
+import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 
 const SideFilter = ({ categoryId }: { categoryId: number }) => {
   const paginationProps = usePagination();
@@ -123,12 +125,15 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
               couponLoading &&
               new Array(12)
                 .fill(null)
-                .map((el, index) => <SkeletonCouponCard key={index} />)}
+                .map((el, index) => <CouponSkeletonCard key={index} />)}
             {!couponFetching &&
               !couponLoading &&
               allCoupons?.coupons?.map((item: ICoupon) => (
                 <CouponCard coupon={item} />
               ))}
+            {!couponFetching &&
+              !couponLoading &&
+              allCoupons?.coupons?.length <= 0 && <EmptyStateFilter />}
           </div>
           {!couponFetching && !couponLoading && allCoupons?.totalPage && (
             <Pagination

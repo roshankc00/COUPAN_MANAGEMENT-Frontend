@@ -70,7 +70,14 @@ const SubmitOffer = () => {
   };
 
   return (
-    <div className="ms-24">
+    <div className="ms-2 mt-5">
+      <div className="my-5">
+        <h1 className="text-blue-700 text-4xl font-medium my-3">Contact Us</h1>
+        <p className="text-gray-600 text-xl">
+          Visit our Help Center to find answers quickly or get in touch with our
+          support team by filling this form:
+        </p>
+      </div>
       <div>
         <Card className="mb-10">
           <CardHeader></CardHeader>

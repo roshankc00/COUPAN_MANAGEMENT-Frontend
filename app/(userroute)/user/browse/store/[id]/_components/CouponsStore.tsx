@@ -22,6 +22,8 @@ import { useMutation } from "@tanstack/react-query";
 import { followUnfollowstore } from "@/common/api/stores/store.api";
 import toast from "react-hot-toast";
 import { client } from "@/components/Provider";
+import EmptyStateFilter from "@/components/EmptyFilterState";
+import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 type Props = {
   storeId: number;
 };
@@ -106,12 +108,15 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
           isFetching &&
           new Array(12)
             .fill(null)
-            .map((el, index) => <SkeletonCouponCard key={index} />)}
+            .map((el, index) => <CouponSkeletonCard key={index} />)}
         {!isLoading &&
-          !isFetching &&
+          !isLoading &&
           allCoupons?.coupons?.map((item: ICoupon) => (
             <CouponCard coupon={item} />
           ))}
+        {!isLoading && !isLoading && allCoupons?.coupons?.length <= 0 && (
+          <EmptyStateFilter />
+        )}
       </div>
       <div className="flex justify-center">
         {!isLoading && !isFetching && allCoupons?.totalPage && (

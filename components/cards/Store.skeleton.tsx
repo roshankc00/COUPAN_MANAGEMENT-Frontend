@@ -1,9 +1,7 @@
 const StoreSkeleton = () => {
   return (
     <div className="relative animate-pulse">
-      <div className="aspect-square aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none ">
-        <div className="w-full h-full bg-gray-200" />
-      </div>
+      <div className="shadow-sm rounded-2xl bg-gray-200 h-[100px] w-[200px]"></div>
     </div>
   );
 };

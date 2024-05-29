@@ -45,3 +45,7 @@ export const followUnfollowstore = async (body: { storeId: number }) => {
   const { data } = await axios.post(`/followers/follow-unfollow`, body);
   return data;
 };
+export const getLatestStore = async () => {
+  const { data } = await axios.get(`/store/featured/get-latest-stores?no=4`);
+  return data;
+};

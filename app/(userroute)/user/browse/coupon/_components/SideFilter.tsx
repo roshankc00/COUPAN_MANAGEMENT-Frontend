@@ -24,6 +24,8 @@ import { IStore } from "@/interfaces/Store.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";
 import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
 import CouponCard from "@/components/cards/Coupon.card";
+import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
+import EmptyStateFilter from "@/components/EmptyFilterState";
 type IFilter = {
   categoryIds: number[];
   storeIds: number[];
@@ -189,13 +191,13 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
           </div>
         </div>
 
-        <div className="col-span-9 md:col-span-7">
+        <div className="col-span-9 md:col-span-7 gap-5">
           <div className="grid grid-cols-1  md:grid-cols-3 gap-x-2 gap-y-4">
             {couponFetching &&
               couponLoading &&
               new Array(12)
                 .fill(null)
-                .map((el, index) => <SkeletonCouponCard key={index} />)}
+                .map((el, index) => <CouponSkeletonCard key={index} />)}
 
             {!couponFetching &&
               !couponLoading &&
@@ -204,6 +206,9 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
                   <CouponCard coupon={item} />
                 </>
               ))}
+            {!couponFetching &&
+              !couponLoading &&
+              allCoupons?.coupons?.length <= 0 && <EmptyStateFilter />}
           </div>
           {!couponFetching && !couponLoading && allCoupons?.totalPage && (
             <Pagination
