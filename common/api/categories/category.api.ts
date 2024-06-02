@@ -29,3 +29,10 @@ export const deleteCategory = async (id: number) => {
   const { data } = await axios.delete(`/category/${id}`);
   return data;
 };
+
+export const getLatestcategories = async () => {
+  const { data } = await axios.get(
+    `/category/featured/get-latest-categories?no=10`
+  );
+  return data;
+};

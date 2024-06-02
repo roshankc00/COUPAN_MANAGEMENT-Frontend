@@ -24,6 +24,8 @@ import toast from "react-hot-toast";
 import { client } from "@/components/Provider";
 import EmptyStateFilter from "@/components/EmptyFilterState";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
+import { UseItemExistInFollowerlist } from "@/hooks/react-query/stores/item-exist-in-store";
+import { date } from "zod";
 type Props = {
   storeId: number;
 };
@@ -65,6 +67,8 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
     storeDetailsRefetch();
   }, [storeId]);
 
+  const { data: itemExist, isLoading: existLoading } =
+    UseItemExistInFollowerlist(storeId);
   return (
     <div>
       <div className=" border-b-2 pb-10">
@@ -83,18 +87,18 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
                 <span>active coupons</span>
               </div>
               <p className="p-2">{storeDetails?.description}</p>
-              <button
-                className="p-1 px-5 bg-blue-600 text-white rounded-md shadow-sm"
-                onClick={() =>
-                  handleFollowUnFollowClick({
-                    storeId: +storeId,
-                  })
-                }
-              >
-                {isStoreFollowed(+storeId, storeDetails)
-                  ? "Unfollow"
-                  : "Follow"}
-              </button>
+              {!existLoading && (
+                <button
+                  className="p-1 px-5 bg-blue-600 text-white rounded-md shadow-sm"
+                  onClick={() =>
+                    handleFollowUnFollowClick({
+                      storeId: +storeId,
+                    })
+                  }
+                >
+                  {itemExist?.exist ? "Unfollow" : "Follow"}
+                </button>
+              )}
             </div>
           </div>
         )}

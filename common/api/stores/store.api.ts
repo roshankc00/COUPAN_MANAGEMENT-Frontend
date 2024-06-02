@@ -49,3 +49,8 @@ export const getLatestStore = async () => {
   const { data } = await axios.get(`/store/featured/get-latest-stores?no=4`);
   return data;
 };
+
+export const existInFollowerList = async (storeId: number) => {
+  const { data } = await axios.get(`/followers/store/exist?storeId=${storeId}`);
+  return data;
+};

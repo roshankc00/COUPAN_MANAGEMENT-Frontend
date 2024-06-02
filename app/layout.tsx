@@ -20,11 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <Toaster />
-          <div className="">{children}</div>
-          {/* {pathName !== "/login" && pathName !== "/signup" && <Footer />} */}
-        </Providers>
+        <div className="bg-[#fcfcfc]">
+          <Providers>
+            <Toaster />
+            <div className="">{children}</div>
+            {/* {pathName !== "/login" && pathName !== "/signup" && <Footer />} */}
+          </Providers>
+        </div>
       </body>
     </html>
   );

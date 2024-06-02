@@ -21,6 +21,7 @@ const ListWishlists = () => {
 
   const debouncedSubmit = debounce(onSubmit, 400);
   const _debounceSubmit = useCallback(debouncedSubmit, []);
+
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-16">
       <h1 className="text-4xl font-medium my-10 ">Saved Offers</h1>
@@ -46,16 +47,14 @@ const ListWishlists = () => {
       <div className="grid grid-cols-1 my-20  lg:grid-cols-3 gap-4 place-content-center ">
         {!isFetching &&
           !isLoading &&
-          data?.coupons?.map((item: ICoupon) => <CouponCard coupon={item} />)}
+          data?.map((item: any) => <CouponCard coupon={item?.coupon} />)}
         {isLoading &&
           isFetching &&
           new Array(12)
             .fill(null)
             .map((el, index) => <CouponSkeletonCard key={index} />)}
 
-        {!isFetching && !isLoading && data?.coupons?.length <= 0 && (
-          <EmptyState />
-        )}
+        {!isFetching && !isLoading && data?.length <= 0 && <EmptyState />}
       </div>
     </main>
   );

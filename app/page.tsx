@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import TableSkeleton from "@/components/TableSkeleton";
 import { handleLogin } from "@/common/api/users/user.api";
 import Silder from "@/components/home/Silder";
+import FeatureCategory from "@/components/home/Featured.cateory";
 export async function generateMetadata() {
   const ogImageUrl = logo;
   return {
@@ -41,7 +42,7 @@ export default function Home() {
           <FeaturedStore />
         </div>
 
-        {/* featured product  */}
+        {/* featured coupons  */}
         <div>
           <div className="flex justify-between items-center mt-5 px-8">
             <h1 className="font-medium text-xl">Featured Coupons</h1>
@@ -50,6 +51,16 @@ export default function Home() {
             </button>
           </div>
           <Featuredcoupons />
+        </div>
+        {/* featured product  */}
+        <div>
+          <div className="flex justify-between items-center mt-5 px-8">
+            <h1 className="font-medium text-xl">Featured Category</h1>
+            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1 mt-3">
+              View Category
+            </button>
+          </div>
+          <FeatureCategory />
         </div>
 
         {/* faqs section */}

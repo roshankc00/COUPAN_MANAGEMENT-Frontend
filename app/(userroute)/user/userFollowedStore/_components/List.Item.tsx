@@ -17,12 +17,12 @@ const ListWishlists = () => {
       <h1 className="text-2xl font-medium my-10">Followed Stores </h1>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 place-content-center">
         {!isLoading &&
-          data?.stores?.map((item: IStore) => <StoreCard store={item} />)}
+          data?.map((item: any) => <StoreCard store={item.store} />)}
         {isLoading &&
           new Array(3)
             .fill(null)
             .map((el, index) => <StoreCardSkeleton key={index} />)}
-        {!isLoading && data?.stores?.length <= 0 && <EmptyState />}
+        {!isLoading && data?.length <= 0 && <EmptyState />}
       </div>
       <h1 className="text-2xl font-medium my-10">Recommended Store</h1>
       <AlpaStore />
