@@ -120,7 +120,7 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
             </Select>
           </div>
           <div className="col-span-1">
-            <ReviewForm couponId={+id} />
+            <ReviewForm couponId={+id} refetch={refetch} />
           </div>
         </div>
       </div>

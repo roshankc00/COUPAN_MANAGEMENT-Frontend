@@ -23,11 +23,23 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { useMutation } from "@tanstack/react-query";
+import {
+  QueryObserverBaseResult,
+  QueryObserverResult,
+  RefetchOptions,
+  useMutation,
+} from "@tanstack/react-query";
 import { postReview } from "@/common/api/review/review.api";
 import toast from "react-hot-toast";
 import { client } from "./Provider";
-const ReviewForm: React.FC<{ couponId: number }> = ({ couponId }) => {
+interface Props {
+  couponId: number;
+  refetch: (
+    options?: RefetchOptions | undefined
+  ) => Promise<QueryObserverBaseResult<any, Error>>;
+}
+
+const ReviewForm: React.FC<Props> = ({ couponId, refetch }) => {
   const [open, setopen] = useState(false);
   const formSchema = z.object({
     content: z.string().min(3, {
@@ -43,15 +55,16 @@ const ReviewForm: React.FC<{ couponId: number }> = ({ couponId }) => {
     },
   });
 
-  const { mutate } = useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: postReview,
-    onSuccess(data) {
-      toast.success("Review Added successfully");
-      client.invalidateQueries({ queryKey: ["all-reviews"] });
-    },
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutate({ ...values, couponId: +couponId });
+    mutateAsync({ ...values, couponId: +couponId }).then(() => {
+      toast.success("Review Added successfully");
+      client.invalidateQueries({ queryKey: ["getReviewStatus"] });
+      setopen(false);
+      refetch();
+    });
   };
   return (
     <div>

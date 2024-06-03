@@ -149,8 +149,8 @@ const SubmitOffer = () => {
         {/* navigation  */}
         {ROUTE?.map((item) => (
           <button
-            className={`bg-white p-2 rounded-md shadow-sm  w-[200px] border ${
-              route === item ? "bg-gray-300" : "bg-white"
+            className={` p-2 rounded-md shadow-sm  w-[200px] border ${
+              route === item ? "bg-black text-white" : "bg-white text-black"
             }`}
             onClick={() => setroute(item)}
           >

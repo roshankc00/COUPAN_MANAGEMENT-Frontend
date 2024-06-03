@@ -14,6 +14,7 @@ import { client } from "../Provider";
 import { addRemoveInWatchList } from "@/common/api/coupons/coupons.api";
 import { UseGetAllUserWishlistCoupons } from "@/hooks/react-query/coupons/get-all-wishlist.coupons";
 import { alreadySaved } from "@/common/helpers/savedCouponOrNot";
+import Link from "next/link";
 
 interface Props {
   coupon: ICoupon;
@@ -35,11 +36,13 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
   return (
     <div className="group relative p-3 shadow-md rounded-md">
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 ">
-        <img
-          src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${coupon?.imageName}`}
-          alt="Product image"
-          className=" w-full h-[200px] object-cover object-center rounded-md"
-        />
+        <Link href={`/user/browse/coupon/${coupon.id}`}>
+          <img
+            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${coupon?.imageName}`}
+            alt="Product image"
+            className=" w-full h-[200px] object-cover object-center rounded-md"
+          />
+        </Link>
         <div className="absolute top-0 right-0">
           {!isLoading && alreadySaved(+coupon?.id, data) ? (
             <IoIosBookmark
