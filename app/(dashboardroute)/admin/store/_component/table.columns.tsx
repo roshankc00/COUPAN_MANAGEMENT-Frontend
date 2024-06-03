@@ -208,7 +208,7 @@ export const columns: ColumnDef<ICategory>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/store/${id}`}>
+            <Link href={`/admin/store/edit/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit

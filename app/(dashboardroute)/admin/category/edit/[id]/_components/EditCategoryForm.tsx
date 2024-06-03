@@ -156,7 +156,7 @@ function EditCategoryForm({ id, singleData }: Props) {
   const { data, isFetching, isLoading } = UseGetAllCategory();
   return (
     <div className="mt-10">
-      <AdminHeader title="New-Category" />
+      <AdminHeader title="Edit-Category" />
       <div>
         <Card className=" ms-24">
           <CardHeader></CardHeader>

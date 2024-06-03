@@ -35,11 +35,11 @@ import {
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import { ICategory } from "@/interfaces/category.interface";
 import { ImagePlus } from "lucide-react";
-import AdminHeader from "@/app/(dashboard)/_component/Header";
 import { IStore } from "@/interfaces/Store.interface";
 import { updateStore } from "@/common/api/stores/store.api";
 import { useMutation } from "@tanstack/react-query";
 import { client } from "@/components/Provider";
+import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
 
 type Props = {
   singleData: IStore;
@@ -149,7 +149,7 @@ function EditStoreForm({ singleData, id }: Props) {
   const { data, isFetching, isLoading } = UseGetAllCategory();
   return (
     <div className="mt-10">
-      <AdminHeader title="New-Category" />
+      <AdminHeader title="Edit-Store" />
       <div>
         <Card className=" ms-24">
           <CardHeader></CardHeader>

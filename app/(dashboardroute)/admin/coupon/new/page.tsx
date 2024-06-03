@@ -169,7 +169,7 @@ function NewCouponForm() {
 
   return (
     <div className="mt-10 pb-32">
-      <AdminHeader title="Edit-Coupon" />
+      <AdminHeader title="New-Coupon" />
       <div>
         <Card className=" ms-24">
           <CardHeader></CardHeader>

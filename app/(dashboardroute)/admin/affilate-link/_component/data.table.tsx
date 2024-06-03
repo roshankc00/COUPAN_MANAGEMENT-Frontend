@@ -68,7 +68,7 @@ export function Datatable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <Button onClick={() => router.push("/sub-category/new")}>
+        <Button onClick={() => router.push("/admin/affilate-link/new")}>
           <PlusCircle className="h-4 w-4 mr-2" />
           Add Affilate-Link
         </Button>

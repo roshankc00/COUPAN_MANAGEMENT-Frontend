@@ -129,7 +129,7 @@ function NewStoreForm() {
   const { data, isFetching, isLoading } = UseGetAllCategory();
   return (
     <div className="mt-10">
-      <AdminHeader title="New-Category" />
+      <AdminHeader title="New-Store" />
       <div>
         <Card className=" ms-24">
           <CardHeader></CardHeader>

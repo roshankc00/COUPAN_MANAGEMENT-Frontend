@@ -63,7 +63,7 @@ export function Datatable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <Link href="/coupon/new">
+        <Link href="/admin/coupon/new">
           <Button>
             <PlusCircle className="h-4 w-4 mr-2" />
             Add Coupon

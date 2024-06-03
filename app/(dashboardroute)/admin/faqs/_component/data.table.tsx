@@ -68,7 +68,7 @@ export function Datatable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <Button onClick={() => router.push("/admin/faq/new")}>
+        <Button onClick={() => router.push("/admin/faqs/new")}>
           <PlusCircle className="h-4 w-4 mr-2" />
           Add Faqs
         </Button>

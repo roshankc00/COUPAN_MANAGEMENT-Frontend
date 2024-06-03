@@ -13,6 +13,7 @@ import {
   CircleHelp,
   BadgeEuro,
   MessageCircleX,
+  Link,
 } from "lucide-react";
 import SidebarItem from "./Sidebar.item";
 import { MdCategory, MdDashboard } from "react-icons/md";
@@ -40,6 +41,11 @@ function SidebarRoutes({}: Props) {
       icon: Component,
       label: "Coupon",
       href: "/admin/coupon",
+    },
+    {
+      icon: Link,
+      label: "Affiliate Link",
+      href: "/admin/affilate-link",
     },
     {
       icon: SiMicrosoftstore,

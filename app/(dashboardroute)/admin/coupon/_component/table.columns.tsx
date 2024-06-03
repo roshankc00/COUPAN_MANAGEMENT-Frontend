@@ -263,13 +263,12 @@ export const columns: ColumnDef<ICategory>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/coupon/${id}`}>
+            <Link href={`/admin/coupon/edit/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit
               </DropdownMenuItem>
             </Link>
-
             <Dialog>
               <DialogTrigger className="flex">
                 <MdDelete color="red" className="h-4 w-4 mr-2" />

@@ -103,7 +103,7 @@ function EditCouponForm({ singleData, id }: Props) {
       code: singleData?.code,
       startDate: moment(singleData?.startDate).format("YYYY-MM-DD"),
       expireDate: moment(singleData?.expireDate).format("YYYY-MM-DD"),
-      url: singleData?.url,
+      // url: singleData?.url,
       featured: singleData?.featured?.toString(),
       categoryId: singleData?.categoryId,
       subCategoryId: singleData?.subCategoryId,

@@ -100,7 +100,7 @@ function EditSubCategoryForm({ id, singleData }: Props) {
 
   return (
     <div className="mt-10">
-      <AdminHeader title="New-Subcategory" />
+      <AdminHeader title="Edit-Subcategory" />
       <div>
         <Card className=" ms-24">
           <CardHeader></CardHeader>

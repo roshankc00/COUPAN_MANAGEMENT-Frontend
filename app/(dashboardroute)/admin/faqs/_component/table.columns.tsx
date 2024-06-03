@@ -127,7 +127,7 @@ export const columns: ColumnDef<ICategory>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/sub-category/${id}`}>
+            <Link href={`/admin/faqs/edit/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit

@@ -66,7 +66,7 @@ export function Datatable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <Button onClick={() => router.push("/sub-category/new")}>
+        <Button onClick={() => router.push("/admin/sub-category/new")}>
           <PlusCircle className="h-4 w-4 mr-2" />
           Add Sub-Category
         </Button>
