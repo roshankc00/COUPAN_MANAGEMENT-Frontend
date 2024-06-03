@@ -1,5 +1,6 @@
 import { ISeoBody } from "./Subcategory.interface";
 import { ICoupon, ISEO } from "./coupon.interface";
+import { IAffilateLink } from "./affilialte-link.interface";
 
 export interface IStore {
   id: number;
@@ -12,6 +13,7 @@ export interface IStore {
   status: string;
   seo: ISEO;
   coupons: ICoupon[];
+  affiliateLink: IAffilateLink;
 }
 
 export interface IStoreBody {

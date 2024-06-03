@@ -9,6 +9,7 @@ export const getUserLoginStatus = () => {
 
 export const LogoutUser = () => {
   Cookies.remove("Authentication");
+  localStorage.removeItem("persist:root");
   window.location.href = "/login";
 };
 

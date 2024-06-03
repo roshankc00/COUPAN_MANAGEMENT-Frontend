@@ -15,12 +15,20 @@ import { addRemoveInWatchList } from "@/common/api/coupons/coupons.api";
 import { UseGetAllUserWishlistCoupons } from "@/hooks/react-query/coupons/get-all-wishlist.coupons";
 import { alreadySaved } from "@/common/helpers/savedCouponOrNot";
 import Link from "next/link";
+import { increaseCount } from "@/common/api/affilate-link/affilate-link.api";
+import { useSelector } from "react-redux";
+import { IRootState } from "@/store";
+import { useRouter } from "next/navigation";
 
 interface Props {
   coupon: ICoupon;
 }
 
 const CouponCard: React.FC<Props> = ({ coupon }) => {
+  const router = useRouter();
+  const { isLogedInStatus, userId } = useSelector(
+    (state: IRootState) => state.auth
+  );
   const { mutate: handleAddRemoveToWatchList } = useMutation({
     mutationFn: addRemoveInWatchList,
     onSuccess(data) {
@@ -32,6 +40,24 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
   });
 
   const { data, isLoading } = UseGetAllUserWishlistCoupons("all");
+  const { mutateAsync: handleDealDone } = useMutation({
+    mutationFn: increaseCount,
+  });
+
+  console.log(coupon?.store?.affiliateLink?.link);
+  const handleDeal = async () => {
+    if (isLogedInStatus) {
+      handleDealDone(+coupon?.store?.affiliateLink?.id);
+      window.open(
+        `${coupon?.store?.affiliateLink?.link}?subId1=${userId}`,
+        "_blank"
+      );
+    } else {
+      router.push(
+        `/user/alert?alert=${coupon?.store?.affiliateLink.link}&id=${coupon?.store?.affiliateLink?.id}&cashbackAmountPer=${coupon?.store?.affiliateLink?.cashbackAmountPer}`
+      );
+    }
+  };
 
   return (
     <div className="group relative p-3 shadow-md rounded-md">
@@ -90,9 +116,18 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
           </h3>
         </div>
       </div>
-      <button className="bg-[#2563EB] p-2 w-full rounded-md text-white text-[16px] font-medium my-2">
-        Scratch
-      </button>
+      {coupon?.isDeal ? (
+        <button
+          className="bg-[#2563EB] p-2 w-full rounded-md text-white text-[16px] font-medium my-2"
+          onClick={() => handleDeal()}
+        >
+          Deal
+        </button>
+      ) : (
+        <button className="bg-[#2563EB] p-2 w-full rounded-md text-white text-[16px] font-medium my-2">
+          Scratch
+        </button>
+      )}
     </div>
   );
 };

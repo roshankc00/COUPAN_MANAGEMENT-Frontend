@@ -35,7 +35,7 @@ import Cookies from "js-cookie";
 import { getUserLoginStatus } from "@/common/api/api";
 import { useDispatch } from "react-redux";
 import { logedin } from "../../_redux/auth.slice";
-function LoginForm() {
+function AlertLoginForm() {
   const router = useRouter();
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
@@ -59,15 +59,9 @@ function LoginForm() {
   const { mutate } = useMutation({
     mutationFn: loginUser,
     onSuccess(data) {
-      const referrer = document.referrer;
       Cookies.set("Authentication", data.token);
       toast.success("User LoggedIn successfully");
       dispatch(logedin(data?.user));
-      if (referrer && referrer.endsWith("/signup")) {
-        router.push("/");
-      } else {
-        router.back();
-      }
     },
   });
 
@@ -88,10 +82,10 @@ function LoginForm() {
   }, []);
 
   return (
-    <div>
-      <Card className="py-4 opacity-100">
+    <div className="w-full">
+      <Card className="py-4 opacity-100 w-full border-none">
         <CardHeader>
-          <CardTitle className="text-center">Login User</CardTitle>
+          <CardTitle className="text-center">Login</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -170,4 +164,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default AlertLoginForm;

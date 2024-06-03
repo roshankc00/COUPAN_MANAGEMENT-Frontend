@@ -12,6 +12,7 @@ import { ICoupon } from "@/interfaces/coupon.interface";
 import CouponCard from "@/components/cards/Coupon.card";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import EmptyState from "@/components/EmptyState";
+import { IWishlistInterface } from "@/interfaces/wishlist.interface";
 const ListWishlists = () => {
   const ALL_ROUTES = ["All", "Active", "Expire"];
   const [activeRoute, setactiveRoute] = useState("all");
@@ -47,7 +48,9 @@ const ListWishlists = () => {
       <div className="grid grid-cols-1 my-20  lg:grid-cols-3 gap-4 place-content-center ">
         {!isFetching &&
           !isLoading &&
-          data?.map((item: any) => <CouponCard coupon={item?.coupon} />)}
+          data?.map((item: IWishlistInterface) => (
+            <CouponCard coupon={item?.coupon} />
+          ))}
         {isLoading &&
           isFetching &&
           new Array(12)

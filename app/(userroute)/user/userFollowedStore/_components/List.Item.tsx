@@ -8,6 +8,7 @@ import { IStore } from "@/interfaces/Store.interface";
 import StoreCard from "@/components/cards/Store.card";
 import StoreCardSkeleton from "@/components/cards/StoreCardSkeleton";
 import EmptyState from "@/components/EmptyState";
+import { IFollowerList } from "@/interfaces/followerlist.interface";
 
 const ListWishlists = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const ListWishlists = () => {
       <h1 className="text-2xl font-medium my-10">Followed Stores </h1>
       <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 place-content-center">
         {!isLoading &&
-          data?.map((item: any) => <StoreCard store={item.store} />)}
+          data?.map((item: IFollowerList) => <StoreCard store={item.store} />)}
         {isLoading &&
           new Array(3)
             .fill(null)

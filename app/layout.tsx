@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar";
 import logo from "../public/logo.jpg";
 import Footer from "@/components/Footer";
 import { usePathname } from "next/navigation";
-
+import ReduxProvider from "@/components/ReduxPersist";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -21,11 +21,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="bg-[#fcfcfc]">
-          <Providers>
-            <Toaster />
-            <div className="">{children}</div>
-            {/* {pathName !== "/login" && pathName !== "/signup" && <Footer />} */}
-          </Providers>
+          <ReduxProvider>
+            <Providers>
+              <Toaster />
+              <div className="">{children}</div>
+              {/* {pathName !== "/login" && pathName !== "/signup" && <Footer />} */}
+            </Providers>
+          </ReduxProvider>
         </div>
       </body>
     </html>

@@ -22,3 +22,8 @@ export const updateAffilateLink = async (body: { id: number; values: any }) => {
   const { data } = await axios.patch(`/affiliate-link/${body.id}`, body.values);
   return data;
 };
+
+export const increaseCount = async (id: number) => {
+  const { data } = await axios.patch(`/affiliate-link/increase/count/${id}`);
+  return data;
+};
