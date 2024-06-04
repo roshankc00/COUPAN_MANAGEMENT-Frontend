@@ -2,13 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import {
-  ArrowUpDown,
-  Delete,
-  MoreHorizontal,
-  PenBox,
-  Pencil,
-} from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -17,7 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import { ICategory } from "@/interfaces/category.interface";
 import moment from "moment";
 import { useMutation } from "@tanstack/react-query";
@@ -169,7 +162,7 @@ export const columns: ColumnDef<ICategory>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/admin/faqs/edit/${id}`}>
+            <Link href={`/admin/products/edit/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit

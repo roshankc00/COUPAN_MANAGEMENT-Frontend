@@ -18,6 +18,7 @@ import {
 import SidebarItem from "./Sidebar.item";
 import { MdCategory, MdDashboard } from "react-icons/md";
 import { SiMicrosoftstore } from "react-icons/si";
+import { IoTerminal } from "react-icons/io5";
 type Props = {};
 
 function SidebarRoutes({}: Props) {
@@ -71,6 +72,26 @@ function SidebarRoutes({}: Props) {
       icon: Users,
       label: "User",
       href: "/admin/user",
+    },
+    {
+      icon: IoTerminal,
+      label: "Products",
+      href: "/admin/products",
+    },
+    {
+      icon: IoTerminal,
+      label: "License",
+      href: "/admin/license",
+    },
+    {
+      icon: IoTerminal,
+      label: "Orders",
+      href: "/admin/orders",
+    },
+    {
+      icon: IoTerminal,
+      label: "Orders",
+      href: "/admin/orders",
     },
   ] as const;
   return (

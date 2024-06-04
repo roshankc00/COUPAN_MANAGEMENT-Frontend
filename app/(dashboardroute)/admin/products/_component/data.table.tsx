@@ -59,18 +59,16 @@ export function Datatable<TData, TValue>({
     <div className=" w-[80vw] mr-4 ms-0 2xl:ms-20 ">
       <div className="flex items-center py-4 justify-between">
         <Input
-          placeholder="Search Faq  with question..."
-          value={
-            (table.getColumn("question")?.getFilterValue() as string) ?? ""
-          }
+          placeholder="Search Faq  with TItle..."
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("question")?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
-        <Button onClick={() => router.push("/admin/faqs/new")}>
+        <Button onClick={() => router.push("/admin/products/new")}>
           <PlusCircle className="h-4 w-4 mr-2" />
-          Add Faqs
+          Add Product
         </Button>
       </div>
       <div className="rounded-md border">
