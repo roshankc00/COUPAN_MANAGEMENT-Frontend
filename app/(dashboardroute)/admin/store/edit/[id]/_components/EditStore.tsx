@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import EditStoreForm from "./EditStoreForm";
 import { UseGetStoreInfo } from "@/hooks/react-query/stores/get-single-store";
 
@@ -11,7 +11,11 @@ const EditStrore = ({ id }: Props) => {
     data: singleData,
     isFetching: singleDataFetching,
     isLoading: singleDataLoading,
+    refetch,
   } = UseGetStoreInfo(id);
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <div>
       {!singleDataFetching && !singleDataLoading && (

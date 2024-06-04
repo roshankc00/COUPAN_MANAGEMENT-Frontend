@@ -13,8 +13,12 @@ function EditSubCategory({ id }: Props) {
     data: singleData,
     isFetching: singleDataFetching,
     isLoading: singleDataLoading,
+    refetch,
   } = UseGetSingleSubCategory(id);
 
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <main>
       {!singleDataFetching && !singleDataLoading && (

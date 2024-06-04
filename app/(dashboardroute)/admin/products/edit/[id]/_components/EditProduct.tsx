@@ -1,12 +1,15 @@
 "use client";
 import { UseGetSingleProduct } from "@/hooks/react-query/products/get-single-product";
-import React from "react";
+import React, { useEffect } from "react";
 import EditProductForm from "./EditProductForm";
 type Props = {
   id: number;
 };
 const EditProduct: React.FC<Props> = ({ id }) => {
-  const { data, isFetching, isLoading } = UseGetSingleProduct(id);
+  const { data, isFetching, isLoading, refetch } = UseGetSingleProduct(id);
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <div>
       {!isLoading && !isFetching && (

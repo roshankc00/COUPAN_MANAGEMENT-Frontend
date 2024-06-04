@@ -14,6 +14,9 @@ import {
   BadgeEuro,
   MessageCircleX,
   Link,
+  Scale,
+  ListOrdered,
+  ShoppingBasket,
 } from "lucide-react";
 import SidebarItem from "./Sidebar.item";
 import { MdCategory, MdDashboard } from "react-icons/md";
@@ -74,24 +77,19 @@ function SidebarRoutes({}: Props) {
       href: "/admin/user",
     },
     {
-      icon: IoTerminal,
+      icon: ShoppingBasket,
       label: "Products",
       href: "/admin/products",
     },
     {
-      icon: IoTerminal,
+      icon: ListOrdered,
+      label: "Orders",
+      href: "/admin/orders",
+    },
+    {
+      icon: Scale,
       label: "License",
       href: "/admin/license",
-    },
-    {
-      icon: IoTerminal,
-      label: "Orders",
-      href: "/admin/orders",
-    },
-    {
-      icon: IoTerminal,
-      label: "Orders",
-      href: "/admin/orders",
     },
   ] as const;
   return (

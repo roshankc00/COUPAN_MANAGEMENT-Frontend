@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import EditCouponForm from "./EditCouponForm";
 import { UseGetSingleCoupon } from "@/hooks/react-query/coupons/get-single-coupon";
 
@@ -11,7 +11,11 @@ const EditCoupon = ({ id }: Props) => {
     data: singleData,
     isFetching: singleDataFetching,
     isLoading: singleDataLoading,
+    refetch,
   } = UseGetSingleCoupon(id);
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <div>
       {!singleDataFetching && !singleDataLoading && (

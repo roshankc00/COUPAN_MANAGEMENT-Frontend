@@ -15,7 +15,7 @@ const TopNavbar = () => {
   const { data } = UseGetCurrentUser();
   return (
     <div className="bg-[#3577f1] w-full">
-      <div className="flex justify-between px-3 py-5">
+      <div className="flex justify-between px-3 py-5 -mt-2">
         <MobileSideBar />
         <Button variant={"outline"} className="flex items-center gap-2">
           Log Out <MdLogout />

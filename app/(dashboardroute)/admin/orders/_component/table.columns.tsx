@@ -4,7 +4,10 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import {
   ArrowUpDown,
+  Check,
   Delete,
+  Ellipsis,
+  GitPullRequestClosed,
   MoreHorizontal,
   PenBox,
   Pencil,
@@ -22,8 +25,6 @@ import { ICategory } from "@/interfaces/category.interface";
 import moment from "moment";
 import { useMutation } from "@tanstack/react-query";
 import { deleteSubcategory } from "@/common/api/sub-categories/sub-category.api";
-import toast from "react-hot-toast";
-import { client } from "@/components/Provider";
 import {
   Dialog,
   DialogContent,
@@ -35,6 +36,9 @@ import {
 } from "@/components/ui/dialog";
 import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
+import { pendingOrder, rejectOrder } from "@/common/api/orders/orders.api";
+import { client } from "@/components/Provider";
+import toast from "react-hot-toast";
 
 const dateFormat = moment();
 
@@ -119,28 +123,9 @@ export const columns: ColumnDef<ICategory>[] = [
       return <span className="">{title}</span>;
     },
   },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="r"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const title: string = row.getValue("email");
-      return <span className="">{title}</span>;
-    },
-  },
 
   {
-    accessorKey: "product.title",
+    accessorKey: "product",
     header: ({ column }) => {
       return (
         <Button
@@ -154,8 +139,50 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const title: string = row.getValue("product.title");
-      return <span className="">{title}</span>;
+      const product: any = row.getValue("product");
+      return <span className="">{product.title}</span>;
+    },
+  },
+  {
+    accessorKey: "amount",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="r"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Order Amount
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const product: any = row.getValue("product");
+      return <span className="">{product?.price}</span>;
+    },
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="r"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Order Amount
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const product: any = row.getValue("status");
+      return (
+        <span className="">
+          <Badge> {product}</Badge>
+        </span>
+      );
     },
   },
 
@@ -164,16 +191,25 @@ export const columns: ColumnDef<ICategory>[] = [
     cell: ({ row }) => {
       const { id } = row.original;
       const { mutateAsync } = useMutation({
-        mutationFn: deleteSubcategory,
+        mutationFn: rejectOrder,
+      });
+
+      const { mutateAsync: handlePendingApi } = useMutation({
+        mutationFn: pendingOrder,
       });
 
       const handleDelete = async (id: number) => {
-        await mutateAsync(id).then(() => {
-          toast.success("Deleted successfully");
-          client.invalidateQueries({ queryKey: ["sub-categories"] });
-          client.invalidateQueries({
-            queryKey: ["sub-categories-by-category"],
-          });
+        mutateAsync(id).then(() => {
+          toast.success("Rejected the Status");
+          client.invalidateQueries({ queryKey: ["get-all-orders"] });
+          client.invalidateQueries({ queryKey: ["all-order-with-Status"] });
+        });
+      };
+      const handlePendingState = async (id: number) => {
+        handlePendingApi(id).then(() => {
+          client.invalidateQueries({ queryKey: ["get-all-orders"] });
+          client.invalidateQueries({ queryKey: ["all-order-with-Status"] });
+          toast.success("Change status to Pending");
         });
       };
       return (
@@ -185,16 +221,45 @@ export const columns: ColumnDef<ICategory>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/admin/faqs/edit/${id}`}>
+            <Link href={`/admin/license/new`}>
               <DropdownMenuItem>
-                <Pencil className="h-4 w-4 mr-2" />
-                Edit
+                <Check className="h-4 w-4 mr-2" />
+                Accept Order
               </DropdownMenuItem>
             </Link>
             <Dialog>
               <DialogTrigger className="flex">
-                <MdDelete color="red" className="h-4 w-4 mr-2" />
-                Delete
+                <GitPullRequestClosed color="red" className="h-4 w-4 mr-2" />
+                Reject Order
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
+                    <CiCircleAlert size={30} color="red" />
+                    Are You sure ?
+                  </DialogTitle>
+                </DialogHeader>
+                <DialogDescription>
+                  <p className="text-center">to Reject this request</p>
+                </DialogDescription>
+                <DialogFooter>
+                  <div className="flex flex-row-reverse mt-4 ">
+                    <Button
+                      variant={"destructive"}
+                      className="w-[200px]"
+                      onClick={() => handleDelete(id)}
+                    >
+                      Reject Order
+                    </Button>
+                  </div>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog>
+              <DialogTrigger className="flex">
+                <Ellipsis color="red" className="h-4 w-4 mr-2" />
+                Pending status
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
@@ -205,7 +270,7 @@ export const columns: ColumnDef<ICategory>[] = [
                 </DialogHeader>
                 <DialogDescription>
                   <p className="text-center">
-                    You Wont be able to recover this Sub-Category Again
+                    to Change status back to Pending
                   </p>
                 </DialogDescription>
                 <DialogFooter>
@@ -213,9 +278,9 @@ export const columns: ColumnDef<ICategory>[] = [
                     <Button
                       variant={"destructive"}
                       className="w-[200px]"
-                      onClick={() => handleDelete(id)}
+                      onClick={() => handlePendingState(id)}
                     >
-                      Delete
+                      Change
                     </Button>
                   </div>
                 </DialogFooter>

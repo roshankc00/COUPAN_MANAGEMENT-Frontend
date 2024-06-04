@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import EditCategoryForm from "./EditCategoryForm";
 import { UseGetSingleCategory } from "@/hooks/react-query/categories/get-single-category";
 
@@ -12,7 +12,11 @@ const EditCategory = ({ id }: Props) => {
     data: singleData,
     isFetching: singleDataFetching,
     isLoading: singleDataLoading,
+    refetch,
   } = UseGetSingleCategory(id);
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <div>
       {!singleDataLoading && !singleDataFetching && (
