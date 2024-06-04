@@ -108,6 +108,11 @@ const BreadCrumCom = () => {
                   Submit-Offer
                 </Link>
               </BreadcrumbItem>
+              <BreadcrumbItem>
+                <Link className="text-black" href="/user/products">
+                  Products
+                </Link>
+              </BreadcrumbItem>
             </div>
             <div className="flex gap-3">
               <BreadcrumbItem>
