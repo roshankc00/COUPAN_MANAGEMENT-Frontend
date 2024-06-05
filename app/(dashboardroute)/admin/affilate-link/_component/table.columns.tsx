@@ -16,9 +16,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
-import { ICategory } from "@/interfaces/category.interface";
 import moment from "moment";
 import { useMutation } from "@tanstack/react-query";
 import { deleteSubcategory } from "@/common/api/sub-categories/sub-category.api";

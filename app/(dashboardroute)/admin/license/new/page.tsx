@@ -49,7 +49,7 @@ const AddFaqs = () => {
     orderId: z.string(),
   });
 
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: postFaqs,
   });
 

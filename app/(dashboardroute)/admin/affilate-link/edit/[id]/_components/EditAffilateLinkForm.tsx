@@ -1,19 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,20 +16,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
-import { ICategory } from "@/interfaces/category.interface";
 import AdminHeader from "../../../../_component/Header";
-import { UseGetSingleSubCategory } from "@/hooks/react-query/sub-categories/get_single_sub-category";
-import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { useMutation } from "@tanstack/react-query";
-import { updateSubCategory } from "@/common/api/sub-categories/sub-category.api";
 import { client } from "@/components/Provider";
 import { updateAffilateLink } from "@/common/api/affilate-link/affilate-link.api";
 

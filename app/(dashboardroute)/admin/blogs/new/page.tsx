@@ -3,7 +3,6 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -14,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { Editor } from "@/components/editor";
 import { Input } from "@/components/ui/input";
 import { postBlog } from "@/common/api/blogs/blogs.api";
@@ -46,7 +44,6 @@ const formSchema = z.object({
 });
 
 export const AddNewBlogs = () => {
-  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

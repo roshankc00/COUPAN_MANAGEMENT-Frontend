@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import SidebarRoutes from "./Sidebar.route";
 
 export const Sidebar = () => {

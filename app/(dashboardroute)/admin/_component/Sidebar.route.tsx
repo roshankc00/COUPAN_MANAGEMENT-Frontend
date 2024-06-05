@@ -1,13 +1,6 @@
 import React from "react";
 import {
-  ArchiveRestore,
-  BarChart,
   Compass,
-  Globe2,
-  HelpCircle,
-  Layout,
-  List,
-  Timer,
   Users,
   Component,
   CircleHelp,
@@ -21,7 +14,6 @@ import {
 import SidebarItem from "./Sidebar.item";
 import { MdCategory, MdDashboard } from "react-icons/md";
 import { SiMicrosoftstore } from "react-icons/si";
-import { IoTerminal } from "react-icons/io5";
 type Props = {};
 
 function SidebarRoutes({}: Props) {

@@ -5,7 +5,6 @@ import { z } from "zod";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -13,7 +12,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -23,15 +21,9 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import {
-  handleLogin,
-  loginUser,
-  signupUser,
-} from "@/common/api/users/user.api";
+import { handleLogin, signupUser } from "@/common/api/users/user.api";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { FaGoogle } from "react-icons/fa";
 
 function SignupForm() {
   const formSchema = z.object({

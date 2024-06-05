@@ -2,18 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,8 +25,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
-import { ICategory } from "@/interfaces/category.interface";
-import { ImagePlus } from "lucide-react";
 import { IStore } from "@/interfaces/Store.interface";
 import { updateStore } from "@/common/api/stores/store.api";
 import { useMutation } from "@tanstack/react-query";

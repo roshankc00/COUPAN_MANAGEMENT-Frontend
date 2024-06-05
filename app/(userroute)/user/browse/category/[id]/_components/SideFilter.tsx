@@ -1,23 +1,13 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 import debounce from "lodash.debounce";
 import { UseGetAllSubCategoryOfParticularCategory } from "@/hooks/react-query/sub-categories/getAllsubcategories-of-category";
 import { UseGetAllCouponsOfCatSubcat } from "@/hooks/react-query/coupons/get_all_coupons_cat-subcat.hook ";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+
 import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";
-import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
 import CouponCard from "@/components/cards/Coupon.card";
 import EmptyStateFilter from "@/components/EmptyFilterState";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
@@ -25,10 +15,6 @@ import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 const SideFilter = ({ categoryId }: { categoryId: number }) => {
   const paginationProps = usePagination();
   const [filter, setfilter] = useState<number[]>([]);
-  const [page, setpage] = useState({
-    pageNo: 1,
-    noOfPages: 10,
-  });
   const {
     data: allsubCat,
     isLoading: subCatLoading,

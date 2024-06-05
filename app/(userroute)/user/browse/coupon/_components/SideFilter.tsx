@@ -1,20 +1,7 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 import debounce from "lodash.debounce";
-import { UseGetAllSubCategoryOfParticularCategory } from "@/hooks/react-query/sub-categories/getAllsubcategories-of-category";
-import { UseGetAllCouponsOfCatSubcat } from "@/hooks/react-query/coupons/get_all_coupons_cat-subcat.hook ";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import { UseGetAllCategory } from "@/hooks/react-query/categories/get_all_category.hook";
 import { UseGetAllCouponsOfCatStore } from "@/hooks/react-query/coupons/get-all-coupons-store-category";
@@ -22,7 +9,6 @@ import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { ICategory } from "@/interfaces/category.interface";
 import { IStore } from "@/interfaces/Store.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";
-import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
 import CouponCard from "@/components/cards/Coupon.card";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import EmptyStateFilter from "@/components/EmptyFilterState";

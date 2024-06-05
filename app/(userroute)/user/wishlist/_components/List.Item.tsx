@@ -1,14 +1,7 @@
 "use client";
-import { UseGetAllFollowedStore } from "@/hooks/react-query/stores/get-all-followed-store";
-import { useRouter } from "next/navigation";
-import { FaHeart } from "react-icons/fa";
 import React, { useCallback, useState } from "react";
-import AlpaStore from "../../browse/store/_component/Alpa";
 import { UseGetAllUserWishlistCoupons } from "@/hooks/react-query/coupons/get-all-wishlist.coupons";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import debounce from "lodash.debounce";
-import { ICoupon } from "@/interfaces/coupon.interface";
 import CouponCard from "@/components/cards/Coupon.card";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import EmptyState from "@/components/EmptyState";

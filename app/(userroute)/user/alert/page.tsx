@@ -1,10 +1,9 @@
 "use client";
 import AlertLoginForm from "@/app/(auth)/login/_component/AlertLoginForm";
-import LoginForm from "@/app/(auth)/login/_component/LoginForm";
 import { increaseCount } from "@/common/api/affilate-link/affilate-link.api";
 import { IRootState } from "@/store";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 

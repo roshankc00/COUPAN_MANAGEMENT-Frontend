@@ -1,16 +1,9 @@
 "use client";
 import { UseGetCurrentUser } from "@/hooks/react-query/users/get-current-user";
 import React from "react";
-import { MdWavingHand } from "react-icons/md";
 import MobileSideBar from "./smallscreen.sidebar";
 import { Button } from "@/components/ui/button";
 import { MdLogout } from "react-icons/md";
-const options = {
-  year: "numeric",
-  weekday: "short",
-  month: "short",
-  day: "2-digit",
-} as const;
 const TopNavbar = () => {
   const { data } = UseGetCurrentUser();
   return (

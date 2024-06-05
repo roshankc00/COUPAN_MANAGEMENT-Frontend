@@ -17,19 +17,8 @@ import ReviewCardSkeleton from "@/components/RatingCardSkeleton";
 import { UseGetReviewStatus } from "@/hooks/react-query/reviews/get-review.status.hook";
 import { Progress } from "@/components/ui/progress";
 import { FaStar } from "react-icons/fa";
-import { Separator } from "@/components/ui/separator";
 import ReviewCouponcard from "@/components/Review.Coupon.card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import ReviewForm from "@/components/Review.form";
-import { XCircle } from "lucide-react";
 type Props = {
   id: number;
 };

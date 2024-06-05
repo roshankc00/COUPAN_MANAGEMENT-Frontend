@@ -1,19 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,16 +14,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
-import { forgetPassword, loginUser } from "@/common/api/users/user.api";
-import { useRouter } from "next/navigation";
+import { forgetPassword } from "@/common/api/users/user.api";
 import toast from "react-hot-toast";
-import useUserStore from "@/store";
 
 function ForgetPasswordForm() {
-  const router = useRouter();
-  const setUser = useUserStore((state) => state.setUser);
   const formSchema = z.object({
     email: z.string().email(),
   });

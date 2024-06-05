@@ -1,15 +1,8 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -21,16 +14,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import useUserStore from "@/store";
-import { forgetPassword, resetPassword } from "@/common/api/users/user.api";
+import { resetPassword } from "@/common/api/users/user.api";
 
 function ResetPasswordForm({ token }: { token: string }) {
   const router = useRouter();
-  const setUser = useUserStore((state) => state.setUser);
   const formSchema = z.object({
     newPassword: z.string().min(8, {
       message: "Password must be of 8 charecter ",
