@@ -28,11 +28,12 @@ import toast from "react-hot-toast";
 import debounce from "lodash.debounce";
 import { useMutation } from "@tanstack/react-query";
 import { postOrder } from "@/common/api/orders/orders.api";
+import Payment from "./Payment";
 
 const AllProducts = () => {
   const ALL_ROUTES = ["gift_card", "subscription"];
   const [active, setactive] = useState("gift_card");
-  const [activeProduct, setactiveProduct] = useState(0);
+  const [activeProduct, setactiveProduct] = useState<any>({});
   const {
     data: allProducts,
     isFetching: productFetching,
@@ -115,9 +116,9 @@ const AllProducts = () => {
                 allProducts.map((item: any) => (
                   <div
                     key={item.id}
-                    onClick={() => setactiveProduct(item.id)}
+                    onClick={() => setactiveProduct(item)}
                     className={`shadow-sm p-2 rounded-md mt-2 border cursor-pointer  ${
-                      activeProduct === item.id ? " border-blue-500" : ""
+                      activeProduct.id === item.id ? " border-blue-500" : ""
                     }`}
                   >
                     <p className="text-center font-semibold">{item.title}</p>
@@ -127,6 +128,19 @@ const AllProducts = () => {
                   </div>
                 ))}
             </div>
+          </div>
+          <div className="mt-10 relative">
+            <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
+              2
+            </h1>
+            <h1 className="absolute left-16 text-xl font-medium">
+              Request Payment
+            </h1>
+            <Card className="">
+              <CardContent>
+                <Payment item={activeProduct} />
+              </CardContent>
+            </Card>
           </div>
 
           <div className="mt-10 relative">
