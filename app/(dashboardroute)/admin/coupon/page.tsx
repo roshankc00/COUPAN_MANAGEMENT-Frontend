@@ -3,7 +3,7 @@ import CategoryTable from "./_component/table";
 import AdminHeader from "../_component/Header";
 
 export const metadata = {
-  title: "Coupon | NepQue ",
+  title: "Dashboard-Coupon | NepQue ",
   description: "NepQue: Your CouponPartner",
 };
 const CouponPage = () => {

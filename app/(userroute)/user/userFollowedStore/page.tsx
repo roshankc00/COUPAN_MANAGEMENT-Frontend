@@ -6,7 +6,7 @@ export const metadata = {
   description: "NepQue: Your CouponPartner",
 };
 
-const WishlistPage = () => {
+const UserFollowedStorePage = () => {
   return (
     <div>
       <ListWishlists />
@@ -14,4 +14,4 @@ const WishlistPage = () => {
   );
 };
 
-export default WishlistPage;
+export default UserFollowedStorePage;

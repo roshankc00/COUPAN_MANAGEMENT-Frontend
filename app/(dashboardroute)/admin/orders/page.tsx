@@ -2,6 +2,10 @@ import React from "react";
 import FaqsTable from "./_component/table";
 import AdminHeader from "../_component/Header";
 
+export const metadata = {
+  title: "Dashboard-Orders | NepQue ",
+  description: "NepQue: Your CouponPartner",
+};
 const page = () => {
   return (
     <div>
