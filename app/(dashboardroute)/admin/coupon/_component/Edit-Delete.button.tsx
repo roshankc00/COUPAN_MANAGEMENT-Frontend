@@ -23,27 +23,10 @@ import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
-import { deleteCategory } from "@/common/api/categories/category.api";
-import { deleteCoupon } from "@/common/api/coupons/coupons.api";
-
-const UseDeleteCategory = () => {
-  const { mutateAsync } = useMutation({
-    mutationFn: deleteCoupon,
-  });
-
-  const handleDeleteCoupon = async (id: number) => {
-    await mutateAsync(id).then(() => {
-      toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["coupons"] });
-    });
-  };
-
-  return handleDeleteCoupon;
-};
+import { UseDeleteCoupon } from "@/hooks/react-query/coupons/delete-coupon";
 
 const EditDeleteButton = ({ id }: { id: number }) => {
-  const handleDeleteCoupon = UseDeleteCategory();
-
+  const handleDeleteCoupon = UseDeleteCoupon();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

@@ -24,23 +24,7 @@ import { MdDelete } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
 import { deleteCategory } from "@/common/api/categories/category.api";
-
-const UseDeleteCategory = () => {
-  const { mutateAsync } = useMutation({
-    mutationFn: deleteCategory,
-  });
-  const handleDeleteCategory = async (id: number) => {
-    await mutateAsync(id).then(() => {
-      toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["category"] });
-      client.invalidateQueries({
-        queryKey: ["sub-categories-by-category"],
-      });
-    });
-  };
-
-  return handleDeleteCategory;
-};
+import { UseDeleteCategory } from "@/hooks/react-query/categories/delete-category";
 
 const EditDeleteButton = ({ id }: { id: number }) => {
   const handleDeleteCategory = UseDeleteCategory();

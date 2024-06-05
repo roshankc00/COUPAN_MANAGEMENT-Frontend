@@ -23,30 +23,10 @@ import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
-import { deleteCategory } from "@/common/api/categories/category.api";
-import { deleteCoupon } from "@/common/api/coupons/coupons.api";
-import { deleteStore } from "@/common/api/blogs/blogs.api";
-
-const UseDeleteCategory = () => {
-  const { mutateAsync } = useMutation({
-    mutationFn: deleteSubcategory,
-  });
-
-  const handleDelete = async (id: number) => {
-    await mutateAsync(id).then(() => {
-      toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["sub-categories"] });
-      client.invalidateQueries({
-        queryKey: ["sub-categories-by-category"],
-      });
-    });
-  };
-
-  return handleDelete;
-};
+import { UseDeleteSubCategory } from "@/hooks/react-query/sub-categories/delete-sub-category";
 
 const EditDeleteButton = ({ id }: { id: number }) => {
-  const handleDelete = UseDeleteCategory();
+  const handleDelete = UseDeleteSubCategory();
 
   return (
     <DropdownMenu>

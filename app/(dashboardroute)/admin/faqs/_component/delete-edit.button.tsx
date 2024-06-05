@@ -31,22 +31,7 @@ import {
 import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { deleteAFaq } from "@/common/api/faqs/faqs.api";
-
-const useDeleteFaq = () => {
-  const { mutateAsync } = useMutation({
-    mutationFn: deleteAFaq,
-  });
-
-  const handleDelete = async (id: number) => {
-    await mutateAsync(id).then(() => {
-      toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["sub-categories"] });
-      client.invalidateQueries({ queryKey: ["faqs"] });
-    });
-  };
-
-  return handleDelete;
-};
+import { useDeleteFaq } from "@/hooks/react-query/faqs/delete-faq";
 
 const EditDeleteButton = ({ id }: { id: number }) => {
   const handleDelete = useDeleteFaq();

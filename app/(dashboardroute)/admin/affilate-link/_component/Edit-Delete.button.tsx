@@ -1,8 +1,4 @@
 import React from "react";
-import { useMutation } from "@tanstack/react-query";
-import { deleteSubcategory } from "@/common/api/sub-categories/sub-category.api";
-import toast from "react-hot-toast";
-import { client } from "@/components/Provider";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -23,27 +19,10 @@ import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
-
-const useDeleteSubcategory = () => {
-  const { mutateAsync } = useMutation({
-    mutationFn: deleteSubcategory,
-  });
-
-  const handleDelete = async (id: number) => {
-    await mutateAsync(id).then(() => {
-      toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["sub-categories"] });
-      client.invalidateQueries({
-        queryKey: ["sub-categories-by-category"],
-      });
-    });
-  };
-
-  return handleDelete;
-};
+import { useDeleteAffialatedLink } from "@/hooks/react-query/affilate-link/delete-affilate-link";
 
 const EditDeleteButton = ({ id }: { id: number }) => {
-  const handleDelete = useDeleteSubcategory();
+  const handleDelete = useDeleteAffialatedLink();
 
   return (
     <DropdownMenu>

@@ -2,39 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import {
-  ArrowUpDown,
-  Delete,
-  MoreHorizontal,
-  PenBox,
-  Pencil,
-} from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import Link from "next/link";
+import { ArrowUpDown } from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ICategory } from "@/interfaces/category.interface";
 import moment from "moment";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { deleteCategory } from "@/common/api/categories/category.api";
-import { useMutation } from "@tanstack/react-query";
-import { client } from "@/components/Provider";
-import toast from "react-hot-toast";
-import { MdDelete } from "react-icons/md";
-import { CiCircleAlert } from "react-icons/ci";
+
 import EditDeleteButton from "./Edit-Delete.button";
 
 export const columns: ColumnDef<ICategory>[] = [

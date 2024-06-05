@@ -26,24 +26,10 @@ import { MoreHorizontal, Pencil } from "lucide-react";
 import { deleteCategory } from "@/common/api/categories/category.api";
 import { deleteCoupon } from "@/common/api/coupons/coupons.api";
 import { deleteStore } from "@/common/api/blogs/blogs.api";
-
-const UseDeleteCategory = () => {
-  const { mutateAsync } = useMutation({
-    mutationFn: deleteStore,
-  });
-
-  const handleDelete = async (id: number) => {
-    await mutateAsync(id).then(() => {
-      toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["store"] });
-    });
-  };
-
-  return handleDelete;
-};
+import { UseDeleteStore } from "@/hooks/react-query/stores/delete-store";
 
 const EditDeleteButton = ({ id }: { id: number }) => {
-  const handleDelete = UseDeleteCategory();
+  const handleDelete = UseDeleteStore();
 
   return (
     <DropdownMenu>

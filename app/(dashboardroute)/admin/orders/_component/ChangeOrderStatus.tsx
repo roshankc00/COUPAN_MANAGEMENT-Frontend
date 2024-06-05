@@ -32,38 +32,8 @@ import {
 import { deleteCategory } from "@/common/api/categories/category.api";
 import { deleteCoupon } from "@/common/api/coupons/coupons.api";
 import { pendingOrder, rejectOrder } from "@/common/api/orders/orders.api";
-
-const UseHandlePendingOrder = () => {
-  const { mutateAsync: handlePendingApi } = useMutation({
-    mutationFn: pendingOrder,
-  });
-
-  const handlePendingState = async (id: number) => {
-    handlePendingApi(id).then(() => {
-      client.invalidateQueries({ queryKey: ["get-all-orders"] });
-      client.invalidateQueries({ queryKey: ["all-order-with-Status"] });
-      toast.success("Change status to Pending");
-    });
-  };
-
-  return handlePendingState;
-};
-
-const UseHandleRejectOrder = () => {
-  const { mutateAsync } = useMutation({
-    mutationFn: rejectOrder,
-  });
-
-  const handleDelete = async (id: number) => {
-    mutateAsync(id).then(() => {
-      toast.success("Rejected the Status");
-      client.invalidateQueries({ queryKey: ["get-all-orders"] });
-      client.invalidateQueries({ queryKey: ["all-order-with-Status"] });
-    });
-  };
-
-  return handleDelete;
-};
+import { UseHandleRejectOrder } from "@/hooks/react-query/orders/reject-order-state";
+import { UseHandlePendingOrder } from "@/hooks/react-query/orders/pending-order-state";
 
 const ChangeOrderStatusBtns = ({ id }: { id: number }) => {
   const handlePendingState = UseHandlePendingOrder();
