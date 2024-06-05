@@ -37,6 +37,7 @@ import { deleteCoupon } from "@/common/api/coupons/coupons.api";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { client } from "@/components/Provider";
+import EditDeleteButton from "./Edit-Delete.button";
 
 const dateFormat = moment();
 
@@ -244,64 +245,8 @@ export const columns: ColumnDef<ICategory>[] = [
     id: "action",
     cell: ({ row }) => {
       const { id } = row.original;
-      const { mutateAsync } = useMutation({
-        mutationFn: deleteCoupon,
-      });
 
-      const handleDeleteCoupon = async (id: number) => {
-        await mutateAsync(id).then(() => {
-          toast.success("Deleted successfully");
-          client.invalidateQueries({ queryKey: ["coupons"] });
-        });
-      };
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant={"ghost"} className="h-4 w-8 p-0">
-              <span className="sr-only">Open menu </span>
-              <MoreHorizontal h-4 w-4 />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <Link href={`/admin/coupon/edit/${id}`}>
-              <DropdownMenuItem>
-                <Pencil className="h-4 w-4 mr-2" />
-                Edit
-              </DropdownMenuItem>
-            </Link>
-            <Dialog>
-              <DialogTrigger className="flex">
-                <MdDelete color="red" className="h-4 w-4 mr-2" />
-                Delete
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
-                    <CiCircleAlert size={30} color="red" />
-                    Are You sure ?
-                  </DialogTitle>
-                </DialogHeader>
-                <DialogDescription>
-                  <p className="text-center">
-                    You Wont be able to recover the Coupon Again
-                  </p>
-                </DialogDescription>
-                <DialogFooter>
-                  <div className="flex flex-row-reverse mt-4 ">
-                    <Button
-                      variant={"destructive"}
-                      className="w-[200px]"
-                      onClick={() => handleDeleteCoupon(id)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <EditDeleteButton id={id} />;
     },
   },
 ];

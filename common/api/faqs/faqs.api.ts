@@ -16,3 +16,8 @@ export const updateFaq = async (body: { id: number; values: any }) => {
   const { data } = await axios.patch(`/faqs/${body.id}`, body.values);
   return data;
 };
+
+export const deleteAFaq = async (id: number) => {
+  const { data } = await axios.delete(`/faqs/${id}`);
+  return data;
+};

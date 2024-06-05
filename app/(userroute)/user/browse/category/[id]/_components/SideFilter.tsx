@@ -115,7 +115,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
             {!couponFetching &&
               !couponLoading &&
               allCoupons?.coupons?.map((item: ICoupon) => (
-                <CouponCard coupon={item} />
+                <CouponCard key={item.id} coupon={item} />
               ))}
             {!couponFetching &&
               !couponLoading &&

@@ -116,7 +116,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
         {!isLoading &&
           !isLoading &&
           allCoupons?.coupons?.map((item: ICoupon) => (
-            <CouponCard coupon={item} />
+            <CouponCard key={item.id} coupon={item} />
           ))}
         {!isLoading && !isLoading && allCoupons?.coupons?.length <= 0 && (
           <EmptyStateFilter />
