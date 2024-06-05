@@ -26,7 +26,7 @@ export const updateSubCategory = async ({
   values,
 }: {
   id: number;
-  values: ISubcategoryBody;
+  values: any;
 }) => {
   const { data } = await axios.patch(`/sub-categories/${id}`, values);
   return data;

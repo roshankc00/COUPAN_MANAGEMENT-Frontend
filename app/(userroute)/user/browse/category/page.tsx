@@ -27,6 +27,7 @@ export default function BrowseCategoryPage() {
           !isLoading &&
           data?.map((item: ICategory) => (
             <div
+              key={item.id}
               className="flex items-center justify-between shadow-sm rounded-md px-2 border border-slate-200"
               onClick={() => router.push(`/browse/category/${item.id}`)}
             >

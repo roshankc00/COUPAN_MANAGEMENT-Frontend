@@ -30,7 +30,7 @@ const AlertPage = () => {
       <div className="flex justify-center mt-10 flex-col items-center border p-5">
         <h1 className="text-5xl text-center mb-5 flex justify-center items-center text-blue-700">
           Join for free and earn {cashbackAmountPer}% Cash Back when you shop at
-          Macy's.
+          Macys.
         </h1>
         <AlertLoginForm />
       </div>

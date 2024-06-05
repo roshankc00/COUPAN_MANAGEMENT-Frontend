@@ -51,7 +51,7 @@ const SearchBar = () => {
                 Stores
               </h1>
               {data?.stores?.map((item: IStore) => (
-                <>
+                <div key={item.id}>
                   <Separator className="mb-2" />
                   <div className="flex justify-between items-center">
                     <div className="flex gap-3 items-center">
@@ -65,7 +65,7 @@ const SearchBar = () => {
                     <h1>{item?.coupons.length} Offers available</h1>
                   </div>
                   <Separator className="mb-2" />
-                </>
+                </div>
               ))}
               {!isFetching && !isLoading && data?.stores?.length === 0 && (
                 <div className=" w-full flex flex-col justify-center items-center gap-4 py-4">
@@ -82,7 +82,10 @@ const SearchBar = () => {
               </h1>
               <div className="grid grid-cols-4  ">
                 {data?.categories?.map((item: ICategory) => (
-                  <div className="border border-slate-200 p-2 rounded-md">
+                  <div
+                    className="border border-slate-200 p-2 rounded-md"
+                    key={item.id}
+                  >
                     <h1>{item.title}</h1>
                   </div>
                 ))}

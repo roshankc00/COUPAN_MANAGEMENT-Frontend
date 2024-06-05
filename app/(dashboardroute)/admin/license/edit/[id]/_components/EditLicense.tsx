@@ -1,8 +1,8 @@
 "use client";
 import { UseGetASingleFAQ } from "@/hooks/react-query/faqs/getSingleFaq";
-import EditFaqForm from "./EditFaqForm";
+import EditFaqForm from "./EditLicenseForm";
 
-const EditFaq: React.FC<{ id: number }> = ({ id }) => {
+const EditLicense: React.FC<{ id: number }> = ({ id }) => {
   const { data, isFetching, isLoading } = UseGetASingleFAQ(id);
   return (
     <div>
@@ -11,4 +11,4 @@ const EditFaq: React.FC<{ id: number }> = ({ id }) => {
   );
 };
 
-export default EditFaq;
+export default EditLicense;

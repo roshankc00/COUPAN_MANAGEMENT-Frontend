@@ -22,7 +22,9 @@ const Featuredcoupons = () => {
             .map((el, index) => <CouponSkeletonCard key={index} />)}
         {!isLoading &&
           !isFetching &&
-          data?.map((item: ICoupon) => <CouponCard coupon={item} />)}
+          data?.map((item: ICoupon) => (
+            <CouponCard key={item.id} coupon={item} />
+          ))}
       </div>
     </div>
   );

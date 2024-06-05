@@ -23,6 +23,7 @@ const ListWishlists = () => {
         {ALL_ROUTES?.map((item) => {
           return (
             <button
+              key={item}
               className={`p-2 rounded-sm  ${
                 activeRoute === item.toLowerCase()
                   ? "bg-black text-white"
@@ -42,7 +43,10 @@ const ListWishlists = () => {
         {!isFetching &&
           !isLoading &&
           data?.map((item: IWishlistInterface) => (
-            <CouponCard coupon={item?.coupon} />
+            <CouponCard
+              key={item.storeId + item.userId}
+              coupon={item?.coupon}
+            />
           ))}
         {isLoading &&
           isFetching &&

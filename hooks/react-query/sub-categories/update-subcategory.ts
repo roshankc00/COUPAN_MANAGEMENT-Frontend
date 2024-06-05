@@ -9,6 +9,6 @@ export const UseUpdateSubCategory = (details: Partial<ISubcategoryBody>) => {
   });
   client.invalidateQueries({ queryKey: ["sub-categories"] });
   client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
-  mutate(details);
+  mutate(details as any);
   return { isPending };
 };

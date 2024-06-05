@@ -14,7 +14,7 @@ const Categorylist = () => {
       <div className="grid grid-cols-4">
         {data?.map((el: ICategory) => {
           return (
-            <div className="flex shadow-md gap-5 p-4 rounded-sm">
+            <div key={el.id} className="flex shadow-md gap-5 p-4 rounded-sm">
               <Component />
               <h1>{el.title}</h1>
             </div>

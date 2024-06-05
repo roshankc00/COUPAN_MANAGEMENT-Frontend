@@ -34,7 +34,7 @@ type Props = {
   data: any;
 };
 
-const EditFaqForm: React.FC<Props> = ({ data, id }) => {
+const EditLicenseForm: React.FC<Props> = ({ data, id }) => {
   const router = useRouter();
   const formSchema = z.object({
     question: z.string().min(5, {
@@ -125,4 +125,4 @@ const EditFaqForm: React.FC<Props> = ({ data, id }) => {
   );
 };
 
-export default EditFaqForm;
+export default EditLicenseForm;

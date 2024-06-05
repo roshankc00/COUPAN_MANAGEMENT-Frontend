@@ -1,7 +1,7 @@
 import React from "react";
-import EditFaq from "./_components/EditFaq";
+import EditLicense from "./_components/EditLicense";
 
-const EditFaqPage = ({
+const EditLicensePage = ({
   params,
 }: {
   params: {
@@ -10,9 +10,9 @@ const EditFaqPage = ({
 }) => {
   return (
     <div>
-      <EditFaq id={params.id} />
+      <EditLicense id={params.id} />
     </div>
   );
 };
 
-export default EditFaqPage;
+export default EditLicensePage;

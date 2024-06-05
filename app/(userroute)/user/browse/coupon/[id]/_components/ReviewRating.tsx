@@ -62,7 +62,10 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
               {!statusLoading && (
                 <div>
                   {statusData?.map((item: any) => (
-                    <div className="flex gap-2 items-center justify-center my-10">
+                    <div
+                      key={item.id}
+                      className="flex gap-2 items-center justify-center my-10"
+                    >
                       <div className="flex items-center gap-1 ">
                         <h1 className="text-bold">{item.rating} </h1>
                         <FaStar color="orange" />
@@ -122,7 +125,9 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
         <div>
           {!reviewFetching &&
             !reviewLoading &&
-            allReview?.reviews?.map((item: any) => <ReviewCard data={item} />)}
+            allReview?.reviews?.map((item: any) => (
+              <ReviewCard data={item} key={item.id} />
+            ))}
           {!reviewFetching && !reviewLoading && (
             <Pagination
               {...paginationProps}

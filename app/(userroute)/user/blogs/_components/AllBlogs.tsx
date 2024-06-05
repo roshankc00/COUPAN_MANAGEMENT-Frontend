@@ -29,7 +29,7 @@ const AllBlogs = () => {
         {!isLoading &&
           !isFetching &&
           data?.blogs?.map((item: any) => (
-            <div>
+            <div key={item.id}>
               <Card className="p-3 rounded-md shadow-sm">
                 <CardTitle>
                   <img

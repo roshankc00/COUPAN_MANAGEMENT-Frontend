@@ -18,7 +18,9 @@ const FeatureCategory = () => {
             .map((el, index) => <CategorySkeleton key={index} />)}
         {!isLoading &&
           !isFetching &&
-          data?.map((item: ICategory) => <CategoryCard category={item} />)}
+          data?.map((item: ICategory) => (
+            <CategoryCard key={item.id} category={item} />
+          ))}
       </div>
     </div>
   );
