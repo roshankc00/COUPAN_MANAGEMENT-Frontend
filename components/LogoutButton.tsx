@@ -15,6 +15,7 @@ import { LogoutUser } from "@/common/api/api";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
+import { Separator } from "./ui/separator";
 
 const LogoutButton = () => {
   const { isLogedInStatus, name, role } = useSelector(
@@ -36,15 +37,27 @@ const LogoutButton = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <Separator />
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => LogoutUser()}>
-            Logout
-          </DropdownMenuItem>
           {role === "ADMIN" && (
             <DropdownMenuItem onClick={() => router.push("/admin/dashboard")}>
               Dashboard
             </DropdownMenuItem>
           )}
+          <Separator />
+          <DropdownMenuItem
+            onClick={() => router.push("user/userFollowedStore")}
+          >
+            Followed Store
+          </DropdownMenuItem>
+          <Separator />
+          <DropdownMenuItem onClick={() => router.push("/user/wishlist")}>
+            All Saved Coupons
+          </DropdownMenuItem>
+          <Separator />
+          <DropdownMenuItem className="mt-2" onClick={() => LogoutUser()}>
+            Logout
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

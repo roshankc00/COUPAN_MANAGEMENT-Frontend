@@ -70,8 +70,8 @@ const ReviewForm: React.FC<Props> = ({ couponId, refetch }) => {
     <div>
       <Dialog open={open} onOpenChange={setopen}>
         <DialogTrigger>
-          <button className="bg-blue-600 text-white  p-2 px-3 rounded-md shadow-sm">
-            Add Review
+          <button className="bg-blue-600 text-[10px] sm:text-[16px] mt-2 sm:mt-0 text-white  p-1 md:p-2 px-3 rounded-md shadow-sm">
+            Add_Review
           </button>
         </DialogTrigger>
         <DialogContent>

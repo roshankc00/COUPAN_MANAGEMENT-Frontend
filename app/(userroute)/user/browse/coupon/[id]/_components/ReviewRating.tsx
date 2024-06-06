@@ -81,7 +81,7 @@ const ReviewRating: React.FC<Props> = ({ id }) => {
         <div className="my-10">
           <h1 className="text-2xl font-bold">Reviews and Rating</h1>
         </div>
-        <div className="grid grid-cols-7 gap-5">
+        <div className="grid md:grid-cols-7 grid-cols-8 gap-5">
           <Input
             placeholder="Search For a  Review"
             className="col-span-4"

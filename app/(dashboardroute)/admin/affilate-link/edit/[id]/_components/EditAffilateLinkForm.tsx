@@ -51,7 +51,7 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
     },
   });
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: updateAffilateLink,
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -153,7 +153,10 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
                     </>
                   )}
                 />
-                <Button type="submit"> Submit</Button>
+                <Button type="submit" disabled={isPending}>
+                  {" "}
+                  Submit
+                </Button>
               </form>
             </Form>
           </CardContent>

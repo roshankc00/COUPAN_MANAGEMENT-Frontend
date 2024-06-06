@@ -357,7 +357,11 @@ function NewSubCategoryForm() {
                       </>
                     )}
                   />
-                  <Button type="submit" className="w-full mt-4">
+                  <Button
+                    type="submit"
+                    disabled={isPending}
+                    className="w-full mt-4"
+                  >
                     Save
                   </Button>
                 </div>

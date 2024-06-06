@@ -48,7 +48,7 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
     price: z.number(),
   });
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: editProduct,
   });
 
@@ -172,7 +172,11 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
                   )}
                 />
                 <div className="w-full flex justify-end">
-                  <Button type="submit" className="w-[200px] mt-4">
+                  <Button
+                    type="submit"
+                    disabled={isPending}
+                    className="w-[200px] mt-4"
+                  >
                     Save
                   </Button>
                 </div>

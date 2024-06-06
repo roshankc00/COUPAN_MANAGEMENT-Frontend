@@ -71,7 +71,7 @@ function EditSubCategoryForm({ id, singleData }: Props) {
     },
   });
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: updateSubCategory,
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -247,7 +247,11 @@ function EditSubCategoryForm({ id, singleData }: Props) {
                       </>
                     )}
                   />
-                  <Button type="submit" className="w-full mt-4">
+                  <Button
+                    type="submit"
+                    disabled={isPending}
+                    className="w-full mt-4"
+                  >
                     Save
                   </Button>
                 </div>

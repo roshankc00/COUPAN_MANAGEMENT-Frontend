@@ -68,9 +68,9 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
   const debouncedSubmit = debounce(onSubmit, 400);
   const _debounceSubmit = useCallback(debouncedSubmit, []);
   return (
-    <main className="mx-auto max-w-7xl px-1">
-      <div className="sm:grid grid-cols-9 ">
-        <div className="col-span-2 hidden md:block">
+    <main className=" max-w-7xl px-1">
+      <div className="grid grid-cols-9   ">
+        <div className="col-span-3 sm:col-span-2">
           <div className="shadow-sm p-3 rounded-md bg-slate-50 ">
             <h1 className="mb-3 font-medium">All SubCategory</h1>
             <Separator />
@@ -177,8 +177,8 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
           </div>
         </div>
 
-        <div className="col-span-9 md:col-span-7 gap-5">
-          <div className="grid grid-cols-1  md:grid-cols-3 gap-x-2 gap-y-4">
+        <div className="col-span-6  sm:col-span-7 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-x-2 gap-y-4">
             {couponFetching &&
               couponLoading &&
               new Array(12)
@@ -196,14 +196,11 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
               !couponLoading &&
               allCoupons?.coupons?.length <= 0 && <EmptyStateFilter />}
           </div>
-          {!couponFetching && !couponLoading && allCoupons?.totalPage && (
-            <Pagination
-              {...paginationProps}
-              totalPages={allCoupons?.totalPage}
-            />
-          )}
         </div>
       </div>
+      {!couponFetching && !couponLoading && allCoupons?.totalPage && (
+        <Pagination {...paginationProps} totalPages={allCoupons?.totalPage} />
+      )}
     </main>
   );
 };

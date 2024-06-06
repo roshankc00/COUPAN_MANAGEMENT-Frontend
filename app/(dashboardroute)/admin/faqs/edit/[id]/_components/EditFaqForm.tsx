@@ -105,7 +105,11 @@ const EditFaqForm: React.FC<Props> = ({ data, id }) => {
                     </>
                   )}
                 />
-                <Button type="submit" className="w-full mt-4">
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full mt-4"
+                >
                   Save
                 </Button>
               </form>

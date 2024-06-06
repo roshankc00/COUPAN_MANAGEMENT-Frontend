@@ -72,8 +72,8 @@ const AllProducts = () => {
   console.log(activeProduct);
   return (
     <div className="mt-10">
-      <div className="grid grid-cols-5 gap-10">
-        <div className="col-span-1">
+      <div className="grid grid-cols-6 md:grid-cols-5 gap-10">
+        <div className="col-span-2 md:col-span-1">
           <ul>
             <li className="font-medium my-3">All Category</li>
             {ALL_ROUTES.map((item) => (
@@ -98,7 +98,7 @@ const AllProducts = () => {
             ))}
           </ul>
         </div>
-        <div className="col-span-4 ">
+        <div className="col-span-4 md:col-span-4 ">
           <div className="border p-4 relative">
             <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
               1

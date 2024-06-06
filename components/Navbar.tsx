@@ -39,30 +39,38 @@ const Navbar = () => {
         </div>
         <div className="flex gap-4 items-center">
           <SearchBar />
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Link href={"/user/userFollowedStore"}>
-                  <FaHeart color="red" size={25} />
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent className="bg-black text-white" side="top">
-                <p>See All Followed Store</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Link href="/user/wishlist">
-                  <IoIosBookmark color="white" size={25} />
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent className="bg-black text-white" side="top">
-                <p>See All BookMarkCoupons</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <div className="hidden md:block">
+            {getUserLoginStatus() && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Link href={"/user/userFollowedStore"}>
+                      <FaHeart color="red" size={25} />
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-black text-white" side="top">
+                    <p>See All Followed Store</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
+          <div className="hidden md:block">
+            {getUserLoginStatus() && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Link href="/user/wishlist">
+                      <IoIosBookmark color="white" size={25} />
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-black text-white" side="top">
+                    <p>See All BookMarkCoupons</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
           {getUserLoginStatus() ? (
             <LogoutButton />
           ) : (

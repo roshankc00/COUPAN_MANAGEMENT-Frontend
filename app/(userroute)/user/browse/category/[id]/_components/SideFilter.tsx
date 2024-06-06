@@ -52,8 +52,8 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
   }, [paginationProps.currentPage]);
   return (
     <main className="mx-auto max-w-7xl px-1">
-      <div className="sm:grid grid-cols-9">
-        <div className="col-span-2 hidden md:block">
+      <div className="grid grid-cols-10 sm:grid-cols-7">
+        <div className="col-span-4 sm:col-span-2">
           <div className="shadow-sm p-3 rounded-md bg-slate-50 ">
             <h1 className="mb-3 font-medium">All SubCategory</h1>
             <Separator />
@@ -105,8 +105,8 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
           </div>
         </div>
 
-        <div className="col-span-9 md:col-span-7">
-          <div className="grid grid-cols-1  md:grid-cols-3 gap-x-2 gap-y-4">
+        <div className="col-span-6 sm:col-span-5">
+          <div className="grid grid-cols-1   md:grid-cols-2 lg:col-span-3 gap-x-2 gap-y-4">
             {couponFetching &&
               couponLoading &&
               new Array(12)

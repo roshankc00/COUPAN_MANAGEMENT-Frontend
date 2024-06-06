@@ -1,9 +1,9 @@
 "use client";
-import { UseGetASingleFAQ } from "@/hooks/react-query/faqs/getSingleFaq";
-import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Form,
   FormControl,
@@ -21,54 +21,76 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
-import { updateFaq } from "@/common/api/faqs/faqs.api";
+import { postFaqs } from "@/common/api/faqs/faqs.api";
 import toast from "react-hot-toast";
+import { useRouter, useSearchParams } from "next/navigation";
 import { client } from "@/components/Provider";
-import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { UseGetAllOrderWithStatus } from "@/hooks/react-query/orders/get-all-orders-with-status";
+import { updateLicense } from "@/common/api/license/license.api";
+import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
 
 type Props = {
   id: number;
-  data: any;
+  singleData: any;
 };
-
-const EditLicenseForm: React.FC<Props> = ({ data, id }) => {
+const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const paramid = searchParams.get("id");
   const formSchema = z.object({
-    question: z.string().min(5, {
+    title: z.string().min(5, {
       message: " must be of 5 charecter ",
     }),
-    answer: z.string().min(5, {
+    code: z.string().min(5, {
       message: "must be of 5 charecter ",
     }),
-  });
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      question: data?.question,
-      answer: data?.answer,
-    },
+    orderId: z.string(),
   });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: updateFaq,
+    mutationFn: updateLicense,
   });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: singleData?.title,
+      code: singleData?.code,
+      orderId: singleData?.orderId,
+    },
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutateAsync({
       id: +id,
-      values,
+      values: {
+        title: values.orderId,
+        code: values.code,
+        orderId: +values.orderId,
+      },
     }).then(() => {
-      toast.success("FAQ updated successfully");
-      router.push("/admin/faqs");
-      client.invalidateQueries({ queryKey: ["faqs"] });
+      toast.success("License created successfully");
+      router.push("/admin/license");
+      client.invalidateQueries({ queryKey: ["get-all-licenses"] });
     });
   };
 
-  //   updateFaq
+  const { data: allOrders, isLoading: orderLoading } =
+    UseGetAllOrderWithStatus("pending");
+
   return (
-    <div>
+    <div className="mt-10">
+      <AdminHeader title="License" />
       <div>
         <Card className=" ms-24">
           <CardHeader></CardHeader>
@@ -76,16 +98,16 @@ const EditLicenseForm: React.FC<Props> = ({ data, id }) => {
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
-                  name="question"
+                  name="title"
                   control={form.control}
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel>Question</FormLabel>
+                        <FormLabel>Title</FormLabel>
                         <FormControl>
                           <Input
                             className="border border-[#d3d3d1]"
-                            placeholder="Enter the question"
+                            placeholder="Enter the title"
                             {...field}
                           />
                         </FormControl>
@@ -95,16 +117,16 @@ const EditLicenseForm: React.FC<Props> = ({ data, id }) => {
                   )}
                 />
                 <FormField
-                  name="answer"
+                  name="code"
                   control={form.control}
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel>Answer</FormLabel>
+                        <FormLabel>Code</FormLabel>
                         <FormControl>
                           <Input
                             className="border border-[#d3d3d1]"
-                            placeholder="Enter the answer"
+                            placeholder="Enter the code"
                             {...field}
                           />
                         </FormControl>
@@ -113,7 +135,47 @@ const EditLicenseForm: React.FC<Props> = ({ data, id }) => {
                     </>
                   )}
                 />
-                <Button type="submit" className="w-full mt-4">
+
+                <FormField
+                  name="orderId"
+                  control={form.control}
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="mb-3">
+                        <FormLabel>Order</FormLabel>
+                        <Select onValueChange={field.onChange}>
+                          <SelectTrigger className="">
+                            <SelectValue
+                              placeholder={`${
+                                paramid
+                                  ? `OrderId-${singleData?.id}`
+                                  : "Select the orderId"
+                              }`}
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {!orderLoading &&
+                              allOrders?.map((item: any) => (
+                                <SelectItem
+                                  value={item?.id?.toString()}
+                                  key={item.id}
+                                >
+                                  {item?.id} - {item?.email}
+                                </SelectItem>
+                              ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full mt-4"
+                >
                   Save
                 </Button>
               </form>

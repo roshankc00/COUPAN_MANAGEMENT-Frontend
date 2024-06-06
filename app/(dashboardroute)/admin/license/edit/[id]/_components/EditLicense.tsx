@@ -1,12 +1,14 @@
 "use client";
-import { UseGetASingleFAQ } from "@/hooks/react-query/faqs/getSingleFaq";
-import EditFaqForm from "./EditLicenseForm";
+import { UseGetSingleLicense } from "@/hooks/react-query/license/get-single-license";
+import EditLicenseForm from "./EditLicenseForm";
 
 const EditLicense: React.FC<{ id: number }> = ({ id }) => {
-  const { data, isFetching, isLoading } = UseGetASingleFAQ(id);
+  const { data, isFetching, isLoading } = UseGetSingleLicense(id);
   return (
     <div>
-      {!isFetching && !isLoading && <EditFaqForm data={data} id={id} />}
+      {!isFetching && !isLoading && (
+        <EditLicenseForm singleData={data} id={id} />
+      )}
     </div>
   );
 };

@@ -58,14 +58,12 @@ function NewSubCategoryForm() {
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (values.apiKey && values.apiLink) {
-      console.log("mathi");
       mutateAsync({
         ...values,
       }).then(() => {
         toast.success("Affilate link created successfully");
       });
     } else {
-      console.log("tala");
       mutateAsync({
         link: values.link,
         merchant: values.merchant,
@@ -160,7 +158,9 @@ function NewSubCategoryForm() {
                     </>
                   )}
                 />
-                <Button type="submit"> Submit</Button>
+                <Button type="submit" disabled={isPending}>
+                  Submit
+                </Button>
               </form>
             </Form>
           </CardContent>

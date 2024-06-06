@@ -106,7 +106,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
       <h1 className=" text-3xl font-semibold text-blue-700 flex justify-center my-10">
         All Coupons
       </h1>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mt-12">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-12">
         {isLoading &&
           isFetching &&
           new Array(12)

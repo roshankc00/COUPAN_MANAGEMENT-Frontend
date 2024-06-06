@@ -55,7 +55,7 @@ const EditDeleteButton = ({ id }: { id: number }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <Link href={`/admin/faqs/edit/${id}`}>
+        <Link href={`/admin/license/edit/${id}`}>
           <DropdownMenuItem>
             <Pencil className="h-4 w-4 mr-2" />
             Edit

@@ -76,7 +76,7 @@ function EditCategoryForm({ id, singleData }: Props) {
     },
   });
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: updateCategory,
   });
 
@@ -384,7 +384,11 @@ function EditCategoryForm({ id, singleData }: Props) {
                       </>
                     )}
                   />
-                  <Button type="submit" className="w-full mt-4">
+                  <Button
+                    type="submit"
+                    disabled={isPending}
+                    className="w-full mt-4"
+                  >
                     Save
                   </Button>
                 </div>

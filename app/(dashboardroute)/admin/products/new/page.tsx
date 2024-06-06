@@ -52,7 +52,7 @@ const AddFaqs = () => {
     price: z.number(),
   });
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: postProduct,
   });
 
@@ -169,7 +169,11 @@ const AddFaqs = () => {
                   )}
                 />
                 <div className="w-full flex justify-end">
-                  <Button type="submit" className="w-[200px] mt-4">
+                  <Button
+                    type="submit"
+                    className="w-[200px] mt-4"
+                    disabled={isPending}
+                  >
                     Save
                   </Button>
                 </div>

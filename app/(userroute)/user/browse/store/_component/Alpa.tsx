@@ -10,8 +10,8 @@ import EmptyState from "@/components/EmptyState";
 const AlpaStore = () => {
   const { data, isFetching, isLoading } = UseGetAllStore();
   return (
-    <div className="px-2">
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 place-content-center">
+    <div className="px-2 w-full">
+      <div className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 place-content-center">
         {!isLoading &&
           !isFetching &&
           data?.map((item: IStore) => {

@@ -35,7 +35,7 @@ export default function Home() {
         <div>
           <div className="flex justify-between items-center mt-5 px-8">
             <h1 className="font-medium text-xl">Featured Stores</h1>
-            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1 mt-3">
+            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1 ">
               View Stores
             </button>
           </div>
@@ -46,7 +46,7 @@ export default function Home() {
         <div>
           <div className="flex justify-between items-center mt-5 px-8">
             <h1 className="font-medium text-xl">Featured Coupons</h1>
-            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1 mt-3">
+            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1 ">
               View Coupons
             </button>
           </div>
@@ -56,7 +56,7 @@ export default function Home() {
         <div>
           <div className="flex justify-between items-center mt-5 px-8">
             <h1 className="font-medium text-xl">Featured Category</h1>
-            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1 mt-3">
+            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1">
               View Category
             </button>
           </div>
