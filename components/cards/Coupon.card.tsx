@@ -4,7 +4,6 @@ import { SlCalender } from "react-icons/sl";
 import { PiBuildingOfficeLight } from "react-icons/pi";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import { calculateRemaingDays } from "@/common/helpers/calculate.expire.date";
-import { UseGetCurrentUser } from "@/hooks/react-query/users/get-current-user";
 import { UseItemExistInWishlist } from "@/hooks/react-query/coupons/item-exist-in-wishlist";
 import { FaHeart } from "react-icons/fa";
 import { IoIosBookmark } from "react-icons/io";

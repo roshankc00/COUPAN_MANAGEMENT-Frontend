@@ -21,8 +21,10 @@ import debounce from "lodash.debounce";
 import { useMutation } from "@tanstack/react-query";
 import { postOrder } from "@/common/api/orders/orders.api";
 import Payment from "./Payment";
+import { useRouter } from "next/navigation";
 
 const AllProducts = () => {
+  const router = useRouter();
   const ALL_ROUTES = ["gift_card", "subscription"];
   const [active, setactive] = useState("gift_card");
   const [activeProduct, setactiveProduct] = useState<any>({});
@@ -52,7 +54,7 @@ const AllProducts = () => {
     },
   });
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending: orderPending } = useMutation({
     mutationFn: postOrder,
   });
 
@@ -60,11 +62,14 @@ const AllProducts = () => {
     if (!activeProduct) {
       return toast.error("Select the product");
     } else {
-      mutateAsync({ ...values, productId: +activeProduct }).then(() => {
+      mutateAsync({ ...values, productId: +activeProduct?.id }).then(() => {
         toast.success("Order placed sucessfully");
+        router.push("/user/order-success");
       });
     }
   };
+
+  console.log(activeProduct);
   return (
     <div className="mt-10">
       <div className="grid grid-cols-5 gap-10">
@@ -130,7 +135,7 @@ const AllProducts = () => {
             </h1>
             <Card className="">
               <CardContent>
-                <Payment item={active} />
+                <Payment item={activeProduct} />
               </CardContent>
             </Card>
           </div>
@@ -187,7 +192,11 @@ const AllProducts = () => {
                       )}
                     />
                     <div className="w-full flex justify-end">
-                      <Button type="submit" className="w-[200px] mt-4">
+                      <Button
+                        type="submit"
+                        className="w-[200px] mt-4"
+                        disabled={orderPending}
+                      >
                         Place Order
                       </Button>
                     </div>

@@ -16,7 +16,6 @@ import Pagination, { usePagination } from "@/components/ui/pagination";
 import { SkeletonCouponCard } from "@/components/CouponCard.skeleton";
 import CouponCard from "@/components/cards/Coupon.card";
 import { UseGetStoreInfo } from "@/hooks/react-query/stores/get-single-store";
-import { UseGetCurrentUser } from "@/hooks/react-query/users/get-current-user";
 import { isStoreFollowed } from "@/common/helpers/followedUserOrNot";
 import { useMutation } from "@tanstack/react-query";
 import { followUnfollowstore } from "@/common/api/stores/store.api";

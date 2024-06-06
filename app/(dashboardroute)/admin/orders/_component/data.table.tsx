@@ -53,8 +53,6 @@ export function Datatable<TData, TValue>({
     },
   });
 
-  const router = useRouter();
-
   return (
     <div className=" w-[80vw] mr-4 ms-0 2xl:ms-20 ">
       <div className="flex items-center py-4 justify-between">

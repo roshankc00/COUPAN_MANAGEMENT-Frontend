@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
+  token: "",
   userId: "",
   name: "",
   isLogedInStatus: false,
@@ -14,6 +15,7 @@ const authSlice = createSlice({
       (state.name = data.payload.name), (state.isLogedInStatus = true);
       state.userId = data.payload.id;
       state.role = data?.payload?.role;
+      state.token = data?.payload.token;
     },
     logedOut: (state) => {
       (state.name = ""),

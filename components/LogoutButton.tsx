@@ -9,15 +9,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { UseGetCurrentUser } from "@/hooks/react-query/users/get-current-user";
 import { IoPersonCircle } from "react-icons/io5";
 import { Button } from "./ui/button";
 import { LogoutUser } from "@/common/api/api";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { IRootState } from "@/store";
 
 const LogoutButton = () => {
+  const { isLogedInStatus, name, role } = useSelector(
+    (state: IRootState) => state.auth
+  );
   const router = useRouter();
-  const { data } = UseGetCurrentUser();
   return (
     <div>
       <DropdownMenu>
@@ -27,7 +30,7 @@ const LogoutButton = () => {
            text-white"
           >
             <IoPersonCircle color="white" size={25} />
-            {data?.name}
+            {name}
             <RiArrowDropDownLine color="white" size={20} />
           </p>
         </DropdownMenuTrigger>
@@ -37,7 +40,7 @@ const LogoutButton = () => {
           <DropdownMenuItem onClick={() => LogoutUser()}>
             Logout
           </DropdownMenuItem>
-          {data?.role === "ADMIN" && (
+          {role === "ADMIN" && (
             <DropdownMenuItem onClick={() => router.push("/admin/dashboard")}>
               Dashboard
             </DropdownMenuItem>

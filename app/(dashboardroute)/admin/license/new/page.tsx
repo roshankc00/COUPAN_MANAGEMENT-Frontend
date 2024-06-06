@@ -33,12 +33,15 @@ import { Input } from "@/components/ui/input";
 import { useMutation } from "@tanstack/react-query";
 import { postFaqs } from "@/common/api/faqs/faqs.api";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { client } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
 import { UseGetAllOrderWithStatus } from "@/hooks/react-query/orders/get-all-orders-with-status";
+import { postLicense } from "@/common/api/license/license.api";
 const AddFaqs = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const paramid = searchParams.get("id");
   const formSchema = z.object({
     title: z.string().min(5, {
       message: " must be of 5 charecter ",
@@ -49,8 +52,8 @@ const AddFaqs = () => {
     orderId: z.string(),
   });
 
-  const { mutateAsync } = useMutation({
-    mutationFn: postFaqs,
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: postLicense,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,20 +61,25 @@ const AddFaqs = () => {
     defaultValues: {
       title: "",
       code: "",
+      orderId: paramid ? paramid : undefined,
     },
   });
-  //   postFaqs
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutateAsync(values).then(() => {
-      toast.success("FAQ created successfully");
-      router.push("/admin/faqs");
-      client.invalidateQueries({ queryKey: ["faqs"] });
+    mutateAsync({
+      title: values.orderId,
+      code: values.code,
+      orderId: +values.orderId,
+    }).then(() => {
+      toast.success("License created successfully");
+      router.push("/admin/license");
+      client.invalidateQueries({ queryKey: ["get-all-licenses"] });
     });
   };
 
   const { data: allOrders, isLoading: orderLoading } =
     UseGetAllOrderWithStatus("pending");
+
   return (
     <div className="mt-10">
       <AdminHeader title="License" />
@@ -129,7 +137,13 @@ const AddFaqs = () => {
                         <FormLabel>Order</FormLabel>
                         <Select onValueChange={field.onChange}>
                           <SelectTrigger className="">
-                            <SelectValue placeholder="Select the Order" />
+                            <SelectValue
+                              placeholder={`${
+                                paramid
+                                  ? `OrderId-${paramid}`
+                                  : "Select the order"
+                              }`}
+                            />
                           </SelectTrigger>
                           <SelectContent>
                             {!orderLoading &&
@@ -149,7 +163,11 @@ const AddFaqs = () => {
                   )}
                 />
 
-                <Button type="submit" className="w-full mt-4">
+                <Button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full mt-4"
+                >
                   Save
                 </Button>
               </form>

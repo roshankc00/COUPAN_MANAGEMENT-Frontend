@@ -59,15 +59,9 @@ function LoginForm() {
   const { mutate } = useMutation({
     mutationFn: loginUser,
     onSuccess(data) {
-      const referrer = document.referrer;
-      Cookies.set("Authentication", data.token);
       toast.success("User LoggedIn successfully");
-      dispatch(logedin(data?.user));
-      if (referrer && referrer.endsWith("/signup")) {
-        router.push("/");
-      } else {
-        router.back();
-      }
+      dispatch(logedin(data));
+      router.push("/");
     },
   });
 

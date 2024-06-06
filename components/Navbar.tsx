@@ -19,8 +19,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useSelector } from "react-redux";
+import { IRootState } from "@/store";
 const Navbar = () => {
   const router = useRouter();
+
   return (
     <div className="">
       {/* <div className="fixed w-full mb-0 z-100 -mt-[40px]"> */}

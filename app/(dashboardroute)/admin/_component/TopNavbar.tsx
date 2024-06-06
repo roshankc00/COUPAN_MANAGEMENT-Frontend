@@ -1,11 +1,9 @@
 "use client";
-import { UseGetCurrentUser } from "@/hooks/react-query/users/get-current-user";
 import React from "react";
 import MobileSideBar from "./smallscreen.sidebar";
 import { Button } from "@/components/ui/button";
 import { MdLogout } from "react-icons/md";
 const TopNavbar = () => {
-  const { data } = UseGetCurrentUser();
   return (
     <div className="bg-[#3577f1] w-full">
       <div className="flex justify-between px-3 py-5 -mt-2">

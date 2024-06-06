@@ -1,10 +1,12 @@
+import { store } from "@/store";
 import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { FaLessThan } from "react-icons/fa";
 
 export const getUserLoginStatus = () => {
-  return Cookies.get("Authentication") ? true : false;
+  const { auth } = store.getState();
+  return auth?.isLogedInStatus;
 };
 
 export const LogoutUser = () => {
@@ -21,7 +23,8 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((req) => {
-  req.headers.Authorization = `Bearer ${Cookies.get("Authentication")}`;
+  const { auth } = store.getState();
+  req.headers.Authorization = `Bearer ${auth?.token}`;
   return req;
 });
 api.interceptors.response.use(

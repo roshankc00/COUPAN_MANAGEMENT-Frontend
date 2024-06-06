@@ -34,6 +34,7 @@ import { deleteCoupon } from "@/common/api/coupons/coupons.api";
 import { pendingOrder, rejectOrder } from "@/common/api/orders/orders.api";
 import { UseHandleRejectOrder } from "@/hooks/react-query/orders/reject-order-state";
 import { UseHandlePendingOrder } from "@/hooks/react-query/orders/pending-order-state";
+import { useSearchParams } from "next/navigation";
 
 const ChangeOrderStatusBtns = ({ id }: { id: number }) => {
   const handlePendingState = UseHandlePendingOrder();
@@ -48,7 +49,7 @@ const ChangeOrderStatusBtns = ({ id }: { id: number }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <Link href={`/admin/license/new`}>
+        <Link href={`/admin/license/new?id=${id}`}>
           <DropdownMenuItem>
             <Check className="h-4 w-4 mr-2" />
             Accept Order

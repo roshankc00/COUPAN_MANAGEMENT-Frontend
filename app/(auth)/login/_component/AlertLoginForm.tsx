@@ -57,9 +57,8 @@ function AlertLoginForm() {
   const { mutate } = useMutation({
     mutationFn: loginUser,
     onSuccess(data) {
-      Cookies.set("Authentication", data.token);
-      toast.success("User LoggedIn successfully");
-      dispatch(logedin(data?.user));
+      toast.success("User LoggedIn successfully", data);
+      dispatch(logedin(data));
     },
   });
 
