@@ -119,7 +119,7 @@ function LoginForm() {
                       <FormControl>
                         <Input
                           type="password"
-                          placeholder="shadcn"
+                          placeholder="Enter Password"
                           {...field}
                         />
                       </FormControl>

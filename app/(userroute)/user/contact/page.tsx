@@ -151,6 +151,7 @@ const SubmitOffer = () => {
 
                   <button
                     type="submit"
+                    disabled={isPending}
                     className="w-[200px] mt-4 p-2 px-2 border border-blue-600 rounded-md"
                   >
                     Send Message

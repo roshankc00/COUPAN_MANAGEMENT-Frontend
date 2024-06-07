@@ -54,7 +54,7 @@ function AlertLoginForm() {
     },
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: loginUser,
     onSuccess(data) {
       toast.success("User LoggedIn successfully", data);
@@ -125,7 +125,7 @@ function AlertLoginForm() {
                   </>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button type="submit" disabled={isPending} className="w-full">
                 Login
               </Button>
               <Button

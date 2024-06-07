@@ -30,7 +30,7 @@ function ForgetPasswordForm() {
     },
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: forgetPassword,
     onSuccess(data, variables, context) {
       toast.success("Check Your Mail please");
@@ -74,7 +74,7 @@ function ForgetPasswordForm() {
                     </>
                   )}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" disabled={isPending} className="w-full">
                   Reset Password
                 </Button>
               </form>

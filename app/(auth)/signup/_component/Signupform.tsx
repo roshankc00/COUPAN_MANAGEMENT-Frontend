@@ -49,7 +49,7 @@ function SignupForm() {
     },
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: signupUser,
     onSuccess() {
       toast.success("Check your Mail Please");
@@ -125,7 +125,7 @@ function SignupForm() {
                   </>
                 )}
               />
-              <Button type="submit" className="w-full">
+              <Button type="submit" disabled={isPending} className="w-full">
                 Submit
               </Button>
               <Button

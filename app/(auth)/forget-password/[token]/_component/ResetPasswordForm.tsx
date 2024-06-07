@@ -38,10 +38,10 @@ function ResetPasswordForm({ token }: { token: string }) {
     },
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: resetPassword,
     onSuccess(data, variables, context) {
-      toast.success("Check Your Mail please");
+      toast.success("Password changed successfully");
       router.push("/login");
     },
   });
@@ -97,7 +97,7 @@ function ResetPasswordForm({ token }: { token: string }) {
                     </>
                   )}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" disabled={isPending} className="w-full">
                   Reset Password
                 </Button>
               </form>
