@@ -64,9 +64,6 @@ function NewCouponForm() {
     expireDate: z.string().min(10, {
       message: " must be of 10 charecter ",
     }),
-    url: z.string().min(10, {
-      message: " must be of 10 charecter ",
-    }),
     featured: z.string(),
     categoryId: z.string(),
     subCategoryId: z.string(),
@@ -115,7 +112,6 @@ function NewCouponForm() {
     }
     formData.append("startDate", values.startDate);
     formData.append("expireDate", values.expireDate);
-    formData.append("url", values.url);
     formData.append("featured", values.featured);
     formData.append("categoryId", values.categoryId);
     formData.append("subCategoryId", values.subCategoryId);
@@ -131,7 +127,7 @@ function NewCouponForm() {
     mutateAsync(formData as any)
       .then(() => {
         toast.success("Coupon created successfully");
-        router.push("/coupon");
+        router.push("/admin/coupon");
         client.invalidateQueries({ queryKey: ["coupons"] });
         client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
       })
@@ -297,25 +293,6 @@ function NewCouponForm() {
                     )}
                   />
 
-                  <FormField
-                    name="url"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>Url</FormLabel>
-                          <FormControl>
-                            <Input
-                              className="border border-[#d3d3d1]"
-                              placeholder="Enter the url"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
                   <FormField
                     name="featured"
                     control={form.control}

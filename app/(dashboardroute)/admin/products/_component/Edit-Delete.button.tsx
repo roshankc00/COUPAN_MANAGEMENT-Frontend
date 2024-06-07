@@ -23,20 +23,18 @@ import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
-import { deleteCategory } from "@/common/api/categories/category.api";
-import { deleteCoupon } from "@/common/api/coupons/coupons.api";
+import { deleteProduct } from "@/common/api/products/products.api";
 
 const UseDeleteCategory = () => {
   const { mutateAsync } = useMutation({
-    mutationFn: deleteSubcategory,
+    mutationFn: deleteProduct,
   });
 
   const handleDelete = async (id: number) => {
     await mutateAsync(id).then(() => {
       toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["sub-categories"] });
       client.invalidateQueries({
-        queryKey: ["sub-categories-by-category"],
+        queryKey: ["get-all-products"],
       });
     });
   };
@@ -56,7 +54,7 @@ const EditDeleteButton = ({ id }: { id: number }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <Link href={`/admin/coupon/edit/${id}`}>
+        <Link href={`/admin/products/edit/${id}`}>
           <DropdownMenuItem>
             <Pencil className="h-4 w-4 mr-2" />
             Edit

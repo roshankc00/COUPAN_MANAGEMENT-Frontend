@@ -85,7 +85,7 @@ function EditCategoryForm({ id, singleData }: Props) {
       mutateAsync({ id, values } as any)
         .then(() => {
           toast.success("Category updated successfully");
-          router.push("/category");
+          router.push("/admin/category");
           client.invalidateQueries({ queryKey: ["category"] });
           client.invalidateQueries({
             queryKey: ["sub-categories-by-category"],

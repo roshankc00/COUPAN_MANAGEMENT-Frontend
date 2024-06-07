@@ -49,7 +49,7 @@ const AddFaqs = () => {
     product_type: z.string().min(5, {
       message: "must be of 5 charecter ",
     }),
-    price: z.number(),
+    price: z.string(),
   });
 
   const { mutateAsync, isPending } = useMutation({
@@ -65,7 +65,10 @@ const AddFaqs = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutateAsync(values).then(() => {
+    mutateAsync({
+      ...values,
+      price: +values?.price,
+    }).then(() => {
       toast.success("Product created successfully");
       router.push("/admin/products");
       client.invalidateQueries({ queryKey: ["get-all-products"] });

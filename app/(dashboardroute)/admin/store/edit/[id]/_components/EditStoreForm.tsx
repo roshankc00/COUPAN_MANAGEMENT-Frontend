@@ -84,7 +84,7 @@ function EditStoreForm({ singleData, id }: Props) {
       mutateAsync({ id, values } as any)
         .then(() => {
           toast.success("Store created successfully");
-          router.push("/store");
+          router.push("/admin/store");
           client.invalidateQueries({ queryKey: ["store"] });
         })
         .catch(() => {

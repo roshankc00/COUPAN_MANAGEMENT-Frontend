@@ -38,10 +38,9 @@ import { client } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
 import { UseGetAllOrderWithStatus } from "@/hooks/react-query/orders/get-all-orders-with-status";
 import { postLicense } from "@/common/api/license/license.api";
+import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
 const AddFaqs = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const paramid = searchParams.get("id");
   const formSchema = z.object({
     title: z.string().min(5, {
       message: " must be of 5 charecter ",
@@ -49,7 +48,11 @@ const AddFaqs = () => {
     code: z.string().min(5, {
       message: "must be of 5 charecter ",
     }),
-    orderId: z.string(),
+    validityDays: z.string(),
+    expireDate: z.string().min(10, {
+      message: " must be of 10 charecter ",
+    }),
+    productId: z.string(),
   });
 
   const { mutateAsync, isPending } = useMutation({
@@ -61,25 +64,25 @@ const AddFaqs = () => {
     defaultValues: {
       title: "",
       code: "",
-      orderId: paramid ? paramid : undefined,
+      expireDate: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutateAsync({
-      title: values.orderId,
+      title: values.title,
       code: values.code,
-      orderId: +values.orderId,
+      validityDays: +values.validityDays,
+      expireDate: values.expireDate,
+      productId: +values.productId,
     }).then(() => {
-      toast.success("License created successfully");
+      toast.success("License updated successfully");
       router.push("/admin/license");
       client.invalidateQueries({ queryKey: ["get-all-licenses"] });
     });
   };
 
-  const { data: allOrders, isLoading: orderLoading } =
-    UseGetAllOrderWithStatus("pending");
-
+  const { data, isLoading } = UseGetAllProducts();
   return (
     <div className="mt-10">
       <AdminHeader title="License" />
@@ -109,6 +112,36 @@ const AddFaqs = () => {
                   )}
                 />
                 <FormField
+                  name="productId"
+                  control={form.control}
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="mb-3">
+                        <FormLabel>Order</FormLabel>
+                        <Select onValueChange={field.onChange}>
+                          <SelectTrigger className="">
+                            <SelectValue
+                              placeholder={`${"Select the order"}`}
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {!isLoading &&
+                              data?.map((item: any) => (
+                                <SelectItem
+                                  value={item?.id?.toString()}
+                                  key={item.id}
+                                >
+                                  {item?.id} - {item?.title}
+                                </SelectItem>
+                              ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+                <FormField
                   name="code"
                   control={form.control}
                   render={({ field }) => (
@@ -127,36 +160,41 @@ const AddFaqs = () => {
                     </>
                   )}
                 />
-
                 <FormField
-                  name="orderId"
+                  name="expireDate"
                   control={form.control}
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel>Order</FormLabel>
-                        <Select onValueChange={field.onChange}>
-                          <SelectTrigger className="">
-                            <SelectValue
-                              placeholder={`${
-                                paramid
-                                  ? `OrderId-${paramid}`
-                                  : "Select the order"
-                              }`}
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {!orderLoading &&
-                              allOrders?.map((item: any) => (
-                                <SelectItem
-                                  value={item?.id?.toString()}
-                                  key={item.id}
-                                >
-                                  {item?.id} - {item?.email}
-                                </SelectItem>
-                              ))}
-                          </SelectContent>
-                        </Select>
+                        <FormLabel>ExpireDate</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="date"
+                            className="border border-[#d3d3d1]"
+                            placeholder="Enter the ExpireDate"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+                <FormField
+                  name="validityDays"
+                  control={form.control}
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="mb-3">
+                        <FormLabel>Validity Days</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            className="border border-[#d3d3d1]"
+                            placeholder="Enter the validityDays"
+                            {...field}
+                          />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     </>

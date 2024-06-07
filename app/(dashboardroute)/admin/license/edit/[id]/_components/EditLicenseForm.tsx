@@ -38,6 +38,8 @@ import { Button } from "@/components/ui/button";
 import { UseGetAllOrderWithStatus } from "@/hooks/react-query/orders/get-all-orders-with-status";
 import { updateLicense } from "@/common/api/license/license.api";
 import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
+import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
+import moment from "moment";
 
 type Props = {
   id: number;
@@ -54,11 +56,11 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
     code: z.string().min(5, {
       message: "must be of 5 charecter ",
     }),
-    orderId: z.string(),
-  });
-
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: updateLicense,
+    validityDays: z.string(),
+    expireDate: z.string().min(10, {
+      message: " must be of 10 charecter ",
+    }),
+    productId: z.string(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -66,17 +68,25 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
     defaultValues: {
       title: singleData?.title,
       code: singleData?.code,
-      orderId: singleData?.orderId,
+      expireDate: moment(singleData?.expireDate).format("YYYY-MM-DD"),
+      productId: singleData?.product?.id.toString(),
+      validityDays: singleData?.validityDays.toString(),
     },
+  });
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: updateLicense,
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutateAsync({
       id: +id,
       values: {
-        title: values.orderId,
-        code: values.code,
-        orderId: +values.orderId,
+        title: values?.title,
+        code: values?.code,
+        expireDate: values?.expireDate,
+        productId: +values?.productId,
+        validityDays: +values?.validityDays,
       },
     }).then(() => {
       toast.success("License created successfully");
@@ -85,8 +95,7 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
     });
   };
 
-  const { data: allOrders, isLoading: orderLoading } =
-    UseGetAllOrderWithStatus("pending");
+  const { data, isFetching, isLoading } = UseGetAllProducts();
 
   return (
     <div className="mt-10">
@@ -117,6 +126,37 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
                   )}
                 />
                 <FormField
+                  name="productId"
+                  control={form.control}
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="mb-3">
+                        <FormLabel>Order</FormLabel>
+                        <Select onValueChange={field.onChange}>
+                          <SelectTrigger className="">
+                            <SelectValue
+                              placeholder={`${singleData.product.id}-${singleData?.product.title}}`}
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {!isLoading &&
+                              !isFetching &&
+                              data?.map((item: any) => (
+                                <SelectItem
+                                  value={item?.id?.toString()}
+                                  key={item.id}
+                                >
+                                  {item?.id} - {item?.title}
+                                </SelectItem>
+                              ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+                <FormField
                   name="code"
                   control={form.control}
                   render={({ field }) => (
@@ -135,36 +175,44 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
                     </>
                   )}
                 />
-
                 <FormField
-                  name="orderId"
+                  name="expireDate"
                   control={form.control}
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel>Order</FormLabel>
-                        <Select onValueChange={field.onChange}>
-                          <SelectTrigger className="">
-                            <SelectValue
-                              placeholder={`${
-                                paramid
-                                  ? `OrderId-${singleData?.id}`
-                                  : "Select the orderId"
-                              }`}
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {!orderLoading &&
-                              allOrders?.map((item: any) => (
-                                <SelectItem
-                                  value={item?.id?.toString()}
-                                  key={item.id}
-                                >
-                                  {item?.id} - {item?.email}
-                                </SelectItem>
-                              ))}
-                          </SelectContent>
-                        </Select>
+                        <FormLabel>ExpireDate</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="date"
+                            defaultValue={moment(singleData?.expireDate).format(
+                              "YYYY-MM-DD"
+                            )}
+                            className="border border-[#d3d3d1]"
+                            placeholder="Enter the ExpireDate"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+                <FormField
+                  name="validityDays"
+                  control={form.control}
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="mb-3">
+                        <FormLabel>Validity Days</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            className="border border-[#d3d3d1]"
+                            placeholder="Enter the validityDays"
+                            {...field}
+                          />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     </>

@@ -64,9 +64,7 @@ function EditCouponForm({ singleData, id }: Props) {
     expireDate: z.string().min(10, {
       message: " must be of 10 charecter ",
     }),
-    url: z.string().min(5, {
-      message: " must be of 10 charecter ",
-    }),
+
     featured: z.string(),
     categoryId: z.number(),
     subCategoryId: z.number(),
@@ -94,7 +92,6 @@ function EditCouponForm({ singleData, id }: Props) {
       code: singleData?.code,
       startDate: moment(singleData?.startDate).format("YYYY-MM-DD"),
       expireDate: moment(singleData?.expireDate).format("YYYY-MM-DD"),
-      // url: singleData?.url,
       featured: singleData?.featured?.toString(),
       categoryId: singleData?.categoryId,
       subCategoryId: singleData?.subCategoryId,
@@ -119,7 +116,7 @@ function EditCouponForm({ singleData, id }: Props) {
       mutateAsync({ id, values } as any)
         .then(() => {
           toast.success("Coupon updated successfully");
-          router.push("/coupon");
+          router.push("/admin/coupon");
           client.invalidateQueries({ queryKey: ["coupons"] });
         })
         .catch(() => {
@@ -133,7 +130,6 @@ function EditCouponForm({ singleData, id }: Props) {
       formData.append("code", values.code);
       formData.append("startDate", values.startDate);
       formData.append("expireDate", values.expireDate);
-      formData.append("url", values.url);
       formData.append("featured", values.featured);
       formData.append("categoryId", values.categoryId.toString());
       formData.append("subCategoryId", values.subCategoryId.toString());
@@ -149,7 +145,7 @@ function EditCouponForm({ singleData, id }: Props) {
       mutateAsync({ id, values: formData } as any)
         .then(() => {
           toast.success("Coupon updated successfully");
-          router.push("/coupon");
+          router.push("/admin/coupon");
           client.invalidateQueries({ queryKey: ["coupons"] });
         })
         .catch(() => {
@@ -321,25 +317,6 @@ function EditCouponForm({ singleData, id }: Props) {
                     )}
                   />
 
-                  <FormField
-                    name="url"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>Url</FormLabel>
-                          <FormControl>
-                            <Input
-                              className="border border-[#d3d3d1]"
-                              placeholder="Enter the url"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
                   <FormField
                     name="featured"
                     control={form.control}

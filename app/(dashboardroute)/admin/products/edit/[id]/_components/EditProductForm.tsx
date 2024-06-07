@@ -45,7 +45,7 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
     product_type: z.string().min(5, {
       message: "must be of 5 charecter ",
     }),
-    price: z.number(),
+    price: z.string(),
   });
 
   const { mutateAsync, isPending } = useMutation({
@@ -58,14 +58,17 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
       title: singleData?.title,
       description: singleData?.description,
       product_type: singleData?.product_type,
-      price: singleData?.price,
+      price: singleData?.price.toString(),
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutateAsync({
       id: +id,
-      values,
+      values: {
+        ...values,
+        price: +values?.price,
+      },
     }).then(() => {
       toast.success("Product updated successfully");
       router.push("/admin/products");

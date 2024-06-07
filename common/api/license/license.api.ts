@@ -13,7 +13,7 @@ export const getSingleLicense = async (id: number) => {
   return data;
 };
 export const updateLicense = async (body: { id: number; values: any }) => {
-  const { data } = await axios.post(`/license/${body.id}`, body.values);
+  const { data } = await axios.patch(`/license/${body.id}`, body.values);
   return data;
 };
 

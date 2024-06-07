@@ -21,3 +21,8 @@ export const editProduct = async (body: { id: number; values: any }) => {
   const { data } = await axios.patch(`/products/${body.id}`, body.values);
   return data;
 };
+
+export const deleteProduct = async (id: number) => {
+  const { data } = await axios.delete(`/products/${id}`);
+  return data;
+};
