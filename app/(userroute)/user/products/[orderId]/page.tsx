@@ -10,9 +10,12 @@ import { Socket, io } from "socket.io-client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import PaymentCardSkeleton from "@/components/cards/PaymentCardSkeleton";
+import LoginUserOnly from "@/components/permissions/LoginUserOnly";
 
 const QrComponent = ({ params }: { params: { orderId: number } }) => {
-  const { name, userId } = useSelector((state: IRootState) => state.auth);
+  const { name, userId, isLogedInStatus } = useSelector(
+    (state: IRootState) => state.auth
+  );
   const [qrcode, setQrcode] = useState("");
   const [websocketId, setWebsocketId] = useState("");
   const [isConnected, setIsConnected] = useState(false);
@@ -28,6 +31,8 @@ const QrComponent = ({ params }: { params: { orderId: number } }) => {
     },
   });
 
+  // wss://dev-ws.fonepay.com/convergent-webSocket-web/merchantEndPoint/Td35588c2d9a647f28f4959f96f905bec/NBQM/
+
   useEffect(() => {
     mutateAsync({
       amount: +orderprice!,
@@ -35,35 +40,36 @@ const QrComponent = ({ params }: { params: { orderId: number } }) => {
     });
   }, [mutateAsync, orderprice, userId, name, params.orderId]);
 
-  useEffect(() => {
-    let newSocket: Socket;
+  //   useEffect(() => {
+  //     let newSocket: Socket;
 
-    if (websocketId !== "" && websocketId) {
-      const createSocket = () => {
-        newSocket = io(websocketId);
+  //     if (websocketId !== "" && websocketId) {
+  //       const createSocket = () => {
+  //         console.log(websocketId);
+  //         newSocket = io(`wss://websocket.fonepay.com/${websocketId}`);
 
-        newSocket.on("connect", () => {
-          setIsConnected(true);
-          console.log("connected ");
-        });
-        newSocket.on("message", (data) => {
-          console.log("Message received from server:", data);
-        });
+  //         newSocket.on("connect", () => {
+  //           setIsConnected(true);
+  //           console.log("connected ");
+  //         });
+  //         newSocket.on("message", (data) => {
+  //           console.log("Message received from server:", data);
+  //         });
 
-        newSocket.on("disconnect", () => {
-          setIsConnected(false);
-          console.log("disconnected ");
-        });
-      };
-      createSocket();
-    }
+  //         newSocket.on("disconnect", () => {
+  //           setIsConnected(false);
+  //           console.log("disconnected ");
+  //         });
+  //       };
+  //       createSocket();
+  //     }
 
-    return () => {
-      if (newSocket) {
-        newSocket.disconnect();
-      }
-    };
-  }, [websocketId]);
+  //     return () => {
+  //       if (newSocket) {
+  //         newSocket.disconnect();
+  //       }
+  //     };
+  //   }, [websocketId]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -92,24 +98,26 @@ const QrComponent = ({ params }: { params: { orderId: number } }) => {
 
   return (
     <div className="flex justify-center">
-      {isPending ? (
-        <PaymentCardSkeleton />
-      ) : (
-        <Card className="w-[500px] py-5 px-2 ">
-          <h1 className="flex flex-row-reverse w-full px-4">
-            <span className="bg-blue-600 text-white px-3 py-1 rounded-md">
-              {formattedTime}
-            </span>
-          </h1>
+      <LoginUserOnly>
+        {isPending ? (
+          <PaymentCardSkeleton />
+        ) : (
+          <Card className="w-[500px] py-5 px-2 ">
+            <h1 className="flex flex-row-reverse w-full px-4">
+              <span className="bg-blue-600 text-white px-3 py-1 rounded-md">
+                {formattedTime}
+              </span>
+            </h1>
 
-          <CardContent>
-            <div className="flex flex-col items-center justify-center mt-5">
-              {qrcode && <img src={qrcode} alt="QR Code" />}
-            </div>
-            <h1 className="text-center text-[16px] font-bold">Scan to pay</h1>
-          </CardContent>
-        </Card>
-      )}
+            <CardContent>
+              <div className="flex flex-col items-center justify-center mt-5">
+                {qrcode && <img src={qrcode} alt="QR Code" />}
+              </div>
+              <h1 className="text-center text-[16px] font-bold">Scan to pay</h1>
+            </CardContent>
+          </Card>
+        )}
+      </LoginUserOnly>
     </div>
   );
 };

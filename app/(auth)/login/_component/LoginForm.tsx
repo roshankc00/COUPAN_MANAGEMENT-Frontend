@@ -61,7 +61,11 @@ function LoginForm() {
     onSuccess(data) {
       toast.success("User LoggedIn successfully");
       dispatch(logedin(data));
-      router.push("/");
+      if (data.role === "ADMIN") {
+        router.push("/admin/dashboard");
+      } else {
+        router.back();
+      }
     },
   });
 

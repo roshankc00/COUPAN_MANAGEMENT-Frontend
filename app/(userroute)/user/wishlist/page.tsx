@@ -1,5 +1,6 @@
 import React from "react";
 import ListWishlists from "./_components/List.Item";
+import LoginUserOnly from "@/components/permissions/LoginUserOnly";
 
 export const metadata = {
   title: "Wishlist | NepQue ",
@@ -7,9 +8,9 @@ export const metadata = {
 };
 const WishlistPage = () => {
   return (
-    <div>
+    <LoginUserOnly>
       <ListWishlists />
-    </div>
+    </LoginUserOnly>
   );
 };
 

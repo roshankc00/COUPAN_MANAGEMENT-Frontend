@@ -21,8 +21,11 @@ import debounce from "lodash.debounce";
 import { useMutation } from "@tanstack/react-query";
 import { postOrder } from "@/common/api/orders/orders.api";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { IRootState } from "@/store";
 
 const AllProducts = () => {
+  const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
   const router = useRouter();
   const ALL_ROUTES = ["gift_card", "subscription"];
   const [active, setactive] = useState("gift_card");
@@ -64,6 +67,9 @@ const AllProducts = () => {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (!activeProduct) {
       return toast.error("Select the product");
+    } else if (!isLogedInStatus) {
+      toast.error("Login first");
+      router.push("/login");
     } else {
       mutateAsync({ ...values, productId: +activeProduct?.id });
     }

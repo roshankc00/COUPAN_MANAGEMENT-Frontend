@@ -24,8 +24,15 @@ import Link from "next/link";
 import { handleLogin, signupUser } from "@/common/api/users/user.api";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { IRootState } from "@/store";
+import { redirect } from "next/navigation";
 
 function SignupForm() {
+  const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
+  if (isLogedInStatus) {
+    redirect("/");
+  }
   const formSchema = z.object({
     name: z.string().min(3, {
       message: "Name must be of 3 charecter ",
