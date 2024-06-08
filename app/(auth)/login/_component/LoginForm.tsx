@@ -31,9 +31,7 @@ import {
 } from "@/common/api/users/user.api";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
-import Cookies from "js-cookie";
-import { getUserLoginStatus } from "@/common/api/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logedin } from "../../_redux/auth.slice";
 function LoginForm() {
   const router = useRouter();
@@ -157,6 +155,12 @@ function LoginForm() {
               className="text-center text-sky-600 block my-2"
             >
               Forget Password
+            </Link>
+            <Link
+              href="/verifyEmail"
+              className="text-center text-sky-600 block my-2"
+            >
+              Verify Email
             </Link>
             <Link href="/signup" className="text-center text-sky-600">
               Not Registered ? Create an account
