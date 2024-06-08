@@ -20,7 +20,6 @@ import toast from "react-hot-toast";
 import debounce from "lodash.debounce";
 import { useMutation } from "@tanstack/react-query";
 import { postOrder } from "@/common/api/orders/orders.api";
-import Payment from "./Payment";
 import { useRouter } from "next/navigation";
 
 const AllProducts = () => {
@@ -56,20 +55,20 @@ const AllProducts = () => {
 
   const { mutateAsync, isPending: orderPending } = useMutation({
     mutationFn: postOrder,
+    onSuccess(data) {
+      toast.success("Order placed sucessfully");
+      router.push(`/user/products/${data?.id}?price=${activeProduct?.price}`);
+    },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (!activeProduct) {
       return toast.error("Select the product");
     } else {
-      mutateAsync({ ...values, productId: +activeProduct?.id }).then(() => {
-        toast.success("Order placed sucessfully");
-        router.push("/user/order-success");
-      });
+      mutateAsync({ ...values, productId: +activeProduct?.id });
     }
   };
 
-  console.log(activeProduct);
   return (
     <div className="mt-10">
       <div className="grid grid-cols-6 md:grid-cols-5 gap-10">
@@ -126,20 +125,6 @@ const AllProducts = () => {
                 ))}
             </div>
           </div>
-          <div className="mt-10 relative">
-            <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
-              2
-            </h1>
-            <h1 className="absolute left-16 text-xl font-medium">
-              Request Payment
-            </h1>
-            <Card className="">
-              <CardContent>
-                <Payment item={activeProduct} />
-              </CardContent>
-            </Card>
-          </div>
-
           <div className="mt-10 relative">
             <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
               2

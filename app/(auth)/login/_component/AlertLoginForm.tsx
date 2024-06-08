@@ -57,7 +57,7 @@ function AlertLoginForm() {
   const { mutate, isPending } = useMutation({
     mutationFn: loginUser,
     onSuccess(data) {
-      toast.success("User LoggedIn successfully", data);
+      toast.success("User LoggedIn successfully");
       dispatch(logedin(data));
     },
   });

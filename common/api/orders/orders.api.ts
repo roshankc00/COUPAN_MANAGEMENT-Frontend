@@ -25,3 +25,8 @@ export const pendingOrder = async (orderId: number) => {
   const { data } = await axios.patch(`/orders/pending/${orderId}`);
   return data;
 };
+
+export const getSingleOrder = async (orderId: number) => {
+  const { data } = await axios.get(`/orders/${orderId}`);
+  return data;
+};
