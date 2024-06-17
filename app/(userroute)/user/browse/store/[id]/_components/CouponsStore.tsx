@@ -25,11 +25,19 @@ import EmptyStateFilter from "@/components/EmptyFilterState";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import { UseItemExistInFollowerlist } from "@/hooks/react-query/stores/item-exist-in-store";
 import { date } from "zod";
+import { increaseCount } from "@/common/api/affilate-link/affilate-link.api";
+import { IRootState } from "@/store";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 type Props = {
   storeId: number;
 };
 
 const CouponStore: React.FC<Props> = ({ storeId }) => {
+  const { isLogedInStatus, userId } = useSelector(
+    (state: IRootState) => state.auth
+  );
+  const router = useRouter();
   const paginationProps = usePagination();
   const {
     data: allCoupons,
@@ -68,6 +76,23 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
 
   const { data: itemExist, isLoading: existLoading } =
     UseItemExistInFollowerlist(storeId);
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: increaseCount,
+  });
+  const handleNavigate = () => {
+    if (isLogedInStatus) {
+      mutateAsync(storeDetails?.affiliateLink.id);
+      window.open(
+        `${storeDetails.affiliateLink.link}?subId1=${userId}`,
+        "_blank"
+      );
+    } else {
+      router.push(
+        `/user/alert?alert=${store?.affiliateLink.link}&id=${store?.affiliateLink?.id}&cashbackAmountPer=${store?.affiliateLink?.cashbackAmountPer}`
+      );
+    }
+  };
   return (
     <div>
       <div className=" border-b-2 pb-10">
@@ -81,9 +106,12 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
             <div>
               <h1 className="font-bold   text-2xl ">{storeDetails?.title}</h1>
               <div>
-                <span>{storeDetails?.followers?.length} followers</span>
-                <span>{storeDetails?.coupons?.length} coupons</span>
-                <span>active coupons</span>
+                <span className="mx-2">
+                  {storeDetails?.followers?.length} followers
+                </span>
+                <span className="mx-2">
+                  {storeDetails?.coupons?.length} coupons
+                </span>
               </div>
               <p className="p-2">{storeDetails?.description}</p>
               {!existLoading && (
@@ -98,6 +126,13 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
                   {itemExist?.exist ? "Unfollow" : "Follow"}
                 </button>
               )}
+              <button
+                className="p-1 px-5 border ms-3 border-blue-600   rounded-md shadow-sm"
+                onClick={() => handleNavigate()}
+              >
+                {" "}
+                Visit Store
+              </button>
             </div>
           </div>
         )}

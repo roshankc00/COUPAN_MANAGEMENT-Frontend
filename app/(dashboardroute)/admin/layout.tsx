@@ -1,6 +1,4 @@
 import React from "react";
-import { Sidebar } from "./_component/Sidebar";
-import MobileSideBar from "./_component/smallscreen.sidebar";
 import TopNavbar from "./_component/TopNavbar";
 import AdminUserOnly from "@/components/permissions/AdminUserOnly";
 type Props = {

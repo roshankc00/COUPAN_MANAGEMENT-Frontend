@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -32,15 +32,30 @@ const BreadCrumCom = () => {
     isFetching: storeFetching,
     isLoading: storeLoading,
   } = UseGetAllStore();
+  const [isOpen, setIsOpen] = useState({
+    category: false,
+    store: false,
+  });
+
+  const handleMouseEnter = (menu: "category" | "store") => {
+    setIsOpen((prevState) => ({ ...prevState, [menu]: true }));
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen({ category: false, store: false });
+  };
 
   return (
-    <div className=" z-100  w-full z-100">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg-px-8 py-5  ">
+    <div className="w-full z-100">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-5">
         <Breadcrumb className="text-[16px]">
-          <BreadcrumbList className="flex justify-between items-center w-full ">
+          <BreadcrumbList className="flex justify-between items-center w-full">
             <div className="flex gap-4">
-              <BreadcrumbItem>
-                <DropdownMenu>
+              <BreadcrumbItem
+                onMouseEnter={() => handleMouseEnter("category")}
+                onMouseLeave={handleMouseLeave}
+              >
+                <DropdownMenu open={isOpen.category}>
                   <DropdownMenuTrigger className="border-none flex gap-2 text-black">
                     Categories
                     <ChevronDown className="h-5 w-5" />
@@ -61,14 +76,17 @@ const BreadCrumCom = () => {
                       })}
                     <DropdownMenuItem>
                       <Link href="/browse/category" className="underline">
-                        View All Category
+                        View All Categories
                       </Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </BreadcrumbItem>
-              <BreadcrumbItem>
-                <DropdownMenu>
+              <BreadcrumbItem
+                onMouseEnter={() => handleMouseEnter("store")}
+                onMouseLeave={handleMouseLeave}
+              >
+                <DropdownMenu open={isOpen.store}>
                   <DropdownMenuTrigger className="border-none flex gap-2 text-black">
                     Stores
                     <ChevronDown className="h-5 w-5" />
@@ -81,10 +99,7 @@ const BreadCrumCom = () => {
                       allStore?.slice(0, 5).map((item: IStore) => {
                         return (
                           <DropdownMenuItem key={item.id}>
-                            <Link
-                              href={`/user/browse/store/${item.id}`}
-                              className="underline"
-                            >
+                            <Link href={`/user/browse/store/${item.id}`}>
                               {item.title}
                             </Link>
                           </DropdownMenuItem>
@@ -100,7 +115,7 @@ const BreadCrumCom = () => {
               </BreadcrumbItem>
               <BreadcrumbItem>
                 <Link className="text-black" href="/user/browse/coupon">
-                  Coupon{" "}
+                  Coupon
                 </Link>
               </BreadcrumbItem>
               <BreadcrumbItem>

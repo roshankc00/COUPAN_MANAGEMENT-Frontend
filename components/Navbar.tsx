@@ -10,7 +10,6 @@ import SearchBar from "./SearchBar";
 import Logo from "../public/logo.jpg";
 import Image from "next/image";
 import LogoutButton from "./LogoutButton";
-import { getUserLoginStatus } from "@/common/api/api";
 import { FaHeart } from "react-icons/fa6";
 import { IoIosBookmark } from "react-icons/io";
 import {
@@ -23,6 +22,7 @@ import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
 const Navbar = () => {
   const router = useRouter();
+  const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
 
   return (
     <div className="">
@@ -40,7 +40,7 @@ const Navbar = () => {
         <div className="flex gap-4 items-center">
           <SearchBar />
           <div className="hidden md:block">
-            {getUserLoginStatus() && (
+            {isLogedInStatus && (
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
@@ -56,7 +56,7 @@ const Navbar = () => {
             )}
           </div>
           <div className="hidden md:block">
-            {getUserLoginStatus() && (
+            {isLogedInStatus && (
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
@@ -71,7 +71,7 @@ const Navbar = () => {
               </TooltipProvider>
             )}
           </div>
-          {getUserLoginStatus() ? (
+          {isLogedInStatus ? (
             <LogoutButton />
           ) : (
             <div className="flex gap-2">
