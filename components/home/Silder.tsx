@@ -12,6 +12,7 @@ import SliderSkeletion from "./SliderSkeletion";
 
 const Silder = () => {
   const { data, isFetching, isLoading } = UseGetAllHomeDetails();
+  console.log(data);
   return (
     <div>
       <Carousel>
@@ -24,10 +25,10 @@ const Silder = () => {
           {!isLoading &&
             !isFetching &&
             data &&
-            data[0]?.sliderImages?.map((item: any) => (
+            data[0]?.homeItem?.map((item: any) => (
               <CarouselItem key={item}>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${item}`}
+                  src={`${item.imageUrl}`}
                   alt=""
                   className="w-full h-[292px]"
                 />
