@@ -319,7 +319,7 @@ function EditCategoryForm({ id, singleData }: Props) {
                               />
                             ) : (
                               <img
-                                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${singleData?.imageName}`}
+                                src={`${singleData?.imageUrl}`}
                                 alt="Uploaded image"
                                 className="max-h-[400px] rounded-lg"
                               />

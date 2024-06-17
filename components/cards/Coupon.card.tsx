@@ -63,7 +63,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 ">
         <Link href={`/user/browse/coupon/${coupon.id}`}>
           <img
-            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${coupon?.imageName}`}
+            src={`${coupon?.imageUrl}`}
             alt="Product image"
             className=" w-full h-[200px] object-cover object-center rounded-md"
           />

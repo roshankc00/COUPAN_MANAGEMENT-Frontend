@@ -8,7 +8,7 @@ export interface IStore {
   updatedAt: string;
   title: string;
   description: string;
-  imageName: string;
+  imageUrl: string;
   featured: boolean;
   status: string;
   seo: ISEO;

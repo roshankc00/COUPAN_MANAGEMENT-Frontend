@@ -31,11 +31,7 @@ export default function BrowseCategoryPage() {
               className="flex items-center justify-between shadow-sm rounded-md px-2 border border-slate-200"
               onClick={() => router.push(`/browse/category/${item.id}`)}
             >
-              <img
-                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${item?.imageName}`}
-                alt=""
-                className="h-20 w-20"
-              />
+              <img src={`${item?.imageUrl}`} alt="" className="h-20 w-20" />
               <h1 className="text-[16px] font-medium">{item.title}</h1>
             </div>
           ))}

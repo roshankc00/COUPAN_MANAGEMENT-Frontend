@@ -36,7 +36,7 @@ const StoreCard: React.FC<Props> = ({ store }) => {
   return (
     <div className="shadow-sm rounded-2xl bg-white p-2">
       <img
-        src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${store?.imageName}`}
+        src={`${store?.imageUrl}`}
         alt=""
         className="shadow-sm rounded-2xl h-[100px] w-[200px]"
       />

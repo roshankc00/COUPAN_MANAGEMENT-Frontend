@@ -74,7 +74,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
         {!storeDetailsLoading && !storeDetailsFetching && (
           <div className="flex gap-3 items-center mt-4">
             <img
-              src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${storeDetails?.imageName}`}
+              src={`${storeDetails?.imageUrl}`}
               alt=""
               className="w-[20%] h-[30%]"
             />

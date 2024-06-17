@@ -43,9 +43,9 @@ const BlogDetails: React.FC<Props> = ({ id }) => {
                 >
                   {item.title}
                 </h1>
-                {item?.imageName && (
+                {item?.imageUrl && (
                   <img
-                    src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${item?.imageName}`}
+                    src={`${item?.imageUrl}`}
                     alt=""
                     className="w-full h-[300px]"
                   />

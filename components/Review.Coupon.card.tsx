@@ -36,11 +36,7 @@ const ReviewCouponcard: React.FC<Props> = ({ coupon }) => {
     <div onClick={() => router.push(`/user/browse/coupom/${coupon?.id}`)}>
       <div className="shadow-sm rounded-lg p-4 flex justify-between items-center border border-slate-200">
         <div className="flex items-center gap-5">
-          <img
-            src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${coupon?.imageName}`}
-            alt=""
-            className="h-28 w-28"
-          />
+          <img src={`${coupon?.imageUrl}`} alt="" className="h-28 w-28" />
           <div>
             <h5
               className={`font-medium ${

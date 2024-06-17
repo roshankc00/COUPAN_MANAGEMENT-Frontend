@@ -24,7 +24,7 @@ export interface ICoupon {
   categoryId: number;
   subCategoryId: number;
   storeId: number;
-  imageName: string;
+  imageUrl: string;
   verified: boolean;
   exclusive: boolean;
   status: string;

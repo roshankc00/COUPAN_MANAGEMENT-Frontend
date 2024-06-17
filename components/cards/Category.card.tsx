@@ -12,7 +12,7 @@ const CategoryCard: React.FC<Props> = ({ category }) => {
       className="bg-white rounded-md shadow-sm flex items-center justify-center"
     >
       <img
-        src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/${category?.imageName}`}
+        src={`${category?.imageUrl}`}
         alt=""
         className="shadow-sm rounded-2xl h-[100px] w-[100px]"
       />

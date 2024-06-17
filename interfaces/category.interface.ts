@@ -12,7 +12,7 @@ export interface ICategory {
   updatedAt: string;
   title: string;
   description: string;
-  imageName: string;
+  imageUrl: string;
   status: string;
   showInMenu: boolean;
   featured: boolean;

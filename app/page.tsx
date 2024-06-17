@@ -63,6 +63,10 @@ export default function Home() {
           <FeatureCategory />
         </div>
 
+        <img
+          src="https://couponstoragecontainer.blob.core.windows.net/coupon-images/4c824eeb-7de7-4345-a69d-0c80d69df103.png"
+          alt="loading.."
+        />
         {/* faqs section */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8">
           <h1 className="font-medium text-3xl my-5  text-center text-[#5271ff]">
