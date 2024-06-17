@@ -89,7 +89,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
       );
     } else {
       router.push(
-        `/user/alert?alert=${store?.affiliateLink.link}&id=${store?.affiliateLink?.id}&cashbackAmountPer=${store?.affiliateLink?.cashbackAmountPer}`
+        `/user/alert?alert=${storeDetails?.affiliateLink.link}&id=${storeDetails?.affiliateLink?.id}&cashbackAmountPer=${storeDetails?.affiliateLink?.cashbackAmountPer}`
       );
     }
   };
