@@ -18,6 +18,15 @@ import { increaseCount } from "@/common/api/affilate-link/affilate-link.api";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
 import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface Props {
   coupon: ICoupon;
@@ -57,6 +66,15 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
       );
     }
   };
+
+  async function copyToClipboard(text: string): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(text);
+      console.log("Text copied to clipboard");
+    } catch (err) {
+      toast.success("Unable to copy");
+    }
+  }
 
   return (
     <div className="group relative p-3 shadow-md rounded-md">
@@ -115,18 +133,53 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
           </h3>
         </div>
       </div>
-      {coupon?.isDeal ? (
-        <button
-          className="bg-[#2563EB] p-2 w-full rounded-md text-white text-[16px] font-medium my-2"
-          onClick={() => handleDeal()}
-        >
-          Deal
-        </button>
-      ) : (
-        <button className="bg-[#2563EB] p-2 w-full rounded-md text-white text-[16px] font-medium my-2">
-          Scratch
-        </button>
-      )}
+      <div className="">
+        {coupon?.isDeal ? (
+          <button
+            className="bg-[#2563EB] p-2 w-full rounded-md text-white text-[16px] font-medium my-2"
+            onClick={() => handleDeal()}
+          >
+            Deal
+          </button>
+        ) : (
+          <Dialog>
+            <DialogTrigger className="w-full">
+              <button className="bg-[#2563EB] p-2 w-[100%] rounded-md text-white text-[16px] font-medium my-2">
+                Scratch
+              </button>
+            </DialogTrigger>
+            <DialogContent className="w-[30%]">
+              <div className="flex gap-3 items-center justify-center">
+                {coupon?.store?.imageUrl && (
+                  <img
+                    src={coupon.store.imageUrl}
+                    alt=""
+                    className="w-20 rounded-sm"
+                  />
+                )}
+                <h1 className="text-xl">{coupon?.tagLine}</h1>
+              </div>
+              <div>
+                <p className="text-center">
+                  Copy code and shop{" "}
+                  {coupon?.store?.title && "at " + coupon?.store?.title}
+                </p>
+                <div className="flex justify-center gap-2 mt-5">
+                  <h1 className="border-dashed border-2 border-blue-600 py-2 px-3 rounded-md text-xl">
+                    {coupon?.code}
+                  </h1>
+                  <button
+                    className="bg-[#2563EB]  w-[100px]  rounded-md text-white text-[16px] font-medium"
+                    onClick={() => copyToClipboard(coupon?.code)}
+                  >
+                    Copy
+                  </button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
+      </div>
     </div>
   );
 };
