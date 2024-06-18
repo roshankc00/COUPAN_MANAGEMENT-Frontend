@@ -43,7 +43,9 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex gap-4 items-center">
-          <SearchBar />
+          <div>
+            <SearchBar />
+          </div>
           <div className="hidden md:block">
             {isLogedInStatus && (
               <TooltipProvider>
