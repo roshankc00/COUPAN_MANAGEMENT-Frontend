@@ -49,7 +49,7 @@ const SearchBar = () => {
             <Search className="absolute top-[13px] ms-2 h-4 w-5" />
           </div>
         </DialogTrigger>
-        <DialogContent className="">
+        <DialogContent className=" ml-0 xl:-ml-8   w-[100vw]">
           <div>
             <div className="relative mt-3">
               <Input
@@ -66,13 +66,13 @@ const SearchBar = () => {
             </div>
             <div className="">
               {showSuggestions && (
-                <div className="  bg-white rounded-md  mx-3 px-2 pb-10 w-full">
+                <div className="  bg-white rounded-md  w-[100%]  mx-3 px-2 pb-10 ">
                   {/* stores */}
-                  <ScrollArea className=" h-[300px] xl:h-[300px]  w-full rounded-md  p-4">
+                  <h1 className="font-medium text-[15px]  rounded-md mt-4 bg-slate-100 px-2 py-3 -ml-7 ">
+                    Recommended store
+                  </h1>
+                  <ScrollArea className=" h-[300px] xl:h-[300px] -ms-4  w-full rounded-md">
                     <div>
-                      <h1 className="font-medium text-[15px] mb-2 p-2 rounded-md my-2 ">
-                        Stores
-                      </h1>
                       {data?.stores?.map((item: IStore) => (
                         <div
                           key={item.id}
@@ -81,13 +81,12 @@ const SearchBar = () => {
                           }
                           className="cursor-pointer"
                         >
-                          <Separator className="mb-2" />
                           <div className="flex justify-between items-center">
                             <div className="flex gap-3 items-center">
                               <img
                                 src={`${item?.imageUrl}`}
                                 alt="Image"
-                                className="h-10 w-10"
+                                className="h-14 w-20"
                               />
                             </div>
                             <h1 className="text-[13px]">
@@ -108,12 +107,12 @@ const SearchBar = () => {
                     </div>
                   </ScrollArea>
                   <Separator />
-                  <ScrollArea className="h-[250px] w-full rounded-md  p-4">
+                  <h1 className="font-medium text-[15px]  rounded-md mt-4 bg-slate-100 px-2 py-3 -ml-7  ">
+                    Recommended Categories
+                  </h1>
+                  <ScrollArea className="h-[250px] -ms-10 w-full rounded-md  p-4">
                     {/* categories */}
                     <div>
-                      <h1 className="font-medium text-[15px] mb-2 p-2 rounded-md my-2 ">
-                        Categories
-                      </h1>
                       <div className="grid grid-cols-4  ">
                         {data?.categories?.map((item: ICategory) => (
                           <div

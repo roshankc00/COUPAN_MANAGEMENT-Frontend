@@ -25,7 +25,7 @@ const Navbar = () => {
   const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
 
   return (
-    <div className="">
+    <div className="w-full">
       {/* <div className="fixed w-full mb-0 z-100 -mt-[40px]"> */}
       <div className="flex justify-center items-center gap-5 bg-[#5271ff] w-full -mt-2">
         <div>
