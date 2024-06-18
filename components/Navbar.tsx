@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { Heart, Search } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import BreadCrumCom from "./BreadCrum";
 import SearchBar from "./SearchBar";
 import Logo from "../public/logo.jpg";
@@ -29,13 +29,18 @@ const Navbar = () => {
       {/* <div className="fixed w-full mb-0 z-100 -mt-[40px]"> */}
       <div className="flex justify-center items-center gap-5 bg-[#5271ff] w-full -mt-2">
         <div>
-          <Link href="/">
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              window.location.href = "/";
+            }}
+          >
             <Image
               className="w-[120px] h-[80px] rounded-md shadow-sm"
               src={Logo}
               alt="Logo"
             />
-          </Link>
+          </div>
         </div>
         <div className="flex gap-4 items-center">
           <SearchBar />
