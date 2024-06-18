@@ -67,49 +67,51 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
             <h1 className="mb-3 font-medium">All SubCategory</h1>
             <Separator />
             <div className="mt-3">
-              <ul className="space-y-4">
-                <li key="all" className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id={`color-${"all"}`}
-                    className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                    onChange={() => {
-                      setfilter([]);
-                      _debounceSubmit();
-                    }}
-                    checked={filter.length === 0}
-                  />
-                  <label
-                    htmlFor={`checkbox`}
-                    className="ml-3 text-sm text-gray-600"
-                  >
-                    All
-                  </label>
-                </li>
-                {!subCatFetching &&
-                  !subCatLoading &&
-                  allsubCat?.map((option: ISubcategory) => {
-                    return (
-                      <li key={option.id} className="flex items-center">
-                        <input
-                          type="checkbox"
-                          id={`color-${option.id}`}
-                          className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                          onChange={() => {
-                            handleChange(option.id);
-                          }}
-                          checked={filter.includes(option.id)}
-                        />
-                        <label
-                          htmlFor={`checkbox`}
-                          className="ml-3 text-sm text-gray-600"
-                        >
-                          {option.title}
-                        </label>
-                      </li>
-                    );
-                  })}
-              </ul>
+              <ScrollArea className="h-[300px] w-full rounded-md  p-4">
+                <ul className="space-y-4">
+                  <li key="all" className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id={`color-${"all"}`}
+                      className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
+                      onChange={() => {
+                        setfilter([]);
+                        _debounceSubmit();
+                      }}
+                      checked={filter.length === 0}
+                    />
+                    <label
+                      htmlFor={`checkbox`}
+                      className="ml-3 text-sm text-gray-600"
+                    >
+                      All
+                    </label>
+                  </li>
+                  {!subCatFetching &&
+                    !subCatLoading &&
+                    allsubCat?.map((option: ISubcategory) => {
+                      return (
+                        <li key={option.id} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={`color-${option.id}`}
+                            className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
+                            onChange={() => {
+                              handleChange(option.id);
+                            }}
+                            checked={filter.includes(option.id)}
+                          />
+                          <label
+                            htmlFor={`checkbox`}
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            {option.title}
+                          </label>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </ScrollArea>
             </div>
           </div>
         </div>
