@@ -8,7 +8,6 @@ import TableSkeleton from "@/components/TableSkeleton";
 
 const CategoryTable = () => {
   const { data, isFetching, isLoading } = UseGetAllCoupons();
-  console.log(data);
 
   return (
     <div className="">

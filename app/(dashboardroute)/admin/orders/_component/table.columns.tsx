@@ -43,10 +43,6 @@ import ChangeOrderStatusBtns from "./ChangeOrderStatus";
 
 const dateFormat = moment();
 
-const handleDelete = () => {
-  console.log("delete");
-};
-
 export const columns: ColumnDef<ICategory>[] = [
   {
     accessorKey: "id",

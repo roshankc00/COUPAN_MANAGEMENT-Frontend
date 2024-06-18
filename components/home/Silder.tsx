@@ -12,7 +12,6 @@ import SliderSkeletion from "./SliderSkeletion";
 
 const Silder = () => {
   const { data, isFetching, isLoading } = UseGetAllHomeDetails();
-  console.log(data);
   return (
     <div>
       <Carousel>

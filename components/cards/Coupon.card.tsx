@@ -52,7 +52,6 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
     mutationFn: increaseCount,
   });
 
-  console.log(coupon?.store?.affiliateLink?.link);
   const handleDeal = async () => {
     if (isLogedInStatus) {
       handleDealDone(+coupon?.store?.affiliateLink?.id);
@@ -70,7 +69,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
   async function copyToClipboard(text: string): Promise<void> {
     try {
       await navigator.clipboard.writeText(text);
-      console.log("Text copied to clipboard");
+      toast.success("Copied");
     } catch (err) {
       toast.success("Unable to copy");
     }

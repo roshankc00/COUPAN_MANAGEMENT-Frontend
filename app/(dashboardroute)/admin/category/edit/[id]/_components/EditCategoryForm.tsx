@@ -106,7 +106,6 @@ function EditCategoryForm({ id, singleData }: Props) {
       }
       formData.append("seo[title]", values.seo.title);
       formData.append("seo[description]", values.seo.description);
-      console.log(formData, values);
       mutateAsync({ id, values: formData } as any)
         .then(() => {
           toast.success("Category updated successfully");

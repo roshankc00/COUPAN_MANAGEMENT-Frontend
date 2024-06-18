@@ -39,10 +39,6 @@ import EditDeleteButton from "./Edit-Delete.button";
 
 const dateFormat = moment();
 
-const handleDelete = () => {
-  console.log("delete");
-};
-
 export const columns: ColumnDef<ICategory>[] = [
   {
     accessorKey: "id",

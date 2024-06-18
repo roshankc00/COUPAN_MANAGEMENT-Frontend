@@ -38,7 +38,6 @@ function ForgetPasswordForm() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
     mutate(values.email);
   };
 

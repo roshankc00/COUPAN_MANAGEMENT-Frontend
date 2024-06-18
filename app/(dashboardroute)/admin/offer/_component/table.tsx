@@ -11,7 +11,6 @@ import { UseGetAllOffers } from "@/hooks/react-query/offers/get-all.offers";
 
 const OfferTable = () => {
   const { data, isFetching, isLoading } = UseGetAllOffers();
-  console.log(data);
   return (
     <div className="">
       {!isFetching && !isLoading ? (

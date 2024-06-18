@@ -94,7 +94,6 @@ function NewSubCategoryForm() {
     formData.append("image", values.image);
     formData.append("seo[title]", values.seo.title);
     formData.append("seo[description]", values.seo.description);
-    console.log(formData, values);
     mutateAsync(formData as any)
       .then(() => {
         toast.success("Categories created successfully");
