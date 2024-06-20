@@ -36,15 +36,15 @@ type Props = {
 };
 
 const CouponStore: React.FC<Props> = ({ storeId }) => {
-  const [open, setopen] = useState(true);
+  const params = useSearchParams();
+  const key = params.get("key");
+  const tag = params.get("tagLine");
+  const [open, setopen] = useState(key && tag ? true : false);
   const { isLogedInStatus, userId } = useSelector(
     (state: IRootState) => state.auth
   );
   const router = useRouter();
   const paginationProps = usePagination();
-  const params = useSearchParams();
-  const key = params.get("key");
-  const tag = params.get("tagLine");
   const {
     data: allCoupons,
     isFetching,

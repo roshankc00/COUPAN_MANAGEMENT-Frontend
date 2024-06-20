@@ -50,20 +50,16 @@ export default function Home() {
         {/* featured product  */}
         <div>
           <div className="flex justify-between items-center mt-5 px-8">
-            <h1 className="font-medium text-xl">Featured Products</h1>
-            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1">
-              View Products
-            </button>
+            <h1 className=" ms-6 text-3xl font-bold mt-10">
+              Our Feature Products
+            </h1>
           </div>
           <FeaturedProduct />
         </div>
         <div>
-          <div className="flex justify-between items-center mt-5 px-8">
-            <h1 className="font-medium text-xl">Featured Category</h1>
-            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1">
-              View Category
-            </button>
-          </div>
+          <h1 className=" ms-6 text-3xl font-bold mt-10">
+            Shop at Your Favorite Categories
+          </h1>
           <FeatureCategory />
         </div>
 
