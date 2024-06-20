@@ -42,7 +42,7 @@ export default function Home() {
         {/* featured coupons  */}
         <div>
           <h1 className=" ms-6 text-3xl font-bold">
-            Discover Today's Best Coupons
+            Discover Todays Best Coupons
           </h1>
           <Featuredcoupons />
         </div>
