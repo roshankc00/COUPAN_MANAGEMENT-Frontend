@@ -17,7 +17,7 @@ export default function RootLayout({
           <ReduxProvider>
             <Providers>
               <Toaster />
-              <div className="">{children}</div>
+              <div className="bg-[#f0faf9]">{children}</div>
             </Providers>
           </ReduxProvider>
         </div>

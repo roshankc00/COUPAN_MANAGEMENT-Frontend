@@ -81,6 +81,6 @@ export const addRemoveInWatchList = async (couponId: number) => {
 };
 
 export const getLatestCoupons = async () => {
-  const { data } = await axios.get(`/coupons/featured/coupons?no=9`);
+  const { data } = await axios.get(`/coupons/featured/coupons?no=20`);
   return data;
 };

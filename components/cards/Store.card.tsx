@@ -35,19 +35,17 @@ const StoreCard: React.FC<Props> = ({ store }) => {
 
   return (
     <div
-      className="shadow-sm rounded-2xl bg-white p-2 cursor-pointer"
+      className="shadow-md rounded-2xl bg-white p-5 cursor-pointer hover:-translate-y-2 transition-all  "
       onClick={() => router.push(`/user/browse/store/${store.id}`)}
     >
       <img
         src={`${store?.imageUrl}`}
         alt=""
-        className="shadow-sm rounded-2xl h-[100px] w-[200px] cursor-pointer"
+        className="shadow-sm  h-[200px] w-[200px] cursor-pointer rounded-full"
       />
-
-      <h1>
-        <h1 className="text-red-600 flex items-center gap-1 text-[15px] font-medium my-2">
-          <Plus /> {store?.affiliateLink?.tagLine}
-        </h1>
+      <h1 className="text-center mt-2 text-gray-500">{store.title}</h1>
+      <h1 className=" font-bold text-center my-2">
+        {store?.affiliateLink?.tagLine}
       </h1>
     </div>
   );

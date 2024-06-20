@@ -9,7 +9,7 @@ const CategoryCard: React.FC<Props> = ({ category }) => {
   return (
     <Link
       href={`/user/browse/category/${category.id}`}
-      className="bg-white rounded-md shadow-sm flex items-center justify-center"
+      className="shadow-md rounded-2xl bg-white p-5 cursor-pointer hover:-translate-y-2 transition-all  "
     >
       <img
         src={`${category?.imageUrl}`}

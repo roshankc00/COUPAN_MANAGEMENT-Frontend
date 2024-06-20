@@ -76,108 +76,117 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
   }
 
   return (
-    <div className="group relative p-3 shadow-md rounded-md">
-      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 ">
-        <Link href={`/user/browse/coupon/${coupon.id}`}>
-          <img
-            src={`${coupon?.imageUrl}`}
-            alt="Product image"
-            className=" w-full h-[200px] object-cover object-center rounded-md"
-          />
-        </Link>
-        <div className="absolute top-0 right-0">
-          {!isLoading && alreadySaved(+coupon?.id, data) ? (
-            <IoIosBookmark
-              color="red"
-              size={25}
-              onClick={() => handleAddRemoveToWatchList(+coupon?.id)}
-              className="cursor-pointer"
+    <div className="group relative p-3 shadow-md rounded-md bg-white">
+      <div className="flex gap-5 items-center justify-between ">
+        <div className="flex gap-5 items-center">
+          <div className=" overflow-hidden rounded-md">
+            <img
+              src={`${coupon?.imageUrl}`}
+              alt="Product image"
+              className=" w-[100px] h-[100px] object-cover object-center rounded-md shadow-md"
             />
-          ) : (
-            <IoIosBookmark
-              color="gray"
-              size={25}
-              className="cursor-pointer"
-              onClick={() => handleAddRemoveToWatchList(+coupon?.id)}
-            />
-          )}
-        </div>
-      </div>
-      <p className="text-[16px] mt-2 font-medium text-gray-900">
-        {coupon?.tagLine}
-      </p>
+          </div>
+          <div>
+            <p className="text-[16px] mt-2 font-medium text-gray-900">
+              {coupon?.tagLine}
+            </p>
 
-      <div className="flex gap-3 mt-2 items-center">
-        <div className="flex gap-1 items-center">
-          <PiBuildingOfficeLight />
-          <h3 className="text-sm text-gray-700">{coupon?.store?.title}</h3>
-        </div>
-        <div className="flex gap-2 items-center">
-          <SlCalender />
-          <h3 className="text-sm text-gray-700">
-            {calculateRemaingDays(coupon?.expireDate) > 0 ? (
-              `${calculateRemaingDays(coupon?.expireDate)} Days Left`
-            ) : (
-              <>
-                {calculateRemaingDays(coupon?.expireDate) === 0 ? (
-                  <h3 className="text-sm text-gray-700">Final Day Left</h3>
-                ) : (
-                  <div className="flex items-center gap-1">
-                    <div className="bg-red-500 h-2 w-2 rounded-full "></div>
-                    Expired
-                  </div>
-                )}
-              </>
-            )}
-          </h3>
-        </div>
-      </div>
-      <div className="">
-        {coupon?.isDeal ? (
-          <button
-            className="bg-[#2563EB] p-2 w-full rounded-md text-white text-[16px] font-medium my-2"
-            onClick={() => handleDeal()}
-          >
-            Deal
-          </button>
-        ) : (
-          <Dialog>
-            <DialogTrigger className="w-full">
-              <button className="bg-[#2563EB] p-2 w-[100%] rounded-md text-white text-[16px] font-medium my-2">
-                Scratch
-              </button>
-            </DialogTrigger>
-            <DialogContent className="w-[30%]">
-              <div className="flex gap-3 items-center justify-center">
-                {coupon?.store?.imageUrl && (
-                  <img
-                    src={coupon.store.imageUrl}
-                    alt=""
-                    className="w-20 rounded-sm"
-                  />
-                )}
-                <h1 className="text-xl">{coupon?.tagLine}</h1>
+            <div className="flex gap-3 mt-2 items-center">
+              <div className="flex gap-1 items-center">
+                <PiBuildingOfficeLight />
+                <h3 className="text-sm text-gray-700">
+                  {coupon?.store?.title}
+                </h3>
               </div>
-              <div>
-                <p className="text-center">
-                  Copy code and shop{" "}
-                  {coupon?.store?.title && "at " + coupon?.store?.title}
-                </p>
-                <div className="flex justify-center gap-2 mt-5">
-                  <h1 className="border-dashed border-2 border-blue-600 py-2 px-3 rounded-md text-xl">
-                    {coupon?.code}
-                  </h1>
-                  <button
-                    className="bg-[#2563EB]  w-[100px]  rounded-md text-white text-[16px] font-medium"
-                    onClick={() => copyToClipboard(coupon?.code)}
-                  >
-                    Copy
-                  </button>
+              <div className="flex gap-2 items-center">
+                <SlCalender />
+                <h3 className="text-sm text-gray-700">
+                  {calculateRemaingDays(coupon?.expireDate) > 0 ? (
+                    `${calculateRemaingDays(coupon?.expireDate)} Days Left`
+                  ) : (
+                    <>
+                      {calculateRemaingDays(coupon?.expireDate) === 0 ? (
+                        <h3 className="text-sm text-gray-700">
+                          Final Day Left
+                        </h3>
+                      ) : (
+                        <div className="flex items-center gap-1">
+                          <div className="bg-red-500 h-2 w-2 rounded-full "></div>
+                          Expired
+                        </div>
+                      )}
+                    </>
+                  )}
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="">
+          {coupon?.isDeal ? (
+            <button
+              className="bg-[#2563EB] p-2 w-[100px] ml-3  rounded-md text-white text-[16px] font-medium my-2"
+              onClick={() => handleDeal()}
+            >
+              Deal
+            </button>
+          ) : (
+            <Dialog>
+              <DialogTrigger className="w-full">
+                <button className="bg-[#2563EB] p-2 w-[100px] ml-3 rounded-md text-white text-[16px] font-medium my-2">
+                  Scratch
+                </button>
+              </DialogTrigger>
+              <DialogContent className="w-[30%]">
+                <div className="flex gap-3 items-center justify-center">
+                  {coupon?.store?.imageUrl && (
+                    <img
+                      src={coupon.store.imageUrl}
+                      alt=""
+                      className="w-20 rounded-sm"
+                    />
+                  )}
+                  <h1 className="text-xl">{coupon?.tagLine}</h1>
                 </div>
-              </div>
-            </DialogContent>
-          </Dialog>
-        )}
+                <div>
+                  <p className="text-center">
+                    Copy code and shop{" "}
+                    {coupon?.store?.title && "at " + coupon?.store?.title}
+                  </p>
+                  <div className="flex justify-center gap-2 mt-5">
+                    <h1 className="border-dashed border-2 border-blue-600 py-2 px-3 rounded-md text-xl">
+                      {coupon?.code}
+                    </h1>
+                    <button
+                      className="bg-[#2563EB]  w-[100px]  rounded-md text-white text-[16px] font-medium"
+                      onClick={() => copyToClipboard(coupon?.code)}
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
+          <div className="absolute top-0 right-0">
+            {!isLoading && alreadySaved(+coupon?.id, data) ? (
+              <IoIosBookmark
+                color="red"
+                size={25}
+                onClick={() => handleAddRemoveToWatchList(+coupon?.id)}
+                className="cursor-pointer"
+              />
+            ) : (
+              <IoIosBookmark
+                color="gray"
+                size={25}
+                className="cursor-pointer"
+                onClick={() => handleAddRemoveToWatchList(+coupon?.id)}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

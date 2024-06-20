@@ -116,7 +116,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
           </div>
         </div>
 
-        <div className="sm:hidden block w-[90vw] px-10 my-5 ">
+        <div className="sm:hidden block w-[90vw]  my-5 ">
           <Select onValueChange={(val) => console.log(val)}>
             <SelectTrigger className="">
               <SelectValue placeholder="Select the SubCategory" />
@@ -172,7 +172,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
         </div>
 
         <div className="col-span-10 sm:col-span-5">
-          <div className="grid grid-cols-1 px-10  sm:px-0  sm:grid-cols-2 2xl:grid-cols-3 lg:grid-cols-3 gap-x-2 gap-y-4">
+          <div className="grid grid-cols-1     lg:grid-cols-1 gap-x-2 gap-y-4">
             {couponFetching &&
               couponLoading &&
               new Array(12)

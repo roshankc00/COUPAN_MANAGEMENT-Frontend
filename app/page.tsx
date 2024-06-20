@@ -30,26 +30,20 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg-px-8 my-10 z-0">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg-px-8 my-10 z-0 ">
         <Silder />
         <div>
-          <div className="flex justify-between items-center mt-5 px-8">
-            <h1 className="font-medium text-xl">Featured Stores</h1>
-            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1 ">
-              View Stores
-            </button>
-          </div>
+          <h1 className=" ms-6 text-3xl font-bold mt-10">
+            Shop at Your Favorite Stores
+          </h1>
           <FeaturedStore />
         </div>
 
         {/* featured coupons  */}
         <div>
-          <div className="flex justify-between items-center mt-5 px-8">
-            <h1 className="font-medium text-xl">Featured Coupons</h1>
-            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1 ">
-              View Coupons
-            </button>
-          </div>
+          <h1 className=" ms-6 text-3xl font-bold">
+            Discover Today's Best Coupons
+          </h1>
           <Featuredcoupons />
         </div>
         {/* featured product  */}
