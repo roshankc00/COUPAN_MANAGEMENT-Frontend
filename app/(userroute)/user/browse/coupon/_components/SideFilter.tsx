@@ -302,7 +302,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
         </div>
 
         <div className="col-span-10 sm:col-span-5">
-          <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-x-2 gap-y-4">
+          <div className="grid grid-cols-1  gap-x-2 gap-y-4">
             {couponFetching &&
               couponLoading &&
               new Array(12)
