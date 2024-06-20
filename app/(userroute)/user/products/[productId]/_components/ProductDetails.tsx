@@ -26,10 +26,10 @@ import { IRootState } from "@/store";
 import { UseGetSingleProduct } from "@/hooks/react-query/products/get-single-product";
 
 type Props = {
-  productId: string;
+  productId: number;
 };
 
-const AllProducts: React.FC<Props> = ({ productId }) => {
+const ProductDetails: React.FC<Props> = ({ productId }) => {
   const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
   const router = useRouter();
   const [activeSubProduct, setactiveSubProduct] = useState<any>({});
@@ -201,4 +201,4 @@ const AllProducts: React.FC<Props> = ({ productId }) => {
   );
 };
 
-export default AllProducts;
+export default ProductDetails;
