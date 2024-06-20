@@ -4,6 +4,10 @@ export const getAllProductsWithType = async (type: string) => {
   return data;
 };
 
+export const getAllHomePageProducts = async () => {
+  const { data } = await axios.get(`/products?no=4`);
+  return data;
+};
 export const getAllProducts = async () => {
   const { data } = await axios.get(`/products`);
   return data;

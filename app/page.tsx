@@ -13,6 +13,7 @@ import TableSkeleton from "@/components/TableSkeleton";
 import { handleLogin } from "@/common/api/users/user.api";
 import Silder from "@/components/home/Silder";
 import FeatureCategory from "@/components/home/Featured.cateory";
+import FeaturedProduct from "@/components/home/Products";
 export async function generateMetadata() {
   const ogImageUrl = logo;
   return {
@@ -47,6 +48,15 @@ export default function Home() {
           <Featuredcoupons />
         </div>
         {/* featured product  */}
+        <div>
+          <div className="flex justify-between items-center mt-5 px-8">
+            <h1 className="font-medium text-xl">Featured Products</h1>
+            <button className="border border-[#5271ff] text-[#5271ff]  rounded-full px-5 text-sm py-1">
+              View Products
+            </button>
+          </div>
+          <FeaturedProduct />
+        </div>
         <div>
           <div className="flex justify-between items-center mt-5 px-8">
             <h1 className="font-medium text-xl">Featured Category</h1>

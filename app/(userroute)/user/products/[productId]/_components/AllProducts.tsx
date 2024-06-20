@@ -4,7 +4,6 @@ import React, { useCallback, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   Form,
   FormControl,
@@ -13,6 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { SiAdguard } from "react-icons/si";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -23,23 +23,16 @@ import { postOrder } from "@/common/api/orders/orders.api";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
+import { UseGetSingleProduct } from "@/hooks/react-query/products/get-single-product";
 
-const AllProducts = () => {
+type Props = {
+  productId: string;
+};
+
+const AllProducts: React.FC<Props> = ({ productId }) => {
   const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
   const router = useRouter();
-  const ALL_ROUTES = ["gift_card", "subscription"];
-  const [active, setactive] = useState("gift_card");
-  const [activeProduct, setactiveProduct] = useState<any>({});
-  const {
-    data: allProducts,
-    isFetching: productFetching,
-    isLoading: productLoading,
-    refetch,
-  } = UseGetAllProductsWithType(active);
-  const onRefresh = () => refetch();
-  const debouncedSubmit = debounce(onRefresh, 400);
-  const _debounceSubmit = useCallback(debouncedSubmit, []);
-
+  const [activeSubProduct, setactiveSubProduct] = useState<any>({});
   const formSchema = z.object({
     name: z.string().min(5, {
       message: " must be of 5 charecter ",
@@ -60,67 +53,73 @@ const AllProducts = () => {
     mutationFn: postOrder,
     onSuccess(data) {
       toast.success("Order placed sucessfully");
-      router.push(`/user/products/${data?.id}?price=${activeProduct?.price}`);
+      router.push(`/user/order/${data?.id}?price=${activeSubProduct?.price}`);
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    if (!activeProduct) {
+    if (!activeSubProduct) {
       return toast.error("Select the product");
     } else if (!isLogedInStatus) {
       toast.error("Login first");
       router.push("/login");
     } else {
-      mutateAsync({ ...values, productId: +activeProduct?.id });
+      mutateAsync({ ...values, productId: +activeSubProduct?.id });
     }
   };
+  const {
+    data: productItem,
+    isFetching: singleProductFetching,
+    isLoading: singleProductLoading,
+  } = UseGetSingleProduct(+productId);
 
   return (
     <div className="mt-10">
-      <div className="grid grid-cols-6 md:grid-cols-5 gap-10">
-        <div className="col-span-2 md:col-span-1">
-          <ul>
-            <li className="font-medium my-3">All Category</li>
-            {ALL_ROUTES.map((item) => (
-              <li key={item} className="flex items-center my-3">
-                <input
-                  type="checkbox"
-                  id={`color-${item}`}
-                  className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                  onChange={() => {
-                    setactive(item);
-                    _debounceSubmit();
-                  }}
-                  checked={active === item}
-                />
-                <label
-                  htmlFor={`checkbox`}
-                  className="ml-3 text-sm text-gray-600"
-                >
-                  {item}
-                </label>
-              </li>
-            ))}
-          </ul>
+      <div className="grid grid-cols-7 md:grid-cols-7 gap-10">
+        <div className="col-span-2 md:col-span-2 shadow-sm rounded-sm pb-10 ">
+          <div>
+            <img
+              src={productItem?.imageUrl}
+              className="h-[200px] w-full shadow-sm"
+              alt=""
+            />
+            <h1 className=" font-bold my-4">{productItem?.title}</h1>
+            <div className="flex gap-1  mb-4">
+              <Button className=" flex gap-3 w-[150px]">
+                {" "}
+                <SiAdguard />
+                Instant Delivery
+              </Button>
+              <Button className=" flex gap-3 w-[150px]">
+                Official Distributor
+              </Button>
+            </div>
+            <h1 className="text-sm font-medium text">
+              {productItem?.description}
+            </h1>
+          </div>
         </div>
-        <div className="col-span-4 md:col-span-4 ">
+        <div className="col-span-4 md:col-span-5 ">
           <div className="border p-4 relative">
             <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
               1
             </h1>
             <h1 className="absolute left-16 text-xl font-medium -mt-4">
-              {active === "subscription" ? "Select Recharge" : "Select voucher"}
+              {productItem?.product_type === "subscription"
+                ? "Select Recharge"
+                : "Select voucher"}
             </h1>
 
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5">
-              {!productFetching &&
-                !productLoading &&
-                allProducts.map((item: any) => (
+              {!singleProductFetching &&
+                !singleProductLoading &&
+                productItem?.subProductItems &&
+                productItem?.subProductItems.map((item: any) => (
                   <div
                     key={item.id}
-                    onClick={() => setactiveProduct(item)}
+                    onClick={() => setactiveSubProduct(item)}
                     className={`shadow-sm p-2 rounded-md mt-2 border cursor-pointer  ${
-                      activeProduct.id === item.id ? " border-blue-500" : ""
+                      activeSubProduct.id === item.id ? " border-blue-500" : ""
                     }`}
                   >
                     <p className="text-center font-semibold">{item.title}</p>

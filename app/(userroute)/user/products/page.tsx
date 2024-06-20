@@ -1,14 +1,10 @@
 import React from "react";
-import AllProducts from "./_components/AllProducts";
+import AllProduct from "./_components/AllProduct";
 
-export const metadata = {
-  title: "Products | NepQue ",
-  description: "NepQue: Your CouponPartner",
-};
 const ProductPage = () => {
   return (
     <div>
-      <AllProducts />
+      <AllProduct />
     </div>
   );
 };
