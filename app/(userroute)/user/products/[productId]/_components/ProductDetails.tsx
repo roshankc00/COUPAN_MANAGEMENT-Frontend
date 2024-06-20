@@ -1,6 +1,6 @@
 "use client";
 import { UseGetAllProductsWithType } from "@/hooks/react-query/products/get-all-products-with-type";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { FaQuestion } from "react-icons/fa6";
 import { SiAdguard } from "react-icons/si";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -34,25 +35,25 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
   const router = useRouter();
   const [activeSubProduct, setactiveSubProduct] = useState<any>({});
   const formSchema = z.object({
-    name: z.string().min(5, {
-      message: " must be of 5 charecter ",
+    userId: z.string().min(5, {
+      message: " must be of 5 characters ",
     }),
-    email: z.string().min(5, {
-      message: "must be of 5 charecter ",
+    usercontent: z.string().min(5, {
+      message: "must be of 5 characters ",
     }),
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      name: "",
+      userId: "",
+      usercontent: "",
     },
   });
 
   const { mutateAsync, isPending: orderPending } = useMutation({
     mutationFn: postOrder,
     onSuccess(data) {
-      toast.success("Order placed sucessfully");
+      toast.success("Order placed successfully");
       router.push(`/user/order/${data?.id}?price=${activeSubProduct?.price}`);
     },
   });
@@ -67,11 +68,27 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
       mutateAsync({ ...values, productId: +activeSubProduct?.id });
     }
   };
+
+  const handleGiftCardOrderSubmit = () => {
+    if (!activeSubProduct?.id) {
+      return toast.error("Select the product");
+    } else {
+      mutateAsync({
+        subProductId: +activeSubProduct?.id,
+      });
+    }
+  };
+
   const {
     data: productItem,
     isFetching: singleProductFetching,
     isLoading: singleProductLoading,
+    refetch,
   } = UseGetSingleProduct(+productId);
+
+  useEffect(() => {
+    refetch();
+  }, [productId]);
 
   return (
     <div className="mt-10">
@@ -100,9 +117,69 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
           </div>
         </div>
         <div className="col-span-4 md:col-span-5 ">
-          <div className="border p-4 relative">
+          {productItem?.product_type === "subscription" && (
+            <div className=" relative">
+              <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
+                1
+              </h1>
+              <h1 className="absolute left-16 text-xl font-medium">Buy</h1>
+              <Card className="">
+                <CardHeader></CardHeader>
+                <CardContent>
+                  <Form {...form}>
+                    <form id="orderForm" onSubmit={form.handleSubmit(onSubmit)}>
+                      <div className="flex gap-10 items-center">
+                        <FormField
+                          name="userId"
+                          control={form.control}
+                          render={({ field }) => (
+                            <>
+                              <FormItem className="mb-3">
+                                <FormControl>
+                                  <Input
+                                    className="border border-[#d3d3d1]"
+                                    placeholder="UserId"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            </>
+                          )}
+                        />
+                        <FormField
+                          name="usercontent"
+                          control={form.control}
+                          render={({ field }) => (
+                            <>
+                              <FormItem className="mb-3">
+                                <div className="flex items-center gap-2">
+                                  <FormControl>
+                                    <Input
+                                      className="border border-[#d3d3d1]"
+                                      {...field}
+                                    />
+                                  </FormControl>
+                                  <FaQuestion
+                                    className="text-blue-600"
+                                    size={25}
+                                  />
+                                </div>
+                                <FormMessage />
+                              </FormItem>
+                            </>
+                          )}
+                        />
+                      </div>
+                    </form>
+                  </Form>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+          <div className=" mt-10 border p-4 relative">
             <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
-              1
+              {productItem?.product_type === "subscription" ? 2 : 1}
             </h1>
             <h1 className="absolute left-16 text-xl font-medium -mt-4">
               {productItem?.product_type === "subscription"
@@ -130,70 +207,26 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
                 ))}
             </div>
           </div>
-          <div className="mt-10 relative">
-            <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
-              2
-            </h1>
-            <h1 className="absolute left-16 text-xl font-medium">Buy</h1>
-            <Card className="">
-              <CardHeader></CardHeader>
-              <CardContent>
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <FormField
-                      name="name"
-                      control={form.control}
-                      render={({ field }) => (
-                        <>
-                          <FormItem className="mb-3">
-                            <FormLabel>User Name</FormLabel>
-                            <FormControl>
-                              <Input
-                                className="border border-[#d3d3d1]"
-                                placeholder="Enter the name"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        </>
-                      )}
-                    />
-                    <FormField
-                      name="email"
-                      control={form.control}
-                      render={({ field }) => (
-                        <>
-                          <FormItem className="mb-3">
-                            <FormLabel>
-                              Make sure your email address is correct, we will
-                              use it to deliver your voucher code.
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                className="border border-[#d3d3d1]"
-                                placeholder="Enter the email"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        </>
-                      )}
-                    />
-                    <div className="w-full flex justify-end">
-                      <Button
-                        type="submit"
-                        className="w-[200px] mt-4"
-                        disabled={orderPending}
-                      >
-                        Place Order
-                      </Button>
-                    </div>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
+          <div className="flex flex-row-reverse">
+            {productItem?.product_type === "subscription" ? (
+              <Button
+                type="submit"
+                form="orderForm"
+                className="w-[200px] mt-4"
+                disabled={orderPending}
+              >
+                Place Order
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className="w-[200px] mt-4"
+                disabled={orderPending}
+                onClick={() => handleGiftCardOrderSubmit()}
+              >
+                Place Order
+              </Button>
+            )}
           </div>
         </div>
       </div>

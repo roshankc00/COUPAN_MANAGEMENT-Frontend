@@ -2,12 +2,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { UseGetAllCouponsOfStore } from "@/hooks/react-query/coupons/get-all-coupons-of-store";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import debounce from "lodash.debounce";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -28,17 +30,21 @@ import { date } from "zod";
 import { increaseCount } from "@/common/api/affilate-link/affilate-link.api";
 import { IRootState } from "@/store";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 type Props = {
   storeId: number;
 };
 
 const CouponStore: React.FC<Props> = ({ storeId }) => {
+  const [open, setopen] = useState(true);
   const { isLogedInStatus, userId } = useSelector(
     (state: IRootState) => state.auth
   );
   const router = useRouter();
   const paginationProps = usePagination();
+  const params = useSearchParams();
+  const key = params.get("key");
+  const tag = params.get("tagLine");
   const {
     data: allCoupons,
     isFetching,
@@ -93,8 +99,51 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
       );
     }
   };
+
+  async function copyToClipboard(text: string): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success("Copied");
+    } catch (err) {
+      toast.success("Unable to copy");
+    }
+  }
   return (
     <div>
+      <div>
+        <Dialog open={open} onOpenChange={setopen}>
+          <DialogContent className="w-[30%]">
+            <div className="flex gap-3 items-center justify-center">
+              {storeDetails?.imageUrl && (
+                <img
+                  src={storeDetails.imageUrl}
+                  alt=""
+                  className="w-20 rounded-sm"
+                />
+              )}
+              <h1 className="text-xl">{tag}</h1>
+            </div>
+            <div>
+              <p className="text-center">
+                Copy code and shop{" "}
+                {storeDetails?.title && "at " + storeDetails?.title}
+              </p>
+              <div className="flex justify-center gap-2 mt-5">
+                <h1 className="border-dashed border-2 border-blue-600 py-2 px-3 rounded-md text-xl">
+                  {key}
+                </h1>
+                <button
+                  className="bg-[#2563EB]  w-[100px]  rounded-md text-white text-[16px] font-medium"
+                  onClick={() => copyToClipboard(key!)}
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+
       <div className=" border-b-2 pb-10">
         {!storeDetailsLoading && !storeDetailsFetching && (
           <div className="flex gap-3 items-center mt-4">

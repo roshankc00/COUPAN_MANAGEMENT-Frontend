@@ -22,7 +22,7 @@ const OrderSuccess = () => {
             <p>Dear {name}, your Order has been placed sucessfully</p>
             <p>Admin will verify and will notify You</p>
             <p>Thanks</p>
-            <Button onClick={() => router.push("/")}>
+            <Button onClick={() => (window.location.href = "/")}>
               <ArrowLeft /> Back to Home
             </Button>
           </CardContent>

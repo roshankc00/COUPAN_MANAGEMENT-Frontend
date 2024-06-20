@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Socket, io } from "socket.io-client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ const QrComponent = ({ params }: { params: { orderId: number } }) => {
   const { name, userId, isLogedInStatus } = useSelector(
     (state: IRootState) => state.auth
   );
+  const router = useRouter();
   const [qrcode, setQrcode] = useState("");
   const [websocketId, setWebsocketId] = useState("");
   const [isConnected, setIsConnected] = useState(false);
@@ -117,6 +118,13 @@ const QrComponent = ({ params }: { params: { orderId: number } }) => {
             </CardContent>
           </Card>
         )}
+        <Button
+          className="mt-5 w-full"
+          onClick={() => router.push("/user/order-success")}
+        >
+          {" "}
+          Continue
+        </Button>
       </LoginUserOnly>
     </div>
   );

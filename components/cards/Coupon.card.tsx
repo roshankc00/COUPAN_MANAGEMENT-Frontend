@@ -27,6 +27,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { handleNavigateCouponAffiliateLink } from "@/common/helpers/handleNavigateAffilateLinkCoupon";
 
 interface Props {
   coupon: ICoupon;
@@ -132,42 +133,19 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
               Deal
             </button>
           ) : (
-            <Dialog>
-              <DialogTrigger className="w-full">
-                <button className="bg-[#2563EB] p-2 w-[100px] ml-3 rounded-md text-white text-[16px] font-medium my-2">
-                  Scratch
-                </button>
-              </DialogTrigger>
-              <DialogContent className="w-[30%]">
-                <div className="flex gap-3 items-center justify-center">
-                  {coupon?.store?.imageUrl && (
-                    <img
-                      src={coupon.store.imageUrl}
-                      alt=""
-                      className="w-20 rounded-sm"
-                    />
-                  )}
-                  <h1 className="text-xl">{coupon?.tagLine}</h1>
-                </div>
-                <div>
-                  <p className="text-center">
-                    Copy code and shop{" "}
-                    {coupon?.store?.title && "at " + coupon?.store?.title}
-                  </p>
-                  <div className="flex justify-center gap-2 mt-5">
-                    <h1 className="border-dashed border-2 border-blue-600 py-2 px-3 rounded-md text-xl">
-                      {coupon?.code}
-                    </h1>
-                    <button
-                      className="bg-[#2563EB]  w-[100px]  rounded-md text-white text-[16px] font-medium"
-                      onClick={() => copyToClipboard(coupon?.code)}
-                    >
-                      Copy
-                    </button>
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
+            <button
+              className="bg-[#2563EB] p-2 w-[100px] ml-3  rounded-md text-white text-[16px] font-medium my-2"
+              onClick={() => {
+                handleNavigateCouponAffiliateLink(
+                  `${coupon?.store?.affiliateLink?.link}`,
+                  coupon.store.id,
+                  coupon.code,
+                  coupon.tagLine
+                );
+              }}
+            >
+              Scratch
+            </button>
           )}
           <div className="absolute top-0 right-0">
             {!isLoading && alreadySaved(+coupon?.id, data) ? (
