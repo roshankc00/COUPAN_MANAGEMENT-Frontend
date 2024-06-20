@@ -76,7 +76,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
   }
 
   return (
-    <div className="group relative p-3 shadow-md rounded-md bg-white">
+    <div className="group relative p-3 shadow-md rounded-md bg-white hover:-translate-y-1 transition-all">
       <div className="flex gap-5 items-center justify-between ">
         <div className="flex gap-5 items-center">
           <div className=" overflow-hidden rounded-md">
@@ -87,7 +87,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
             />
           </div>
           <div>
-            <p className="text-[16px] mt-2 font-medium text-gray-900">
+            <p className="text-[16px] mt-2 font-bold text-gray-900">
               {coupon?.tagLine}
             </p>
 
