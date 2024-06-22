@@ -1,14 +1,16 @@
 const CouponSkeletonCard = () => {
   return (
-    <div className="relative animate-pulse">
-      <div className="aspect-square aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lh:h-80">
-        <div className="w-full h-full bg-gray-200" />
+    <div className="relative animate-pulse bg-gray-100">
+      <div className="flex justify-between px-5 items-center gap-10">
+        <div className="flex gap-4 w-full items-center">
+          <div className="shadow-sm rounded-2xl bg-gray-200   w-[100px] h-[100px]"></div>
+          <div className="shadow-sm rounded-2xl w-full">
+            <div className="bg-gray-200 mt-10 h-6 w-full" />
+            <div className="bg-gray-200 mt-10 h-6 w-full" />
+          </div>
+        </div>
+        <div className="bg-gray-200 mt-10 h-6 w-[150px]" />
       </div>
-      <div className="mt-4 flex flex-cols gap-2">
-        <div className="bg-gray-200 h-4 w-full" />
-        <div className="bg-gray-200 h-4 w-full" />
-      </div>
-      <div className="bg-gray-200 mt-10 h-6 w-full" />
     </div>
   );
 };

@@ -1,5 +1,7 @@
 "use client";
+import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import ProductCard from "@/components/cards/ProductCard";
+import StoreSkeleton from "@/components/cards/StoreCardSkeleton";
 import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
 import React from "react";
 
@@ -11,6 +13,9 @@ const AllProduct = () => {
         All Products
       </h1>
       <div className="grid grid-cols-1  sm:grid-cols-4 gap-4 cursor-pointer">
+        {isFetching &&
+          isLoading &&
+          data?.map((item: any) => <StoreSkeleton key={item.id} />)}
         {!isFetching &&
           !isLoading &&
           data?.map((item: any) => (

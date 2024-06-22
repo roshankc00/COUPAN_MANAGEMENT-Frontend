@@ -1,13 +1,11 @@
-import React from "react";
-
-const StoreCardSkeleton = () => {
+const StoreSkeleton = () => {
   return (
-    <div>
-      <div className="relative animate-pulse">
-        <div className="bg-gray-200 shadow-sm rounded-2xl h-[100px] w-[200px]"></div>
-      </div>
+    <div className="relative animate-pulse">
+      <div className="shadow-sm rounded-2xl bg-gray-200  h-[200px] w-[200px]"></div>
+      <div className="bg-gray-200 mt-10 h-6 w-full" />
+      <div className="bg-gray-200 mt-10 h-6 w-full" />
     </div>
   );
 };
 
-export default StoreCardSkeleton;
+export default StoreSkeleton;

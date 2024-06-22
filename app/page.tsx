@@ -14,6 +14,7 @@ import { handleLogin } from "@/common/api/users/user.api";
 import Silder from "@/components/home/Silder";
 import FeatureCategory from "@/components/home/Featured.cateory";
 import FeaturedProduct from "@/components/home/Products";
+import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 export async function generateMetadata() {
   const ogImageUrl = logo;
   return {
