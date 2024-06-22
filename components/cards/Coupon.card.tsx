@@ -84,7 +84,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
             <img
               src={`${coupon?.imageUrl}`}
               alt="Product image"
-              className=" w-[100px] h-[100px] object-cover object-center rounded-md shadow-md border-none  sm:border p-0 lg:p-2"
+              className=" w-[100px] h-[100px] object-cover object-center rounded-md shadow-md    sm:border p-0 lg:p-2"
             />
           </div>
           <div>

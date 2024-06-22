@@ -156,12 +156,6 @@ function LoginForm() {
             >
               Forget Password
             </Link>
-            <Link
-              href="/verifyEmail"
-              className="text-center text-sky-600 block my-2"
-            >
-              Verify Email
-            </Link>
             <Link href="/signup" className="text-center text-sky-600">
               Not Registered ? Create an account
             </Link>

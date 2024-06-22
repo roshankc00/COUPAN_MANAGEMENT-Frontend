@@ -35,13 +35,13 @@ const StoreCard: React.FC<Props> = ({ store }) => {
 
   return (
     <div
-      className="shadow-md rounded-2xl bg-white p-5 cursor-pointer hover:-translate-y-2 transition-all  "
+      className="shadow-md rounded-2xl bg-white p-5 cursor-pointer hover:-translate-y-2 transition-all  flex flex-col items-center justify-center"
       onClick={() => router.push(`/user/browse/store/${store.id}`)}
     >
       <img
         src={`${store?.imageUrl}`}
         alt=""
-        className="shadow-sm  h-[200px] w-[200px] cursor-pointer rounded-full"
+        className="shadow-sm  h-[150px] w-[150px] cursor-pointer rounded-full"
       />
       <h1 className="text-center mt-2 text-gray-500">{store.title}</h1>
       <h1 className=" font-bold text-center my-2">
