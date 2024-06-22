@@ -127,14 +127,14 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
         <div className="">
           {coupon?.isDeal ? (
             <button
-              className="bg-[#2563EB] p-2 w-[100px] ml-3  rounded-md text-white text-[16px] font-medium my-2"
+              className="bg-blue-700 p-2 w-[130px] ml-3  rounded-md text-white text-[16px] font-medium my-2"
               onClick={() => handleDeal()}
             >
               Deal
             </button>
           ) : (
             <button
-              className="bg-[#2563EB] p-2 w-[100px] ml-3  rounded-md text-white text-[16px] font-medium my-2"
+              className="border border-dashed border-[#2563EB] p-2 w-[100px] mr-3  rounded-md  text-[16px] font-medium my-2 relative px-3 2-100"
               onClick={() => {
                 handleNavigateCouponAffiliateLink(
                   `${coupon?.store?.affiliateLink?.link}`,
@@ -144,7 +144,11 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
                 );
               }}
             >
-              Scratch
+              <span className="z-10">........{coupon.code.slice(0, 6)}</span>
+              <span className="-top-[9px] -left-8 absolute bg-blue-700 py-[5px] w-[100px] h-[42px] ml-3   rounded-md text-white text-[16px] font-medium my-2  hover:-ml-2 rounded-tr-2xl transition-all flex justify-center items-center text-center ">
+                Scratch
+                <span className="h-3 bg-transparent absolute w-3 right-0 top-[1px] border-r-[15px]   border-b-[20px] border-r-white border-b-blue-800 "></span>
+              </span>
             </button>
           )}
           <div className="absolute top-0 right-0">
