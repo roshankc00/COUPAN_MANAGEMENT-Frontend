@@ -12,6 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import fonePayImage from "../../../../../../public/phonepay.png";
 import { FaQuestion } from "react-icons/fa6";
 import { SiAdguard } from "react-icons/si";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -25,6 +26,8 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
 import { UseGetSingleProduct } from "@/hooks/react-query/products/get-single-product";
+import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
 
 type Props = {
   productId: number;
@@ -195,18 +198,54 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
                   <div
                     key={item.id}
                     onClick={() => setactiveSubProduct(item)}
-                    className={`shadow-sm p-2 rounded-md mt-2 border cursor-pointer  ${
-                      activeSubProduct.id === item.id ? " border-blue-500" : ""
+                    className={`shadow-sm p-2  rounded-md mt-2 border cursor-pointer  ${
+                      activeSubProduct.id === item.id
+                        ? " #d9d1ff border-blue-500 border-2"
+                        : ""
                     }`}
                   >
                     <p className="text-center font-semibold">{item.title}</p>
-                    <p className="text-right text-red-600 font-medium py-3">
+                    <Separator className="mt-5" />
+                    <p className="text-right text-red-600 font-medium py-1">
                       Rs {item.price}
                     </p>
                   </div>
                 ))}
             </div>
           </div>
+
+          <div className=" relative mt-10">
+            <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
+              {productItem?.product_type === "subscription" ? 3 : 2}
+            </h1>
+            <h1 className="absolute left-16 text-xl font-medium">
+              Select payment
+            </h1>
+            <div className="">
+              <Card
+                className={`${
+                  activeSubProduct.id
+                    ? "border bg-#d9d1ff border-blue-600 "
+                    : ""
+                }`}
+              >
+                <CardContent className="flex justify-between px-4 items-center">
+                  <Image
+                    className="w-[120px] mt-10 h-[50px] rounded-md shadow-sm"
+                    src={fonePayImage}
+                    alt="Logo"
+                  />
+
+                  {activeSubProduct.id && (
+                    <div className="mt-8 text-xl font-bold text-blue-700">
+                      Rs {activeSubProduct.price}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
           <div className="flex flex-row-reverse">
             {productItem?.product_type === "subscription" ? (
               <Button
