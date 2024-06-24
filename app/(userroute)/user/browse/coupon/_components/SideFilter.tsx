@@ -77,7 +77,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
   const _debounceSubmit = useCallback(debouncedSubmit, []);
   return (
     <main className=" max-w-7xl px-1">
-      <div className="grid grid-cols-10 sm:grid-cols-7 ">
+      <div className="grid grid-cols-10 sm:grid-cols-7 gap-5">
         <div className="col-span-4 sm:col-span-2 hidden sm:block">
           <div className="shadow-sm p-3 rounded-md bg-slate-50 ">
             <h1 className="mb-3 font-medium">All SubCategory</h1>

@@ -78,6 +78,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
 
   useEffect(() => {
     storeDetailsRefetch();
+    refetch();
   }, [storeId]);
 
   const { data: itemExist, isLoading: existLoading } =

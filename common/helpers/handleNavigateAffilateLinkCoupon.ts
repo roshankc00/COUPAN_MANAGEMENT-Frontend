@@ -5,7 +5,6 @@ export const handleNavigateCouponAffiliateLink = (
   tagLine: string
 ) => {
   window.open(link, "_blank");
-  setTimeout(() => {
-    window.location.href = `/user/browse/store/${storeId}?key=${key}&tagLine=${tagLine}`;
-  }, 100);
+
+  window.location.href = `/user/browse/store/${storeId}?key=${key}&tagLine=${tagLine}`;
 };

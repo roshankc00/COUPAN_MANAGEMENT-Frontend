@@ -24,7 +24,7 @@ export const getAllCouponsOfStore = async (
   pageSize: number
 ) => {
   const { data } = await axios.get(
-    `/coupons?stroreId=${storeId}&page=${page}&pageSize=${pageSize}`
+    `/coupons?storeId=${storeId}&page=${page}&pageSize=${pageSize}`
   );
   return data;
 };
