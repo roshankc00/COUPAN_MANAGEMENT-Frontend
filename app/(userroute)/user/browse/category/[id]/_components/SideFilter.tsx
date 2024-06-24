@@ -38,7 +38,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
     categoryId,
     filter,
     paginationProps.currentPage,
-    10
+    30
   );
 
   const handleChange = (id: number) => {

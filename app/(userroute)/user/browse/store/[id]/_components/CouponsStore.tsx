@@ -50,7 +50,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
     isFetching,
     isLoading,
     refetch,
-  } = UseGetAllCouponsOfStore(storeId, paginationProps.currentPage, 10);
+  } = UseGetAllCouponsOfStore(storeId, paginationProps.currentPage, 30);
 
   const onSubmit = () => refetch();
   const debouncedSubmit = debounce(onSubmit, 400);
@@ -164,7 +164,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
                 </span>
               </div>
               <p className="p-2">{storeDetails?.description}</p>
-              {!existLoading && (
+              {!existLoading && isLogedInStatus && (
                 <button
                   className="p-1 px-5 bg-blue-600 text-white rounded-md shadow-sm"
                   onClick={() =>

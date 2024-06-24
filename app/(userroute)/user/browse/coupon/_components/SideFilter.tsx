@@ -50,7 +50,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
     filter.categoryIds,
     filter.storeIds,
     paginationProps.currentPage,
-    10
+    30
   );
 
   useEffect(() => {
@@ -323,7 +323,9 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
         </div>
       </div>
       {!couponFetching && !couponLoading && allCoupons?.totalPage && (
-        <Pagination {...paginationProps} totalPages={allCoupons?.totalPage} />
+        <div className="flex justify-center">
+          <Pagination {...paginationProps} totalPages={allCoupons?.totalPage} />
+        </div>
       )}
     </main>
   );

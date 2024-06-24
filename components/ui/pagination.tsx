@@ -18,10 +18,10 @@ const Pagination = ({
 }: Props) => {
   const array = new Array(totalPages).fill(1).map((_, i) => i + 1);
   return (
-    <section className="mx-auto mt-4 mb-12 flex flex-col gap-5 px-2 py-3 md:flex-row md:justify-center md:items-start md:gap-3">
+    <section className="mx-auto mt-4 mb-12 flex px-2 py-3 gap-2">
       <button
         onClick={handleDecreasePage}
-        className="rounded-md border hover:border-green-400 transition-colors  text-green-700 px-3 py-2 text-sm"
+        className="rounded-md border hover:border-green-400 transition-colors  text-green-700 px-3 py-2 text-sm w-[100px]"
       >
         Previous
       </button>
@@ -41,7 +41,7 @@ const Pagination = ({
       </div>
       <button
         onClick={() => handleIncreasePage(totalPages)}
-        className="rounded-md border px-3 transition-colors hover:border-green-400 text-green-700 py-2 text-sm"
+        className="rounded-md border px-3 transition-colors hover:border-green-400 text-green-700 py-2 text-sm w-[100px]"
       >
         Next
       </button>

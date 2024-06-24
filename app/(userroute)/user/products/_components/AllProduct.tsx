@@ -13,7 +13,7 @@ const AllProduct = () => {
       <h1 className="text-3xl text-blue-500 capitalize text-center mt-10 mb-5">
         All Products
       </h1>
-      <div className="grid grid-cols-1  sm:grid-cols-4 gap-4 cursor-pointer">
+      <div className="grid grid-cols-1 mx-10 sm:mx-0  sm:grid-cols-4 gap-4 cursor-pointer">
         {isLoading &&
           isFetching &&
           new Array(12)

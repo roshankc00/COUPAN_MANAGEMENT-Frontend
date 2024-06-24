@@ -143,8 +143,8 @@ const SubmitOffer = () => {
       accept: { "image/png": [], "image/jpg": [], "image/jpeg": [] },
     });
   return (
-    <div className="ms-24">
-      <div className="my-10">
+    <div className="ms-0 xl:ms-24">
+      <div className="my-10 flex ">
         {/* navigation  */}
         {ROUTE?.map((item) => (
           <button
