@@ -1,6 +1,5 @@
 "use client";
-import { UseGetAllProductsWithType } from "@/hooks/react-query/products/get-all-products-with-type";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,7 +10,15 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import fonePayImage from "../../../../../../public/phonepay.png";
+import appStoreImage from "../../../../../../public/app_store_coda.png";
+import googleStoreImage from "../../../../../../public/google_play_coda.png";
 import { FaQuestion } from "react-icons/fa6";
 import { SiAdguard } from "react-icons/si";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -27,28 +34,31 @@ import { IRootState } from "@/store";
 import { UseGetSingleProduct } from "@/hooks/react-query/products/get-single-product";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 type Props = {
   productId: number;
+  productItem: any;
 };
 
-const ProductDetails: React.FC<Props> = ({ productId }) => {
+const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
   const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
   const router = useRouter();
   const [activeSubProduct, setactiveSubProduct] = useState<any>({});
   const formSchema = z.object({
-    userId: z.string().min(5, {
-      message: " must be of 5 characters ",
+    userId: z.string().min(3, {
+      message: " must be of 3 characters ",
     }),
-    usercontent: z.string().min(5, {
-      message: "must be of 5 characters ",
-    }),
+    otherId:
+      productItem && productItem?.fields && productItem?.fields?.length >= 2
+        ? z.string().min(3, { message: " must be at least 3 characters long" })
+        : z.string().optional(),
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       userId: "",
-      usercontent: "",
+      otherId: "",
     },
   });
 
@@ -81,17 +91,6 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
     }
   };
 
-  const {
-    data: productItem,
-    isFetching: singleProductFetching,
-    isLoading: singleProductLoading,
-    refetch,
-  } = UseGetSingleProduct(+productId);
-
-  useEffect(() => {
-    refetch();
-  }, [productId]);
-
   return (
     <div className="mt-10">
       <div className="grid grid-cols-7 md:grid-cols-9 gap-10">
@@ -101,22 +100,55 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
               <div>
                 <img
                   src={productItem?.imageUrl}
-                  className="h-[200px] w-full shadow-sm border p-2 rounded-md"
+                  className=" w-full shadow-sm border p-3 rounded-md"
                   alt=""
                 />
                 <h1 className=" font-bold text-xl my-4 text-center">
                   {productItem?.title}
                 </h1>
                 <div className="flex gap-1 flex-wrap justify-center items-center  mb-4">
-                  <Button className=" text-[10px]  ">Instant Delivery</Button>
-                  <Button className=" text-[10px]  ">
-                    Official Distributor
-                  </Button>
+                  {productItem &&
+                    productItem?.tags &&
+                    productItem?.tags.map((item: string) => (
+                      <Button className=" text-[10px] text-white cursor-default">
+                        {item}
+                      </Button>
+                    ))}
                 </div>
                 <Separator className="my-2" />
                 <p className="text-sm   font-bold">
                   {productItem?.description}
                 </p>
+                <div className="flex gap-2 mt-5 justify-start items-center">
+                  <Link
+                    href={
+                      productItem?.playstoreLink
+                        ? productItem?.playstoreLink
+                        : "#"
+                    }
+                    target="_blank"
+                  >
+                    <Image
+                      className="  w-[100px] h-[30px] rounded-md shadow-sm "
+                      src={appStoreImage}
+                      alt="Logo"
+                    />
+                  </Link>
+                  <Link
+                    href={
+                      productItem?.appstoreLink
+                        ? productItem?.appstoreLink
+                        : "#"
+                    }
+                    target="_blank"
+                  >
+                    <Image
+                      className="  w-[100px] h-[30px]  rounded-md shadow-sm "
+                      src={googleStoreImage}
+                      alt="Logo"
+                    />
+                  </Link>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -127,23 +159,32 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
               <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
                 1
               </h1>
-              <h1 className="absolute left-16 text-xl font-medium">Buy</h1>
+              <h1 className="absolute left-16 text-xl font-medium mt-2">
+                Enter {productItem?.fields && productItem?.fields[0]}
+              </h1>
               <Card className="">
                 <CardHeader></CardHeader>
                 <CardContent>
                   <Form {...form}>
-                    <form id="orderForm" onSubmit={form.handleSubmit(onSubmit)}>
+                    <form
+                      id="orderForm"
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="flex items-center gap-2"
+                    >
                       <div className="flex gap-10 items-center">
                         <FormField
                           name="userId"
                           control={form.control}
                           render={({ field }) => (
                             <>
-                              <FormItem className="mb-3">
+                              <FormItem className="">
                                 <FormControl>
                                   <Input
                                     className="border border-[#d3d3d1]"
-                                    placeholder="UserId"
+                                    placeholder={`Enter ${
+                                      productItem?.fields &&
+                                      productItem?.fields[0]
+                                    }`}
                                     {...field}
                                   />
                                 </FormControl>
@@ -152,30 +193,52 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
                             </>
                           )}
                         />
-                        <FormField
-                          name="usercontent"
-                          control={form.control}
-                          render={({ field }) => (
-                            <>
-                              <FormItem className="mb-3">
-                                <div className="flex items-center gap-2">
-                                  <FormControl>
-                                    <Input
-                                      className="border border-[#d3d3d1]"
-                                      {...field}
-                                    />
-                                  </FormControl>
-                                  <FaQuestion
-                                    className="text-blue-600"
-                                    size={25}
-                                  />
-                                </div>
-                                <FormMessage />
-                              </FormItem>
-                            </>
+                        {productItem &&
+                          productItem?.fields &&
+                          productItem?.fields?.length >= 2 && (
+                            <FormField
+                              name="otherId"
+                              control={form.control}
+                              render={({ field }) => (
+                                <>
+                                  <FormItem className="">
+                                    <div className="flex items-center gap-2">
+                                      <FormControl>
+                                        <Input
+                                          className="border border-[#d3d3d1]"
+                                          placeholder={`Enter the ${
+                                            productItem?.fields &&
+                                            productItem?.fields[1]
+                                          }`}
+                                          {...field}
+                                        />
+                                      </FormControl>
+                                    </div>
+                                    <FormMessage />
+                                  </FormItem>
+                                </>
+                              )}
+                            />
                           )}
-                        />
                       </div>
+
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <FaQuestion className="text-blue-600 " size={25} />
+                          </TooltipTrigger>
+                          <TooltipContent
+                            className="bg-black text-white"
+                            side="bottom"
+                          >
+                            <img
+                              src={productItem?.imageUrl}
+                              className="h-[50vh]"
+                              alt=""
+                            />
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </form>
                   </Form>
                 </CardContent>
@@ -186,16 +249,14 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
             <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
               {productItem?.product_type === "subscription" ? 2 : 1}
             </h1>
-            <h1 className="absolute left-16 text-xl font-medium -mt-4">
+            <h1 className="absolute left-16 text-xl font-medium -mt-3">
               {productItem?.product_type === "subscription"
                 ? "Select Recharge"
                 : "Select voucher"}
             </h1>
 
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5">
-              {!singleProductFetching &&
-                !singleProductLoading &&
-                productItem?.subProductItems &&
+              {productItem?.subProductItems &&
                 productItem?.subProductItems.map((item: any) => (
                   <div
                     key={item.id}
@@ -216,11 +277,11 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
             </div>
           </div>
 
-          <div className=" relative mt-10">
-            <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
+          <div className=" relative mt-10 py-3">
+            <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-3 text-2xl font-bold">
               {productItem?.product_type === "subscription" ? 3 : 2}
             </h1>
-            <h1 className="absolute left-16 text-xl font-medium">
+            <h1 className="absolute left-16 text-xl font-medium mt-2">
               Select payment
             </h1>
             <div className="">
@@ -231,9 +292,9 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
                     : ""
                 }`}
               >
-                <CardContent className="flex justify-between px-4 items-center">
+                <CardContent className="flex justify-between px-4 items-center mt-3">
                   <Image
-                    className="w-[120px] mt-10 h-[50px] rounded-md shadow-sm"
+                    className="w-[100px] mt-10 h-[30px] rounded-md shadow-sm ms-12"
                     src={fonePayImage}
                     alt="Logo"
                   />

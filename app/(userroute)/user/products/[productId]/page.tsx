@@ -1,5 +1,5 @@
 import React from "react";
-import ProductDetails from "./_components/ProductDetails";
+import Product from "./_components/Product";
 
 export const metadata = {
   title: "Products | NepQue ",
@@ -8,7 +8,7 @@ export const metadata = {
 const ProductPage = ({ params }: { params: { productId: number } }) => {
   return (
     <div>
-      <ProductDetails productId={params.productId} />
+      <Product productId={params.productId} />
     </div>
   );
 };
