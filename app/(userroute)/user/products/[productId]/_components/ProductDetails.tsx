@@ -9,7 +9,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import fonePayImage from "../../../../../../public/phonepay.png";
@@ -68,7 +67,7 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
       toast.error("Login first");
       router.push("/login");
     } else {
-      mutateAsync({ ...values, productId: +activeSubProduct?.id });
+      mutateAsync({ ...values, subProductId: +activeSubProduct?.id });
     }
   };
 
@@ -95,31 +94,34 @@ const ProductDetails: React.FC<Props> = ({ productId }) => {
 
   return (
     <div className="mt-10">
-      <div className="grid grid-cols-7 md:grid-cols-7 gap-10">
-        <div className="col-span-2 md:col-span-2 shadow-sm rounded-sm pb-10 ">
-          <div>
-            <img
-              src={productItem?.imageUrl}
-              className="h-[200px] w-full shadow-sm"
-              alt=""
-            />
-            <h1 className=" font-bold my-4">{productItem?.title}</h1>
-            <div className="flex gap-1  mb-4">
-              <Button className=" flex gap-3 w-[150px]">
-                {" "}
-                <SiAdguard />
-                Instant Delivery
-              </Button>
-              <Button className=" flex gap-3 w-[150px]">
-                Official Distributor
-              </Button>
-            </div>
-            <h1 className="text-sm font-medium text">
-              {productItem?.description}
-            </h1>
-          </div>
+      <div className="grid grid-cols-7 md:grid-cols-9 gap-10">
+        <div className="col-span-3 md:col-span-3 shadow-sm rounded-sm pb-10 ">
+          <Card>
+            <CardContent className="p-3">
+              <div>
+                <img
+                  src={productItem?.imageUrl}
+                  className="h-[200px] w-full shadow-sm border p-2 rounded-md"
+                  alt=""
+                />
+                <h1 className=" font-bold text-xl my-4 text-center">
+                  {productItem?.title}
+                </h1>
+                <div className="flex gap-1 flex-wrap justify-center items-center  mb-4">
+                  <Button className=" text-[10px]  ">Instant Delivery</Button>
+                  <Button className=" text-[10px]  ">
+                    Official Distributor
+                  </Button>
+                </div>
+                <Separator className="my-2" />
+                <p className="text-sm   font-bold">
+                  {productItem?.description}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-        <div className="col-span-4 md:col-span-5 ">
+        <div className="col-span-4 md:col-span-6 ">
           {productItem?.product_type === "subscription" && (
             <div className=" relative">
               <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">

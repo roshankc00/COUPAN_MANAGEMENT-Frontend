@@ -31,6 +31,7 @@ import { increaseCount } from "@/common/api/affilate-link/affilate-link.api";
 import { IRootState } from "@/store";
 import { useSelector } from "react-redux";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card";
 type Props = {
   storeId: number;
 };
@@ -145,46 +146,52 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
         </Dialog>
       </div>
 
-      <div className=" border-b-2 pb-10">
+      <div className=" pb-10">
         {!storeDetailsLoading && !storeDetailsFetching && (
-          <div className="flex gap-3 items-center mt-4">
-            <img
-              src={`${storeDetails?.imageUrl}`}
-              alt=""
-              className="w-[20%] h-[30%]"
-            />
-            <div>
-              <h1 className="font-bold   text-2xl ">{storeDetails?.title}</h1>
-              <div>
-                <span className="mx-2">
-                  {storeDetails?.followers?.length} followers
-                </span>
-                <span className="mx-2">
-                  {storeDetails?.coupons?.length} coupons
-                </span>
+          <Card>
+            <CardContent className="py-10 pb-10">
+              <div className="flex gap-10 items-center mt-4">
+                <img
+                  src={`${storeDetails?.imageUrl}`}
+                  alt=""
+                  className="w-[20%] h-[30%] border rounded-md p-2"
+                />
+                <div>
+                  <h1 className="font-bold   text-2xl mx-2 ">
+                    {storeDetails?.title}
+                  </h1>
+                  <div>
+                    <span className="mx-2">
+                      {storeDetails?.followers?.length} Followers
+                    </span>
+                    <span className="mx-2">
+                      {storeDetails?.coupons?.length} Coupons
+                    </span>
+                  </div>
+                  <p className="p-2">{storeDetails?.description}</p>
+                  {!existLoading && isLogedInStatus && (
+                    <button
+                      className="p-1 px-5 bg-blue-600 text-white rounded-md shadow-sm"
+                      onClick={() =>
+                        handleFollowUnFollowClick({
+                          storeId: +storeId,
+                        })
+                      }
+                    >
+                      {itemExist?.exist ? "Unfollow" : "Follow"}
+                    </button>
+                  )}
+                  <button
+                    className="p-1 px-5 border ms-3 border-blue-600   rounded-md shadow-sm"
+                    onClick={() => handleNavigate()}
+                  >
+                    {" "}
+                    Visit Store
+                  </button>
+                </div>
               </div>
-              <p className="p-2">{storeDetails?.description}</p>
-              {!existLoading && isLogedInStatus && (
-                <button
-                  className="p-1 px-5 bg-blue-600 text-white rounded-md shadow-sm"
-                  onClick={() =>
-                    handleFollowUnFollowClick({
-                      storeId: +storeId,
-                    })
-                  }
-                >
-                  {itemExist?.exist ? "Unfollow" : "Follow"}
-                </button>
-              )}
-              <button
-                className="p-1 px-5 border ms-3 border-blue-600   rounded-md shadow-sm"
-                onClick={() => handleNavigate()}
-              >
-                {" "}
-                Visit Store
-              </button>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         )}
       </div>
 

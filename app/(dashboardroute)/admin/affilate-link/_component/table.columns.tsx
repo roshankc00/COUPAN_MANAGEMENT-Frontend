@@ -79,7 +79,7 @@ export const columns: ColumnDef<any>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("apiKey");
-      return <span className="">{title.slice(0, 30)}.....</span>;
+      return <span className="">{title?.slice(0, 30)}.....</span>;
     },
   },
   {
@@ -98,7 +98,7 @@ export const columns: ColumnDef<any>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("apiLink");
-      return <span className="">{title.slice(0, 30)}....</span>;
+      return <span className="">{title?.slice(0, 30)}....</span>;
     },
   },
 

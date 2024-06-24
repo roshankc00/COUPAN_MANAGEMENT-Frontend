@@ -63,25 +63,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return <span className="">{title}</span>;
     },
   },
-  {
-    accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="flex justify-center"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const title: string = row.getValue("name");
-      return <span className="">{title}</span>;
-    },
-  },
+
   {
     accessorKey: "email",
     header: ({ column }) => {
@@ -97,8 +79,8 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const title: string = row.getValue("email");
-      return <span className="">{title}</span>;
+      const user: any = row.getValue("user");
+      return <span className="">{user?.email}</span>;
     },
   },
   {
@@ -137,7 +119,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const product: any = row.getValue("product");
-      return <span className="">{product.title}</span>;
+      return <span className="">{product?.title}</span>;
     },
   },
   {
