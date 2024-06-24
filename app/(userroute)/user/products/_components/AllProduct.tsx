@@ -1,4 +1,5 @@
 "use client";
+import BlogSkeleton from "@/components/BlogSkeleton";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import ProductCard from "@/components/cards/ProductCard";
 import StoreSkeleton from "@/components/cards/StoreCardSkeleton";
@@ -13,9 +14,11 @@ const AllProduct = () => {
         All Products
       </h1>
       <div className="grid grid-cols-1  sm:grid-cols-4 gap-4 cursor-pointer">
-        {isFetching &&
-          isLoading &&
-          data?.map((item: any) => <StoreSkeleton key={item.id} />)}
+        {isLoading &&
+          isFetching &&
+          new Array(12)
+            .fill(null)
+            .map((el, index) => <BlogSkeleton key={index} />)}
         {!isFetching &&
           !isLoading &&
           data?.map((item: any) => (
