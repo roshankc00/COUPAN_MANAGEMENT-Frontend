@@ -109,7 +109,10 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
                   {productItem &&
                     productItem?.tags &&
                     productItem?.tags.map((item: string) => (
-                      <Button className=" text-[10px] text-white cursor-default">
+                      <Button
+                        className=" text-[10px] text-white cursor-default"
+                        key={item}
+                      >
                         {item}
                       </Button>
                     ))}
