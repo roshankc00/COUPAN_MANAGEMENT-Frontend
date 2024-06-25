@@ -21,3 +21,8 @@ export const deleteLicense = async (id: number) => {
   const { data } = await axios.delete(`/license/${id}`);
   return data;
 };
+
+export const getMyLicenses = async () => {
+  const { data } = await axios.get(`/license/mine/licenses`);
+  return data;
+};

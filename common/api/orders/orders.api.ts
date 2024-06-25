@@ -30,3 +30,8 @@ export const getSingleOrder = async (orderId: number) => {
   const { data } = await axios.get(`/orders/${orderId}`);
   return data;
 };
+
+export const getAllMyOrder = async () => {
+  const { data } = await axios.get(`/orders/mine/orders`);
+  return data;
+};

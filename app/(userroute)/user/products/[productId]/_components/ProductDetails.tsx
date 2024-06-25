@@ -46,7 +46,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
   const router = useRouter();
   const [activeSubProduct, setactiveSubProduct] = useState<any>({});
   const formSchema = z.object({
-    userId: z.string().min(3, {
+    topUpId: z.string().min(3, {
       message: " must be of 3 characters ",
     }),
     otherId:
@@ -57,8 +57,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      userId: "",
-      otherId: "",
+      topUpId: "",
     },
   });
 
@@ -173,7 +172,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
                     >
                       <div className="flex gap-10 items-center">
                         <FormField
-                          name="userId"
+                          name="topUpId"
                           control={form.control}
                           render={({ field }) => (
                             <>

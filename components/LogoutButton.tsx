@@ -55,6 +55,14 @@ const LogoutButton = () => {
             All Saved Coupons
           </DropdownMenuItem>
           <Separator />
+          <DropdownMenuItem onClick={() => router.push("/user/order")}>
+            My Orders
+          </DropdownMenuItem>
+          <Separator />
+          <DropdownMenuItem onClick={() => router.push("/user/licenses")}>
+            My licenses
+          </DropdownMenuItem>
+          <Separator />
           <DropdownMenuItem className="mt-2" onClick={() => LogoutUser()}>
             Logout
           </DropdownMenuItem>
