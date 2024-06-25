@@ -10,7 +10,7 @@ const FeatureCategory = () => {
   const { data, isFetching, isLoading } = UseGetLatesCategories();
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-10">
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-5 ">
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-5 place-content-center">
         {isLoading &&
           isFetching &&
           new Array(12)

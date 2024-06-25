@@ -187,12 +187,14 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
               !couponLoading &&
               allCoupons?.coupons?.length <= 0 && <EmptyStateFilter />}
           </div>
-          {!couponFetching && !couponLoading && allCoupons?.totalPage && (
-            <Pagination
-              {...paginationProps}
-              totalPages={allCoupons?.totalPage}
-            />
-          )}
+          <div className="flex justify-center">
+            {!couponFetching && !couponLoading && allCoupons?.totalPage && (
+              <Pagination
+                {...paginationProps}
+                totalPages={allCoupons?.totalPage}
+              />
+            )}
+          </div>
         </div>
       </div>
     </main>

@@ -234,7 +234,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
                             side="bottom"
                           >
                             <img
-                              src={productItem?.imageUrl}
+                              src={productItem?.toolTipImageUrl}
                               className="h-[50vh]"
                               alt=""
                             />

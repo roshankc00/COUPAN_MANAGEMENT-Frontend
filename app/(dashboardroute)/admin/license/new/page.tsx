@@ -39,6 +39,7 @@ import { Button } from "@/components/ui/button";
 import { UseGetAllOrderWithStatus } from "@/hooks/react-query/orders/get-all-orders-with-status";
 import { postLicense } from "@/common/api/license/license.api";
 import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
+import { UseGetAllSubProducts } from "@/hooks/react-query/sub-products/get-all-subproducts";
 const AddFaqs = () => {
   const router = useRouter();
   const formSchema = z.object({
@@ -48,11 +49,9 @@ const AddFaqs = () => {
     code: z.string().min(5, {
       message: "must be of 5 charecter ",
     }),
-    validityDays: z.string(),
-    expireDate: z.string().min(10, {
-      message: " must be of 10 charecter ",
-    }),
-    productId: z.string(),
+    validityDays: z.string().optional(),
+    expireDate: z.string().optional(),
+    subProductId: z.string(),
   });
 
   const { mutateAsync, isPending } = useMutation({
@@ -69,20 +68,36 @@ const AddFaqs = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutateAsync({
-      title: values.title,
-      code: values.code,
-      validityDays: +values.validityDays,
-      expireDate: values.expireDate,
-      productId: +values.productId,
-    }).then(() => {
-      toast.success("License updated successfully");
-      router.push("/admin/license");
-      client.invalidateQueries({ queryKey: ["get-all-licenses"] });
-    });
+    if (values.validityDays && values.expireDate) {
+      mutateAsync({
+        title: values.title,
+        code: values.code,
+        validityDays: +values.validityDays,
+        expireDate: values.expireDate,
+        subProductId: +values.subProductId,
+      }).then(() => {
+        toast.success("License updated successfully");
+        router.push("/admin/license");
+        client.invalidateQueries({ queryKey: ["get-all-licenses"] });
+      });
+    } else {
+      if (!values.validityDays && !values.expireDate) {
+        mutateAsync({
+          title: values.title,
+          code: values.code,
+          subProductId: +values.subProductId,
+        }).then(() => {
+          toast.success("License updated successfully");
+          router.push("/admin/license");
+          client.invalidateQueries({ queryKey: ["get-all-licenses"] });
+        });
+      } else {
+        toast.error("Provide both validityDays and expireDate ");
+      }
+    }
   };
 
-  const { data, isLoading } = UseGetAllProducts();
+  const { data, isLoading } = UseGetAllSubProducts();
   return (
     <div className="mt-10">
       <AdminHeader title="License" />
@@ -112,16 +127,16 @@ const AddFaqs = () => {
                   )}
                 />
                 <FormField
-                  name="productId"
+                  name="subProductId"
                   control={form.control}
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel>Order</FormLabel>
+                        <FormLabel>Product</FormLabel>
                         <Select onValueChange={field.onChange}>
                           <SelectTrigger className="">
                             <SelectValue
-                              placeholder={`${"Select the order"}`}
+                              placeholder={`${"Select the Product"}`}
                             />
                           </SelectTrigger>
                           <SelectContent>
@@ -131,7 +146,7 @@ const AddFaqs = () => {
                                   value={item?.id?.toString()}
                                   key={item.id}
                                 >
-                                  {item?.id} - {item?.title}
+                                  {item?.product?.title} - ({item?.title})
                                 </SelectItem>
                               ))}
                           </SelectContent>

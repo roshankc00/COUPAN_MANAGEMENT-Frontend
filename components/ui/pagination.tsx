@@ -21,7 +21,7 @@ const Pagination = ({
     <section className="mx-auto mt-4 mb-12 flex px-2 py-3 gap-2">
       <button
         onClick={handleDecreasePage}
-        className="rounded-md border hover:border-green-400 transition-colors  text-green-700 px-3 py-2 text-sm w-[100px]"
+        className="rounded-md border hover:border-blue-700 transition-colors  text-black px-3 py-2 text-sm w-[100px]"
       >
         Previous
       </button>
@@ -31,8 +31,8 @@ const Pagination = ({
             key={a}
             onClick={() => setCurrentPage(a)}
             className={cn(
-              "cursor-pointer rounded-md border px-3 hover:border-green-400 transition-colors py-2 text-sm ",
-              currentPage === a && "bg-green-400 text-black"
+              "cursor-pointer rounded-md border px-3 hover:border-blue-700 transition-colors py-2 text-sm ",
+              currentPage === a && "bg-blue-700 text-white"
             )}
           >
             {a}
@@ -41,7 +41,7 @@ const Pagination = ({
       </div>
       <button
         onClick={() => handleIncreasePage(totalPages)}
-        className="rounded-md border px-3 transition-colors hover:border-green-400 text-green-700 py-2 text-sm w-[100px]"
+        className="rounded-md border px-3 transition-colors hover:border-blue-700 py-2 text-sm w-[100px]"
       >
         Next
       </button>
