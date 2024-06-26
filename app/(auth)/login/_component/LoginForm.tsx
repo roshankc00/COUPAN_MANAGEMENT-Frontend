@@ -60,7 +60,7 @@ function LoginForm() {
       toast.success("User LoggedIn successfully");
       dispatch(logedin(data));
       if (data.role === "ADMIN") {
-        router.push("/admin/dashboard");
+        window.location.href = "/admin/dashboard";
       } else {
         router.back();
       }

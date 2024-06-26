@@ -26,12 +26,13 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 function SignupForm() {
   const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
+  const router = useRouter();
   if (isLogedInStatus) {
-    redirect("/");
+    window.location.href = "/";
   }
   const formSchema = z.object({
     name: z.string().min(3, {
@@ -60,6 +61,7 @@ function SignupForm() {
     mutationFn: signupUser,
     onSuccess() {
       toast.success("Check your Mail Please");
+      router.push("/login");
     },
   });
 
