@@ -31,7 +31,7 @@ interface Data {
   // other fields
 }
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+  columns: any;
   data: TData[];
 }
 

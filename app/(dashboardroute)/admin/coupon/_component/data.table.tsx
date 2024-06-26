@@ -26,7 +26,7 @@ import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+  columns: any;
   data: TData[];
 }
 
