@@ -1,13 +1,14 @@
 import React from "react";
 import Product from "./_components/Product";
 import { getSingleProduct } from "@/common/api/products/products.api";
+import axios from "axios";
 
 export async function generateMetadata({
   params,
 }: {
   params: { productId: number };
 }) {
-  const { data } = await getSingleProduct(+params.productId);
+  const { data } = await axios.get(`/products/${+params.productId}`);
   const ogImageUrl = data?.imageUrl;
   return {
     title: `${data?.title} | NepQue`,
