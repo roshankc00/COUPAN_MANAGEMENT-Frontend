@@ -2,10 +2,6 @@ import React from "react";
 import Product from "./_components/Product";
 import { getSingleProduct } from "@/common/api/products/products.api";
 
-export const metadata = {
-  title: "Products | NepQue ",
-  description: "NepQue: Your CouponPartner",
-};
 export async function generateMetadata({
   params,
 }: {
