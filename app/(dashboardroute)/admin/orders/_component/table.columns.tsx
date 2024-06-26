@@ -83,22 +83,56 @@ export const columns: ColumnDef<ICategory>[] = [
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "topUpId",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          className="flex justify-center"
+          className="flex justify-center "
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Status
+          Details 1
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const title: string = row.getValue("status");
-      return <span className="">{title}</span>;
+      const subproduct: any = row.getValue("subProduct");
+      const topUpId: string = row.getValue("topUpId");
+      const otherId: string = row.getValue("otherId");
+      const order: any = row.getValue("order");
+      return (
+        <span className="">
+          <span>{`${subproduct?.product?.fields[0]}=${topUpId}`}</span>
+          <br />
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "otherId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="flex justify-center "
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Details 2
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const subproduct: any = row.getValue("subProduct");
+      const otherId: string = row.getValue("otherId");
+      return (
+        <span className="">
+          {subproduct?.product?.fields?.length === 2 && (
+            <span>{`${subproduct?.product?.fields[1]}=${otherId}  `}</span>
+          )}
+        </span>
+      );
     },
   },
 
@@ -153,7 +187,7 @@ export const columns: ColumnDef<ICategory>[] = [
           className="r"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Order Amount
+          Status
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
