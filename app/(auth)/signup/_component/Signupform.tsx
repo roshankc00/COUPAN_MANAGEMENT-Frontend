@@ -32,7 +32,7 @@ function SignupForm() {
   const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
   const router = useRouter();
   if (isLogedInStatus) {
-    window.location.href = "/";
+    router.push("/");
   }
   const formSchema = z.object({
     name: z.string().min(3, {

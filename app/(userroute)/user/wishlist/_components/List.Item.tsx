@@ -6,6 +6,8 @@ import CouponCard from "@/components/cards/Coupon.card";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import EmptyState from "@/components/EmptyState";
 import { IWishlistInterface } from "@/interfaces/wishlist.interface";
+import { useSelector } from "react-redux";
+import { IRootState } from "@/store";
 const ListWishlists = () => {
   const ALL_ROUTES = ["All", "Active", "Expire"];
   const [activeRoute, setactiveRoute] = useState("all");

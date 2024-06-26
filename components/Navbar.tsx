@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
-import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { Heart, Search } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import BreadCrumCom from "./BreadCrum";
 import SearchBar from "./SearchBar";
 import Logo from "../public/logo.jpg";
@@ -32,7 +30,7 @@ const Navbar = () => {
           <div
             className="cursor-pointer"
             onClick={() => {
-              window.location.href = "/";
+              router.push("/");
             }}
           >
             <Image

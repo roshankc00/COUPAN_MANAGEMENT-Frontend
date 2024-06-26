@@ -2,7 +2,6 @@ import { store } from "@/store";
 import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { FaLessThan } from "react-icons/fa";
 
 export const getUserLoginStatus = () => {
   const { auth } = store.getState();
