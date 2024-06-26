@@ -42,7 +42,7 @@ import toast from "react-hot-toast";
 
 const dateFormat = moment();
 
-export const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<ICategory>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {

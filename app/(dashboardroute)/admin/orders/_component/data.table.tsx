@@ -25,15 +25,22 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+
+interface Data {
+  id: string; // or number, depending on your data
+  // other fields
+}
+
 interface DataTableProps<TData, TValue> {
-  columns: any;
+  columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function Datatable<TData, TValue>({
+export function Datatable<TData extends Data, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const router = useRouter();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -54,10 +61,10 @@ export function Datatable<TData, TValue>({
   });
 
   return (
-    <div className=" w-[80vw] mr-4 ms-0 2xl:ms-20 ">
+    <div className="w-[80vw] mr-4 ms-0 2xl:ms-20">
       <div className="flex items-center py-4 justify-between">
         <Input
-          placeholder="Search Faq  with question..."
+          placeholder="Search Faq with question..."
           value={(table.getColumn("user")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("user")?.setFilterValue(event.target.value)
@@ -91,6 +98,9 @@ export function Datatable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => {
+                    router.push(`/admin/orders/${row.original.id}`);
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

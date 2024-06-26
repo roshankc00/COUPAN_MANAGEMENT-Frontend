@@ -24,12 +24,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function Datatable<TData, TValue>({
+interface Data {
+  id: string; // or number, depending on your data
+  // other fields
+}
+
+export function Datatable<TData extends Data, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -51,6 +57,8 @@ export function Datatable<TData, TValue>({
       columnFilters,
     },
   });
+
+  const router = useRouter();
 
   return (
     <div className=" w-[80vw] mr-4 ms-0 2xl:ms-20 ">
@@ -96,6 +104,10 @@ export function Datatable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="cursor-pointer"
+                  onClick={() => {
+                    router.push(`/admin/category/edit/${row.original.id}`);
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

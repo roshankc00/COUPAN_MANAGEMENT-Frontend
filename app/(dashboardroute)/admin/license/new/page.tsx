@@ -43,6 +43,8 @@ import { UseGetAllSubProducts } from "@/hooks/react-query/sub-products/get-all-s
 const AddFaqs = () => {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
+  const paramsSubproductId = searchParams.get("subproductId");
+  const tagLine = searchParams.get("tagLine");
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(5, {
@@ -58,6 +60,9 @@ const AddFaqs = () => {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: postLicense,
+    onSuccess(data, variables, context) {
+      client.invalidateQueries({ queryKey: ["get-all-licenses"] });
+    },
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -66,6 +71,7 @@ const AddFaqs = () => {
       title: "",
       code: "",
       expireDate: "",
+      subProductId: paramsSubproductId ? paramsSubproductId : undefined,
     },
   });
 
@@ -79,9 +85,8 @@ const AddFaqs = () => {
         subProductId: +values.subProductId,
       }).then(() => {
         toast.success("License updated successfully");
-        client.invalidateQueries({ queryKey: ["get-all-licenses"] });
         if (orderId) {
-          router.push(`admin/orders/${+orderId}`);
+          router.push(`/admin/orders/${+orderId}`);
         } else {
           router.push("/admin/license");
         }
@@ -94,8 +99,11 @@ const AddFaqs = () => {
           subProductId: +values.subProductId,
         }).then(() => {
           toast.success("License updated successfully");
-          router.push("/admin/license");
-          client.invalidateQueries({ queryKey: ["get-all-licenses"] });
+          if (orderId) {
+            router.push(`/admin/orders/${+orderId}`);
+          } else {
+            router.push("/admin/license");
+          }
         });
       } else {
         toast.error("Provide both validityDays and expireDate ");
@@ -142,7 +150,11 @@ const AddFaqs = () => {
                         <Select onValueChange={field.onChange}>
                           <SelectTrigger className="">
                             <SelectValue
-                              placeholder={`${"Select the Product"}`}
+                              placeholder={`${
+                                paramsSubproductId
+                                  ? tagLine
+                                  : "Select the Product"
+                              }`}
                             />
                           </SelectTrigger>
                           <SelectContent>

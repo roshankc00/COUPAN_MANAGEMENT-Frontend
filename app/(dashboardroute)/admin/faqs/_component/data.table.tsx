@@ -25,12 +25,18 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+
+interface Data {
+  id: string; // or number, depending on your data
+  // other fields
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function Datatable<TData, TValue>({
+export function Datatable<TData extends Data, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -38,6 +44,7 @@ export function Datatable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+
   const table = useReactTable({
     data,
     columns,
@@ -99,6 +106,9 @@ export function Datatable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => {
+                    router.push(`/admin/faqs/edit/${row.original.id}`);
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

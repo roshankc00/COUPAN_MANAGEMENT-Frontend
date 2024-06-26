@@ -16,6 +16,7 @@ import { useMutation } from "@tanstack/react-query";
 import { acceptLicenseOrder } from "@/common/api/license/license.api";
 import { useRouter } from "next/navigation";
 import { UseGetAllNotAssignedLicenses } from "@/hooks/react-query/license/get-all-notAssigned-licenses";
+import { client } from "@/components/Provider";
 
 type Props = {
   data: any;
@@ -32,6 +33,17 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
 
   const { mutate } = useMutation({
     mutationFn: acceptLicenseOrder,
+    onSuccess(data, variables, context) {
+      client.invalidateQueries({ queryKey: ["get-all-my-orders"] });
+      client.invalidateQueries({ queryKey: ["get-all-orders"] });
+      client.invalidateQueries({ queryKey: ["get-all-licenses"] });
+      client.invalidateQueries({ queryKey: ["get-all-my-licenses"] });
+
+      toast.success("License assigned successfully");
+    },
+    onError() {
+      toast.error("Unable to assign License ");
+    },
   });
   const handleVerifyOrder = () => {
     if (!selectedLicense && data?.id) {
@@ -99,7 +111,9 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
                   <Button
                     className="w-[150px] mt-3"
                     onClick={() => {
-                      router.push(`/admin/license/new?orderId=${data?.id}`);
+                      router.push(
+                        `/admin/license/new?orderId=${data?.id}&subproductId=${data?.subProduct?.id}&tagLine=${data?.subProduct?.product?.title}(${data?.subProduct?.title})`
+                      );
                     }}
                   >
                     Add New License

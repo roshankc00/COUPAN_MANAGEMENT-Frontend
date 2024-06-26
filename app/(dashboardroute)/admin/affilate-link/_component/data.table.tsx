@@ -30,7 +30,12 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function Datatable<TData, TValue>({
+interface Data {
+  id: string; // or number, depending on your data
+  // other fields
+}
+
+export function Datatable<TData extends Data, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -99,6 +104,10 @@ export function Datatable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="cursor-pointer"
+                  onClick={() => {
+                    router.push(`/admin/affilate-link/edit/${row.original.id}`);
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
