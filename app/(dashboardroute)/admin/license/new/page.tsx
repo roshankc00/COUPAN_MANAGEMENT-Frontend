@@ -41,6 +41,8 @@ import { postLicense } from "@/common/api/license/license.api";
 import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
 import { UseGetAllSubProducts } from "@/hooks/react-query/sub-products/get-all-subproducts";
 const AddFaqs = () => {
+  const searchParams = useSearchParams();
+  const orderId = searchParams.get("orderId");
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(5, {
@@ -77,8 +79,12 @@ const AddFaqs = () => {
         subProductId: +values.subProductId,
       }).then(() => {
         toast.success("License updated successfully");
-        router.push("/admin/license");
         client.invalidateQueries({ queryKey: ["get-all-licenses"] });
+        if (orderId) {
+          router.push(`admin/orders/${+orderId}`);
+        } else {
+          router.push("/admin/license");
+        }
       });
     } else {
       if (!values.validityDays && !values.expireDate) {

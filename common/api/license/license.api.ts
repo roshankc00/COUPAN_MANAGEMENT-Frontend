@@ -26,3 +26,18 @@ export const getMyLicenses = async () => {
   const { data } = await axios.get(`/license/mine/licenses`);
   return data;
 };
+
+interface IAcceptIOrder {
+  licenseId: number;
+  orderId: number;
+}
+
+export const acceptLicenseOrder = async (body: IAcceptIOrder) => {
+  const { data } = await axios.patch(`/license/accept/order`, body);
+  return data;
+};
+
+export const getAllNotAssignedLicenses = async () => {
+  const { data } = await axios.get(`/license/not-assigned/licenses`);
+  return data;
+};

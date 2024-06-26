@@ -26,7 +26,7 @@ import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+  columns: any;
   data: TData[];
 }
 
@@ -58,11 +58,9 @@ export function Datatable<TData, TValue>({
       <div className="flex items-center py-4 justify-between">
         <Input
           placeholder="Search Faq  with question..."
-          value={
-            (table.getColumn("question")?.getFilterValue() as string) ?? ""
-          }
+          value={(table.getColumn("user")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("question")?.setFilterValue(event.target.value)
+            table.getColumn("user")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

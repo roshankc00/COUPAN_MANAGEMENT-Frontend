@@ -39,11 +39,10 @@ import { MdDelete } from "react-icons/md";
 import { pendingOrder, rejectOrder } from "@/common/api/orders/orders.api";
 import { client } from "@/components/Provider";
 import toast from "react-hot-toast";
-import ChangeOrderStatusBtns from "./ChangeOrderStatus";
 
 const dateFormat = moment();
 
-export const columns: ColumnDef<ICategory>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
@@ -65,7 +64,7 @@ export const columns: ColumnDef<ICategory>[] = [
   },
 
   {
-    accessorKey: "email",
+    accessorKey: "user",
     header: ({ column }) => {
       return (
         <Button
@@ -104,7 +103,7 @@ export const columns: ColumnDef<ICategory>[] = [
   },
 
   {
-    accessorKey: "product",
+    accessorKey: "subProduct",
     header: ({ column }) => {
       return (
         <Button
@@ -118,12 +117,16 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const product: any = row.getValue("product");
-      return <span className="">{product?.title}</span>;
+      const subProduct: any = row.getValue("subProduct");
+      return (
+        <span className="">
+          {subProduct?.product?.title}({subProduct?.title})
+        </span>
+      );
     },
   },
   {
-    accessorKey: "amount",
+    accessorKey: "subProduct",
     header: ({ column }) => {
       return (
         <Button
@@ -137,8 +140,8 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const product: any = row.getValue("product");
-      return <span className="">{product?.price}</span>;
+      const subProduct: any = row.getValue("subProduct");
+      return <span className="">{subProduct?.price}</span>;
     },
   },
   {
@@ -162,14 +165,6 @@ export const columns: ColumnDef<ICategory>[] = [
           <Badge> {product}</Badge>
         </span>
       );
-    },
-  },
-
-  {
-    id: "action",
-    cell: ({ row }) => {
-      const { id } = row.original;
-      return <ChangeOrderStatusBtns id={id} />;
     },
   },
 ];

@@ -10,6 +10,7 @@ import { UseGetAllOrders } from "@/hooks/react-query/orders/get-all-orders";
 
 const FaqsTable = () => {
   const { data, isFetching, isLoading } = UseGetAllOrders();
+  console.log(data);
   return (
     <div className="">
       {!isFetching && !isLoading ? (
