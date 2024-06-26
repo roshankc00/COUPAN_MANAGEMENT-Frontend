@@ -17,7 +17,8 @@ import FeaturedProduct from "@/components/home/Products";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import { useEffect } from "react";
 export async function generateMetadata() {
-  const ogImageUrl = logo;
+  const ogImageUrl =
+    "https://couponstoragecontainer.blob.core.windows.net/coupon-images/709af029-772a-450d-b550-13b78bf9f91a.jpg";
   return {
     title: "Home | Nepque",
     description: `Get a Discount save money`,
