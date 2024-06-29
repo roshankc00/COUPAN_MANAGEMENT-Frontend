@@ -172,7 +172,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
                   </div>
 
                   <div>
-                    <h1 className="font-bold text-center text-xl mx-2 ">
+                    <h1 className="font-bold text-center text-xl mx-2 mt-4">
                       {storeDetails?.title}
                     </h1>
 
