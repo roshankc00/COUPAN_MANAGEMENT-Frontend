@@ -46,7 +46,7 @@ const LogoutButton = () => {
           )}
           <Separator />
           <DropdownMenuItem
-            onClick={() => router.push("user/userFollowedStore")}
+            onClick={() => router.push("/user/userFollowedStore")}
           >
             Followed Store
           </DropdownMenuItem>

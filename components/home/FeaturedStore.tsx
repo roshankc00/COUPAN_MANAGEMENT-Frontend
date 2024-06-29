@@ -19,8 +19,8 @@ const FeaturedStore = () => {
         {!isLoading &&
           !isFetching &&
           data?.map((item: IStore) => (
-            <div className="">
-              <StoreCard2 key={item?.id} store={item} />
+            <div key={item?.id}>
+              <StoreCard2 store={item} />
             </div>
           ))}
       </div>
