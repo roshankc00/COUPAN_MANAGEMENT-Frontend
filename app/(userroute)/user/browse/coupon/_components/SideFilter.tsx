@@ -79,108 +79,112 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
     <main className=" max-w-7xl px-1">
       <div className="grid grid-cols-10 sm:grid-cols-7 gap-5">
         <div className="col-span-4 sm:col-span-2 hidden sm:block">
-          <div className="shadow-sm p-3 rounded-md bg-slate-50 ">
+          <div className="shadow-sm p-3 rounded-md bg-white ">
             <h1 className="mb-3 font-medium">All SubCategory</h1>
             <Separator />
-            <div className="mt-3">
-              <ul className="space-y-4">
-                <li key="all" className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id={`color-${"all"}`}
-                    className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                    onChange={() => {
-                      setfilter({
-                        ...filter,
-                        categoryIds: [],
-                      });
-                      _debounceSubmit();
-                    }}
-                    checked={filter.categoryIds.length === 0}
-                  />
-                  <label
-                    htmlFor={`checkbox`}
-                    className="ml-3 text-sm text-gray-600"
-                  >
-                    All
-                  </label>
-                </li>
-                {!catFeteching &&
-                  !catLoading &&
-                  allCat?.map((option: ICategory) => {
-                    return (
-                      <li key={option.id} className="flex items-center">
-                        <input
-                          type="checkbox"
-                          id={`color-${option.id}`}
-                          className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                          onChange={() => {
-                            handleChange("categoryIds", option.id);
-                          }}
-                          checked={filter.categoryIds.includes(option.id)}
-                        />
-                        <label
-                          htmlFor={`checkbox`}
-                          className="ml-3 text-sm text-gray-600"
-                        >
-                          {option.title}
-                        </label>
-                      </li>
-                    );
-                  })}
-              </ul>
+            <div className="mt-3 bg-white">
+              <ScrollArea className="h-[180px] w-full rounded-md  p-4">
+                <ul className="space-y-4">
+                  <li key="all" className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id={`color-${"all"}`}
+                      className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
+                      onChange={() => {
+                        setfilter({
+                          ...filter,
+                          categoryIds: [],
+                        });
+                        _debounceSubmit();
+                      }}
+                      checked={filter.categoryIds.length === 0}
+                    />
+                    <label
+                      htmlFor={`checkbox`}
+                      className="ml-3 text-sm text-gray-600"
+                    >
+                      All
+                    </label>
+                  </li>
+                  {!catFeteching &&
+                    !catLoading &&
+                    allCat?.map((option: ICategory) => {
+                      return (
+                        <li key={option.id} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={`color-${option.id}`}
+                            className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
+                            onChange={() => {
+                              handleChange("categoryIds", option.id);
+                            }}
+                            checked={filter.categoryIds.includes(option.id)}
+                          />
+                          <label
+                            htmlFor={`checkbox`}
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            {option.title}
+                          </label>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </ScrollArea>
             </div>
           </div>
-          <div className="shadow-sm p-3 rounded-md bg-slate-50 ">
-            <h1 className="mb-3 font-medium">All Stores</h1>
+          <div className="shadow-sm p-3 rounded-md bg-white ">
+            <h1 className="mb-3 font-medium text-xl ">All Stores</h1>
             <Separator />
             <div className="mt-3">
-              <ul className="space-y-4">
-                <li key="all" className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id={`color-${"all"}`}
-                    className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                    onChange={() => {
-                      setfilter({
-                        ...filter,
-                        storeIds: [],
-                      });
-                      _debounceSubmit();
-                    }}
-                    checked={filter.storeIds.length === 0}
-                  />
-                  <label
-                    htmlFor={`checkbox`}
-                    className="ml-3 text-sm text-gray-600"
-                  >
-                    All
-                  </label>
-                </li>
-                {!storeLoading &&
-                  !storeFeteching &&
-                  allStore?.map((option: IStore) => {
-                    return (
-                      <li key={option.id} className="flex items-center">
-                        <input
-                          type="checkbox"
-                          id={`color-${option.id}`}
-                          className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                          onChange={() => {
-                            handleChange("storeIds", option.id);
-                          }}
-                          checked={filter.storeIds.includes(option.id)}
-                        />
-                        <label
-                          htmlFor={`checkbox`}
-                          className="ml-3 text-sm text-gray-600"
-                        >
-                          {option.title}
-                        </label>
-                      </li>
-                    );
-                  })}
-              </ul>
+              <ScrollArea className="h-[180px] w-full rounded-md  p-4">
+                <ul className="space-y-4">
+                  <li key="all" className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id={`color-${"all"}`}
+                      className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
+                      onChange={() => {
+                        setfilter({
+                          ...filter,
+                          storeIds: [],
+                        });
+                        _debounceSubmit();
+                      }}
+                      checked={filter.storeIds.length === 0}
+                    />
+                    <label
+                      htmlFor={`checkbox`}
+                      className="ml-3 text-sm text-gray-600"
+                    >
+                      All
+                    </label>
+                  </li>
+                  {!storeLoading &&
+                    !storeFeteching &&
+                    allStore?.map((option: IStore) => {
+                      return (
+                        <li key={option.id} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={`color-${option.id}`}
+                            className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
+                            onChange={() => {
+                              handleChange("storeIds", option.id);
+                            }}
+                            checked={filter.storeIds.includes(option.id)}
+                          />
+                          <label
+                            htmlFor={`checkbox`}
+                            className="ml-3 text-sm text-gray-600"
+                          >
+                            {option.title}
+                          </label>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </ScrollArea>
             </div>
           </div>
         </div>

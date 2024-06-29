@@ -35,3 +35,14 @@ export const getAllMyOrder = async () => {
   const { data } = await axios.get(`/orders/mine/orders`);
   return data;
 };
+
+export const addTransectionId = async (body: {
+  orderId: number;
+  transectionId: string;
+}) => {
+  const { data } = await axios.patch(`/insert/verified/transectionId`, {
+    transectionId: body.transectionId,
+    orderId: body.orderId,
+  });
+  return data;
+};

@@ -120,7 +120,9 @@ const QrComponent = ({ params }: { params: { orderId: number } }) => {
         )}
         <Button
           className="mt-5 w-full"
-          onClick={() => router.push("/user/order-success")}
+          onClick={() =>
+            router.push(`user/transection?orderId=${params.orderId}`)
+          }
         >
           {" "}
           Continue

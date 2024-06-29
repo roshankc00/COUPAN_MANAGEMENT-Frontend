@@ -46,12 +46,12 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
   const router = useRouter();
   const [activeSubProduct, setactiveSubProduct] = useState<any>({});
   const formSchema = z.object({
-    topUpId: z.string().min(3, {
+    topUpId: z.string().min(1, {
       message: " must be of 3 characters ",
     }),
     otherId:
       productItem && productItem?.fields && productItem?.fields?.length >= 2
-        ? z.string().min(3, { message: " must be at least 3 characters long" })
+        ? z.string().min(1, { message: " must be at least 3 characters long" })
         : z.string().optional(),
   });
   const form = useForm<z.infer<typeof formSchema>>({
@@ -94,14 +94,16 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
     <div className="mt-10">
       <div className="grid grid-cols-7 md:grid-cols-9 gap-10">
         <div className="col-span-3 md:col-span-3 shadow-sm rounded-sm pb-10 ">
-          <Card>
+          <Card className="bg-white">
             <CardContent className="p-3">
               <div>
-                <img
-                  src={productItem?.imageUrl}
-                  className=" w-full shadow-sm border p-3 rounded-md"
-                  alt=""
-                />
+                <div className=" shadow-sm border p-3 rounded-md">
+                  <img
+                    src={productItem?.imageUrl}
+                    className=" w-full rounded-md"
+                    alt=""
+                  />
+                </div>
                 <h1 className=" font-bold text-xl my-4 text-center">
                   {productItem?.title}
                 </h1>
@@ -157,14 +159,14 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
         </div>
         <div className="col-span-4 md:col-span-6 ">
           {productItem?.product_type === "subscription" && (
-            <div className=" relative">
+            <div className=" relative bg-white">
               <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
                 1
               </h1>
               <h1 className="absolute left-16 text-xl font-medium mt-2">
                 Enter {productItem?.fields && productItem?.fields[0]}
               </h1>
-              <Card className="">
+              <Card className="bg-white">
                 <CardHeader></CardHeader>
                 <CardContent>
                   <Form {...form}>
@@ -247,7 +249,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
               </Card>
             </div>
           )}
-          <div className=" mt-10 border p-4 relative">
+          <div className=" mt-10 border p-4 relative bg-white">
             <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
               {productItem?.product_type === "subscription" ? 2 : 1}
             </h1>
@@ -257,7 +259,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
                 : "Select voucher"}
             </h1>
 
-            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5">
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 bg-white">
               {productItem?.subProductItems &&
                 productItem?.subProductItems.map((item: any) => (
                   <div
@@ -265,7 +267,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
                     onClick={() => setactiveSubProduct(item)}
                     className={`shadow-sm p-2  rounded-md mt-2 border cursor-pointer  ${
                       activeSubProduct.id === item.id
-                        ? " #d9d1ff border-blue-500 border-2"
+                        ? "bg-slate-50  border-blue-500 border-2"
                         : ""
                     }`}
                   >
@@ -279,7 +281,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
             </div>
           </div>
 
-          <div className=" relative mt-10 py-3">
+          <div className=" relative mt-10 py-3 bg-white">
             <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-3 text-2xl font-bold">
               {productItem?.product_type === "subscription" ? 3 : 2}
             </h1>
@@ -289,9 +291,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
             <div className="">
               <Card
                 className={`${
-                  activeSubProduct.id
-                    ? "border bg-#d9d1ff border-blue-600 "
-                    : ""
+                  activeSubProduct.id ? "border bg-white border-blue-600 " : ""
                 }`}
               >
                 <CardContent className="flex justify-between px-4 items-center mt-3">

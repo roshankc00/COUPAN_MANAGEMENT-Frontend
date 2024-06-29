@@ -140,7 +140,8 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
                   `${coupon?.store?.affiliateLink?.link}`,
                   coupon.store.id,
                   coupon.code,
-                  coupon.tagLine
+                  coupon.tagLine,
+                  coupon.description
                 );
               }}
             >
