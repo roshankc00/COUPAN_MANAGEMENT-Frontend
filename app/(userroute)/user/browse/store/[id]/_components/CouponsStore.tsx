@@ -81,7 +81,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
         queryKey: ["exist-in-followelist"],
       });
       client.invalidateQueries({
-        queryKey: ["single-store"],
+        queryKey: ["exist-in-followelist"],
       });
     },
   });
@@ -163,11 +163,11 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
             <Card>
               <CardContent className="mt-4">
                 <div className="">
-                  <div className="rounded-md p-2">
+                  <div className="rounded-md p-2 border flex justify-center">
                     <img
                       src={`${storeDetails?.imageUrl}`}
                       alt=""
-                      className=" border rounded-md"
+                      className=" rounded-md"
                     />
                   </div>
 
