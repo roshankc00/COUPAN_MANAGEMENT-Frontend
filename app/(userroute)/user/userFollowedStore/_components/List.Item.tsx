@@ -16,7 +16,7 @@ const ListWishlists = () => {
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-16">
       <h1 className="text-2xl font-medium my-10">Followed Stores </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 place-content-center">
+      <div className="grid grid-cols-2  sm:grid-cols-3 xl:grid-cols-4 sm:gap-10 gap-x-3 gap-y-3 place-content-center">
         {!isLoading &&
           data?.map((item: IFollowerList) => (
             <StoreCard key={item.store.id} store={item.store} />

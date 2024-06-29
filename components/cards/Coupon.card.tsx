@@ -78,22 +78,25 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
 
   return (
     <div className="group relative p-3 shadow-md rounded-md bg-white hover:-translate-y-1 transition-all">
-      <div className="flex gap-5 items-center justify-between ">
+      <div className="flex gap-5 items-center justify-between py-4 sm:py-0">
         <div className="flex gap-5 items-center">
           <div className=" overflow-hidden rounded-md">
             <img
               src={`${coupon?.imageUrl}`}
               alt="Product image"
-              className=" w-[100px] h-[100px] object-cover object-center rounded-md shadow-md    sm:border p-0 lg:p-2"
+              className=" w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] sm:object-cover sm:object-center rounded-md shadow-md    sm:border p-0 lg:p-2 "
             />
           </div>
           <div>
-            <p className="text-[16px] mt-2 font-bold text-gray-900">
+            <p className=" text-[16px] mt-2 font-bold text-gray-900">
               {coupon?.tagLine}
             </p>
+            {/* <p className=" block sm:hidden text-[16px] mt-2 font-bold text-gray-900">
+              {coupon?.tagLine.slice(0, 10)}...
+            </p> */}
 
             <div className="flex gap-3 mt-2 items-center">
-              <div className="flex gap-1 items-center">
+              <div className=" hidden sm:flex gap-1 items-center">
                 <PiBuildingOfficeLight />
                 <h3 className="text-sm text-gray-700">
                   {coupon?.store?.title}

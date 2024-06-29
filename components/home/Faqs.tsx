@@ -20,10 +20,10 @@ const FaqsCom = () => {
                 value={item.id}
                 className="border border-slate-200 px-3 my-5 rounded-lg"
               >
-                <AccordionTrigger className=" text-[18px]">
+                <AccordionTrigger className="text-[14px] sm:text-[16px] lg:text-[18px]">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className=" text-[18px]">
+                <AccordionContent className="text-[14px]  text-center sm:text-[18px]">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

@@ -9,7 +9,7 @@ const FeaturedProduct = () => {
   const { isFetching, isLoading, data } = UseGetHomePageProducts();
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-10">
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-10 place-content-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 place-content-center px-10 sm:px-0">
         {isLoading &&
           isFetching &&
           new Array(4)
@@ -19,7 +19,9 @@ const FeaturedProduct = () => {
         {!isLoading &&
           !isFetching &&
           data?.map((item: any) => (
-            <ProductCard key={item?.id} product={item} />
+            <div className="">
+              <ProductCard key={item?.id} product={item} />
+            </div>
           ))}
       </div>
     </main>

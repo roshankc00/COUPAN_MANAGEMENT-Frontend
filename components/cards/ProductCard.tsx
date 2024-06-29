@@ -18,13 +18,13 @@ const ProductCard: React.FC<Props> = ({ product }) => {
   const router = useRouter();
   return (
     <div
-      className="shadow-md rounded-2xl bg-white p-5 cursor-pointer hover:-translate-y-2 transition-all  "
+      className="shadow-md rounded-2xl bg-white p-5 cursor-pointer hover:-translate-y-2 transition-all flex flex-col justify-center items-center  "
       onClick={() => router.push(`/user/products/${product.id}`)}
     >
       <img
         src={`${product?.imageUrl}`}
         alt=""
-        className="shadow-sm  h-[200px] w-full cursor-pointer"
+        className="shadow-sm  h-[200px]   cursor-pointer rounded-md"
       />
       <h1 className="text-center mt-4 text-[16px] font-bold">
         {product?.title}

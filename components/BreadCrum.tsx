@@ -50,7 +50,7 @@ const BreadCrumCom = () => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-5">
         <Breadcrumb className="text-[16px]">
           <BreadcrumbList className="flex justify-between items-center w-full">
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-wrap">
               <BreadcrumbItem
                 onMouseEnter={() => handleMouseEnter("category")}
                 onMouseLeave={handleMouseLeave}
@@ -120,7 +120,7 @@ const BreadCrumCom = () => {
               </BreadcrumbItem>
               <BreadcrumbItem>
                 <Link className="text-black" href="/user/submit-offer">
-                  Submit-Offer
+                  SubmitOffer
                 </Link>
               </BreadcrumbItem>
               <BreadcrumbItem>
@@ -128,8 +128,18 @@ const BreadCrumCom = () => {
                   Products
                 </Link>
               </BreadcrumbItem>
+              <BreadcrumbItem className="block sm:hidden">
+                <BreadcrumbLink href="/user/blogs" className="text-black">
+                  Blogs
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbItem className="block sm:hidden">
+                <BreadcrumbLink className="text-black" href="/user/contact">
+                  Contact
+                </BreadcrumbLink>
+              </BreadcrumbItem>
             </div>
-            <div className="flex gap-3">
+            <div className="sm:flex gap-3 hidden ">
               <BreadcrumbItem>
                 <BreadcrumbLink href="/user/blogs" className="text-black">
                   Blogs

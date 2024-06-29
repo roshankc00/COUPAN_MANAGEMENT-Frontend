@@ -172,7 +172,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
                   </div>
 
                   <div>
-                    <h1 className="font-bold text-center text-xl mx-2 mt-4">
+                    <h1 className="font-bold text-center text-xl mx-2 mt-4 line-clamp-1">
                       {storeDetails?.title}
                     </h1>
 
@@ -180,7 +180,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
                       <div>
                         {!existLoading && isLogedInStatus && (
                           <button
-                            className="p-1  w-[120px] bg-blue-600 text-white rounded-md shadow-sm"
+                            className="p-1 w-[80px]  lg:w-[120px] bg-blue-600 text-white rounded-md shadow-sm"
                             onClick={() =>
                               handleFollowUnFollowClick({
                                 storeId: +storeId,
@@ -192,10 +192,9 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
                         )}
                       </div>
                       <button
-                        className="border border-blue-600 p-1 w-[120px] text-black rounded-md shadow-sm"
+                        className="border w-[80px] border-blue-600 p-1 lg:w-[120px] text-black rounded-md shadow-sm line-clamp-1"
                         onClick={() => handleNavigate()}
                       >
-                        {" "}
                         Visit Store
                       </button>
                     </div>

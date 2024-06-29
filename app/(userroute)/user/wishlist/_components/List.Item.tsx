@@ -41,7 +41,7 @@ const ListWishlists = () => {
           );
         })}
       </div>
-      <div className="grid grid-cols-1 my-20  lg:grid-cols-2 gap-4 place-content-center ">
+      <div className="grid grid-cols-1 my-10  lg:grid-cols-2 gap-4 place-content-center ">
         {!isFetching &&
           !isLoading &&
           data?.map((item: IWishlistInterface) => (

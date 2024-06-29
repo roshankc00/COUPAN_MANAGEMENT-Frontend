@@ -29,7 +29,7 @@ const Silder = () => {
                 <img
                   src={`${item.imageUrl}`}
                   alt=""
-                  className="w-full h-[292px]"
+                  className="w-[100%] h-[150px] sm:w-full sm:h-full"
                 />
               </CarouselItem>
             ))}

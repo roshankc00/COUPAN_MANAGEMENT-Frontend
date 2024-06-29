@@ -189,11 +189,11 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
           </div>
         </div>
 
-        <div className="sm:hidden block w-[90vw] px-10 my-5 ">
+        <div className="sm:hidden block w-[90vw]  my-5 ">
           <div className="flex gap-2">
             <Select onValueChange={(val) => console.log(val)}>
               <SelectTrigger className="">
-                <SelectValue placeholder="Category" />
+                <SelectValue placeholder="Select Category" />
               </SelectTrigger>
               <SelectContent>
                 <ScrollArea className="h-[150px] w-full rounded-md  p-4">
@@ -249,7 +249,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
 
             <Select onValueChange={(val) => console.log(val)}>
               <SelectTrigger className="">
-                <SelectValue placeholder="Store" />
+                <SelectValue placeholder="Select Store" />
               </SelectTrigger>
               <SelectContent>
                 <ScrollArea className="h-[150px] w-full rounded-md  p-4">

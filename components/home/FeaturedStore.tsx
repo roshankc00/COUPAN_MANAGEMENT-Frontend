@@ -9,7 +9,7 @@ const FeaturedStore = () => {
   const { isFetching, isLoading, data } = UseGetLatestStores();
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg-px-8 my-10">
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-10 place-content-center">
+      <div className="grid grid-cols-2  sm:grid-cols-3 xl:grid-cols-4 sm:gap-10 gap-x-3 gap-y-3 place-content-center">
         {isLoading &&
           isFetching &&
           new Array(4)
@@ -19,7 +19,9 @@ const FeaturedStore = () => {
         {!isLoading &&
           !isFetching &&
           data?.map((item: IStore) => (
-            <StoreCard2 key={item?.id} store={item} />
+            <div className="">
+              <StoreCard2 key={item?.id} store={item} />
+            </div>
           ))}
       </div>
     </main>

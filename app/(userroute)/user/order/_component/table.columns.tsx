@@ -58,6 +58,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return <span className="">{title}</span>;
     },
   },
+  
 
   {
     accessorKey: "topUpId",

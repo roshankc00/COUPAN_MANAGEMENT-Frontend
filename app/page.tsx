@@ -37,7 +37,7 @@ export default function Home() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg-px-8 my-10 z-0 ">
         <Silder />
         <div>
-          <h1 className=" ms-6 text-3xl font-bold mt-10">
+          <h1 className=" ms-6 text-3xl font-bold mt-10 text-center sm:text-start">
             Shop at Your Favorite Stores
           </h1>
           <FeaturedStore />
@@ -45,7 +45,7 @@ export default function Home() {
 
         {/* featured coupons  */}
         <div>
-          <h1 className=" ms-6 text-3xl font-bold">
+          <h1 className=" ms-6 text-3xl font-bold text-center sm:text-start">
             Discover Todays Best Coupons
           </h1>
           <Featuredcoupons />
@@ -53,14 +53,14 @@ export default function Home() {
         {/* featured product  */}
         <div>
           <div className="flex justify-between items-center mt-5 px-8">
-            <h1 className=" ms-6 text-3xl font-bold mt-10">
+            <h1 className=" ms-6 text-3xl font-bold mt-10 text-center sm:text-start">
               Our Feature Products
             </h1>
           </div>
           <FeaturedProduct />
         </div>
         <div>
-          <h1 className=" ms-6 text-3xl font-bold mt-10">
+          <h1 className=" ms-6 text-3xl font-bold mt-10 text-center sm:text-start">
             Shop at Your Favorite Categories
           </h1>
           <FeatureCategory />
