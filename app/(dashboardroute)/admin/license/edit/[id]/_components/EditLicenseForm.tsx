@@ -40,6 +40,7 @@ import { updateLicense } from "@/common/api/license/license.api";
 import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
 import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
 import moment from "moment";
+import DeleteLicenseButton from "../../../_component/Edit-Delete.button";
 
 type Props = {
   id: number;
@@ -98,10 +99,11 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
   const { data, isFetching, isLoading } = UseGetAllProducts();
 
   return (
-    <div className="mt-10">
+    <div className="pt-10">
       <AdminHeader title="License" />
+      <DeleteLicenseButton id={id} />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>

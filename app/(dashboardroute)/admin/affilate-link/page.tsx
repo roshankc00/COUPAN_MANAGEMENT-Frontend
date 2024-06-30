@@ -9,7 +9,7 @@ export const metadata = {
 const AffilateLinkPage = () => {
   return (
     <div className="">
-      <div className="mt-10 pr-24 -mb-[15px]">
+      <div className="pt-10">
         <AdminHeader title="Affilate-Link" />
       </div>
       <div>

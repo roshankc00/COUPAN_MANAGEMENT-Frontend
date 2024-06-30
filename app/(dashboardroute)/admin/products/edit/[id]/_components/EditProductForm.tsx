@@ -29,6 +29,7 @@ import { client } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
 import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
 import { editProduct } from "@/common/api/products/products.api";
+import DeleteProductButton from "../../../_component/Edit-Delete.button";
 type Props = {
   id: number;
   singleData: any;
@@ -79,8 +80,9 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
   return (
     <div className="mt-10">
       <AdminHeader title="Edit-Product" />
+      <DeleteProductButton id={id} />
       <div>
-        <Card className="">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>

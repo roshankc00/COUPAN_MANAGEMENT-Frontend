@@ -53,7 +53,7 @@ export function Datatable<TData, TValue>({
   });
 
   return (
-    <div className=" w-[80vw] mr-4 ms-0 2xl:ms-20 ">
+    <div className=" w-[80vw] mr-4 ms-0 2xl:ms-10">
       <div className="flex items-center py-4 justify-between">
         <Input
           placeholder="Search  Users with Name..."
@@ -77,7 +77,7 @@ export function Datatable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="bg-white">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -96,6 +96,7 @@ export function Datatable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="bg-white"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

@@ -61,7 +61,7 @@ export function Datatable<TData extends Data, TValue>({
   const router = useRouter();
 
   return (
-    <div className=" w-[80vw] mr-4 ms-0 2xl:ms-20 ">
+    <div className=" w-[80vw] mr-4 ms-0 2xl:ms-10">
       <div className="flex items-center py-4 justify-between">
         <Input
           placeholder="Search Sub category with title..."
@@ -83,7 +83,7 @@ export function Datatable<TData extends Data, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="bg-white">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -102,7 +102,7 @@ export function Datatable<TData extends Data, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="cursor-pointer"
+                  className="cursor-pointer  bg-white"
                   onClick={() => {
                     router.push(`/admin/coupon/edit/${row.original.id}`);
                   }}

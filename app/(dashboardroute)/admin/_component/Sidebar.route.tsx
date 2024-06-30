@@ -85,7 +85,7 @@ function SidebarRoutes({}: Props) {
     },
   ] as const;
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full pb-24">
       {routes?.map((route) => (
         <SidebarItem
           key={route.href}

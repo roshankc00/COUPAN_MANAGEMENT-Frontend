@@ -36,6 +36,7 @@ import moment from "moment";
 import { updateCoupon } from "@/common/api/coupons/coupons.api";
 import { useMutation } from "@tanstack/react-query";
 import { client } from "@/components/Provider";
+import DeleteCouponButton from "../../../_component/Edit-Delete.button";
 
 type Props = {
   singleData: ICoupon;
@@ -182,10 +183,11 @@ function EditCouponForm({ singleData, id }: Props) {
   const { data: allstore, isLoading: storeLoading } = UseGetAllStore();
 
   return (
-    <div className="mt-10 pb-32">
+    <div className="pt-10 pb-32">
       <AdminHeader title="Edit-Coupon" />
+      <DeleteCouponButton id={id} />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>

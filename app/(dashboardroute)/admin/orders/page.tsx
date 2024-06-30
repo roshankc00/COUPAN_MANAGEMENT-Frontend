@@ -1,6 +1,6 @@
 import React from "react";
-import FaqsTable from "./_component/table";
 import AdminHeader from "../_component/Header";
+import OrdersTable from "./_component/table";
 
 export const metadata = {
   title: "Dashboard-Orders | NepQue ",
@@ -8,12 +8,12 @@ export const metadata = {
 };
 const page = () => {
   return (
-    <div>
-      <div className="mt-10 pr-24 -mb-[15px]">
+    <div className="">
+      <div className="pt-10">
         <AdminHeader title="Orders" />
       </div>
       <div>
-        <FaqsTable />
+        <OrdersTable />
       </div>
     </div>
   );

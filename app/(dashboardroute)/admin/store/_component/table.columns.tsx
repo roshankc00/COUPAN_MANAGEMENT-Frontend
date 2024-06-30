@@ -157,12 +157,4 @@ export const columns: ColumnDef<ICategory>[] = [
       return <div className=""> {moment(title).format("YYYY-MM-DD")}</div>;
     },
   },
-  {
-    id: "action",
-    cell: ({ row }) => {
-      const { id } = row.original;
-
-      return <EditDeleteButton id={id} />;
-    },
-  },
 ];

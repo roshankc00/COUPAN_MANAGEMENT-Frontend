@@ -31,6 +31,7 @@ import { client } from "@/components/Provider";
 import { updateAffilateLink } from "@/common/api/affilate-link/affilate-link.api";
 import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { IStore } from "@/interfaces/Store.interface";
+import DeleteAffliatedLinkButton from "../../../_component/Edit-Delete.button";
 
 type Props = {
   singleData: any;
@@ -38,6 +39,7 @@ type Props = {
 };
 
 function EditAffilateLinkForm({ id, singleData }: Props) {
+  console.log(singleData);
   const router = useRouter();
   const formSchema = z.object({
     link: z.string().min(3, {
@@ -49,19 +51,8 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
     merchant: z.string().min(3, {
       message: " must be of 3 charecter ",
     }),
-    apiKey: z
-      .string()
-      .min(3, {
-        message: " must be of 3 charecter ",
-      })
-      .optional(),
-    apiLink: z
-      .string()
-      .min(3, {
-        message: " must be of 3 charecter ",
-      })
-      .optional(),
-
+    apiKey: z.string().optional(),
+    apiLink: z.string().optional(),
     storeId: z.string(),
     cashbackAmountPer: z.string(),
   });
@@ -97,10 +88,12 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
   const { data: allstore, isLoading: storeLoading } = UseGetAllStore();
 
   return (
-    <div className="mt-10">
+    <div className="pt-10">
       <AdminHeader title="New-Subcategory" />
+      <DeleteAffliatedLinkButton id={id} />
+
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>
@@ -130,7 +123,7 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel>Mechat</FormLabel>
+                        <FormLabel>TagLine</FormLabel>
                         <FormControl>
                           <Input
                             className="border border-[#d3d3d1]"
@@ -150,7 +143,7 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel>cashback Amount Percentage</FormLabel>
+                        <FormLabel>Cashback Amount Percentage</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
@@ -200,7 +193,7 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel>Mechat</FormLabel>
+                        <FormLabel>Merchant</FormLabel>
                         <FormControl>
                           <Input
                             className="border border-[#d3d3d1]"

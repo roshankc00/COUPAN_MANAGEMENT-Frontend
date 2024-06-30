@@ -13,7 +13,7 @@ const CategoryTable = () => {
       {!isFetching && !isLoading ? (
         <Datatable columns={columns} data={data} />
       ) : (
-        <div className="w-full mt-10">
+        <div className="w-full">
           <TableSkeleton />
         </div>
       )}

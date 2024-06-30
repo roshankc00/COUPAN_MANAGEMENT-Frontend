@@ -56,7 +56,7 @@ export function Datatable<TData, TValue>({
   const router = useRouter();
 
   return (
-    <div className=" w-[80vw] mr-4 ms-0 2xl:ms-20 ">
+    <div className=" w-[80vw] mr-4 ms-0 2xl:ms-10">
       <div className="flex items-center py-4 justify-between">
         <Input
           placeholder="Search Feedback  with email..."
@@ -71,7 +71,7 @@ export function Datatable<TData, TValue>({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="bg-white">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -93,6 +93,7 @@ export function Datatable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="bg-white"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

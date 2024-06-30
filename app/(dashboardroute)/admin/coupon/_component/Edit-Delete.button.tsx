@@ -25,56 +25,47 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
 import { UseDeleteCoupon } from "@/hooks/react-query/coupons/delete-coupon";
 
-const EditDeleteButton = ({ id }: { id: number }) => {
+const DeleteCouponButton = ({ id }: { id: number }) => {
   const handleDeleteCoupon = UseDeleteCoupon();
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant={"ghost"} className="h-4 w-8 p-0">
-          <span className="sr-only">Open menu </span>
-          <MoreHorizontal h-4 w-4 />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <Link href={`/admin/coupon/edit/${id}`}>
-          <DropdownMenuItem>
-            <Pencil className="h-4 w-4 mr-2" />
-            Edit
-          </DropdownMenuItem>
-        </Link>
-        <Dialog>
-          <DialogTrigger className="flex">
-            <MdDelete color="red" className="h-4 w-4 mr-2" />
+    <div className="relative">
+      <Dialog>
+        <DialogTrigger className=" my-5 mb-14 ">
+          <Button
+            className="flex  items-center absolute right-12 w-[150px]"
+            variant={"destructive"}
+          >
+            <MdDelete color="white" className="h-4 w-4 mr-2" />
             Delete
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
-                <CiCircleAlert size={30} color="red" />
-                Are You sure ?
-              </DialogTitle>
-            </DialogHeader>
-            <DialogDescription>
-              <p className="text-center">
-                You Wont be able to recover the Coupon Again
-              </p>
-            </DialogDescription>
-            <DialogFooter>
-              <div className="flex flex-row-reverse mt-4 ">
-                <Button
-                  variant={"destructive"}
-                  className="w-[200px]"
-                  onClick={() => handleDeleteCoupon(id)}
-                >
-                  Delete
-                </Button>
-              </div>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
+              <CiCircleAlert size={30} color="red" />
+              Are You sure ?
+            </DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            <p className="text-center">
+              You Wont be able to recover the Coupon Again
+            </p>
+          </DialogDescription>
+          <DialogFooter>
+            <div className="flex flex-row-reverse mt-4 ">
+              <Button
+                variant={"destructive"}
+                className="w-[200px]"
+                onClick={() => handleDeleteCoupon(id)}
+              >
+                Delete
+              </Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
-export default EditDeleteButton;
+export default DeleteCouponButton;

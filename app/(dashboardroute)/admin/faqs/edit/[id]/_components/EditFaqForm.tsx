@@ -20,6 +20,8 @@ import { updateFaq } from "@/common/api/faqs/faqs.api";
 import toast from "react-hot-toast";
 import { client } from "@/components/Provider";
 import { useRouter } from "next/navigation";
+import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
+import DeleteFaqButton from "../../../_component/delete-edit.button";
 
 type Props = {
   id: number;
@@ -60,9 +62,11 @@ const EditFaqForm: React.FC<Props> = ({ data, id }) => {
 
   //   updateFaq
   return (
-    <div>
+    <div className="pt-10">
+      <AdminHeader title="Edit Faq" />
+      <DeleteFaqButton id={id} />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>

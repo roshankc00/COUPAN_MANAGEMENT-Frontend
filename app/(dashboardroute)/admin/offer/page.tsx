@@ -7,8 +7,8 @@ export const metadata = {
 };
 const OfferPage = () => {
   return (
-    <div>
-      <div className="mt-10 pr-24 -mb-[15px]">
+    <div className="">
+      <div className="pt-10">
         <AdminHeader title="User-Send-Offer" />
       </div>
       <div>

@@ -1,22 +1,22 @@
 import React from "react";
-import CategoryTable from "./_component/table";
 import AdminHeader from "../_component/Header";
+import SubCategoryTable from "./_component/table";
 
 export const metadata = {
   title: "Sub-category | NepQue ",
   description: "NepQue: Your CouponPartner",
 };
-const CategoryPage = () => {
+const SubCategoryPage = () => {
   return (
     <div className="">
-      <div className="mt-10 pr-24 -mb-[15px]">
+      <div className="pt-10">
         <AdminHeader title="Sub-Category" />
       </div>
       <div>
-        <CategoryTable />
+        <SubCategoryTable />
       </div>
     </div>
   );
 };
 
-export default CategoryPage;
+export default SubCategoryPage;

@@ -30,6 +30,7 @@ import AdminHeader from "../../../../_component/Header";
 import { useMutation } from "@tanstack/react-query";
 import { updateCategory } from "@/common/api/categories/category.api";
 import { client } from "@/components/Provider";
+import DeleteCategoryButton from "../../../_component/Edit-Delete.button";
 
 type Props = {
   singleData: ICategory;
@@ -146,10 +147,11 @@ function EditCategoryForm({ id, singleData }: Props) {
 
   const { data, isFetching, isLoading } = UseGetAllCategory();
   return (
-    <div className="mt-10">
+    <div className="pt-10">
       <AdminHeader title="Edit-Category" />
+      <DeleteCategoryButton id={id} />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>

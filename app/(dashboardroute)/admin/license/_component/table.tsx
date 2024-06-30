@@ -8,7 +8,7 @@ import TableSkeleton from "@/components/TableSkeleton";
 import { UseGetAllFAQS } from "@/hooks/react-query/faqs/get-all-faqs";
 import { UseGetAllLicenses } from "@/hooks/react-query/license/get-all-license";
 
-const FaqsTable = () => {
+const LicenseTable = () => {
   const { data, isFetching, isLoading } = UseGetAllLicenses();
   return (
     <div className="">
@@ -23,4 +23,4 @@ const FaqsTable = () => {
   );
 };
 
-export default FaqsTable;
+export default LicenseTable;

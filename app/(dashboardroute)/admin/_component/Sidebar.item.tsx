@@ -27,7 +27,7 @@ const SidebarItem: React.FC<Props> = ({ href, icon: Icon, label }) => {
       type="button"
       className={cn(
         "flex items-center gap-x-2 text-slat e-500 text-sm font-[500] pl-6 transition-all hover:text-slate-500 hover:bg-slate-300/20 mt-4",
-        isActive && "text-slate-700 bg-slate-200/20"
+        isActive && "text-slate-700 bg-slate-200"
       )}
     >
       <span className="flex items-center gap-x-2 py-4">

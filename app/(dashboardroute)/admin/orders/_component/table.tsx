@@ -8,7 +8,7 @@ import TableSkeleton from "@/components/TableSkeleton";
 import { UseGetAllFAQS } from "@/hooks/react-query/faqs/get-all-faqs";
 import { UseGetAllOrders } from "@/hooks/react-query/orders/get-all-orders";
 
-const FaqsTable = () => {
+const OrdersTable = () => {
   const { data, isFetching, isLoading } = UseGetAllOrders();
   console.log(data);
   return (
@@ -24,4 +24,4 @@ const FaqsTable = () => {
   );
 };
 
-export default FaqsTable;
+export default OrdersTable;

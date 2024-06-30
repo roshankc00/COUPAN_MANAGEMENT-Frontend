@@ -101,12 +101,4 @@ export const columns: ColumnDef<any>[] = [
       return <span className="">{title?.slice(0, 30)}....</span>;
     },
   },
-
-  {
-    id: "action",
-    cell: ({ row }) => {
-      const { id } = row.original;
-      return <EditDeleteButton id={id} />;
-    },
-  },
 ];

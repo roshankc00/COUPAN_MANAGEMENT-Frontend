@@ -1,15 +1,15 @@
 import React from "react";
-import FaqsTable from "./_component/table";
 import AdminHeader from "../_component/Header";
+import LicenseTable from "./_component/table";
 
 const page = () => {
   return (
-    <div>
-      <div className="mt-10 pr-24 -mb-[15px]">
+    <div className="">
+      <div className="pt-10">
         <AdminHeader title="License" />
       </div>
       <div>
-        <FaqsTable />
+        <LicenseTable />
       </div>
     </div>
   );

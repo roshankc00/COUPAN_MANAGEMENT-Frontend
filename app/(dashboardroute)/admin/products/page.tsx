@@ -8,8 +8,8 @@ export const metadata = {
 };
 const AdminProductPage = () => {
   return (
-    <div>
-      <div className="mt-10 pr-24 -mb-[15px]">
+    <div className="">
+      <div className="pt-10">
         <AdminHeader title="Products" />
       </div>
       <div>

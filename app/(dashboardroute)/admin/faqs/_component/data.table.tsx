@@ -63,7 +63,7 @@ export function Datatable<TData extends Data, TValue>({
   const router = useRouter();
 
   return (
-    <div className=" w-[80vw] mr-4 ms-0 2xl:ms-20 ">
+    <div className=" w-[80vw] mr-4 ms-0 2xl:ms-10 ">
       <div className="flex items-center py-4 justify-between">
         <Input
           placeholder="Search Faq  with question..."
@@ -84,7 +84,7 @@ export function Datatable<TData extends Data, TValue>({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="bg-white">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -106,7 +106,7 @@ export function Datatable<TData extends Data, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="cursor-pointer"
+                  className="cursor-pointer bg-white"
                   onClick={() => {
                     router.push(`/admin/faqs/edit/${row.original.id}`);
                   }}

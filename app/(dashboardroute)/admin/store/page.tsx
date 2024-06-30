@@ -10,7 +10,7 @@ export const metadata = {
 const StoresPage = () => {
   return (
     <div className="">
-      <div className="mt-10 pr-24 -mb-[15px]">
+      <div className="pt-10">
         <AdminHeader title="Store" />
       </div>
       <div>

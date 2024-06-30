@@ -117,19 +117,4 @@ export const columns: ColumnDef<ICategory>[] = [
       return <span className="">{user?.email}</span>;
     },
   },
-
-  {
-    id: "action",
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" className="flex justify-center">
-          Action
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const { id } = row.original;
-      return <EditDeleteButton id={id} />;
-    },
-  },
 ];

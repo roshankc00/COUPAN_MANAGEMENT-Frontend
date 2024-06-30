@@ -30,6 +30,7 @@ import { updateStore } from "@/common/api/stores/store.api";
 import { useMutation } from "@tanstack/react-query";
 import { client } from "@/components/Provider";
 import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
+import DeleteStoreButton from "../../../_component/Edit-Delete.button";
 
 type Props = {
   singleData: IStore;
@@ -138,10 +139,11 @@ function EditStoreForm({ singleData, id }: Props) {
 
   const { data, isFetching, isLoading } = UseGetAllCategory();
   return (
-    <div className="mt-10">
+    <div className="pt-10">
       <AdminHeader title="Edit-Store" />
+      <DeleteStoreButton id={id} />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>
