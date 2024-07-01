@@ -39,7 +39,6 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
       client.invalidateQueries({ queryKey: ["get-all-orders"] });
       client.invalidateQueries({ queryKey: ["get-all-licenses"] });
       client.invalidateQueries({ queryKey: ["get-all-my-licenses"] });
-
       toast.success("License assigned successfully");
     },
     onError() {

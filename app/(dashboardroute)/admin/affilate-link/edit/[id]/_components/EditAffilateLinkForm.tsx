@@ -94,7 +94,7 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
 
   return (
     <div className="pt-10">
-      <AdminHeader title="New-Subcategory" />
+      <AdminHeader title="Edit-AffilatedLink" />
       <DeleteAffliatedLinkButton id={id} />
 
       <div>

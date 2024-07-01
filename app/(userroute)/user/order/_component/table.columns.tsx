@@ -139,7 +139,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return (
         <Button
           variant="ghost"
-          className="flex justify-center "
+          className="r"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Status
@@ -148,11 +148,20 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const title: string = row.getValue("status");
+      const status: string = row.getValue("status");
       return (
-        <Badge>
-          <span className="">{title}</span>
-        </Badge>
+        <span className="">
+          <Badge
+            className={cn({
+              "bg-red-600": status === "rejected",
+              "bg-green-500": status === "completed",
+              "bg-yellow-600": status === "pending",
+            })}
+          >
+            {" "}
+            {status}
+          </Badge>
+        </span>
       );
     },
   },

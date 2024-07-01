@@ -170,10 +170,18 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const product: any = row.getValue("status");
+      const status: string = row.getValue("status");
       return (
         <span className="">
-          <Badge> {product}</Badge>
+          <Badge
+            className={cn({
+              "bg-red-600": status === "rejected",
+              "bg-green-500": status === "completed",
+              "bg-yellow-600": status === "pending",
+            })}
+          >
+            {status}
+          </Badge>
         </span>
       );
     },

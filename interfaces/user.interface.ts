@@ -21,3 +21,8 @@ export interface IResetPassword {
   newPassword: string;
   token: string;
 }
+export interface IChangePasswordBody {
+  newPassword: string;
+  oldPassword: string;
+  email: string;
+}

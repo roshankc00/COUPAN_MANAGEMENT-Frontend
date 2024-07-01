@@ -5,6 +5,7 @@ const initialState = {
   name: "",
   isLogedInStatus: false,
   role: "",
+  email: "",
 };
 
 const authSlice = createSlice({
@@ -16,6 +17,7 @@ const authSlice = createSlice({
       state.userId = data.payload.id;
       state.role = data?.payload?.role;
       state.token = data?.payload.token;
+      state.email = data?.payload.email;
     },
     logedOut: (state) => {
       (state.name = ""),

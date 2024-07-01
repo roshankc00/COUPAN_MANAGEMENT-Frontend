@@ -1,4 +1,8 @@
-import { ILoginUser, IResetPassword } from "@/interfaces/user.interface";
+import {
+  IChangePasswordBody,
+  ILoginUser,
+  IResetPassword,
+} from "@/interfaces/user.interface";
 import axios from "../api";
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -48,5 +52,15 @@ export const handleLogin = () => {
 
 export const ReSendEmailVerificationMail = async (body: any) => {
   const data = await axios.patch(`/users/verify/email`, body);
+  return data;
+};
+
+export const changeUserName = async (body: { name: string }) => {
+  const data = await axios.patch(`/change/userDetails/name`, body);
+  return data;
+};
+
+export const changePassword = async (body: IChangePasswordBody) => {
+  const data = await axios.patch(`/change-password`, body);
   return data;
 };
