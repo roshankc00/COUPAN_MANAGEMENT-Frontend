@@ -37,6 +37,7 @@ import { useRouter } from "next/navigation";
 import { client } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
 import { postProduct } from "@/common/api/products/products.api";
+import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
 const AddFaqs = () => {
   const router = useRouter();
   const formSchema = z.object({
@@ -46,9 +47,8 @@ const AddFaqs = () => {
     description: z.string().min(5, {
       message: "must be of 5 charecter ",
     }),
-    product_type: z.string().min(5, {
-      message: "must be of 5 charecter ",
-    }),
+    price: z.string(),
+    productId: z.string(),
   });
 
   const { mutateAsync, isPending } = useMutation({
@@ -66,6 +66,7 @@ const AddFaqs = () => {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutateAsync({
       ...values,
+      price: +values?.price,
     }).then(() => {
       toast.success("Product created successfully");
       router.push("/admin/products");
@@ -73,11 +74,12 @@ const AddFaqs = () => {
       client.invalidateQueries({ queryKey: ["get-all-products-with-type"] });
     });
   };
+  const { data, isFetching, isLoading } = UseGetAllProducts();
   return (
-    <div className="mt-10">
-      <AdminHeader title="New-Product" />
+    <div className="pt-10">
+      <AdminHeader title="New-SubProduct" />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>
@@ -120,37 +122,55 @@ const AddFaqs = () => {
                     </>
                   )}
                 />
-
                 <FormField
-                  name="product_type"
+                  name="price"
                   control={form.control}
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel className="">Product Type</FormLabel>
+                        <FormLabel>Price</FormLabel>
                         <FormControl>
-                          <Select
-                            onValueChange={field.onChange}
-                            defaultValue={field?.value?.toString()}
-                          >
-                            <SelectTrigger className="">
-                              <SelectValue placeholder="Select the Product type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value={"gift_card"}>
-                                gift_card
-                              </SelectItem>
-                              <SelectItem value={"subscription"}>
-                                subscription
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <Input
+                            className="border border-[#d3d3d1]"
+                            placeholder="Enter the Price"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     </>
                   )}
                 />
+
+                <FormField
+                  name="productId"
+                  control={form.control}
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="mb-3">
+                        <FormLabel>Product</FormLabel>
+                        <Select onValueChange={field.onChange}>
+                          <SelectTrigger className="">
+                            <SelectValue placeholder="Select the Product" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {!isLoading &&
+                              data?.map((item: any) => (
+                                <SelectItem
+                                  value={item?.id?.toString()}
+                                  key={item.id}
+                                >
+                                  {item?.title}
+                                </SelectItem>
+                              ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+
                 <div className="w-full flex justify-end">
                   <Button
                     type="submit"

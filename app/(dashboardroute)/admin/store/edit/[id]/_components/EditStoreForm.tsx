@@ -84,7 +84,7 @@ function EditStoreForm({ singleData, id }: Props) {
     if (!preview && !values.image) {
       mutateAsync({ id, values } as any)
         .then(() => {
-          toast.success("Store created successfully");
+          toast.success("Store updated successfully");
           router.push("/admin/store");
           client.invalidateQueries({ queryKey: ["store"] });
         })
@@ -104,8 +104,8 @@ function EditStoreForm({ singleData, id }: Props) {
       formData.append("seo[description]", values.seo.description);
       mutateAsync({ id, values: formData } as any)
         .then(() => {
-          toast.success("Store created successfully");
-          router.push("/store");
+          toast.success("Store Updated successfully");
+          router.push("/admin/store");
           client.invalidateQueries({ queryKey: ["store"] });
         })
         .catch(() => {

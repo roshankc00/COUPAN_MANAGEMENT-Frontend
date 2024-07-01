@@ -90,25 +90,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return <span className="">{title}</span>;
     },
   },
-  {
-    accessorKey: "price",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="flex justify-center"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          price
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const title: string = row.getValue("price");
-      return <span className="">{title}</span>;
-    },
-  },
+
   {
     accessorKey: "product_type",
     header: ({ column }) => {

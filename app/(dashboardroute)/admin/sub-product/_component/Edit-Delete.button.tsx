@@ -4,6 +4,13 @@ import { deleteSubcategory } from "@/common/api/sub-categories/sub-category.api"
 import toast from "react-hot-toast";
 import { client } from "@/components/Provider";
 import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -15,11 +22,30 @@ import {
 import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { Button } from "@/components/ui/button";
-import { UseDeleteLicense } from "@/hooks/react-query/license/delete-license";
+import { MoreHorizontal, Pencil } from "lucide-react";
+import { deleteProduct } from "@/common/api/products/products.api";
 
-const DeleteLicenseButton = ({ id }: { id: number }) => {
-  const handleDelete = UseDeleteLicense();
+const UseDeleteCategory = () => {
+  const { mutateAsync } = useMutation({
+    mutationFn: deleteProduct,
+  });
+
+  const handleDelete = async (id: number) => {
+    await mutateAsync(id).then(() => {
+      toast.success("Deleted successfully");
+      client.invalidateQueries({
+        queryKey: ["get-all-products"],
+      });
+    });
+  };
+
+  return handleDelete;
+};
+
+const DeleteProductButton = ({ id }: { id: number }) => {
+  const handleDelete = UseDeleteCategory();
   const [open, setopen] = useState(false);
+
   return (
     <div className="relative">
       <Dialog open={open} onOpenChange={setopen}>
@@ -41,7 +67,7 @@ const DeleteLicenseButton = ({ id }: { id: number }) => {
           </DialogHeader>
           <DialogDescription>
             <p className="text-center">
-              You Wont be able to recover this Sub-Category Again
+              You Wont be able to recover the Coupon Again
             </p>
           </DialogDescription>
           <DialogFooter>
@@ -64,4 +90,4 @@ const DeleteLicenseButton = ({ id }: { id: number }) => {
   );
 };
 
-export default DeleteLicenseButton;
+export default DeleteProductButton;

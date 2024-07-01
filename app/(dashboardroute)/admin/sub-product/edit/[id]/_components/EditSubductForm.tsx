@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import AdminHeader from "../../_component/Header";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,7 +36,14 @@ import { useRouter } from "next/navigation";
 import { client } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
 import { postProduct } from "@/common/api/products/products.api";
-const AddFaqs = () => {
+import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
+import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
+import DeleteProductButton from "../../../_component/Edit-Delete.button";
+type Props = {
+  id: number;
+  singleData: any;
+};
+const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(5, {
@@ -46,9 +52,8 @@ const AddFaqs = () => {
     description: z.string().min(5, {
       message: "must be of 5 charecter ",
     }),
-    product_type: z.string().min(5, {
-      message: "must be of 5 charecter ",
-    }),
+    price: z.string(),
+    productId: z.string(),
   });
 
   const { mutateAsync, isPending } = useMutation({
@@ -58,14 +63,17 @@ const AddFaqs = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: singleData?.title,
+      description: singleData?.description,
+      productId: singleData?.product?.id,
+      price: singleData?.price,
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutateAsync({
       ...values,
+      price: +values?.price,
     }).then(() => {
       toast.success("Product created successfully");
       router.push("/admin/products");
@@ -73,11 +81,13 @@ const AddFaqs = () => {
       client.invalidateQueries({ queryKey: ["get-all-products-with-type"] });
     });
   };
+  const { data, isFetching, isLoading } = UseGetAllProducts();
   return (
-    <div className="mt-10">
-      <AdminHeader title="New-Product" />
+    <div className="pt-10">
+      <AdminHeader title="Edit-SubProduct" />
+      <DeleteProductButton id={id} />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>
@@ -120,37 +130,61 @@ const AddFaqs = () => {
                     </>
                   )}
                 />
-
                 <FormField
-                  name="product_type"
+                  name="price"
                   control={form.control}
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel className="">Product Type</FormLabel>
+                        <FormLabel>Price</FormLabel>
                         <FormControl>
-                          <Select
-                            onValueChange={field.onChange}
-                            defaultValue={field?.value?.toString()}
-                          >
-                            <SelectTrigger className="">
-                              <SelectValue placeholder="Select the Product type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value={"gift_card"}>
-                                gift_card
-                              </SelectItem>
-                              <SelectItem value={"subscription"}>
-                                subscription
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <Input
+                            className="border border-[#d3d3d1]"
+                            placeholder="Enter the Price"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     </>
                   )}
                 />
+
+                <FormField
+                  name="productId"
+                  control={form.control}
+                  render={({ field }) => (
+                    <>
+                      <FormItem className="mb-3">
+                        <FormLabel>Product</FormLabel>
+                        <Select onValueChange={field.onChange}>
+                          <SelectTrigger className="">
+                            <SelectValue
+                              placeholder={`${
+                                singleData?.product
+                                  ? `${singleData?.title}`
+                                  : "Select the Product"
+                              }`}
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {!isLoading &&
+                              data?.map((item: any) => (
+                                <SelectItem
+                                  value={item?.id?.toString()}
+                                  key={item.id}
+                                >
+                                  {item?.title}
+                                </SelectItem>
+                              ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  )}
+                />
+
                 <div className="w-full flex justify-end">
                   <Button
                     type="submit"
@@ -169,4 +203,4 @@ const AddFaqs = () => {
   );
 };
 
-export default AddFaqs;
+export default EditSubProductForm;

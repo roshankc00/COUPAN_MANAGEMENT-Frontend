@@ -10,6 +10,7 @@ import {
   Scale,
   ListOrdered,
   ShoppingBasket,
+  ShoppingCart,
 } from "lucide-react";
 import SidebarItem from "./Sidebar.item";
 import { MdCategory, MdDashboard } from "react-icons/md";
@@ -24,14 +25,19 @@ function SidebarRoutes({}: Props) {
       href: "/admin/dashboard",
     },
     {
-      icon: MdCategory,
-      label: "Category",
-      href: "/admin/category",
-    },
-    {
       icon: Compass,
       label: "Sub-Category",
       href: "/admin/sub-category",
+    },
+    {
+      icon: SiMicrosoftstore,
+      label: "Store",
+      href: "/admin/store",
+    },
+    {
+      icon: MdCategory,
+      label: "Category",
+      href: "/admin/category",
     },
     {
       icon: Component,
@@ -43,25 +49,11 @@ function SidebarRoutes({}: Props) {
       label: "Affiliate Link",
       href: "/admin/affilate-link",
     },
-    {
-      icon: SiMicrosoftstore,
-      label: "Store",
-      href: "/admin/store",
-    },
+
     {
       icon: CircleHelp,
       label: "Faqs",
       href: "/admin/faqs",
-    },
-    {
-      icon: BadgeEuro,
-      label: "User-Send-Offer",
-      href: "/admin/offer",
-    },
-    {
-      icon: MessageCircleX,
-      label: "Feedbacks",
-      href: "/admin/userFeedback",
     },
     {
       icon: Users,
@@ -74,6 +66,11 @@ function SidebarRoutes({}: Props) {
       href: "/admin/products",
     },
     {
+      icon: ShoppingCart,
+      label: "Sub-Product",
+      href: "/admin/sub-product",
+    },
+    {
       icon: ListOrdered,
       label: "Orders",
       href: "/admin/orders",
@@ -82,6 +79,16 @@ function SidebarRoutes({}: Props) {
       icon: Scale,
       label: "License",
       href: "/admin/license",
+    },
+    {
+      icon: BadgeEuro,
+      label: "User-Send-Offer",
+      href: "/admin/offer",
+    },
+    {
+      icon: MessageCircleX,
+      label: "Feedbacks",
+      href: "/admin/userFeedback",
     },
   ] as const;
   return (
