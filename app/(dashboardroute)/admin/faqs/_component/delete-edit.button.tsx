@@ -32,13 +32,15 @@ import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { deleteAFaq } from "@/common/api/faqs/faqs.api";
 import { useDeleteFaq } from "@/hooks/react-query/faqs/delete-faq";
+import { useState } from "react";
 
 const DeleteFaqButton = ({ id }: { id: number }) => {
   const handleDelete = useDeleteFaq();
+  const [open, setopen] = useState(false);
 
   return (
     <div className="relative">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setopen}>
         <DialogTrigger className=" my-5 mb-14 ">
           <Button
             className="flex  items-center absolute right-12 w-[150px]"
@@ -65,7 +67,10 @@ const DeleteFaqButton = ({ id }: { id: number }) => {
               <Button
                 variant={"destructive"}
                 className="w-[200px]"
-                onClick={() => handleDelete(id)}
+                onClick={() => {
+                  handleDelete(id);
+                  setopen(false);
+                }}
               >
                 Delete
               </Button>

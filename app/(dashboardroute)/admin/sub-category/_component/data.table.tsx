@@ -104,7 +104,7 @@ export function Datatable<TData extends Data, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                   className="cursor-pointer  bg-white"
                   onClick={() => {
-                    router.push(`/admin/coupon/edit/${row.original.id}`);
+                    router.push(`/admin/sub-category/edit/${row.original.id}`);
                   }}
                 >
                   {row.getVisibleCells().map((cell) => (

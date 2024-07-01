@@ -97,13 +97,4 @@ export const columns: ColumnDef<ICategory>[] = [
       return <span className="">{title}</span>;
     },
   },
-
-  {
-    id: "action",
-    cell: ({ row }) => {
-      const { id } = row.original;
-
-      return <EditDeleteButton id={id} />;
-    },
-  },
 ];

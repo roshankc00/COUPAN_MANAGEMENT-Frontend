@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { deleteSubcategory } from "@/common/api/sub-categories/sub-category.api";
 import toast from "react-hot-toast";
@@ -25,57 +25,52 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
 import { UseDeleteSubCategory } from "@/hooks/react-query/sub-categories/delete-sub-category";
 
-const EditDeleteButton = ({ id }: { id: number }) => {
+const DeleteSubCategory = ({ id }: { id: number }) => {
   const handleDelete = UseDeleteSubCategory();
+  const [open, setopen] = useState(false);
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant={"ghost"} className="h-4 w-8 p-0">
-          <span className="sr-only">Open menu </span>
-          <MoreHorizontal h-4 w-4 />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <Link href={`/admin/store/edit/${id}`}>
-          <DropdownMenuItem>
-            <Pencil className="h-4 w-4 mr-2" />
-            Edit
-          </DropdownMenuItem>
-        </Link>
-        <Dialog>
-          <DialogTrigger className="flex">
-            <MdDelete color="red" className="h-4 w-4 mr-2" />
+    <div className="relative">
+      <Dialog open={open} onOpenChange={setopen}>
+        <DialogTrigger className=" my-5 mb-14 ">
+          <Button
+            className="flex  items-center absolute right-12 w-[150px]"
+            variant={"destructive"}
+          >
+            <MdDelete color="white" className="h-4 w-4 mr-2" />
             Delete
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
-                <CiCircleAlert size={30} color="red" />
-                Are You sure ?
-              </DialogTitle>
-            </DialogHeader>
-            <DialogDescription>
-              <p className="text-center">
-                You Wont be able to recover this Store Again
-              </p>
-            </DialogDescription>
-            <DialogFooter>
-              <div className="flex flex-row-reverse mt-4 ">
-                <Button
-                  variant={"destructive"}
-                  className="w-[200px]"
-                  onClick={() => handleDelete(id)}
-                >
-                  Delete
-                </Button>
-              </div>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="my-3 flex flex-col gap-2 items-center justify-center text-xl">
+              <CiCircleAlert size={30} color="red" />
+              Are You sure ?
+            </DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            <p className="text-center">
+              You Wont be able to recover this Store Again
+            </p>
+          </DialogDescription>
+          <DialogFooter>
+            <div className="flex flex-row-reverse mt-4 ">
+              <Button
+                variant={"destructive"}
+                className="w-[200px]"
+                onClick={() => {
+                  handleDelete(id);
+                  setopen(false);
+                }}
+              >
+                Delete
+              </Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
-export default EditDeleteButton;
+export default DeleteSubCategory;

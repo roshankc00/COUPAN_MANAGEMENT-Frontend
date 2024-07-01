@@ -72,7 +72,6 @@ export default function Home() {
             {" "}
             Frequently Asked Questions
           </h1>
-
           <FaqsCom />
         </div>
       </div>

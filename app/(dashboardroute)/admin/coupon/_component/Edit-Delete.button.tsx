@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { deleteSubcategory } from "@/common/api/sub-categories/sub-category.api";
 import toast from "react-hot-toast";
@@ -26,10 +26,11 @@ import { MoreHorizontal, Pencil } from "lucide-react";
 import { UseDeleteCoupon } from "@/hooks/react-query/coupons/delete-coupon";
 
 const DeleteCouponButton = ({ id }: { id: number }) => {
+  const [open, setopen] = useState(false);
   const handleDeleteCoupon = UseDeleteCoupon();
   return (
     <div className="relative">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setopen}>
         <DialogTrigger className=" my-5 mb-14 ">
           <Button
             className="flex  items-center absolute right-12 w-[150px]"
@@ -56,7 +57,10 @@ const DeleteCouponButton = ({ id }: { id: number }) => {
               <Button
                 variant={"destructive"}
                 className="w-[200px]"
-                onClick={() => handleDeleteCoupon(id)}
+                onClick={() => {
+                  handleDeleteCoupon(id);
+                  setopen(false);
+                }}
               >
                 Delete
               </Button>

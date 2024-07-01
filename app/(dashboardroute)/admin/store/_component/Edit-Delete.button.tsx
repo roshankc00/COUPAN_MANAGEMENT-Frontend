@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { deleteSubcategory } from "@/common/api/sub-categories/sub-category.api";
 import toast from "react-hot-toast";
@@ -29,11 +29,12 @@ import { deleteStore } from "@/common/api/blogs/blogs.api";
 import { UseDeleteStore } from "@/hooks/react-query/stores/delete-store";
 
 const DeleteStoreButton = ({ id }: { id: number }) => {
+  const [open, setopen] = useState(false);
   const handleDelete = UseDeleteStore();
 
   return (
     <div className="relative">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setopen}>
         <DialogTrigger className=" my-5 mb-14 ">
           <Button
             className="flex  items-center absolute right-12 w-[150px]"
@@ -60,7 +61,10 @@ const DeleteStoreButton = ({ id }: { id: number }) => {
               <Button
                 variant={"destructive"}
                 className="w-[200px]"
-                onClick={() => handleDelete(id)}
+                onClick={() => {
+                  handleDelete(id);
+                  setopen(false);
+                }}
               >
                 Delete
               </Button>

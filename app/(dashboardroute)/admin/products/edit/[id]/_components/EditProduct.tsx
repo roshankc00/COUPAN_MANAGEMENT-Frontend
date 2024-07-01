@@ -7,9 +7,10 @@ type Props = {
 };
 const EditProduct: React.FC<Props> = ({ id }) => {
   const { data, isFetching, isLoading, refetch } = UseGetSingleProduct(id);
+  console.log(data);
   useEffect(() => {
     refetch();
-  }, []);
+  }, [id]);
   return (
     <div>
       {!isLoading && !isFetching && (

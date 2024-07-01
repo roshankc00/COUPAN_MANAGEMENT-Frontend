@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -23,10 +23,11 @@ import { useDeleteAffialatedLink } from "@/hooks/react-query/affilate-link/delet
 
 const DeleteAffliatedLinkButton = ({ id }: { id: number }) => {
   const handleDelete = useDeleteAffialatedLink();
+  const [open, setopen] = useState(false);
 
   return (
     <div className="relative">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setopen}>
         <DialogTrigger className=" my-5 mb-14 ">
           <Button
             className="flex  items-center absolute right-12 w-[150px]"
@@ -53,7 +54,10 @@ const DeleteAffliatedLinkButton = ({ id }: { id: number }) => {
               <Button
                 variant={"destructive"}
                 className="w-[200px]"
-                onClick={() => handleDelete(id)}
+                onClick={() => {
+                  handleDelete(id);
+                  setopen(false);
+                }}
               >
                 Delete
               </Button>

@@ -46,7 +46,6 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
     product_type: z.string().min(5, {
       message: "must be of 5 charecter ",
     }),
-    price: z.string(),
   });
 
   const { mutateAsync, isPending } = useMutation({
@@ -59,7 +58,6 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
       title: singleData?.title,
       description: singleData?.description,
       product_type: singleData?.product_type,
-      price: singleData?.price.toString(),
     },
   });
 
@@ -68,7 +66,6 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
       id: +id,
       values: {
         ...values,
-        price: +values?.price,
       },
     }).then(() => {
       toast.success("Product updated successfully");
@@ -78,7 +75,7 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
     });
   };
   return (
-    <div className="mt-10">
+    <div className="pt-10">
       <AdminHeader title="Edit-Product" />
       <DeleteProductButton id={id} />
       <div>
@@ -125,25 +122,7 @@ const EditProductForm: React.FC<Props> = ({ id, singleData }) => {
                     </>
                   )}
                 />
-                <FormField
-                  name="price"
-                  control={form.control}
-                  render={({ field }) => (
-                    <>
-                      <FormItem className="mb-3">
-                        <FormLabel>Price</FormLabel>
-                        <FormControl>
-                          <Input
-                            className="border border-[#d3d3d1]"
-                            placeholder="Enter the Price"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    </>
-                  )}
-                />
+
                 <FormField
                   name="product_type"
                   control={form.control}

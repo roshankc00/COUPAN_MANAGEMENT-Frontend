@@ -71,7 +71,7 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
       code: singleData?.code,
       expireDate: moment(singleData?.expireDate).format("YYYY-MM-DD"),
       productId: singleData?.product?.id.toString(),
-      validityDays: singleData?.validityDays.toString(),
+      validityDays: singleData?.validityDays?.toString(),
     },
   });
 
@@ -137,7 +137,7 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
                         <Select onValueChange={field.onChange}>
                           <SelectTrigger className="">
                             <SelectValue
-                              placeholder={`${singleData.product.id}-${singleData?.product.title}}`}
+                              placeholder={`${singleData?.product?.id}-${singleData?.product?.title}}`}
                             />
                           </SelectTrigger>
                           <SelectContent>

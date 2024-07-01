@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { deleteSubcategory } from "@/common/api/sub-categories/sub-category.api";
-import toast from "react-hot-toast";
-import { client } from "@/components/Provider";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -23,30 +19,12 @@ import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
-import { deleteCategory } from "@/common/api/categories/category.api";
+import { UseHandleRejectOrder } from "@/hooks/react-query/orders/reject-order-state";
 
-const UseDeleteCategory = () => {
-  const { mutateAsync } = useMutation({
-    mutationFn: deleteSubcategory,
-  });
-
-  const handleDelete = async (id: number) => {
-    await mutateAsync(id).then(() => {
-      toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["sub-categories"] });
-      client.invalidateQueries({
-        queryKey: ["sub-categories-by-category"],
-      });
-    });
-  };
-
-  return handleDelete;
-};
-
-const DeleteLicenseButton = ({ id }: { id: number }) => {
-  const handleDelete = UseDeleteCategory();
-
+const RejectOrderButton = ({ id }: { id: number }) => {
+  const handleDelete = UseHandleRejectOrder();
   const [open, setopen] = useState(false);
+
   return (
     <div className="relative">
       <Dialog open={open} onOpenChange={setopen}>
@@ -56,7 +34,7 @@ const DeleteLicenseButton = ({ id }: { id: number }) => {
             variant={"destructive"}
           >
             <MdDelete color="white" className="h-4 w-4 mr-2" />
-            Delete
+            Reject
           </Button>
         </DialogTrigger>
         <DialogContent>
@@ -66,11 +44,7 @@ const DeleteLicenseButton = ({ id }: { id: number }) => {
               Are You sure ?
             </DialogTitle>
           </DialogHeader>
-          <DialogDescription>
-            <p className="text-center">
-              You Wont be able to recover this Sub-Category Again
-            </p>
-          </DialogDescription>
+          <DialogDescription></DialogDescription>
           <DialogFooter>
             <div className="flex flex-row-reverse mt-4 ">
               <Button
@@ -81,7 +55,7 @@ const DeleteLicenseButton = ({ id }: { id: number }) => {
                   setopen(false);
                 }}
               >
-                Delete
+                Reject
               </Button>
             </div>
           </DialogFooter>
@@ -91,4 +65,4 @@ const DeleteLicenseButton = ({ id }: { id: number }) => {
   );
 };
 
-export default DeleteLicenseButton;
+export default RejectOrderButton;

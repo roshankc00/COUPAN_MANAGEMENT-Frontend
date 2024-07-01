@@ -1,9 +1,12 @@
+"use client";
 import { deleteSubcategory } from "@/common/api/sub-categories/sub-category.api";
 import { client } from "@/components/Provider";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export const UseDeleteSubCategory = () => {
+  const router = useRouter();
   const { mutateAsync } = useMutation({
     mutationFn: deleteSubcategory,
   });
@@ -15,6 +18,7 @@ export const UseDeleteSubCategory = () => {
       client.invalidateQueries({
         queryKey: ["sub-categories-by-category"],
       });
+      router.push("/admin/sub-category");
     });
   };
 

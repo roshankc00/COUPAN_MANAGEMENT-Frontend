@@ -4,6 +4,7 @@ import EditLicenseForm from "./EditLicenseForm";
 
 const EditLicense: React.FC<{ id: number }> = ({ id }) => {
   const { data, isFetching, isLoading } = UseGetSingleLicense(id);
+  console.log(data);
   return (
     <div>
       {!isFetching && !isLoading && (

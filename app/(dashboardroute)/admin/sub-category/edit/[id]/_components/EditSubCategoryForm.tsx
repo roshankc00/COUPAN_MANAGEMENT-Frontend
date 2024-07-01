@@ -30,6 +30,7 @@ import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { useMutation } from "@tanstack/react-query";
 import { updateSubCategory } from "@/common/api/sub-categories/sub-category.api";
 import { client } from "@/components/Provider";
+import DeleteSubCategory from "../../../_component/Edit-Delete.button";
 
 type Props = {
   singleData: ISubcategory;
@@ -78,7 +79,7 @@ function EditSubCategoryForm({ id, singleData }: Props) {
     mutateAsync({ id, values })
       .then(() => {
         toast.success("sub-categories updated successfully");
-        router.push("/sub-category");
+        router.push("/admin/sub-category");
         client.invalidateQueries({ queryKey: ["sub-categories"] });
         client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
       })
@@ -90,10 +91,11 @@ function EditSubCategoryForm({ id, singleData }: Props) {
   const { data, isFetching, isLoading } = UseGetAllCategory();
 
   return (
-    <div className="mt-10">
+    <div className="pt-10">
       <AdminHeader title="Edit-Subcategory" />
+      <DeleteSubCategory id={id} />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>

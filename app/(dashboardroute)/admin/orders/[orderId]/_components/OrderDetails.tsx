@@ -17,6 +17,7 @@ import { acceptLicenseOrder } from "@/common/api/license/license.api";
 import { useRouter } from "next/navigation";
 import { UseGetAllNotAssignedLicenses } from "@/hooks/react-query/license/get-all-notAssigned-licenses";
 import { client } from "@/components/Provider";
+import RejectOrderButton from "../../_component/RejectOrderBtn";
 
 type Props = {
   data: any;
@@ -56,11 +57,12 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
     }
   };
   return (
-    <div className="mt-10">
-      <div className="mt-10 pr-24 -mb-[15px]">
+    <div className="pt-10">
+      <div className="">
         <AdminHeader title="Order-Details" />
+        <RejectOrderButton id={data?.id} />
       </div>
-      <div className="ms-20">
+      <div className="mx-10">
         <Card>
           <CardContent className="">
             <div className="grid grid-cols-3 mt-10 gap-10 ">
