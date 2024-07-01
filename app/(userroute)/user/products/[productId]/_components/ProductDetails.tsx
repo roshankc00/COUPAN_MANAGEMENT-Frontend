@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { z } from "zod";
+import { object, z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -35,6 +35,7 @@ import { UseGetSingleProduct } from "@/hooks/react-query/products/get-single-pro
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { customSortKeys } from "@/common/helpers/sort";
 
 type Props = {
   productId: number;
@@ -46,19 +47,10 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
   const router = useRouter();
   const [activeSubProduct, setactiveSubProduct] = useState<any>({});
   const formSchema = z.object({
-    topUpId: z.string().min(1, {
-      message: " must be of 3 characters ",
-    }),
-    otherId:
-      productItem && productItem?.fields && productItem?.fields?.length >= 2
-        ? z.string().min(1, { message: " must be at least 3 characters long" })
-        : z.string().optional(),
+    fields: z.record(z.string()),
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      topUpId: "",
-    },
   });
 
   const { mutateAsync, isPending: orderPending } = useMutation({
@@ -76,7 +68,10 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
       toast.error("Login first");
       router.push("/login");
     } else {
-      mutateAsync({ ...values, subProductId: +activeSubProduct?.id });
+      mutateAsync({
+        subProductId: +activeSubProduct?.id,
+        orderDetails: values.fields,
+      });
     }
   };
 
@@ -89,6 +84,8 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
       });
     }
   };
+
+  console.log(customSortKeys(productItem?.fields), "wow");
 
   return (
     <div className="mt-10">
@@ -158,13 +155,15 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
           </Card>
         </div>
         <div className="col-span-4 md:col-span-6 ">
-          {productItem?.product_type === "subscription" && (
+          {productItem && productItem?.product_type === "subscription" && (
             <div className=" relative bg-white">
               <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
                 1
               </h1>
               <h1 className="absolute left-16 text-xl font-medium mt-2">
-                Enter {productItem?.fields && productItem?.fields[0]}
+                Enter{" "}
+                {productItem?.fields &&
+                  customSortKeys(productItem?.fields)[0]?.key}
               </h1>
               <Card className="bg-white">
                 <CardHeader></CardHeader>
@@ -176,53 +175,28 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
                       className="flex items-center gap-2"
                     >
                       <div className="flex gap-10 items-center">
-                        <FormField
-                          name="topUpId"
-                          control={form.control}
-                          render={({ field }) => (
-                            <>
-                              <FormItem className="">
-                                <FormControl>
-                                  <Input
-                                    className="border border-[#d3d3d1]"
-                                    placeholder={`Enter ${
-                                      productItem?.fields &&
-                                      productItem?.fields[0]
-                                    }`}
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            </>
-                          )}
-                        />
-                        {productItem &&
-                          productItem?.fields &&
-                          productItem?.fields?.length >= 2 && (
-                            <FormField
-                              name="otherId"
-                              control={form.control}
-                              render={({ field }) => (
-                                <>
-                                  <FormItem className="">
-                                    <div className="flex items-center gap-2">
+                        {productItem?.fields &&
+                          customSortKeys(productItem?.fields)?.map(
+                            (item: any) => (
+                              <FormField
+                                name={`fields.${item?.key}`}
+                                control={form.control}
+                                render={({ field }) => (
+                                  <>
+                                    <FormItem className="">
                                       <FormControl>
                                         <Input
                                           className="border border-[#d3d3d1]"
-                                          placeholder={`Enter the ${
-                                            productItem?.fields &&
-                                            productItem?.fields[1]
-                                          }`}
+                                          placeholder={`Enter ${item?.key}`}
                                           {...field}
                                         />
                                       </FormControl>
-                                    </div>
-                                    <FormMessage />
-                                  </FormItem>
-                                </>
-                              )}
-                            />
+                                      <FormMessage />
+                                    </FormItem>
+                                  </>
+                                )}
+                              />
+                            )
                           )}
                       </div>
 

@@ -133,11 +133,11 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
                   render={({ field }) => (
                     <>
                       <FormItem className="mb-3">
-                        <FormLabel>Order</FormLabel>
+                        <FormLabel>Product</FormLabel>
                         <Select onValueChange={field.onChange}>
                           <SelectTrigger className="">
                             <SelectValue
-                              placeholder={`${singleData?.product?.id}-${singleData?.product?.title}}`}
+                              placeholder={`${singleData?.subProduct?.product?.title}-(${singleData?.subProduct?.title})`}
                             />
                           </SelectTrigger>
                           <SelectContent>

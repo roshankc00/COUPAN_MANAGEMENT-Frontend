@@ -39,7 +39,6 @@ type Props = {
 };
 
 function EditAffilateLinkForm({ id, singleData }: Props) {
-  console.log(singleData);
   const router = useRouter();
   const formSchema = z.object({
     link: z.string().min(3, {
@@ -74,7 +73,13 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
     mutationFn: updateAffilateLink,
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutateAsync({ id, values })
+    console.log(values.cashbackAmountPer);
+    const body = {
+      ...values,
+      cashbackAmountPer: +values.cashbackAmountPer,
+      storeId: +values.storeId,
+    };
+    mutateAsync({ id, values: body })
       .then(() => {
         toast.success("affilateLink updated successfully");
         router.push("/admin/affilate-link");

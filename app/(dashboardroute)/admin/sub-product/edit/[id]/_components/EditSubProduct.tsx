@@ -8,7 +8,6 @@ type Props = {
 };
 const EditSubProduct: React.FC<Props> = ({ id }) => {
   const { data, isFetching, isLoading, refetch } = UseGetSingleSubProduct(id);
-  console.log(data);
   useEffect(() => {
     refetch();
   }, [id]);

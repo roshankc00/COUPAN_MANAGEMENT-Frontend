@@ -111,12 +111,13 @@ const AddFaqs = () => {
     }
   };
 
-  const { data, isLoading } = UseGetAllSubProducts();
+  const { data, isFetching, isLoading } = UseGetAllProducts();
+  console.log(data, "wowo");
   return (
-    <div className="mt-10">
+    <div className="pt-10">
       <AdminHeader title="License" />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>

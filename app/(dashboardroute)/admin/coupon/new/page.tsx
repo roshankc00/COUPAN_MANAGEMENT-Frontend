@@ -164,10 +164,10 @@ function NewCouponForm() {
   const { data: allstore, isLoading: storeLoading } = UseGetAllStore();
 
   return (
-    <div className="mt-10 pb-32">
+    <div className="pt-10 pb-32">
       <AdminHeader title="New-Coupon" />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>

@@ -53,10 +53,10 @@ const AddFaqs = () => {
     });
   };
   return (
-    <div className="mt-10">
+    <div className="pt-10">
       <AdminHeader title="Faqs" />
       <div>
-        <Card className=" ms-24">
+        <Card className="mx-10">
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>
