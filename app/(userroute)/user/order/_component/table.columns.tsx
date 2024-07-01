@@ -60,7 +60,7 @@ export const columns: ColumnDef<ICategory>[] = [
   },
 
   {
-    accessorKey: "topUpId",
+    accessorKey: "orderDetails",
     header: ({ column }) => {
       return (
         <Button
@@ -74,17 +74,17 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const subproduct: any = row.getValue("subProduct");
-      const topUpId: string = row.getValue("topUpId");
-      const otherId: string = row.getValue("otherId");
+      const orderDetails: any = row.getValue("orderDetails");
       return (
-        <span className="flex gap-2 flex-wrap">
-          <span>{`${subproduct?.product?.fields[0]}=${topUpId}`}</span>
-          {subproduct?.product?.fields &&
-            otherId &&
-            subproduct?.product?.fields.length > 2 && (
-              <span>{`${subproduct?.product?.fields[2]}=${otherId}`}</span>
-            )}
+        <span>
+          {orderDetails &&
+            Object.keys(orderDetails) &&
+            Object.keys(orderDetails).map((key, index) => (
+              <span key={index}>
+                {key}: {orderDetails[key]}
+                {index !== Object.keys(orderDetails).length - 1 && ", "}
+              </span>
+            ))}
         </span>
       );
     },

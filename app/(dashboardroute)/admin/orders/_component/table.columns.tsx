@@ -83,7 +83,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
   },
   {
-    accessorKey: "topUpId",
+    accessorKey: "orderDetails",
     header: ({ column }) => {
       return (
         <Button
@@ -91,46 +91,23 @@ export const columns: ColumnDef<ICategory>[] = [
           className="flex justify-center "
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Details 1
+          Details
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => {
-      const subproduct: any = row.getValue("subProduct");
-      const topUpId: string = row.getValue("topUpId");
-      const otherId: string = row.getValue("otherId");
-      const order: any = row.getValue("order");
+      const orderDetails: any = row.getValue("orderDetails");
       return (
-        <span className="">
-          <span>{`${subproduct?.product?.fields[0]}=${topUpId}`}</span>
-          <br />
-        </span>
-      );
-    },
-  },
-  {
-    accessorKey: "otherId",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="flex justify-center "
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Details 2
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => {
-      const subproduct: any = row.getValue("subProduct");
-      const otherId: string = row.getValue("otherId");
-      return (
-        <span className="">
-          {subproduct?.product?.fields?.length === 2 && (
-            <span>{`${subproduct?.product?.fields[1]}=${otherId}  `}</span>
-          )}
+        <span>
+          {orderDetails &&
+            Object.keys(orderDetails) &&
+            Object.keys(orderDetails).map((key, index) => (
+              <span key={index}>
+                {key}: {orderDetails[key]}
+                {index !== Object.keys(orderDetails).length - 1 && ", "}
+              </span>
+            ))}
         </span>
       );
     },
