@@ -177,8 +177,9 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
                       <div className="flex gap-10 items-center">
                         {productItem?.fields &&
                           customSortKeys(productItem?.fields)?.map(
-                            (item: any) => (
+                            (item: any, index) => (
                               <FormField
+                                key={index}
                                 name={`fields.${item?.key}`}
                                 control={form.control}
                                 render={({ field }) => (
