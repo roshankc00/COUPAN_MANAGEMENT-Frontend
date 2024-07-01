@@ -40,7 +40,7 @@ export const addTransectionId = async (body: {
   orderId: number;
   transectionId: string;
 }) => {
-  const { data } = await axios.patch(`/insert/verified/transectionId`, {
+  const { data } = await axios.patch(`/orders/insert/verified/transectionId`, {
     transectionId: body.transectionId,
     orderId: body.orderId,
   });
