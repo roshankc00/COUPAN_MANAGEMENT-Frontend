@@ -38,6 +38,7 @@ import { client } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
 import { postProduct } from "@/common/api/products/products.api";
 import { useDropzone } from "react-dropzone";
+import { convertIntoFormat } from "@/common/helpers/convertIntoProductFields";
 const AddFaqs = () => {
   const router = useRouter();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
@@ -95,9 +96,43 @@ const AddFaqs = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutateAsync({
-      ...values,
-    }).then(() => {
+    if (
+      values.product_type === "subscription" &&
+      fields.length >= 1 &&
+      fields[0].order &&
+      fields[0].key
+    ) {
+      toast.error("Provide some fields ");
+    }
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("product_type", values.product_type);
+    if (values.appstoreLink) {
+      formData.append("appstoreLink", values.appstoreLink);
+    }
+    if (values.playstoreLink) {
+      formData.append("playstoreLink", values.playstoreLink);
+    }
+    if (tags.length > 0) {
+      tags.forEach((tag, index) => {
+        formData.append(`tags[${index}]`, tag);
+      });
+    }
+    console.log(fields);
+    if (values.product_type === "subscription") {
+      fields.forEach((key: any) => {
+        const field = fields[key];
+        formData.append(`fields[${key}][type]`, field.type);
+        formData.append(`fields[${key}][order]`, String(field.order));
+      });
+    }
+    formData.append("files[0]", values.image);
+    if (values.product_type === "subscription") {
+      formData.append("files[1]", values.tooltipImage);
+    }
+    console.log(formData);
+    mutateAsync(formData).then(() => {
       toast.success("Product created successfully");
       router.push("/admin/products");
       client.invalidateQueries({ queryKey: ["get-all-products"] });
@@ -186,45 +221,180 @@ const AddFaqs = () => {
           <CardHeader></CardHeader>
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
-                <FormField
-                  name="title"
-                  control={form.control}
-                  render={({ field }) => (
-                    <>
-                      <FormItem className="mb-3">
-                        <FormLabel>Title</FormLabel>
-                        <FormControl>
-                          <Input
-                            className="border border-[#d3d3d1]"
-                            placeholder="Enter the question"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    </>
-                  )}
-                />
-                <FormField
-                  name="description"
-                  control={form.control}
-                  render={({ field }) => (
-                    <>
-                      <FormItem className="mb-3">
-                        <FormLabel>Description</FormLabel>
-                        <FormControl>
-                          <Input
-                            className="border border-[#d3d3d1]"
-                            placeholder="Enter the description"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    </>
-                  )}
-                />
+              <form onSubmit={form.handleSubmit(onSubmit)} className="">
+                <div>
+                  <FormField
+                    name="title"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Title</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the question"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="description"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Description</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the description"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="appstoreLink"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Appstore Link</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the appstoreLink"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="playstoreLink"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Playstore Link</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the playstoreLink"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+
+                  <div>
+                    <p className="my-3 text-sm">Fields</p>
+                    {fields?.map((item, index) => (
+                      <div
+                        className="flex justify-between gap-5 my-3"
+                        key={index}
+                      >
+                        <Input
+                          placeholder="Enter the Key"
+                          onChange={(e) => {
+                            const updatedFields = [...fields];
+                            updatedFields[index].key = e.target.value;
+                            setfields(updatedFields);
+                          }}
+                        />
+                        <Select
+                          onValueChange={(value) => {
+                            const updatedFields = [...fields];
+                            updatedFields[index].type = value;
+                            setfields(updatedFields);
+                          }}
+                        >
+                          <SelectTrigger className="">
+                            <SelectValue
+                              placeholder={`${
+                                item.type ? item.type : "Select the  type"
+                              }`}
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value={"input"}>Input</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <Input
+                          placeholder="enter the Order"
+                          type="number"
+                          onChange={(e) => {
+                            const updatedFields = [...fields];
+                            updatedFields[index].order = +e.target.value;
+                            setfields(updatedFields);
+                          }}
+                        />
+                        <Button
+                          type="button"
+                          variant={"destructive"}
+                          size={"sm"}
+                          onClick={() => handleRemoveField(index)}
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      className="mt-2"
+                      type="button"
+                      size={"sm"}
+                      onClick={handleAddField}
+                    >
+                      Add Fields
+                    </Button>
+                  </div>
+                  <div>
+                    <p className="my-3 text-sm">Tags</p>
+                    {tags.map((tag, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center mb-2 gap-3 my-2"
+                      >
+                        <Input
+                          type="text"
+                          className="border border-[#d3d3d1]"
+                          placeholder="Enter the  Tag"
+                          value={tag}
+                          onChange={(e) => {
+                            const updatedTags = [...tags];
+                            updatedTags[index] = e.target.value;
+                            settags(updatedTags);
+                          }}
+                        />
+
+                        <Button
+                          type="button"
+                          variant={"destructive"}
+                          size={"sm"}
+                          onClick={() => handleRemoveTag(index)}
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                    ))}
+                    <Button type="button" size={"sm"} onClick={handleAddTag}>
+                      Add Tags
+                    </Button>
+                  </div>
+                </div>
 
                 <FormField
                   name="product_type"
@@ -355,96 +525,6 @@ const AddFaqs = () => {
                     </FormItem>
                   )}
                 />
-
-                <p className="my-3">Fields</p>
-                {fields?.map((item, index) => (
-                  <div className="flex justify-between gap-5 my-3" key={index}>
-                    <Input
-                      placeholder="Enter the Key"
-                      onChange={(e) => {
-                        const updatedFields = [...fields];
-                        updatedFields[index].key = e.target.value;
-                        setfields(updatedFields);
-                      }}
-                    />
-                    <Select
-                      onValueChange={(value) => {
-                        const updatedFields = [...fields];
-                        updatedFields[index].type = value;
-                        setfields(updatedFields);
-                      }}
-                    >
-                      <SelectTrigger className="">
-                        <SelectValue
-                          placeholder={`${
-                            item.type ? item.type : "Select the  type"
-                          }`}
-                        />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value={"input"}>Input</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Input
-                      placeholder="enter the Order"
-                      type="number"
-                      onChange={(e) => {
-                        const updatedFields = [...fields];
-                        updatedFields[index].order = +e.target.value;
-                        setfields(updatedFields);
-                      }}
-                    />
-                    <Button
-                      type="button"
-                      variant={"destructive"}
-                      size={"sm"}
-                      onClick={() => handleRemoveField(index)}
-                    >
-                      Remove
-                    </Button>
-                  </div>
-                ))}
-                <Button
-                  className="mt-2"
-                  type="button"
-                  size={"sm"}
-                  onClick={handleAddField}
-                >
-                  Add Fields
-                </Button>
-                <div>
-                  <p className="my-3">Tags</p>
-                  {tags.map((tag, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center mb-2 gap-3 my-2"
-                    >
-                      <Input
-                        type="text"
-                        className="border border-[#d3d3d1]"
-                        placeholder="Enter the  Tag"
-                        value={tag}
-                        onChange={(e) => {
-                          const updatedTags = [...tags];
-                          updatedTags[index] = e.target.value;
-                          settags(updatedTags);
-                        }}
-                      />
-
-                      <Button
-                        type="button"
-                        variant={"destructive"}
-                        size={"sm"}
-                        onClick={() => handleRemoveTag(index)}
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                  ))}
-                  <Button type="button" size={"sm"} onClick={handleAddTag}>
-                    Add Tags
-                  </Button>
-                </div>
 
                 <div className="w-full flex justify-end">
                   <Button
