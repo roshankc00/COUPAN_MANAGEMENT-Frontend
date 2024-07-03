@@ -80,6 +80,20 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
                     value={`${data?.subProduct?.product?.title}(${data?.subProduct?.title})`}
                   />
                 </div>
+                <div className="my-3">
+                  <h1 className="my-2"> Order Details</h1>
+                  <div className="border py-2 px-4 rounded-md shadow-sm">
+                    {data?.orderDetails &&
+                      Object.keys(data?.orderDetails) &&
+                      Object.keys(data?.orderDetails).map((key, index) => (
+                        <span key={index}>
+                          {key}: {data?.orderDetails[key]}
+                          {index !==
+                            Object.keys(data?.orderDetails).length - 1 && ", "}
+                        </span>
+                      ))}
+                  </div>
+                </div>
               </div>
               <div className="col-span-1">
                 <div>

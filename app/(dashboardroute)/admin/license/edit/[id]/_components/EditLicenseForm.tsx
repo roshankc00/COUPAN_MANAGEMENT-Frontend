@@ -41,6 +41,7 @@ import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
 import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
 import moment from "moment";
 import DeleteLicenseButton from "../../../_component/Edit-Delete.button";
+import { UseGetAllSubProducts } from "@/hooks/react-query/sub-products/get-all-subproducts";
 
 type Props = {
   id: number;
@@ -61,7 +62,7 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
     expireDate: z.string().min(10, {
       message: " must be of 10 charecter ",
     }),
-    productId: z.string(),
+    subProductId: z.string(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -70,7 +71,7 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
       title: singleData?.title,
       code: singleData?.code,
       expireDate: moment(singleData?.expireDate).format("YYYY-MM-DD"),
-      productId: singleData?.product?.id.toString(),
+      subProductId: singleData?.id.toString(),
       validityDays: singleData?.validityDays?.toString(),
     },
   });
@@ -86,7 +87,7 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
         title: values?.title,
         code: values?.code,
         expireDate: values?.expireDate,
-        productId: +values?.productId,
+        subProductId: +values?.subProductId,
         validityDays: +values?.validityDays,
       },
     }).then(() => {
@@ -96,8 +97,7 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
     });
   };
 
-  const { data, isFetching, isLoading } = UseGetAllProducts();
-
+  const { data, isFetching, isLoading } = UseGetAllSubProducts();
   return (
     <div className="pt-10">
       <AdminHeader title="License" />
@@ -128,7 +128,7 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
                   )}
                 />
                 <FormField
-                  name="productId"
+                  name="subProductId"
                   control={form.control}
                   render={({ field }) => (
                     <>
@@ -137,18 +137,19 @@ const EditLicenseForm: React.FC<Props> = ({ id, singleData }) => {
                         <Select onValueChange={field.onChange}>
                           <SelectTrigger className="">
                             <SelectValue
-                              placeholder={`${singleData?.subProduct?.product?.title}-(${singleData?.subProduct?.title})`}
+                              placeholder={`${singleData?.subProduct?.product?.title}-(${singleData?.subProduct?.title})-(
+                                  ${singleData?.price})`}
                             />
                           </SelectTrigger>
                           <SelectContent>
                             {!isLoading &&
-                              !isFetching &&
                               data?.map((item: any) => (
                                 <SelectItem
                                   value={item?.id?.toString()}
                                   key={item.id}
                                 >
-                                  {item?.id} - {item?.title}
+                                  {item?.product?.title} - ({item?.title}(
+                                  {item?.price}))
                                 </SelectItem>
                               ))}
                           </SelectContent>

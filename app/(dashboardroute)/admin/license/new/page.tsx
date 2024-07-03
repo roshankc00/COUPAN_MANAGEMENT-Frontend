@@ -166,7 +166,8 @@ const AddFaqs = () => {
                                   value={item?.id?.toString()}
                                   key={item.id}
                                 >
-                                  {item?.product?.title} - ({item?.title})
+                                  {item?.product?.title} - ({item?.title}(
+                                  {item?.price}))
                                 </SelectItem>
                               ))}
                           </SelectContent>
