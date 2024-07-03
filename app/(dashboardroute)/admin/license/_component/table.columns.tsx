@@ -99,7 +99,59 @@ export const columns: ColumnDef<ICategory>[] = [
     },
   },
   {
-    accessorKey: "email",
+    accessorKey: "assigned",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Assigned
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const title: boolean = row.getValue("assigned");
+      return (
+        <Badge
+          className={cn({
+            "bg-green-500": title,
+            "bg-red-600": !title,
+          })}
+        >
+          {title}
+        </Badge>
+      );
+    },
+  },
+  {
+    accessorKey: "subProduct",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Product
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const subProduct: any = row.getValue("subProduct");
+      return (
+        <span>
+          {subProduct?.product?.title}({subProduct?.title})
+        </span>
+      );
+    },
+  },
+
+  {
+    accessorKey: "user",
     header: ({ column }) => {
       return (
         <Button

@@ -10,6 +10,7 @@ import { UseGetAllLicenses } from "@/hooks/react-query/license/get-all-license";
 
 const LicenseTable = () => {
   const { data, isFetching, isLoading } = UseGetAllLicenses();
+  console.log(data);
   return (
     <div className="">
       {!isFetching && !isLoading ? (
