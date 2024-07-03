@@ -1,14 +1,18 @@
 "use client";
 
+import Link from "next/link";
 import SidebarRoutes from "./Sidebar.route";
 
 export const Sidebar = () => {
   return (
     <div className="h-full   border-r flex flex-col overflow-y-auto bg-white">
       <div className="p-6">
-        <h1 className="text-2xl font-bold text-sky-700 text-center">
+        <Link
+          href="/admin/dashboard"
+          className="text-2xl font-bold text-sky-700 text-center"
+        >
           Coupon Store
-        </h1>
+        </Link>
       </div>
       <div className="flex flex-col w-full">
         <SidebarRoutes />

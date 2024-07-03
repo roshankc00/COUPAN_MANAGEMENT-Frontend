@@ -98,11 +98,11 @@ const AddFaqs = () => {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (
       values.product_type === "subscription" &&
-      fields.length >= 1 &&
-      fields[0].order &&
-      fields[0].key
+      fields.length < 1 &&
+      !fields[0].order &&
+      !fields[0].key
     ) {
-      toast.error("Provide some fields ");
+      return toast.error("Provide some fields ");
     }
     const formData = new FormData();
     formData.append("title", values.title);
@@ -119,17 +119,15 @@ const AddFaqs = () => {
         formData.append(`tags[${index}]`, tag);
       });
     }
-    console.log(fields);
     if (values.product_type === "subscription") {
-      fields.forEach((key: any) => {
-        const field = fields[key];
-        formData.append(`fields[${key}][type]`, field.type);
-        formData.append(`fields[${key}][order]`, String(field.order));
+      fields.forEach((field, index) => {
+        formData.append(`fields[${field.key}][type]`, field.type);
+        formData.append(`fields[${field.key}][order]`, String(field.order));
       });
     }
-    formData.append("files[0]", values.image);
+    formData.append("files", values.image);
     if (values.product_type === "subscription") {
-      formData.append("files[1]", values.tooltipImage);
+      formData.append("files", values.tooltipImage);
     }
     console.log(formData);
     mutateAsync(formData).then(() => {

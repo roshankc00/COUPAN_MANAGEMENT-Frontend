@@ -26,7 +26,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         alt=""
         className="shadow-sm  h-[200px]   cursor-pointer rounded-md"
       />
-      <h1 className="text-center mt-4 text-[16px] font-bold">
+      <h1 className="text-center mt-4 text-[16px] font-bold line-clamp-2 h-[50px]">
         {product?.title}
       </h1>
     </div>
