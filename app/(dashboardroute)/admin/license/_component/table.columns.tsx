@@ -121,7 +121,7 @@ export const columns: ColumnDef<ICategory>[] = [
             "bg-red-600": !title,
           })}
         >
-          {title}
+          {title.toString()}
         </Badge>
       );
     },
