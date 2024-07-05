@@ -39,7 +39,6 @@ import { editProduct, postProduct } from "@/common/api/products/products.api";
 import { useDropzone } from "react-dropzone";
 import { convertIntoFormat } from "@/common/helpers/convertIntoProductFields";
 import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
-import { Order } from "../../../../../../../../server/src/ecommerce/orders/entities/order.entity";
 
 type Props = {
   singleData: any;
