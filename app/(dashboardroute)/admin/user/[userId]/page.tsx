@@ -25,20 +25,20 @@ const UserDetails = ({ params }: { params: { userId: number } }) => {
     refetch();
   }, [params.userId]);
   const handleDeactiveUser = async () => {
-    const data = await toogleDeactivateUserApi({ userId: params.userId });
-    toast.success("Deactivated user successfully");
+    const data = await toogleDeactivateUserApi({ userId: +params.userId });
+    toast.success("activation role changed successfully");
     client.invalidateQueries({ queryKey: ["users"] });
     router.push("/admin/user");
   };
   const handleChangeUserRole = async () => {
-    await changeRoleApi({ userId: params.userId });
+    await changeRoleApi({ userId: +params.userId });
     toast.success("Role Changed successfully");
     client.invalidateQueries({ queryKey: ["users"] });
     router.push("/admin/user");
   };
   const handleVerifyUser = async () => {
-    await toogleChangeUserVerificationApi({ userId: params.userId });
-    toast.success("Role Changed successfully");
+    await toogleChangeUserVerificationApi({ userId: +params.userId });
+    toast.success("verification role Changed successfully");
     client.invalidateQueries({ queryKey: ["users"] });
     router.push("/admin/user");
   };
