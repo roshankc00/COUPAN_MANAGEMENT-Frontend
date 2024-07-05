@@ -41,7 +41,7 @@ import { postLicense } from "@/common/api/license/license.api";
 import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
 import { UseGetAllSubProducts } from "@/hooks/react-query/sub-products/get-all-subproducts";
 import { getAllSubProducts } from "@/common/api/sub-products/subproduct.api";
-const AddFaqs = () => {
+const AddNewLicensePage = () => {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
   const paramsSubproductId = searchParams.get("subproductId");
@@ -253,4 +253,4 @@ const AddFaqs = () => {
   );
 };
 
-export default AddFaqs;
+export default AddNewLicensePage;

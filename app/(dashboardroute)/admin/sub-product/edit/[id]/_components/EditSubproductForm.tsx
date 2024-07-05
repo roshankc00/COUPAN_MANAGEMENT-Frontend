@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import AdminHeader from "../../_component/Header";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,8 +37,14 @@ import { client } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
 import { postProduct } from "@/common/api/products/products.api";
 import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
-import { postSubProduct } from "@/common/api/sub-products/subproduct.api";
-const AddFaqs = () => {
+import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
+import DeleteProductButton from "../../../_component/Edit-Delete.button";
+import { editSubProduct } from "@/common/api/sub-products/subproduct.api";
+type Props = {
+  id: number;
+  singleData: any;
+};
+const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(5, {
@@ -53,24 +58,28 @@ const AddFaqs = () => {
   });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: postSubProduct,
+    mutationFn: editSubProduct,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: singleData?.title,
+      description: singleData?.description,
+      productId: singleData?.product?.id,
+      price: singleData?.price,
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutateAsync({
-      ...values,
-      price: +values?.price,
+      id: id,
+      values: {
+        ...values,
+        price: +values?.price,
+      },
     }).then(() => {
-      toast.success("Product created successfully");
-      router.push("/admin/products");
+      toast.success("Sub Product created successfully");
       client.invalidateQueries({ queryKey: ["get-all-products"] });
       client.invalidateQueries({ queryKey: ["get-all-products-with-type"] });
     });
@@ -78,7 +87,8 @@ const AddFaqs = () => {
   const { data, isFetching, isLoading } = UseGetAllProducts();
   return (
     <div className="pt-10">
-      <AdminHeader title="New-SubProduct" />
+      <AdminHeader title="Edit-SubProduct" />
+      <DeleteProductButton id={id} />
       <div>
         <Card className="mx-10">
           <CardHeader></CardHeader>
@@ -152,7 +162,13 @@ const AddFaqs = () => {
                         <FormLabel>Product</FormLabel>
                         <Select onValueChange={field.onChange}>
                           <SelectTrigger className="">
-                            <SelectValue placeholder="Select the Product" />
+                            <SelectValue
+                              placeholder={`${
+                                singleData?.product
+                                  ? `${singleData?.title}`
+                                  : "Select the Product"
+                              }`}
+                            />
                           </SelectTrigger>
                           <SelectContent>
                             {!isLoading &&
@@ -190,4 +206,4 @@ const AddFaqs = () => {
   );
 };
 
-export default AddFaqs;
+export default EditSubProductForm;

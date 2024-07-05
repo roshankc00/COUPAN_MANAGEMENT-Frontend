@@ -42,7 +42,7 @@ export const resetPassword = async (resetPasswordData: IResetPassword) => {
 };
 
 export const verifyEmail = async (token: string) => {
-  const data = await axios.get(`/users/verify-email/${token}`);
+  const { data } = await axios.get(`/users/verify-email/${token}`);
   return data;
 };
 
@@ -51,16 +51,37 @@ export const handleLogin = () => {
 };
 
 export const ReSendEmailVerificationMail = async (body: any) => {
-  const data = await axios.patch(`/users/verify/email`, body);
+  const { data } = await axios.patch(`/users/verify/email`, body);
   return data;
 };
 
 export const changeUserName = async (body: { name: string }) => {
-  const data = await axios.patch(`/change/userDetails/name`, body);
+  const { data } = await axios.patch(`/change/userDetails/name`, body);
   return data;
 };
 
 export const changePassword = async (body: IChangePasswordBody) => {
-  const data = await axios.patch(`/change-password`, body);
+  const { data } = await axios.patch(`/change-password`, body);
+  return data;
+};
+
+export const getSingleUser = async (userId: number) => {
+  const { data } = await axios.get(`/users/${userId}`);
+  return data;
+};
+
+export const changeRoleApi = async (body: { userId: number }) => {
+  const { data } = await axios.patch(`/change/userDetails/role`, body);
+  return data;
+};
+
+export const toogleDeactivateUserApi = async (body: { userId: number }) => {
+  const { data } = await axios.patch(`/change/userDetails/active`, body);
+  return data;
+};
+export const toogleChangeUserVerificationApi = async (body: {
+  userId: number;
+}) => {
+  const { data } = await axios.patch(`/change/userDetails/verify`, body);
   return data;
 };

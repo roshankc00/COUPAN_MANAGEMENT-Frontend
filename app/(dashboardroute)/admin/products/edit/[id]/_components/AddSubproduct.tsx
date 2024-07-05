@@ -14,6 +14,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
   Card,
   CardContent,
   CardDescription,
@@ -35,15 +43,13 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { client } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
-import { postProduct } from "@/common/api/products/products.api";
 import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
-import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
-import DeleteProductButton from "../../../_component/Edit-Delete.button";
+import { PlusCircle } from "lucide-react";
+import { postSubProduct } from "@/common/api/sub-products/subproduct.api";
 type Props = {
-  id: number;
-  singleData: any;
+  productId: number;
 };
-const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
+const AddSubproduct: React.FC<Props> = ({ productId }) => {
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(5, {
@@ -53,30 +59,27 @@ const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
       message: "must be of 5 charecter ",
     }),
     price: z.string(),
-    productId: z.string(),
   });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: postProduct,
+    mutationFn: postSubProduct,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: singleData?.title,
-      description: singleData?.description,
-      productId: singleData?.product?.id,
-      price: singleData?.price,
+      title: "",
+      description: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutateAsync({
       ...values,
+      productId: +productId,
       price: +values?.price,
     }).then(() => {
-      toast.success("Product created successfully");
-      router.push("/admin/products");
+      toast.success("Sub-Product created successfully");
       client.invalidateQueries({ queryKey: ["get-all-products"] });
       client.invalidateQueries({ queryKey: ["get-all-products-with-type"] });
     });
@@ -84,14 +87,20 @@ const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
   const { data, isFetching, isLoading } = UseGetAllProducts();
   return (
     <div className="pt-10">
-      <AdminHeader title="Edit-SubProduct" />
-      <DeleteProductButton id={id} />
       <div>
-        <Card className="mx-10">
-          <CardHeader></CardHeader>
-          <CardContent>
+        <Sheet>
+          <SheetTrigger>
+            <Button>
+              <PlusCircle className="h-4 w-4 mr-2" />
+              Add SubProduct
+            </Button>
+          </SheetTrigger>
+          <SheetContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="mt-10">
+                <h1 className="text-center text-xl my-5">
+                  Add SubProduct form
+                </h1>
                 <FormField
                   name="title"
                   control={form.control}
@@ -150,57 +159,22 @@ const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
                   )}
                 />
 
-                <FormField
-                  name="productId"
-                  control={form.control}
-                  render={({ field }) => (
-                    <>
-                      <FormItem className="mb-3">
-                        <FormLabel>Product</FormLabel>
-                        <Select onValueChange={field.onChange}>
-                          <SelectTrigger className="">
-                            <SelectValue
-                              placeholder={`${
-                                singleData?.product
-                                  ? `${singleData?.title}`
-                                  : "Select the Product"
-                              }`}
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {!isLoading &&
-                              data?.map((item: any) => (
-                                <SelectItem
-                                  value={item?.id?.toString()}
-                                  key={item.id}
-                                >
-                                  {item?.title}
-                                </SelectItem>
-                              ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    </>
-                  )}
-                />
-
                 <div className="w-full flex justify-end">
                   <Button
                     type="submit"
-                    className="w-[200px] mt-4"
+                    className="w-full mt-4"
                     disabled={isPending}
                   >
-                    Save
+                    Add SubProduct
                   </Button>
                 </div>
               </form>
             </Form>
-          </CardContent>
-        </Card>
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   );
 };
 
-export default EditSubProductForm;
+export default AddSubproduct;

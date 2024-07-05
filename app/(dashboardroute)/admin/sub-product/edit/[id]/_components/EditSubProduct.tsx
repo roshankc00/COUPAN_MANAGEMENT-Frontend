@@ -1,7 +1,7 @@
 "use client";
 import { UseGetSingleProduct } from "@/hooks/react-query/products/get-single-product";
 import React, { useEffect } from "react";
-import EditProductForm from "./EditSubductForm";
+import EditProductForm from "./EditSubproductForm";
 import { UseGetSingleSubProduct } from "@/hooks/react-query/sub-products/get-single-subProduct";
 type Props = {
   id: number;
@@ -21,3 +21,4 @@ const EditSubProduct: React.FC<Props> = ({ id }) => {
 };
 
 export default EditSubProduct;
+

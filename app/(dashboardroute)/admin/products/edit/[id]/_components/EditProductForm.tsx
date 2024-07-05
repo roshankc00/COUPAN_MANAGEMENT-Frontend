@@ -39,13 +39,14 @@ import { editProduct, postProduct } from "@/common/api/products/products.api";
 import { useDropzone } from "react-dropzone";
 import { convertIntoFormat } from "@/common/helpers/convertIntoProductFields";
 import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
+import AddSubproduct from "./AddSubproduct";
 
 type Props = {
   singleData: any;
   id: number;
 };
 
-const AddFaqs = ({ id, singleData }: Props) => {
+const EditProductForm = ({ id, singleData }: Props) => {
   const router = useRouter();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
   const [tooltipPreview, setTooltipPreview] = useState<
@@ -280,6 +281,9 @@ const AddFaqs = ({ id, singleData }: Props) => {
   return (
     <div className="pt-10">
       <AdminHeader title="New-Product" />
+      <div className="flex flex-row-reverse pr-10 mb-5">
+        <AddSubproduct productId={+id} />
+      </div>
       <div>
         <Card className="mx-10">
           <CardHeader></CardHeader>
@@ -627,4 +631,4 @@ const AddFaqs = ({ id, singleData }: Props) => {
   );
 };
 
-export default AddFaqs;
+export default EditProductForm;

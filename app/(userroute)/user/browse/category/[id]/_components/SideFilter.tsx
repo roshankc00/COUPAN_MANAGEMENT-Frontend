@@ -4,14 +4,12 @@ import { Separator } from "@/components/ui/separator";
 import debounce from "lodash.debounce";
 import { UseGetAllSubCategoryOfParticularCategory } from "@/hooks/react-query/sub-categories/getAllsubcategories-of-category";
 import { UseGetAllCouponsOfCatSubcat } from "@/hooks/react-query/coupons/get_all_coupons_cat-subcat.hook ";
-
 import {
   Select,
   SelectContent,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { ISubcategory } from "@/interfaces/Subcategory.interface";
 import { ICoupon } from "@/interfaces/coupon.interface";
 import Pagination, { usePagination } from "@/components/ui/pagination";

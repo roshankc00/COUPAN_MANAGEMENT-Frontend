@@ -4,7 +4,6 @@ import AdminHeader from "../../_component/Header";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   Form,
   FormControl,
@@ -39,7 +38,7 @@ import { Button } from "@/components/ui/button";
 import { postProduct } from "@/common/api/products/products.api";
 import { useDropzone } from "react-dropzone";
 import { convertIntoFormat } from "@/common/helpers/convertIntoProductFields";
-const AddFaqs = () => {
+const AddNewProductsPage = () => {
   const router = useRouter();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
   const [tooltipPreview, setTooltipPreview] = useState<
@@ -540,4 +539,4 @@ const AddFaqs = () => {
   );
 };
 
-export default AddFaqs;
+export default AddNewProductsPage;

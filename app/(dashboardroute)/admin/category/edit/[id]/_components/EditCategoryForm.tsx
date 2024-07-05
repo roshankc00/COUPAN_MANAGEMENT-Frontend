@@ -31,6 +31,7 @@ import { useMutation } from "@tanstack/react-query";
 import { updateCategory } from "@/common/api/categories/category.api";
 import { client } from "@/components/Provider";
 import DeleteCategoryButton from "../../../_component/Edit-Delete.button";
+import AddSubCategoryForm from "./AddSubCategory";
 
 type Props = {
   singleData: ICategory;
@@ -149,7 +150,10 @@ function EditCategoryForm({ id, singleData }: Props) {
   return (
     <div className="pt-10">
       <AdminHeader title="Edit-Category" />
-      <DeleteCategoryButton id={id} />
+      <div className="flex items-center justify-between">
+        <AddSubCategoryForm categoryId={+id} />
+        <DeleteCategoryButton id={+id} />
+      </div>
       <div>
         <Card className="mx-10">
           <CardHeader></CardHeader>
@@ -255,44 +259,49 @@ function EditCategoryForm({ id, singleData }: Props) {
                       </>
                     )}
                   />
-                  <FormField
-                    name="seo.title"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>Title</FormLabel>
-                          <FormControl>
-                            <Input
-                              className="border border-[#d3d3d3]"
-                              placeholder="Enter the title"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    name="seo.description"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel>Description</FormLabel>
-                          <FormControl>
-                            <Input
-                              className="border border-[#d3d3d1]"
-                              placeholder="Enter the description"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
+                  <div className="border px-5 relative mt-7">
+                    <h1 className="absolute -top-2.5 text-sm  left-5">
+                      Seo Details
+                    </h1>
+                    <FormField
+                      name="seo.title"
+                      control={form.control}
+                      render={({ field }) => (
+                        <>
+                          <FormItem className="mb-3 mt-5">
+                            <FormLabel>Title</FormLabel>
+                            <FormControl>
+                              <Input
+                                className="border border-[#d3d3d3]"
+                                placeholder="Enter the title"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        </>
+                      )}
+                    />
+                    <FormField
+                      name="seo.description"
+                      control={form.control}
+                      render={({ field }) => (
+                        <>
+                          <FormItem className="mb-3">
+                            <FormLabel>Description</FormLabel>
+                            <FormControl>
+                              <Input
+                                className="border border-[#d3d3d1]"
+                                placeholder="Enter the description"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        </>
+                      )}
+                    />
+                  </div>
                 </div>
                 <div className="col-span-1 ">
                   <FormField

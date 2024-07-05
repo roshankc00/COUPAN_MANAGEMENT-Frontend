@@ -31,7 +31,7 @@ import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { IStore } from "@/interfaces/Store.interface";
 import { client } from "@/components/Provider";
 
-function NewSubCategoryForm() {
+function NewAffilatedLinkForm() {
   const router = useRouter();
   const formSchema = z.object({
     link: z.string().min(3, {
@@ -264,4 +264,4 @@ function NewSubCategoryForm() {
   );
 }
 
-export default NewSubCategoryForm;
+export default NewAffilatedLinkForm;
