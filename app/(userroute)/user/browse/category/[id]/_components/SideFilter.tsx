@@ -8,7 +8,6 @@ import { UseGetAllCouponsOfCatSubcat } from "@/hooks/react-query/coupons/get_all
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";

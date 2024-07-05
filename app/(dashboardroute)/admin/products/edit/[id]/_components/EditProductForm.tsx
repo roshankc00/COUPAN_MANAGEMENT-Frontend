@@ -51,20 +51,14 @@ const AddFaqs = ({ id, singleData }: Props) => {
   const [tooltipPreview, setTooltipPreview] = useState<
     string | ArrayBuffer | null
   >("");
-  const [tags, settags] = useState([""]);
+  const [tags, settags] = useState<string[]>([]);
   const [fields, setfields] = useState<
     {
       key: string;
       type: string;
       order: number | undefined;
     }[]
-  >([
-    {
-      key: "",
-      type: "",
-      order: undefined,
-    },
-  ]);
+  >([]);
 
   useEffect(() => {
     console.log(singleData?.fields, "wow");
@@ -113,8 +107,7 @@ const AddFaqs = ({ id, singleData }: Props) => {
       description: singleData?.description,
       appstoreLink: singleData?.appstoreLink,
       playstoreLink: singleData?.playstoreLink,
-      image: new File([""], "filename"),
-      tooltipImage: new File([""], "filename"),
+      product_type: singleData?.product_type,
     },
   });
 
@@ -127,6 +120,8 @@ const AddFaqs = ({ id, singleData }: Props) => {
     ) {
       return toast.error("Provide some fields ");
     }
+
+    console.log(values.image);
     if (values?.image || values?.tooltipImage) {
       const formData = new FormData();
       formData.append("title", values.title);

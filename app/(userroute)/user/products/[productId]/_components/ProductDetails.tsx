@@ -57,7 +57,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
     mutationFn: postOrder,
     onSuccess(data) {
       toast.success("Order placed successfully");
-      router.push(`/user/order/${data?.id}?price=${activeSubProduct?.price}`);
+      router.push(`/user/order/${data?.id}`);
     },
   });
 
@@ -84,8 +84,6 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
       });
     }
   };
-
-  console.log(customSortKeys(productItem?.fields), "wow");
 
   return (
     <div className="mt-10">
