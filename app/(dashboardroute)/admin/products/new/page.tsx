@@ -78,9 +78,7 @@ const AddFaqs = () => {
     image: z
       .instanceof(File)
       .refine((file) => file.size !== 0, "Please upload an image"),
-    tooltipImage: z
-      .instanceof(File)
-      .refine((file) => file.size !== 0, "Please upload tooltipImage an image"),
+    tooltipImage: z.instanceof(File).optional(),
   });
 
   const { mutateAsync, isPending } = useMutation({
@@ -126,8 +124,8 @@ const AddFaqs = () => {
       });
     }
     formData.append("files", values.image);
-    if (values.product_type === "subscription") {
-      formData.append("files", values.tooltipImage);
+    if (values.product_type === "subscription" && values?.tooltipImage) {
+      formData.append("files", values?.tooltipImage);
     }
     console.log(formData);
     mutateAsync(formData).then(() => {

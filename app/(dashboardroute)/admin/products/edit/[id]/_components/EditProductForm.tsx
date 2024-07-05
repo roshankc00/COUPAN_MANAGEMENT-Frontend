@@ -127,47 +127,86 @@ const AddFaqs = ({ id, singleData }: Props) => {
     ) {
       return toast.error("Provide some fields ");
     }
-    const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("description", values.description);
-    formData.append("product_type", values.product_type);
-    if (values.appstoreLink) {
-      formData.append("appstoreLink", values.appstoreLink);
-    }
-    if (values.playstoreLink) {
-      formData.append("playstoreLink", values.playstoreLink);
-    }
-    if (tags.length > 0) {
-      tags.forEach((tag, index) => {
-        formData.append(`tags[${index}]`, tag);
-      });
-    }
-    if (values.product_type === "subscription") {
-      fields.forEach((field, index) => {
-        formData.append(`fields[${field.key}][type]`, field.type);
-        formData.append(`fields[${field.key}][order]`, String(field.order));
-      });
-    }
-    if (values.image) {
-      formData.append("isImage", true.toString());
-      formData.append("files", values.image);
-    } else {
-      formData.append("isImage", false.toString());
-    }
+    if (values?.image || values?.tooltipImage) {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("product_type", values.product_type);
+      if (values.appstoreLink) {
+        formData.append("appstoreLink", values.appstoreLink);
+      }
+      if (values.playstoreLink) {
+        formData.append("playstoreLink", values.playstoreLink);
+      }
+      if (tags.length > 0) {
+        tags.forEach((tag, index) => {
+          formData.append(`tags[${index}]`, tag);
+        });
+      }
+      if (values.product_type === "subscription") {
+        fields.forEach((field, index) => {
+          formData.append(`fields[${field.key}][type]`, field.type);
+          formData.append(`fields[${field.key}][order]`, String(field.order));
+        });
+      }
+      if (values.image) {
+        formData.append("isImage", true.toString());
+        formData.append("files", values.image);
+      } else {
+        formData.append("isImage", false.toString());
+      }
 
-    if (values.product_type === "subscription" && values.tooltipImage) {
-      formData.append("isTooltipImage", true.toString());
-      formData.append("files", values.tooltipImage);
+      if (values.product_type === "subscription" && values.tooltipImage) {
+        formData.append("isTooltipImage", true.toString());
+        formData.append("files", values.tooltipImage);
+      } else {
+        formData.append("isTooltipImage", false.toString());
+      }
+      console.log(formData);
+      mutateAsync({ id, values: formData }).then(() => {
+        toast.success("Product successfully");
+        router.push("/admin/products");
+        client.invalidateQueries({ queryKey: ["get-all-products"] });
+        client.invalidateQueries({ queryKey: ["get-all-products-with-type"] });
+      });
     } else {
-      formData.append("isTooltipImage", false.toString());
+      const body: {
+        title: string;
+        description: string;
+        product_type: string;
+        appstoreLink: string;
+        playstoreLink: string;
+        isImage: boolean;
+        isTooltipImage: boolean;
+        tags: string[];
+        fields?: any;
+      } = {
+        title: values.title,
+        description: values.description,
+        product_type: values.product_type,
+        appstoreLink: values.appstoreLink,
+        playstoreLink: values.playstoreLink,
+        isImage: false,
+        isTooltipImage: false,
+        tags,
+      };
+      if (values.product_type === "subscription") {
+        const fieldsData: any = {};
+        fields.forEach((field) => {
+          fieldsData[field.key] = {
+            type: field.type,
+            order: field.order,
+          };
+        });
+        body.fields = fieldsData;
+      }
+      mutateAsync({ id, values: body }).then(() => {
+        toast.success("Product updated successfully");
+        router.push("/admin/products");
+        client.invalidateQueries({ queryKey: ["get-all-products"] });
+        client.invalidateQueries({ queryKey: ["get-all-products-with-type"] });
+      });
     }
-    console.log(formData);
-    mutateAsync({ id, values: formData }).then(() => {
-      toast.success("Product successfully");
-      router.push("/admin/products");
-      client.invalidateQueries({ queryKey: ["get-all-products"] });
-      client.invalidateQueries({ queryKey: ["get-all-products-with-type"] });
-    });
   };
 
   // dynamic form logic
