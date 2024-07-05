@@ -1,32 +1,43 @@
 import React from "react";
 import Product from "./_components/Product";
 import { getSingleProduct } from "@/common/api/products/products.api";
-export async function generateMetadata(
-  { params }: { params: { productId: string } },
-  parent?: { openGraph?: { images: string[] } }
-): Promise<{
-  title: string;
-  description: string;
-  keywords: string[];
-  openGraph: { images: string[] };
-}> {
+
+interface ParentMetadata {
+  openGraph?: {
+    images: string[];
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { productId: string };
+}) {
   const id = params.productId;
-  const { data } = await getSingleProduct(+id);
+  const response = await fetch(`https://api.nepque.com/api/v1/products/${id}`);
+  const result = await response.json();
+  const data = result.data;
 
-  const ogImageUrl = data?.imageUrl;
+  const title = data.name || `Product ${id}`;
+  const description =
+    data.description || `Detailed information about Product ${id}`;
+  const keywords = ["Product", ...(data.tags?.map((tag: string) => tag) || [])];
 
-  // Ensure optional chaining for parent and openGraph.images
-  const previousImages = parent?.openGraph?.images || [];
+  const ogImageUrl = data.imageUrl;
+  // const openGraphImages = ogImageUrl
+  //   ? [ogImageUrl, ...(parent.openGraph?.images || [])]
+  //   : [...(parent.openGraph?.images || [])];
 
   return {
-    title: data?.title,
-    description: data?.description,
-    keywords: data?.tags,
+    title,
+    description,
+    keywords,
     openGraph: {
-      images: [ogImageUrl, ...previousImages],
+      images: [...ogImageUrl],
     },
   };
 }
+
 const ProductPage = ({ params }: { params: { productId: number } }) => {
   return (
     <div>
