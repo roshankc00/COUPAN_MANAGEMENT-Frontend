@@ -71,17 +71,17 @@ export const getSingleUser = async (userId: number) => {
 };
 
 export const changeRoleApi = async (body: { userId: number }) => {
-  const { data } = await axios.patch(`/change/userDetails/role`, body);
+  const { data } = await axios.patch(`/users/change/userDetails/role`, body);
   return data;
 };
 
 export const toogleDeactivateUserApi = async (body: { userId: number }) => {
-  const { data } = await axios.patch(`/change/userDetails/active`, body);
+  const { data } = await axios.patch(`/users/change/userDetails/active`, body);
   return data;
 };
 export const toogleChangeUserVerificationApi = async (body: {
   userId: number;
 }) => {
-  const { data } = await axios.patch(`/change/userDetails/verify`, body);
+  const { data } = await axios.patch(`/users/change/userDetails/verify`, body);
   return data;
 };
