@@ -112,7 +112,15 @@ export const columns: ColumnDef<ICategory>[] = [
       const status: any = row.getValue("status");
       return (
         <div className="flex justify-center">
-          <Badge className={cn("bg-slate-500 text-center")}>{status}</Badge>
+          <Badge
+            className={cn({
+              "bg-red-600": status === "disabled",
+              "bg-green-500": status === "enabled",
+              "bg-yellow-600": status === "pending",
+            })}
+          >
+            {status}
+          </Badge>
         </div>
       );
     },
