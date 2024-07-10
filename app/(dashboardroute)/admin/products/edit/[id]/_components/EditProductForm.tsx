@@ -631,7 +631,10 @@ const EditProductForm = ({ id, singleData }: Props) => {
               </div>
               <div className="mt-10 mx-20 ">
                 {singleData?.subProductItems?.map((item: any) => (
-                  <div className="grid grid-cols-5 place-content-center gap-10 gap-y-4 mt-5">
+                  <div
+                    className="grid grid-cols-5 place-content-center gap-10 gap-y-4 mt-5"
+                    key={item?.id}
+                  >
                     <Input value={item?.title} className="col-span-2" />
                     <Input value={item?.price} className="col-span-2" />
                     <EditSubProductDrawer item={item} />
