@@ -45,6 +45,7 @@ type Props = {
   singleData: any;
 };
 const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
+  console.log(singleData);
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(5, {
@@ -66,8 +67,8 @@ const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
     defaultValues: {
       title: singleData?.title,
       description: singleData?.description,
-      productId: singleData?.product?.id,
-      price: singleData?.price,
+      productId: singleData?.product?.id.toString(),
+      price: singleData?.price.toString(),
     },
   });
 
@@ -77,6 +78,7 @@ const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
       values: {
         ...values,
         price: +values?.price,
+        productId: +values?.productId,
       },
     }).then(() => {
       toast.success("Sub Product created successfully");

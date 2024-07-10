@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/dialog";
 import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
+import SeeLicenseCode from "./SeeLicenseCode";
 
 const dateFormat = moment();
 
@@ -56,6 +57,25 @@ export const columns: ColumnDef<ICategory>[] = [
     cell: ({ row }) => {
       const title: string = row.getValue("id");
       return <span className="">{title}</span>;
+    },
+  },
+  {
+    accessorKey: "transectionId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="r"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          TransectionId
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const transectionId: string = row.getValue("transectionId");
+      return <span className="">{transectionId}</span>;
     },
   },
 
@@ -162,6 +182,32 @@ export const columns: ColumnDef<ICategory>[] = [
             {status}
           </Badge>
         </span>
+      );
+    },
+  },
+  {
+    accessorKey: "license",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="r"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Action
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const license: any = row.getValue("license");
+      const status: any = row.getValue("status");
+      return (
+        <>
+          {license?.assigned && status === "completed" && (
+            <SeeLicenseCode license={license} />
+          )}
+        </>
       );
     },
   },

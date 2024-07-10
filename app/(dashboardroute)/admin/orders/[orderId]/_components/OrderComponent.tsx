@@ -2,6 +2,7 @@
 import { UseGetSingleOrder } from "@/hooks/react-query/orders/get-single-order";
 import React, { useEffect } from "react";
 import OrderDetails from "./OrderDetails";
+import { useRouter } from "next/navigation";
 
 type Props = {
   orderId: number;
@@ -12,6 +13,7 @@ const OrderComponent: React.FC<Props> = ({ orderId }) => {
   useEffect(() => {
     refetch();
   }, [orderId]);
+
   return <div>{!isFetching && !isLoading && <OrderDetails data={data} />}</div>;
 };
 

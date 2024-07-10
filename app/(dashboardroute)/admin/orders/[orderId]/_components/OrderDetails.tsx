@@ -55,11 +55,12 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
       });
     }
   };
+  console.log(data?.status);
   return (
     <div className="pt-10">
       <div className="">
         <AdminHeader title="Order-Details" />
-        <RejectOrderButton id={data?.id} />
+        <RejectOrderButton id={data?.id} status={data?.status} />
       </div>
       <div className="mx-10">
         <Card>
@@ -73,6 +74,10 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
                 <div className="my-3">
                   <h1 className="my-2"> Email</h1>
                   <Input value={data?.user.email} />
+                </div>
+                <div className="my-3">
+                  <h1 className="my-2"> Transection Id</h1>
+                  <Input value={data?.transectionId || "No Transection Id"} />
                 </div>
                 <div className="my-3">
                   <h1 className="my-2"> Product</h1>
@@ -140,8 +145,13 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
               <Button
                 className="w-[150px] mt-3"
                 onClick={() => handleVerifyOrder()}
+                disabled={
+                  data?.status === "rejected" || data?.status === "completed"
+                }
               >
-                Accept Order
+                {data?.status === "pending" && "Accept Order"}
+                {data?.status === "rejected" && "Order already rejected"}
+                {data?.status === "completed" && "Accepted"}
               </Button>
             </div>
           </CardContent>

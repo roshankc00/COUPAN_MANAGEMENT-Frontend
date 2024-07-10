@@ -64,6 +64,25 @@ export const columns: ColumnDef<ICategory>[] = [
   },
 
   {
+    accessorKey: "transectionId",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="r"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          TransectionId
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const transectionId: string = row.getValue("transectionId");
+      return <span className="">{transectionId}</span>;
+    },
+  },
+  {
     accessorKey: "user",
     header: ({ column }) => {
       return (
@@ -82,6 +101,7 @@ export const columns: ColumnDef<ICategory>[] = [
       return <span className="">{user?.email}</span>;
     },
   },
+
   {
     accessorKey: "orderDetails",
     header: ({ column }) => {
@@ -112,7 +132,6 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
   },
-
   {
     accessorKey: "subProduct",
     header: ({ column }) => {

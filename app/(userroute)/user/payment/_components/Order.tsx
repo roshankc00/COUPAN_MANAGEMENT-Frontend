@@ -10,7 +10,10 @@ type Props = {
 const OrderDetails: React.FC<Props> = ({ orderId }) => {
   const router = useRouter();
   const { data, refetch, isLoading, isFetching } = UseGetSingleOrder(orderId);
-  if (!data && !isFetching && isLoading) {
+  if (!data && !isFetching && !isLoading) {
+    router.back();
+  }
+  if (!isLoading && !isFetching && data?.status !== "pending") {
     router.back();
   }
   useEffect(() => {

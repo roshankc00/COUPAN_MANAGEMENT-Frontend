@@ -40,6 +40,7 @@ import { useDropzone } from "react-dropzone";
 import { convertIntoFormat } from "@/common/helpers/convertIntoProductFields";
 import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
 import AddSubproduct from "./AddSubproduct";
+import EditSubProductDrawer from "./editSubProduct/EditSubProductDrawer";
 
 type Props = {
   singleData: any;
@@ -62,15 +63,12 @@ const EditProductForm = ({ id, singleData }: Props) => {
   >([]);
 
   useEffect(() => {
-    console.log(singleData?.fields, "wow");
-
     if (singleData?.fields) {
       const fieldsArray = Object.keys(singleData.fields).map((key) => ({
         key: key,
         type: singleData.fields[key].type,
         order: singleData.fields[key].order,
       }));
-      console.log(fieldsArray);
       setfields([...fieldsArray, ...fields]);
     }
     if (singleData?.tags) {
@@ -87,12 +85,8 @@ const EditProductForm = ({ id, singleData }: Props) => {
     product_type: z.string().min(5, {
       message: "Product type must be at least 5 characters",
     }),
-    appstoreLink: z.string().min(3, {
-      message: "App Store Link must be at least 3 characters",
-    }),
-    playstoreLink: z.string().min(3, {
-      message: "Play Store Link must be at least 3 characters",
-    }),
+    appstoreLink: z.any().optional(),
+    playstoreLink: z.any().optional(),
     image: z.instanceof(File).optional(),
     tooltipImage: z.instanceof(File).optional(),
   });
@@ -122,7 +116,6 @@ const EditProductForm = ({ id, singleData }: Props) => {
       return toast.error("Provide some fields ");
     }
 
-    console.log(values.image);
     if (values?.image || values?.tooltipImage) {
       const formData = new FormData();
       formData.append("title", values.title);
@@ -170,8 +163,8 @@ const EditProductForm = ({ id, singleData }: Props) => {
         title: string;
         description: string;
         product_type: string;
-        appstoreLink: string;
-        playstoreLink: string;
+        appstoreLink: string | undefined;
+        playstoreLink: string | undefined;
         isImage: boolean;
         isTooltipImage: boolean;
         tags: string[];
@@ -180,8 +173,8 @@ const EditProductForm = ({ id, singleData }: Props) => {
         title: values.title,
         description: values.description,
         product_type: values.product_type,
-        appstoreLink: values.appstoreLink,
-        playstoreLink: values.playstoreLink,
+        appstoreLink: values?.appstoreLink,
+        playstoreLink: values?.playstoreLink,
         isImage: false,
         isTooltipImage: false,
         tags,
@@ -279,7 +272,7 @@ const EditProductForm = ({ id, singleData }: Props) => {
   });
 
   return (
-    <div className="pt-10">
+    <div className="pt-10 mb-72">
       <AdminHeader title="New-Product" />
       <div className="flex flex-row-reverse pr-10 mb-5">
         <AddSubproduct productId={+id} />
@@ -501,9 +494,12 @@ const EditProductForm = ({ id, singleData }: Props) => {
                     </>
                   )}
                 />
+
+                <div></div>
+
                 <FormField
-                  control={form.control}
                   name="image"
+                  control={form.control}
                   render={() => (
                     <FormItem className=" mb-4">
                       <FormLabel
@@ -624,6 +620,25 @@ const EditProductForm = ({ id, singleData }: Props) => {
                 </div>
               </form>
             </Form>
+
+            <div className="mt-10">
+              <AdminHeader title="Sub-Product" />
+            </div>
+            <div className="border rounded-md mt-10 pb-10">
+              <div className="flex justify-between items-center px-10 mt-5">
+                <h1 className="text-[16px] font-bold">SubProduct Details</h1>
+                <AddSubproduct productId={singleData?.id} />
+              </div>
+              <div className="mt-10 mx-20 ">
+                {singleData?.subProductItems?.map((item: any) => (
+                  <div className="grid grid-cols-5 place-content-center gap-10 gap-y-4 mt-5">
+                    <Input value={item?.title} className="col-span-2" />
+                    <Input value={item?.price} className="col-span-2" />
+                    <EditSubProductDrawer item={item} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>

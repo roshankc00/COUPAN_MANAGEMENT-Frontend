@@ -44,7 +44,7 @@ export const updateReview = async (body: { id: number; values: any }) => {
   return data;
 };
 
-export const deleteStore = async (id: number) => {
+export const deleteReview = async (id: number) => {
   const { data } = await axios.delete(`/review/${id}`);
   return data;
 };

@@ -10,6 +10,7 @@ import { UseGetMyOrders } from "@/hooks/react-query/orders/get-all-my-orders";
 
 const OrdersTable = () => {
   const { data, isFetching, isLoading } = UseGetMyOrders();
+  console.log(data);
   return (
     <div className="">
       {!isFetching && !isLoading ? (

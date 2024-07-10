@@ -1,5 +1,5 @@
 "use client";
-import { deleteStore } from "@/common/api/blogs/blogs.api";
+import { deleteStore } from "@/common/api/stores/store.api";
 import { client } from "@/components/Provider";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

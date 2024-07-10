@@ -57,7 +57,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
     mutationFn: postOrder,
     onSuccess(data) {
       toast.success("Order placed successfully");
-      router.push(`/user/order/${data?.id}`);
+      router.push(`/user/payment/${data?.id}`);
     },
   });
 

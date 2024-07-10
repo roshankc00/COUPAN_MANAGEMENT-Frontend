@@ -56,9 +56,7 @@ function EditCouponForm({ singleData, id }: Props) {
     tagLine: z.string().min(3, {
       message: " must be of 8 charecter ",
     }),
-    code: z.string().min(10, {
-      message: " must be of 10 charecter ",
-    }),
+    code: z.any().optional(),
     startDate: z.string().min(3, {
       message: " must be of 8 charecter ",
     }),
@@ -67,9 +65,9 @@ function EditCouponForm({ singleData, id }: Props) {
     }),
 
     featured: z.string(),
-    categoryId: z.number(),
-    subCategoryId: z.number(),
-    storeId: z.number(),
+    categoryId: z.string(),
+    subCategoryId: z.string(),
+    storeId: z.string(),
     verified: z.string(),
     exclusive: z.string(),
     seo: z.object({
@@ -94,9 +92,9 @@ function EditCouponForm({ singleData, id }: Props) {
       startDate: moment(singleData?.startDate).format("YYYY-MM-DD"),
       expireDate: moment(singleData?.expireDate).format("YYYY-MM-DD"),
       featured: singleData?.featured?.toString(),
-      categoryId: singleData?.categoryId,
-      subCategoryId: singleData?.subCategoryId,
-      storeId: singleData?.storeId,
+      categoryId: singleData?.categoryId.toString(),
+      subCategoryId: singleData?.subCategoryId.toString(),
+      storeId: singleData?.storeId.toString(),
       verified: singleData?.verified?.toString(),
       exclusive: singleData?.exclusive?.toString(),
       seo: {
@@ -114,6 +112,12 @@ function EditCouponForm({ singleData, id }: Props) {
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (!preview && !values?.image) {
+      const body = {
+        ...values,
+        categoryId: +values.categoryId,
+        subCategoryId: +values.subCategoryId,
+        storeId: +values.storeId,
+      };
       mutateAsync({ id, values } as any)
         .then(() => {
           toast.success("Coupon updated successfully");

@@ -6,8 +6,7 @@ type Props = {
   id: number;
 };
 const EditProduct: React.FC<Props> = ({ id }) => {
-  const { data, isFetching, isLoading, refetch } = UseGetSingleProduct(id);
-  console.log(data);
+  const { data, isFetching, isLoading, refetch } = UseGetSingleProduct(+id);
   useEffect(() => {
     refetch();
   }, [id]);

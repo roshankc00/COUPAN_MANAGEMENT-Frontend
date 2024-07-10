@@ -24,17 +24,21 @@ import { MdDelete } from "react-icons/md";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
 import { deleteProduct } from "@/common/api/products/products.api";
+import { deleteSubProduct } from "@/common/api/sub-products/subproduct.api";
 
 const UseDeleteCategory = () => {
   const { mutateAsync } = useMutation({
-    mutationFn: deleteProduct,
+    mutationFn: deleteSubProduct,
   });
 
   const handleDelete = async (id: number) => {
     await mutateAsync(id).then(() => {
       toast.success("Deleted successfully");
       client.invalidateQueries({
-        queryKey: ["get-all-products"],
+        queryKey: ["sub-products"],
+      });
+      client.invalidateQueries({
+        queryKey: ["sub-products"],
       });
     });
   };

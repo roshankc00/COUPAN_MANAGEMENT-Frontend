@@ -59,7 +59,7 @@ const AddNewProductsPage = () => {
     },
   ]);
   const formSchema = z.object({
-    title: z.string().min(5, {
+    title: z.string().min(3, {
       message: "Title must be at least 5 characters",
     }),
     description: z.string().min(3, {
@@ -68,12 +68,8 @@ const AddNewProductsPage = () => {
     product_type: z.string().min(5, {
       message: "Product type must be at least 5 characters",
     }),
-    appstoreLink: z.string().min(3, {
-      message: "App Store Link must be at least 3 characters",
-    }),
-    playstoreLink: z.string().min(3, {
-      message: "Play Store Link must be at least 3 characters",
-    }),
+    appstoreLink: z.any().optional(),
+    playstoreLink: z.any().optional(),
     image: z
       .instanceof(File)
       .refine((file) => file.size !== 0, "Please upload an image"),

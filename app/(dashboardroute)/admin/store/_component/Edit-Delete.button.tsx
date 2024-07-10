@@ -25,7 +25,6 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil } from "lucide-react";
 import { deleteCategory } from "@/common/api/categories/category.api";
 import { deleteCoupon } from "@/common/api/coupons/coupons.api";
-import { deleteStore } from "@/common/api/blogs/blogs.api";
 import { UseDeleteStore } from "@/hooks/react-query/stores/delete-store";
 
 const DeleteStoreButton = ({ id }: { id: number }) => {

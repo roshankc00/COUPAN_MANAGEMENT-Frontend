@@ -21,36 +21,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { useMutation } from "@tanstack/react-query";
-import { postFaqs } from "@/common/api/faqs/faqs.api";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { client } from "@/components/Provider";
 import { Button } from "@/components/ui/button";
-import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
-import { PlusCircle } from "lucide-react";
-import { postSubProduct } from "@/common/api/sub-products/subproduct.api";
+import { useMutation } from "@tanstack/react-query";
+import { editSubProduct } from "@/common/api/sub-products/subproduct.api";
+import toast from "react-hot-toast";
+import { client } from "@/components/Provider";
+import { Input } from "@/components/ui/input";
+import { deleteSubProduct } from "../../../../../../../../common/api/sub-products/subproduct.api";
+
 type Props = {
-  productId: number;
+  item: any;
 };
-const AddSubproduct: React.FC<Props> = ({ productId }) => {
-  const router = useRouter();
+const EditSubProductDrawer: React.FC<Props> = ({ item }) => {
   const formSchema = z.object({
     title: z.string().min(5, {
       message: " must be of 5 charecter ",
@@ -62,36 +44,37 @@ const AddSubproduct: React.FC<Props> = ({ productId }) => {
   });
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: postSubProduct,
+    mutationFn: editSubProduct,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: item?.title,
+      description: item?.description,
+      price: item?.price.toString(),
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     mutateAsync({
-      ...values,
-      productId: +productId,
-      price: +values?.price,
+      id: item?.id,
+      values: {
+        ...values,
+        price: +values?.price,
+      },
     }).then(() => {
-      toast.success("Sub-Product created successfully");
+      toast.success("Sub Product Updated successfully");
       client.invalidateQueries({ queryKey: ["get-single-product"] });
     });
   };
+
   return (
     <div className="">
       <div>
         <Sheet>
           <SheetTrigger>
-            <Button>
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Add SubProduct
-            </Button>
+            <Button>EditSubProduct</Button>
           </SheetTrigger>
           <SheetContent>
             <Form {...form}>
@@ -175,4 +158,4 @@ const AddSubproduct: React.FC<Props> = ({ productId }) => {
   );
 };
 
-export default AddSubproduct;
+export default EditSubProductDrawer;

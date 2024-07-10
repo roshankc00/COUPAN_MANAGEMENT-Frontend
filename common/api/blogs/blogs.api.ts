@@ -29,7 +29,7 @@ export const updateBlog = async (body: { id: number; values: any }) => {
   return data;
 };
 
-export const deleteStore = async (id: number) => {
+export const deleteBlogs = async (id: number) => {
   const { data } = await axios.delete(`/blogs/${id}`);
   return data;
 };
