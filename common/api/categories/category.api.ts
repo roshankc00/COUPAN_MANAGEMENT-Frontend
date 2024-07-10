@@ -36,3 +36,8 @@ export const getLatestcategories = async () => {
   );
   return data;
 };
+
+export const getAllCategoryForAdmin = async () => {
+  const { data } = await axios.get(`/category/admin/all`);
+  return data;
+};

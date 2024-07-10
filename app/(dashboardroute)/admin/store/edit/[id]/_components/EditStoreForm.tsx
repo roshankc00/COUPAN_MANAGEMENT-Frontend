@@ -86,7 +86,7 @@ function EditStoreForm({ singleData, id }: Props) {
         .then(() => {
           toast.success("Store updated successfully");
           router.push("/admin/store");
-          client.invalidateQueries({ queryKey: ["store"] });
+          client.invalidateQueries({ queryKey: ["admin-store"] });
         })
         .catch(() => {
           toast.error("Unable to create Store");
@@ -106,7 +106,7 @@ function EditStoreForm({ singleData, id }: Props) {
         .then(() => {
           toast.success("Store Updated successfully");
           router.push("/admin/store");
-          client.invalidateQueries({ queryKey: ["store"] });
+          client.invalidateQueries({ queryKey: ["admin-store"] });
         })
         .catch(() => {
           toast.error("Unable to create Store");

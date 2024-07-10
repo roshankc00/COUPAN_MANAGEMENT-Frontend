@@ -98,7 +98,7 @@ function NewSubCategoryForm() {
       .then(() => {
         toast.success("Categories created successfully");
         router.push("/admin/category");
-        client.invalidateQueries({ queryKey: ["category"] });
+        client.invalidateQueries({ queryKey: ["admin-category"] });
         client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
       })
       .catch(() => {

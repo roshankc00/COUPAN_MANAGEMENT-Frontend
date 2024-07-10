@@ -81,7 +81,8 @@ const EditSubProductForm: React.FC<Props> = ({ id, singleData }) => {
         productId: +values?.productId,
       },
     }).then(() => {
-      toast.success("Sub Product created successfully");
+      router.push("/admin/sub-product");
+      toast.success("Sub Product Updated successfully");
       client.invalidateQueries({ queryKey: ["get-all-products"] });
       client.invalidateQueries({ queryKey: ["get-all-products-with-type"] });
     });

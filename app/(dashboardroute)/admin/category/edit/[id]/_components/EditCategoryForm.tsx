@@ -88,7 +88,7 @@ function EditCategoryForm({ id, singleData }: Props) {
         .then(() => {
           toast.success("Category updated successfully");
           router.push("/admin/category");
-          client.invalidateQueries({ queryKey: ["category"] });
+          client.invalidateQueries({ queryKey: ["admin-category"] });
           client.invalidateQueries({
             queryKey: ["sub-categories-by-category"],
           });
@@ -112,7 +112,7 @@ function EditCategoryForm({ id, singleData }: Props) {
         .then(() => {
           toast.success("Category updated successfully");
           router.push("/category");
-          client.invalidateQueries({ queryKey: ["category"] });
+          client.invalidateQueries({ queryKey: ["admin-category"] });
           client.invalidateQueries({
             queryKey: ["sub-categories-by-category"],
           });

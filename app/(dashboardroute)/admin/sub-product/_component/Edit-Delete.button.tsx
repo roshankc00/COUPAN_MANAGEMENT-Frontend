@@ -37,16 +37,13 @@ const UseDeleteCategory = () => {
       client.invalidateQueries({
         queryKey: ["sub-products"],
       });
-      client.invalidateQueries({
-        queryKey: ["sub-products"],
-      });
     });
   };
 
   return handleDelete;
 };
 
-const DeleteProductButton = ({ id }: { id: number }) => {
+const DeleteSubProductButton = ({ id }: { id: number }) => {
   const handleDelete = UseDeleteCategory();
   const [open, setopen] = useState(false);
 
@@ -94,4 +91,4 @@ const DeleteProductButton = ({ id }: { id: number }) => {
   );
 };
 
-export default DeleteProductButton;
+export default DeleteSubProductButton;

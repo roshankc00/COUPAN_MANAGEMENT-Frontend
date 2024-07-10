@@ -54,3 +54,8 @@ export const existInFollowerList = async (storeId: number) => {
   const { data } = await axios.get(`/followers/store/exist?storeId=${storeId}`);
   return data;
 };
+
+export const getAllStoreForAdmin = async () => {
+  const { data } = await axios.get(`/store/admin/all`);
+  return data;
+};

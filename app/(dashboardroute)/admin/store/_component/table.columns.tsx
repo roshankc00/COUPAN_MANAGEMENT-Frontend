@@ -85,12 +85,10 @@ export const columns: ColumnDef<ICategory>[] = [
       );
     },
     cell: ({ row }) => {
-      const isShowinMenu = row.getValue("status");
+      const status: string = row.getValue("status");
       return (
         <div className="">
-          <Badge className={cn("bg-slate-500 text-center")}>
-            {isShowinMenu ? "YES" : "NO"}
-          </Badge>
+          <Badge className={cn("bg-slate-500 text-center")}>{status}</Badge>
         </div>
       );
     },

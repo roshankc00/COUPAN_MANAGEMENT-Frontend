@@ -4,9 +4,10 @@ import { columns } from "./table.columns";
 import { Datatable } from "./data.table";
 import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import TableSkeleton from "@/components/TableSkeleton";
+import { UseGetAllStoreForAdmin } from "@/hooks/react-query/stores/get_all_store_hook forAdmin";
 
 const CategoryTable = () => {
-  const { data, isFetching, isLoading } = UseGetAllStore();
+  const { data, isFetching, isLoading } = UseGetAllStoreForAdmin();
   return (
     <div className="">
       {!isFetching && !isLoading ? (

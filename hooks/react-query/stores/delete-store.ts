@@ -15,7 +15,7 @@ export const UseDeleteStore = () => {
     await mutateAsync(id).then(() => {
       router.push("/admin/store");
       toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["store"] });
+      client.invalidateQueries({ queryKey: ["admin-store"] });
     });
   };
 

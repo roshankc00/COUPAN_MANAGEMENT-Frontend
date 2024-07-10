@@ -86,7 +86,7 @@ function NewStoreForm() {
       .then(() => {
         toast.success("Store created successfully");
         router.push("/store");
-        client.invalidateQueries({ queryKey: ["store"] });
+        client.invalidateQueries({ queryKey: ["admin-store"] });
       })
       .catch(() => {
         toast.error("Unable to create Store");

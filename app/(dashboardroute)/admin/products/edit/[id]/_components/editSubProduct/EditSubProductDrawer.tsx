@@ -28,6 +28,7 @@ import toast from "react-hot-toast";
 import { client } from "@/components/Provider";
 import { Input } from "@/components/ui/input";
 import { deleteSubProduct } from "../../../../../../../../common/api/sub-products/subproduct.api";
+import DeleteSubProductButton from "@/app/(dashboardroute)/admin/sub-product/_component/Edit-Delete.button";
 
 type Props = {
   item: any;
@@ -68,6 +69,14 @@ const EditSubProductDrawer: React.FC<Props> = ({ item }) => {
       client.invalidateQueries({ queryKey: ["get-single-product"] });
     });
   };
+
+  const { mutateAsync: handleDeleteSubProduct } = useMutation({
+    mutationFn: deleteSubProduct,
+    onSuccess() {
+      toast.success("Subproduct deleted successfully");
+      client.invalidateQueries({ queryKey: ["get-single-product"] });
+    },
+  });
 
   return (
     <div className="">
@@ -140,12 +149,15 @@ const EditSubProductDrawer: React.FC<Props> = ({ item }) => {
                   )}
                 />
 
-                <div className="w-full flex justify-end">
+                <div className="w-full grid grid-cols-2 gap-2 mt-4">
                   <Button
-                    type="submit"
-                    className="w-full mt-4"
-                    disabled={isPending}
+                    type="button"
+                    variant={"destructive"}
+                    onClick={() => handleDeleteSubProduct(item?.id)}
                   >
+                    Delete
+                  </Button>
+                  <Button type="submit" disabled={isPending}>
                     Add SubProduct
                   </Button>
                 </div>
