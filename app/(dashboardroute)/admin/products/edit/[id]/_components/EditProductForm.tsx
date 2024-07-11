@@ -39,6 +39,7 @@ import { convertIntoFormat } from "@/common/helpers/convertIntoProductFields";
 import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
 import AddSubproduct from "./AddSubproduct";
 import EditSubProductDrawer from "./editSubProduct/EditSubProductDrawer";
+import { Editor } from "@/components/editor";
 
 type Props = {
   singleData: any;
@@ -309,11 +310,12 @@ const EditProductForm = ({ id, singleData }: Props) => {
                         <FormItem className="mb-3">
                           <FormLabel>Description</FormLabel>
                           <FormControl>
-                            <Input
+                            {/* <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the description"
                               {...field}
-                            />
+                            /> */}
+                            <Editor {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -610,10 +612,10 @@ const EditProductForm = ({ id, singleData }: Props) => {
                 <div className="w-full flex justify-end">
                   <Button
                     type="submit"
-                    className="w-[200px] mt-4"
+                    className="w-full mt-4 mb-20"
                     disabled={isPending}
                   >
-                    Save
+                    Save Product
                   </Button>
                 </div>
               </form>

@@ -36,6 +36,7 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { customSortKeys } from "@/common/helpers/sort";
+import { Preview } from "@/components/Preview";
 
 type Props = {
   productId: number;
@@ -115,9 +116,7 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
                     ))}
                 </div>
                 <Separator className="my-2" />
-                <p className="text-sm   font-bold">
-                  {productItem?.description}
-                </p>
+                <Preview value={productItem?.description} />
                 <div className="flex gap-2 mt-5 justify-start items-center">
                   <Link
                     href={

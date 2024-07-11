@@ -29,6 +29,7 @@ import {
 import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import EditDeleteButton from "./Edit-Delete.button";
+import { Preview } from "@/components/Preview";
 
 const dateFormat = moment();
 
@@ -87,7 +88,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("description");
-      return <span className="">{title}</span>;
+      return <Preview value={title} />;
     },
   },
 

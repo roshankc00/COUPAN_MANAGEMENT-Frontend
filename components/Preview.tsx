@@ -14,7 +14,7 @@ export const Preview: React.FC<PreviewProps> = ({ value }) => {
   );
 
   return (
-    <div className="bg-white">
+    <div>
       <ReactQuill
         theme="bubble"
         value={value}

@@ -38,6 +38,7 @@ import { Button } from "@/components/ui/button";
 import { postProduct } from "@/common/api/products/products.api";
 import { useDropzone } from "react-dropzone";
 import { convertIntoFormat } from "@/common/helpers/convertIntoProductFields";
+import { Editor } from "@/components/editor";
 const AddNewProductsPage = () => {
   const router = useRouter();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
@@ -241,11 +242,12 @@ const AddNewProductsPage = () => {
                         <FormItem className="mb-3">
                           <FormLabel>Description</FormLabel>
                           <FormControl>
-                            <Input
+                            {/* <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the description"
                               {...field}
-                            />
+                            /> */}
+                            <Editor {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

@@ -29,6 +29,7 @@ import AdminHeader from "../../_component/Header";
 import { postStore } from "@/common/api/stores/store.api";
 import { useMutation } from "@tanstack/react-query";
 import { client } from "@/components/Provider";
+import { Editor } from "@/components/editor";
 
 function NewStoreForm() {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
@@ -157,11 +158,12 @@ function NewStoreForm() {
                         <FormItem className="mb-3">
                           <FormLabel>Description</FormLabel>
                           <FormControl>
-                            <Input
+                            {/* <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the description"
                               {...field}
-                            />
+                            /> */}
+                            <Editor {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

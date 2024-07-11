@@ -33,6 +33,7 @@ import { useSelector } from "react-redux";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Preview } from "@/components/Preview";
 type Props = {
   storeId: number;
 };
@@ -212,9 +213,7 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
 
                     <div className="mt-5">
                       <Separator />
-                      <p className="text-center my-2 ">
-                        {storeDetails?.description}
-                      </p>
+                      <Preview value={storeDetails?.description} />
                     </div>
                   </div>
                 </div>

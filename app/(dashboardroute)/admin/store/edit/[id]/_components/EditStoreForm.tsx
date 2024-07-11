@@ -31,6 +31,7 @@ import { useMutation } from "@tanstack/react-query";
 import { client } from "@/components/Provider";
 import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
 import DeleteStoreButton from "../../../_component/Edit-Delete.button";
+import { Editor } from "@/components/editor";
 
 type Props = {
   singleData: IStore;
@@ -179,11 +180,12 @@ function EditStoreForm({ singleData, id }: Props) {
                         <FormItem className="mb-3">
                           <FormLabel>Description</FormLabel>
                           <FormControl>
-                            <Input
+                            {/* <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the description"
                               {...field}
-                            />
+                            /> */}
+                            <Editor {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -329,7 +331,7 @@ function EditStoreForm({ singleData, id }: Props) {
                           <FormControl>
                             <Select
                               onValueChange={field.onChange}
-                              defaultValue={field.value.toString()}
+                              defaultValue={field?.value?.toString()}
                             >
                               <SelectTrigger className="">
                                 <SelectValue placeholder="Select the Status" />

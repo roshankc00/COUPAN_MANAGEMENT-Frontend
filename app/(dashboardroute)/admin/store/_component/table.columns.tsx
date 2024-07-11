@@ -10,6 +10,7 @@ import { ICategory } from "@/interfaces/category.interface";
 import moment from "moment";
 
 import EditDeleteButton from "./Edit-Delete.button";
+import { Preview } from "@/components/Preview";
 
 export const columns: ColumnDef<ICategory>[] = [
   {
@@ -66,7 +67,7 @@ export const columns: ColumnDef<ICategory>[] = [
     },
     cell: ({ row }) => {
       const title: string = row.getValue("description");
-      return <span className="">{title}</span>;
+      return <Preview value={title} />;
     },
   },
 
