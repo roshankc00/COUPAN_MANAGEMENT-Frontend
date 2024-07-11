@@ -11,6 +11,7 @@ import {
   ListOrdered,
   ShoppingBasket,
   ShoppingCart,
+  Image,
 } from "lucide-react";
 import SidebarItem from "./Sidebar.item";
 import { MdCategory, MdDashboard } from "react-icons/md";
@@ -79,6 +80,11 @@ function SidebarRoutes({}: Props) {
       icon: Scale,
       label: "License",
       href: "/admin/license",
+    },
+    {
+      icon: Image,
+      label: "Home-Slider-Images",
+      href: "/admin/home-images",
     },
     {
       icon: BadgeEuro,
