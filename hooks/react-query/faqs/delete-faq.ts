@@ -14,7 +14,7 @@ export const useDeleteFaq = () => {
   const handleDelete = async (id: number) => {
     await mutateAsync(id).then(() => {
       toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["sub-categories"] });
+      client.invalidateQueries({ queryKey: ["admin-sub-categories"] });
       client.invalidateQueries({ queryKey: ["faqs"] });
       rotuer.push("/admin/faqs");
     });

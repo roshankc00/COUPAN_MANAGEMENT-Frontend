@@ -56,7 +56,8 @@ function EditCouponForm({ singleData, id }: Props) {
     tagLine: z.string().min(3, {
       message: " must be of 8 charecter ",
     }),
-    code: z.any().optional(),
+    code: z.string().optional(),
+    dealLink: z.string().optional(),
     startDate: z.string().min(3, {
       message: " must be of 8 charecter ",
     }),
@@ -88,7 +89,8 @@ function EditCouponForm({ singleData, id }: Props) {
       title: singleData?.title,
       description: singleData?.description,
       tagLine: singleData?.tagLine,
-      code: singleData?.code,
+      code: singleData?.code || undefined,
+      dealLink: singleData?.dealLink || undefined,
       startDate: moment(singleData?.startDate).format("YYYY-MM-DD"),
       expireDate: moment(singleData?.expireDate).format("YYYY-MM-DD"),
       featured: singleData?.featured?.toString(),
@@ -102,7 +104,6 @@ function EditCouponForm({ singleData, id }: Props) {
         title: singleData?.seo?.title,
       },
       status: singleData?.status,
-      image: new File([""], "filename"),
     },
   });
 
@@ -111,14 +112,50 @@ function EditCouponForm({ singleData, id }: Props) {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    if (!preview && !values?.image) {
-      const body = {
-        ...values,
+    if (!values?.code && !values?.dealLink) {
+      toast.error("DealLink  for Deal and code for Coupon is Required");
+      return;
+    }
+    if (values?.code && !values?.dealLink) {
+      console.log("code");
+    } else {
+      if (!values?.code && values?.dealLink) {
+        console.log("deal");
+      }
+    }
+    if (!preview) {
+      const body: any = {
+        title: values?.title,
+        description: values?.description,
+        tagLine: values?.tagLine,
+        startDate: moment(values?.startDate).format("YYYY-MM-DD"),
+        expireDate: moment(values?.expireDate).format("YYYY-MM-DD"),
+        featured: values?.featured,
+        verified: values?.verified,
+        exclusive: values?.exclusive,
+        seo: {
+          description: values?.seo?.description,
+          title: values?.seo?.title,
+        },
+        status: values?.status,
         categoryId: +values.categoryId,
         subCategoryId: +values.subCategoryId,
         storeId: +values.storeId,
       };
-      mutateAsync({ id, values } as any)
+
+      if (values?.code && !values?.dealLink) {
+        body.code = values?.code;
+        body.dealLink = null;
+        body.isDeal = false;
+      } else {
+        if (!values?.code && values?.dealLink) {
+          body.dealLink = values?.dealLink;
+          body.code = null;
+          body.isDeal = true;
+        }
+      }
+
+      mutateAsync({ id, values: body } as any)
         .then(() => {
           toast.success("Coupon updated successfully");
           router.push("/admin/coupon");
@@ -132,7 +169,21 @@ function EditCouponForm({ singleData, id }: Props) {
       formData.append("title", values.title);
       formData.append("description", values.description);
       formData.append("tagLine", values.tagLine);
-      formData.append("code", values.code);
+      if (values.code && values.dealLink) {
+        toast.error(
+          "deal link is just for  Deal or and code is just for coupon"
+        );
+        return;
+      }
+      if (values?.code && !values?.dealLink) {
+        formData.append("code", values.code);
+        formData.append("isDeal", "false");
+      } else {
+        if (!values?.code && values?.dealLink) {
+          formData.append("dealLink", values?.dealLink);
+          formData.append("isDeal", "true");
+        }
+      }
       formData.append("startDate", values.startDate);
       formData.append("expireDate", values.expireDate);
       formData.append("featured", values.featured);
@@ -147,6 +198,7 @@ function EditCouponForm({ singleData, id }: Props) {
       formData.append("seo[title]", values.seo.title);
       formData.append("seo[description]", values.seo.description);
       formData.append("status", values.status);
+
       mutateAsync({ id, values: formData } as any)
         .then(() => {
           toast.success("Coupon updated successfully");
@@ -268,6 +320,25 @@ function EditCouponForm({ singleData, id }: Props) {
                             <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the Code"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="dealLink"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Link For Deal</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the Link for Deal"
                               {...field}
                             />
                           </FormControl>

@@ -51,6 +51,29 @@ export const columns: ColumnDef<ICategory>[] = [
     },
   },
   {
+    accessorKey: "isDeal",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="flex justify-center"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Type
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const isDeal: boolean = row.getValue("isDeal");
+      return (
+        <div className="flex justify-center">
+          <Badge>{isDeal ? "Deal" : "Coupon"}</Badge>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "tagLine",
     header: ({ column }) => {
       return (

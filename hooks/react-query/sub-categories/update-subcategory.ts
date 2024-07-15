@@ -7,7 +7,7 @@ export const UseUpdateSubCategory = (details: Partial<ISubcategoryBody>) => {
   const { mutate, isPending } = useMutation({
     mutationFn: updateSubCategory,
   });
-  client.invalidateQueries({ queryKey: ["sub-categories"] });
+  client.invalidateQueries({ queryKey: ["admin-sub-categories"] });
   client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
   mutate(details as any);
   return { isPending };

@@ -80,7 +80,7 @@ function EditSubCategoryForm({ id, singleData }: Props) {
       .then(() => {
         toast.success("sub-categories updated successfully");
         router.push("/admin/sub-category");
-        client.invalidateQueries({ queryKey: ["sub-categories"] });
+        client.invalidateQueries({ queryKey: ["admin-sub-categories"] });
         client.invalidateQueries({ queryKey: ["sub-categories-by-category"] });
       })
       .catch(() => {

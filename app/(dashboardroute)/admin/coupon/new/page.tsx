@@ -43,9 +43,11 @@ import { IStore } from "@/interfaces/Store.interface";
 import { useMutation } from "@tanstack/react-query";
 import { postCoupon } from "@/common/api/coupons/coupons.api";
 import { client } from "@/components/Provider";
+import { UseGetAllSubCategoryOfParticularCategory } from "@/hooks/react-query/sub-categories/getAllsubcategories-of-category";
 
 function NewCouponForm() {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
+  const [selectedCategory, setselectedCategory] = useState<number>();
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(3, {
@@ -58,6 +60,7 @@ function NewCouponForm() {
       message: " must be of 8 charecter ",
     }),
     code: z.string().optional(),
+    dealLink: z.string().optional(),
     startDate: z.string().min(3, {
       message: " must be of 8 charecter ",
     }),
@@ -79,7 +82,9 @@ function NewCouponForm() {
       }),
     }),
     status: z.string(),
-    image: z.instanceof(File).optional(),
+    image: z
+      .instanceof(File)
+      .refine((file) => file.size !== 0, "Please upload an image"),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -100,14 +105,20 @@ function NewCouponForm() {
     mutationFn: postCoupon,
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+    toast.success("ahah");
+    return;
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("description", values.description);
     formData.append("tagLine", values.tagLine);
     if (values?.code) {
-      formData.append("code", values.code);
+      // formData.append("code", values.code);
       formData.append("isDeal", "false");
     } else {
+      if (values?.dealLink) {
+        // formData.append("dealLink", values?.dealLink);
+      }
       formData.append("isDeal", "true");
     }
     formData.append("startDate", values.startDate);
@@ -160,9 +171,13 @@ function NewCouponForm() {
     });
 
   const { data: allCat, isLoading: catLoading } = UseGetAllCategory();
-  const { data: allSubCat, isLoading: subCatLoading } = UseGetAllSubCategory();
   const { data: allstore, isLoading: storeLoading } = UseGetAllStore();
 
+  const {
+    data: allSubCat,
+    isLoading: subCatLoading,
+    refetch,
+  } = UseGetAllSubCategoryOfParticularCategory(selectedCategory ?? 0);
   return (
     <div className="pt-10 pb-32">
       <AdminHeader title="New-Coupon" />
@@ -244,6 +259,25 @@ function NewCouponForm() {
                             <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the Code"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="dealLink"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Link For Deal</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the Link for Deal"
                               {...field}
                             />
                           </FormControl>
@@ -379,7 +413,15 @@ function NewCouponForm() {
                       <>
                         <FormItem className="mb-3">
                           <FormLabel>Category</FormLabel>
-                          <Select onValueChange={field.onChange}>
+                          <Select
+                            onValueChange={(val) => {
+                              field.onChange(val);
+                              setselectedCategory(+val);
+                              if (selectedCategory) {
+                                refetch();
+                              }
+                            }}
+                          >
                             <SelectTrigger className="">
                               <SelectValue placeholder="Select the Category" />
                             </SelectTrigger>
@@ -434,7 +476,14 @@ function NewCouponForm() {
                     render={({ field }) => (
                       <>
                         <FormItem className="mb-3">
-                          <FormLabel>SubCategory</FormLabel>
+                          {selectedCategory && allCat ? (
+                            <FormLabel>SubCategory</FormLabel>
+                          ) : (
+                            <FormLabel className="text-red-500">
+                              SubCategory ( Select Category Before Selecting
+                              Subcategory)
+                            </FormLabel>
+                          )}
                           <Select onValueChange={field.onChange}>
                             <SelectTrigger className="">
                               <SelectValue placeholder="Select the SubCategory" />

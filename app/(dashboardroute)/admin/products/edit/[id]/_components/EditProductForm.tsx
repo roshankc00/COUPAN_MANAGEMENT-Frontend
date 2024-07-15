@@ -40,6 +40,7 @@ import AdminHeader from "@/app/(dashboardroute)/admin/_component/Header";
 import AddSubproduct from "./AddSubproduct";
 import EditSubProductDrawer from "./editSubProduct/EditSubProductDrawer";
 import { Editor } from "@/components/editor";
+import FieldsList from "./FieldList";
 
 type Props = {
   singleData: any;
@@ -57,7 +58,7 @@ const EditProductForm = ({ id, singleData }: Props) => {
     {
       key: string;
       type: string;
-      order: number | undefined;
+      order: number;
     }[]
   >([]);
 
@@ -208,14 +209,19 @@ const EditProductForm = ({ id, singleData }: Props) => {
     updatedTags.splice(index, 1);
     settags(updatedTags);
   };
+
   const handleAddField = () => {
-    setfields([...fields, { key: "", type: "", order: undefined }]);
+    const newField = { key: "", type: "", order: fields.length + 1 };
+    setfields((prevFields) => [...prevFields, newField]);
   };
 
   const handleRemoveField = (index: number) => {
-    const updatedFields = [...fields];
-    updatedFields.splice(index, 1);
-    setfields(updatedFields);
+    const updatedFields = fields.filter((_, i) => i !== index);
+    const reorderedFields = updatedFields.map((field, idx) => ({
+      ...field,
+      order: idx + 1,
+    }));
+    setfields(reorderedFields);
   };
 
   // file logic for image
@@ -270,6 +276,7 @@ const EditProductForm = ({ id, singleData }: Props) => {
     accept: { "image/png": [], "image/jpg": [], "image/jpeg": [] },
   });
 
+  console.log(fields);
   return (
     <div className="pt-10 mb-72">
       <AdminHeader title="New-Product" />
@@ -363,7 +370,7 @@ const EditProductForm = ({ id, singleData }: Props) => {
 
                   <div>
                     <p className="my-3 text-sm">Fields</p>
-                    {fields?.map((item, index) => (
+                    {/* {fields?.map((item, index) => (
                       <div
                         className="flex justify-between gap-5 my-3"
                         key={index}
@@ -414,15 +421,18 @@ const EditProductForm = ({ id, singleData }: Props) => {
                           Remove
                         </Button>
                       </div>
-                    ))}
-                    <Button
-                      className="mt-2"
-                      type="button"
-                      size={"sm"}
-                      onClick={handleAddField}
-                    >
-                      Add Fields
-                    </Button>
+                    ))} */}
+
+                    {/* drag and srop start */}
+
+                    <FieldsList
+                      fields={fields}
+                      setfields={setfields}
+                      handleRemoveField={handleRemoveField}
+                      handleAddField={handleAddField}
+                    />
+
+                    {/* drag and srop end */}
                   </div>
                   <div>
                     <p className="my-3 text-sm">Tags</p>

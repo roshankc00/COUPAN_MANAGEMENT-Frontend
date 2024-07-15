@@ -18,6 +18,7 @@ export interface ICoupon {
   description: string;
   tagLine: string;
   code: string;
+  dealLink?: string;
   startDate: string;
   expireDate: string;
   featured: boolean;

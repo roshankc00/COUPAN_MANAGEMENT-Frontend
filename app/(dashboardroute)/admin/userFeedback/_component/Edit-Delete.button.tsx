@@ -34,7 +34,7 @@ const UseDeleteCategory = () => {
   const handleDelete = async (id: number) => {
     await mutateAsync(id).then(() => {
       toast.success("Deleted successfully");
-      client.invalidateQueries({ queryKey: ["sub-categories"] });
+      client.invalidateQueries({ queryKey: ["admin-sub-categories"] });
       client.invalidateQueries({
         queryKey: ["sub-categories-by-category"],
       });

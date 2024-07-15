@@ -16,7 +16,7 @@ export const Editor: React.FC<EditorProps> = ({ onChange, value }) => {
   );
 
   return (
-    <div className="bg-white">
+    <div className="bg-white ">
       <ReactQuill theme="snow" value={value} onChange={onChange} />
     </div>
   );

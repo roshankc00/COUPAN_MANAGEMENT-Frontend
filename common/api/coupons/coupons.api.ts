@@ -51,10 +51,7 @@ export const postCoupon = async (body: ICouponBody) => {
   return data;
 };
 
-export const updateCoupon = async (body: {
-  id: number;
-  values: Partial<ICouponBody>;
-}) => {
+export const updateCoupon = async (body: { id: number; values: any }) => {
   const { data } = await axios.patch(`/coupons/${body.id}`, body.values);
   return data;
 };

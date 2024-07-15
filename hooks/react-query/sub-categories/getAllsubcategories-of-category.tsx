@@ -7,6 +7,7 @@ export const UseGetAllSubCategoryOfParticularCategory = (
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["sub-categories-by-category"],
     queryFn: () => getAllSubcategoriesOfParticularCategory(categoryId),
+    enabled: !!categoryId && categoryId !== 0,
   });
   return { data, isFetching, isLoading, refetch };
 };

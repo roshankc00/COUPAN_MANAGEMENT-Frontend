@@ -5,9 +5,10 @@ import { Datatable } from "./data.table";
 import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { UseGetAllSubCategory } from "@/hooks/react-query/sub-categories/get_all_sub-categories.hook";
 import TableSkeleton from "@/components/TableSkeleton";
+import { UseGetAllSubCategoryForAdmin } from "@/hooks/react-query/sub-categories/get-all-subcategories-forAdmin";
 
 const SubCategoryTable = () => {
-  const { data, isFetching, isLoading } = UseGetAllSubCategory();
+  const { data, isFetching, isLoading } = UseGetAllSubCategoryForAdmin();
   return (
     <div className="">
       {!isFetching && !isLoading ? (

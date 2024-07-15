@@ -40,3 +40,8 @@ export const deleteSubcategory = async (id: number) => {
   const { data } = await axios.delete(`/sub-categories/${id}`);
   return data;
 };
+
+export const getAllSubCategoriesForAdmin = async () => {
+  const { data } = await axios.get(`/sub-categories/admin/all`);
+  return data;
+};
