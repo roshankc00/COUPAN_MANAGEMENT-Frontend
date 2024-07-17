@@ -43,6 +43,7 @@ import { Editor } from "@/components/editor";
 import FieldsList from "./FieldList";
 import DeleteProductButton from "../../../_component/Edit-Delete.button";
 import ChangeStatusProduct from "../../../_component/ChangeStatusProduct";
+import { Banner } from "@/components/Banner";
 
 type Props = {
   singleData: any;
@@ -280,6 +281,11 @@ const EditProductForm = ({ id, singleData }: Props) => {
 
   return (
     <div className="pt-10 mb-72">
+      <div>
+        {!singleData?.isPublished && (
+          <Banner label="This course is not published. It will not be visible to the students" />
+        )}
+      </div>
       <AdminHeader title="New-Product" />
       <div className="flex justify-between items-center   mb-5">
         <ChangeStatusProduct
