@@ -16,9 +16,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import fonePayImage from "../../../../../../public/phonepay.png";
-import appStoreImage from "../../../../../../public/app_store_coda.png";
-import googleStoreImage from "../../../../../../public/google_play_coda.png";
+import fonePayImage from "../../../../../public/phonepay.png";
+import appStoreImage from "../../../../../public/app_store_coda.png";
+import googleStoreImage from "../../../../../public/google_play_coda.png";
 import { FaQuestion } from "react-icons/fa6";
 import { SiAdguard } from "react-icons/si";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";

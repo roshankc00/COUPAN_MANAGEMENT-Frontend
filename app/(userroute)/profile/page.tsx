@@ -25,7 +25,6 @@ import { Check } from "lucide-react";
 import ChangePassword from "./_components/ChangePasswordForm";
 import LoginUserOnly from "@/components/permissions/LoginUserOnly";
 import { UseChangeUserPhoneNumber } from "@/hooks/react-query/users/changeUserPhoneNumber ";
-import { cn } from "../../../../lib/utils";
 
 const UserProfile = () => {
   const { data, isFetching, isLoading } = UseGetCurrentUser();
