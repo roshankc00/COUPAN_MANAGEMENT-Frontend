@@ -23,7 +23,7 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
 
   const tags = product?.tags;
-  let keywords = ["product"];
+  let keywords = ["product", "Subscription", "gift-card"];
   if (tags && tags.length > 0) {
     keywords = [...keywords, ...tags];
   }
