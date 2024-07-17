@@ -1,6 +1,6 @@
 "use client";
 import { UseGetStoreInfoWithSlug } from "@/hooks/react-query/stores/get-store.withslug";
-import React from "react";
+import React, { useEffect } from "react";
 import CouponStoreDetails from "./CouponsStoreDetails";
 import { useRouter } from "next/navigation";
 
@@ -16,6 +16,9 @@ const CouponStore: React.FC<Props> = ({ slug }) => {
   if (!isFetching && !isLoading && !data) {
     router.back();
   }
+  useEffect(() => {
+    refetch();
+  }, [slug]);
   return (
     <div>
       {!isFetching && !isLoading && <CouponStoreDetails storeId={data?.id} />}

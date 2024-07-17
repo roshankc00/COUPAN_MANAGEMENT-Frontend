@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { UseGetAllNotAssignedLicenses } from "@/hooks/react-query/license/get-all-notAssigned-licenses";
 import { client } from "@/components/Provider";
 import RejectOrderButton from "../../_component/RejectOrderBtn";
+import AddLicenseFromOrder from "./AddLicenseFromOrder";
 
 type Props = {
   data: any;
@@ -38,6 +39,12 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
       client.invalidateQueries({ queryKey: ["get-all-my-orders"] });
       client.invalidateQueries({ queryKey: ["get-all-orders"] });
       client.invalidateQueries({ queryKey: ["get-all-licenses"] });
+      client.invalidateQueries({
+        queryKey: ["get-all-not-assigned-licenses"],
+      });
+      client.invalidateQueries({
+        queryKey: ["get-single-order"],
+      });
       client.invalidateQueries({ queryKey: ["get-all-my-licenses"] });
       toast.success("License assigned successfully");
     },
@@ -55,7 +62,6 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
       });
     }
   };
-  console.log(data?.status);
   return (
     <div className="pt-10">
       <div className="">
@@ -128,16 +134,13 @@ const OrderDetails: React.FC<Props> = ({ data }) => {
                       </SelectContent>
                     </Select>
                   </div>
-                  <Button
-                    className="w-[150px] mt-3"
-                    onClick={() => {
-                      router.push(
-                        `/admin/license/new?orderId=${data?.id}&subproductId=${data?.subProduct?.id}&tagLine=${data?.subProduct?.product?.title}(${data?.subProduct?.title})`
-                      );
-                    }}
-                  >
-                    Add New License
-                  </Button>
+                  <div className="mt-3">
+                    {data?.subProduct?.id && (
+                      <AddLicenseFromOrder
+                        subProductId={data?.subProduct?.id}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

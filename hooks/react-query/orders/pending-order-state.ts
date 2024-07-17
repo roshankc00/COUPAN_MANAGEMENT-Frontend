@@ -12,6 +12,9 @@ export const UseHandlePendingOrder = () => {
     handlePendingApi(id).then(() => {
       client.invalidateQueries({ queryKey: ["get-all-orders"] });
       client.invalidateQueries({ queryKey: ["all-order-with-Status"] });
+      client.invalidateQueries({
+        queryKey: ["get-single-order"],
+      });
       toast.success("Change status to Pending");
     });
   };

@@ -16,6 +16,9 @@ export const UseHandleRejectOrder = () => {
       toast.success("Rejected the Status");
       client.invalidateQueries({ queryKey: ["get-all-orders"] });
       client.invalidateQueries({ queryKey: ["all-order-with-Status"] });
+      client.invalidateQueries({
+        queryKey: ["get-single-order"],
+      });
       router.push("/admin/orders");
     });
   };

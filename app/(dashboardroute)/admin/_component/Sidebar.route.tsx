@@ -25,11 +25,7 @@ function SidebarRoutes({}: Props) {
       label: "Dashboard",
       href: "/admin/dashboard",
     },
-    {
-      icon: Compass,
-      label: "Sub-Category",
-      href: "/admin/sub-category",
-    },
+
     {
       icon: SiMicrosoftstore,
       label: "Store",

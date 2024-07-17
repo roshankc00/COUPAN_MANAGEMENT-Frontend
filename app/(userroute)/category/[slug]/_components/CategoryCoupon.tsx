@@ -17,7 +17,7 @@ const CategoryCoupon: React.FC<Props> = ({ slug }) => {
   }
   useEffect(() => {
     refetch();
-  }, []);
+  }, [slug]);
   return (
     <div>
       {!isLoading && !isFetching && data?.id && (
