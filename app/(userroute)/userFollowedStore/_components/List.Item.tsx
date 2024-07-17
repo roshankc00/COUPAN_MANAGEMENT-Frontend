@@ -3,7 +3,7 @@ import { UseGetAllFollowedStore } from "@/hooks/react-query/stores/get-all-follo
 import { useRouter } from "next/navigation";
 import { FaHeart } from "react-icons/fa";
 import React from "react";
-import AlpaStore from "../../browse/store/_component/Alpa";
+import AlpaStore from "../../store/_component/Alpa";
 import { IStore } from "@/interfaces/Store.interface";
 import StoreCard from "@/components/cards/Store.card";
 import StoreCardSkeleton from "@/components/cards/StoreCardSkeleton";

@@ -36,7 +36,7 @@ const StoreCard: React.FC<Props> = ({ store }) => {
   return (
     <div
       className="shadow-md rounded-2xl bg-white p-5 cursor-pointer hover:-translate-y-2 transition-all  flex flex-col items-center justify-center"
-      onClick={() => router.push(`/user/browse/store/${store.id}`)}
+      onClick={() => router.push(`/user/store/${store.id}`)}
     >
       <img
         src={`${store?.imageUrl}`}

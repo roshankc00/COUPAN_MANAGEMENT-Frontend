@@ -52,7 +52,7 @@ const AddTransectionPage = () => {
         transectionId: values.transectionId,
       }).then(() => {
         toast.success("Transection Id added Successfully");
-        router.push("/user/order-success");
+        router.push("/order-success");
       });
     }
   };

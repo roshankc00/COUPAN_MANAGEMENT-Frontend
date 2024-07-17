@@ -6,7 +6,7 @@ export const handleNavigateCouponAffiliateLink = (
   description: string
 ) => {
   window.open(
-    `/user/browse/store/${storeId}?key=${key}&tagLine=${tagLine}&description=${description}`,
+    `/store/${storeId}?key=${key}&tagLine=${tagLine}&description=${description}`,
     "_blank"
   );
 

@@ -49,7 +49,7 @@ const Navbar = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Link href={"/user/userFollowedStore"}>
+                    <Link href={"/userFollowedStore"}>
                       <FaHeart color="red" size={25} />
                     </Link>
                   </TooltipTrigger>
@@ -65,7 +65,7 @@ const Navbar = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Link href="/user/wishlist">
+                    <Link href="/wishlist">
                       <IoIosBookmark color="white" size={25} />
                     </Link>
                   </TooltipTrigger>

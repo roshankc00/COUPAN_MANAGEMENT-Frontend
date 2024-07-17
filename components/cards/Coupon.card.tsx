@@ -66,7 +66,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
       }
     } else {
       router.push(
-        `/user/alert?alert=${coupon?.store?.affiliateLink.link}&id=${coupon?.store?.affiliateLink?.id}&cashbackAmountPer=${coupon?.store?.affiliateLink?.cashbackAmountPer}`
+        `/alert?alert=${coupon?.store?.affiliateLink.link}&id=${coupon?.store?.affiliateLink?.id}&cashbackAmountPer=${coupon?.store?.affiliateLink?.cashbackAmountPer}`
       );
     }
   };
@@ -102,9 +102,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
             <div className="flex gap-3 mt-2 items-center">
               <div
                 className=" hidden sm:flex gap-1 items-center cursor-pointer"
-                onClick={() =>
-                  router.push(`/user/browse/store/${coupon?.store?.id}`)
-                }
+                onClick={() => router.push(`/store/${coupon?.store?.id}`)}
               >
                 <PiBuildingOfficeLight />
                 <h3 className="text-sm text-gray-700">

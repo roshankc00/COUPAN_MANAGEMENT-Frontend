@@ -46,25 +46,23 @@ const LogoutButton = () => {
           )}
           <Separator />
           {isLogedInStatus && (
-            <DropdownMenuItem onClick={() => router.push("/user/profile")}>
+            <DropdownMenuItem onClick={() => router.push("/profile")}>
               My Profile
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem
-            onClick={() => router.push("/user/userFollowedStore")}
-          >
+          <DropdownMenuItem onClick={() => router.push("/userFollowedStore")}>
             Followed Store
           </DropdownMenuItem>
           <Separator />
-          <DropdownMenuItem onClick={() => router.push("/user/wishlist")}>
+          <DropdownMenuItem onClick={() => router.push("/wishlist")}>
             All Saved Coupons
           </DropdownMenuItem>
           <Separator />
-          <DropdownMenuItem onClick={() => router.push("/user/order")}>
+          <DropdownMenuItem onClick={() => router.push("/order")}>
             My Orders
           </DropdownMenuItem>
           <Separator />
-          <DropdownMenuItem onClick={() => router.push("/user/licenses")}>
+          <DropdownMenuItem onClick={() => router.push("/licenses")}>
             My licenses
           </DropdownMenuItem>
           <Separator />

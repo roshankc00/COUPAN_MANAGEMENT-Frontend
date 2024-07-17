@@ -143,7 +143,7 @@ const QrComponent: React.FC<Props> = ({ orderId, orderDetails }) => {
         )}
         <Button
           className="mt-5 w-full"
-          onClick={() => router.push(`/user/transection?orderId=${orderId}`)}
+          onClick={() => router.push(`/transection?orderId=${orderId}`)}
         >
           Continue
         </Button>

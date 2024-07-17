@@ -76,9 +76,7 @@ const SearchBar = () => {
                       {data?.stores?.map((item: IStore) => (
                         <div
                           key={item.id}
-                          onClick={() =>
-                            router.push(`/user/browse/store/${item.id}`)
-                          }
+                          onClick={() => router.push(`/store/${item.id}`)}
                           className="cursor-pointer"
                         >
                           <div className="flex justify-between items-center">
@@ -118,9 +116,7 @@ const SearchBar = () => {
                           <div
                             className="border border-slate-200 p-2 rounded-md flex justify-center items-center cursor-pointer"
                             key={item.id}
-                            onClick={() =>
-                              router.push(`/user/browse/category/${item.id}`)
-                            }
+                            onClick={() => router.push(`/category/${item.id}`)}
                           >
                             <h1 className="text=[17px]">{item.title}</h1>
                           </div>

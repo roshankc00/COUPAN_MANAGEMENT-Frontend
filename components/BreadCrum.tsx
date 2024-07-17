@@ -68,14 +68,14 @@ const BreadCrumCom = () => {
                       allCategory?.slice(0, 5).map((item: ICategory) => {
                         return (
                           <DropdownMenuItem key={item.id}>
-                            <Link href={`/user/browse/category/${item.id}`}>
+                            <Link href={`/category/${item.id}`}>
                               {item.title}
                             </Link>
                           </DropdownMenuItem>
                         );
                       })}
                     <DropdownMenuItem>
-                      <Link href="/browse/category" className="underline">
+                      <Link href="/category" className="underline">
                         View All Categories
                       </Link>
                     </DropdownMenuItem>
@@ -99,14 +99,12 @@ const BreadCrumCom = () => {
                       allStore?.slice(0, 5).map((item: IStore) => {
                         return (
                           <DropdownMenuItem key={item.id}>
-                            <Link href={`/user/browse/store/${item.id}`}>
-                              {item.title}
-                            </Link>
+                            <Link href={`/store/${item.id}`}>{item.title}</Link>
                           </DropdownMenuItem>
                         );
                       })}
                     <DropdownMenuItem>
-                      <Link href="/user/browse/store" className="underline">
+                      <Link href="/store" className="underline">
                         View All Stores
                       </Link>
                     </DropdownMenuItem>
@@ -114,39 +112,39 @@ const BreadCrumCom = () => {
                 </DropdownMenu>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <Link className="text-black" href="/user/browse/coupon">
+                <Link className="text-black" href="/coupon">
                   Coupon
                 </Link>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <Link className="text-black" href="/user/submit-offer">
+                <Link className="text-black" href="/submit-offer">
                   SubmitOffer
                 </Link>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <Link className="text-black" href="/user/products">
+                <Link className="text-black" href="/products">
                   Products
                 </Link>
               </BreadcrumbItem>
               <BreadcrumbItem className="block sm:hidden">
-                <BreadcrumbLink href="/user/blogs" className="text-black">
+                <BreadcrumbLink href="/blogs" className="text-black">
                   Blogs
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem className="block sm:hidden">
-                <BreadcrumbLink className="text-black" href="/user/contact">
+                <BreadcrumbLink className="text-black" href="/contact">
                   Contact
                 </BreadcrumbLink>
               </BreadcrumbItem>
             </div>
             <div className="sm:flex gap-3 hidden ">
               <BreadcrumbItem>
-                <BreadcrumbLink href="/user/blogs" className="text-black">
+                <BreadcrumbLink href="/blogs" className="text-black">
                   Blogs
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbLink className="text-black" href="/user/contact">
+                <BreadcrumbLink className="text-black" href="/contact">
                   Contact
                 </BreadcrumbLink>
               </BreadcrumbItem>
