@@ -23,7 +23,7 @@ const FaqsCom = () => {
                 <AccordionTrigger className="text-[14px] sm:text-[16px] lg:text-[18px]">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-[14px]  text-center sm:text-[18px]">
+                <AccordionContent className="text-[14px]  sm:text-[18px]">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
