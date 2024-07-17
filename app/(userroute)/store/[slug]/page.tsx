@@ -1,19 +1,21 @@
 import React from "react";
 
-import CouponStore from "./_components/CouponsStore";
 import { Separator } from "@/components/ui/separator";
 import { Metadata, ResolvingMetadata } from "next";
+import CouponStore from "./_components/CouponStore";
 
 export async function generateMetadata(
-  { params }: { params: { id: number } },
+  { params }: { params: { slug: string } },
   parent: ResolvingMetadata
-): Promise<Metadata> {
-  const id = params.id;
+): Promise<Metadata | null> {
+  const slug = params.slug;
 
-  const product = await fetch(`https://api.nepque.com/api/v1/store/${id}`).then(
-    (res) => res.json()
-  );
-
+  const product = await fetch(
+    `https://api.nepque.com/api/v1/store/get/with-slug?slug=${slug}`
+  ).then((res) => res.json());
+  if (!product?.title) {
+    return null;
+  }
   const previousImages = (await parent).openGraph?.images || [];
 
   let keywords = ["store", "", product?.title, product.seo.title];
@@ -28,10 +30,10 @@ export async function generateMetadata(
   };
 }
 
-const SingleStoreBrowsePage = ({ params }: { params: { id: number } }) => {
+const SingleStoreBrowsePage = ({ params }: { params: { slug: string } }) => {
   return (
     <div>
-      <CouponStore storeId={params.id} />
+      <CouponStore slug={params.slug} />
     </div>
   );
 };

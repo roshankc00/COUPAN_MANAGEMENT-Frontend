@@ -7,6 +7,7 @@ export interface IStore {
   createdAt: string;
   updatedAt: string;
   title: string;
+  slug: string;
   description: string;
   imageUrl: string;
   featured: boolean;

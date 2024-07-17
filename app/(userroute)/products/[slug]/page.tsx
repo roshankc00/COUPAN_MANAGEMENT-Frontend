@@ -3,23 +3,19 @@ import Product from "./_components/Product";
 import { getSingleProduct } from "@/common/api/products/products.api";
 import { Metadata, ResolvingMetadata } from "next";
 
-// export const metadata = {
-//   title: "Product | NepQue ",
-//   description: "NepQue: Your CouponPartner",
-// };
-
 export async function generateMetadata(
-  { params }: { params: { productId: number } },
+  { params }: { params: { slug: string } },
   parent: ResolvingMetadata
-): Promise<Metadata> {
-  const id = params.productId;
+): Promise<Metadata | null> {
+  const slug = params.slug;
 
-  // fetch data
   const product = await fetch(
-    `https://api.nepque.com/api/v1/products/${id}`
+    `https://api.nepque.com/api/v1/products/get/with-slug?slug=${slug}`
   ).then((res) => res.json());
 
-  // optionally access and extend (rather than replace) parent metadata
+  if (!product?.title) {
+    return null;
+  }
   const previousImages = (await parent).openGraph?.images || [];
 
   const tags = product?.tags;
@@ -37,10 +33,10 @@ export async function generateMetadata(
   };
 }
 
-const ProductPage = ({ params }: { params: { productId: number } }) => {
+const ProductPage = ({ params }: { params: { slug: string } }) => {
   return (
     <div>
-      <Product productId={params.productId} />
+      <Product slug={params.slug} />
     </div>
   );
 };

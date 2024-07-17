@@ -3,27 +3,28 @@ import { UseGetSingleProduct } from "@/hooks/react-query/products/get-single-pro
 import React, { useEffect } from "react";
 import ProductDetails from "./ProductDetails";
 import { redirect, useRouter } from "next/navigation";
+import { UseGetProductwithSlug } from "@/hooks/react-query/products/get-product-with-slug";
 type Props = {
-  productId: number;
+  slug: string;
 };
-const Product: React.FC<Props> = ({ productId }) => {
+const Product: React.FC<Props> = ({ slug }) => {
   const router = useRouter();
   const {
     data: productItem,
     isFetching: singleProductFetching,
     isLoading: singleProductLoading,
     refetch,
-  } = UseGetSingleProduct(+productId);
+  } = UseGetProductwithSlug(slug);
   useEffect(() => {
     refetch();
-  }, [productId]);
+  }, [slug]);
   if (!productItem && !singleProductFetching && !singleProductLoading) {
     router.back();
   }
   return (
     <div>
       {!singleProductFetching && !singleProductLoading && (
-        <ProductDetails productId={productId} productItem={productItem} />
+        <ProductDetails slug={slug} productItem={productItem} />
       )}
     </div>
   );

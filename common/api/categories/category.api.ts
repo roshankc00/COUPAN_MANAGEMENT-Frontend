@@ -41,3 +41,8 @@ export const getAllCategoryForAdmin = async () => {
   const { data } = await axios.get(`/category/admin/all`);
   return data;
 };
+
+export const getAllCategoryWithSlugApi = async (slug: string) => {
+  const { data } = await axios.get(`/category/get/with-slug?slug=${slug}`);
+  return data;
+};

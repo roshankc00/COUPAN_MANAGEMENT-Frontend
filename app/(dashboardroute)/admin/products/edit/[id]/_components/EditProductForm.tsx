@@ -109,6 +109,8 @@ const EditProductForm = ({ id, singleData }: Props) => {
     },
   });
 
+  console.log(singleData?.product_type);
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (
       values.product_type === "subscription" &&

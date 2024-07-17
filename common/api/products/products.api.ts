@@ -39,3 +39,8 @@ export const getAllProductforUser = async () => {
   const { data } = await axios.get(`/products/all/forUser`);
   return data;
 };
+
+export const getProductWithSlugApi = async (slug: string) => {
+  const { data } = await axios.get(`/products/get/with-slug?slug=${slug}`);
+  return data;
+};

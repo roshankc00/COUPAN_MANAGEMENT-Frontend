@@ -38,7 +38,7 @@ type Props = {
   storeId: number;
 };
 
-const CouponStore: React.FC<Props> = ({ storeId }) => {
+const CouponStoreDetails: React.FC<Props> = ({ storeId }) => {
   const params = useSearchParams();
   const [isCoppied, setisCoppied] = useState(false);
   const key = params.get("key");
@@ -252,4 +252,4 @@ const CouponStore: React.FC<Props> = ({ storeId }) => {
   );
 };
 
-export default CouponStore;
+export default CouponStoreDetails;

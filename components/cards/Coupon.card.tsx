@@ -102,7 +102,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
             <div className="flex gap-3 mt-2 items-center">
               <div
                 className=" hidden sm:flex gap-1 items-center cursor-pointer"
-                onClick={() => router.push(`/store/${coupon?.store?.id}`)}
+                onClick={() => router.push(`/store/${coupon?.store?.slug}`)}
               >
                 <PiBuildingOfficeLight />
                 <h3 className="text-sm text-gray-700">

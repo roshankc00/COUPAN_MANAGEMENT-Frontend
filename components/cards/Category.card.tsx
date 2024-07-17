@@ -8,7 +8,7 @@ interface Props {
 const CategoryCard: React.FC<Props> = ({ category }) => {
   return (
     <Link
-      href={`/category/${category.id}`}
+      href={`/category/${category?.slug}`}
       className="shadow-md rounded-2xl bg-white p-5 cursor-pointer hover:-translate-y-2 transition-all flex justify-center "
     >
       <img

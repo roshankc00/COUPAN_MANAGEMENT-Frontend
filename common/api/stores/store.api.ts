@@ -59,3 +59,8 @@ export const getAllStoreForAdmin = async () => {
   const { data } = await axios.get(`/store/admin/all`);
   return data;
 };
+
+export const getStoreWithSlug = async (slug: string) => {
+  const { data } = await axios.get(`/store/get/with-slug?slug=${slug}`);
+  return data;
+};

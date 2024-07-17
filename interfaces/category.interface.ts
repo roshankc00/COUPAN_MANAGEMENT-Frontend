@@ -9,6 +9,7 @@ export interface ISeo {
 export interface ICategory {
   id: number;
   createdAt: string;
+  slug: string;
   updatedAt: string;
   title: string;
   description: string;

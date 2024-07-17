@@ -1,16 +1,21 @@
 import React from "react";
 import SideFilter from "./_components/SideFilter";
 import { Metadata, ResolvingMetadata } from "next";
+import CategoryCoupon from "./_components/CategoryCoupon";
 
 export async function generateMetadata(
-  { params }: { params: { id: number } },
+  { params }: { params: { slug: string } },
   parent: ResolvingMetadata
-): Promise<Metadata> {
-  const id = params.id;
+): Promise<Metadata | null> {
+  const slug = params.slug;
 
   const product = await fetch(
-    `https://api.nepque.com/api/v1/category/${id}`
+    `https://api.nepque.com/api/v1/category/get/with-slug?slug=${slug}`
   ).then((res) => res.json());
+
+  if (!product?.title) {
+    return null;
+  }
 
   const previousImages = (await parent).openGraph?.images || [];
 
@@ -26,8 +31,8 @@ export async function generateMetadata(
   };
 }
 
-const SingleCategoryBrowsePage = ({ params }: { params: { id: number } }) => {
-  return <SideFilter categoryId={params.id} />;
+const SingleCategoryBrowsePage = ({ params }: { params: { slug: string } }) => {
+  return <CategoryCoupon slug={params.slug} />;
 };
 
 export default SingleCategoryBrowsePage;

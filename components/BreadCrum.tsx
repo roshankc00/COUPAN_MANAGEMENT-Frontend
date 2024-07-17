@@ -68,7 +68,7 @@ const BreadCrumCom = () => {
                       allCategory?.slice(0, 5).map((item: ICategory) => {
                         return (
                           <DropdownMenuItem key={item.id}>
-                            <Link href={`/category/${item.id}`}>
+                            <Link href={`/category/${item.slug}`}>
                               {item.title}
                             </Link>
                           </DropdownMenuItem>
@@ -99,7 +99,9 @@ const BreadCrumCom = () => {
                       allStore?.slice(0, 5).map((item: IStore) => {
                         return (
                           <DropdownMenuItem key={item.id}>
-                            <Link href={`/store/${item.id}`}>{item.title}</Link>
+                            <Link href={`/store/${item.slug}`}>
+                              {item.title}
+                            </Link>
                           </DropdownMenuItem>
                         );
                       })}

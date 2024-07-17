@@ -39,11 +39,11 @@ import { customSortKeys } from "@/common/helpers/sort";
 import { Preview } from "@/components/Preview";
 
 type Props = {
-  productId: number;
   productItem: any;
+  slug: string;
 };
 
-const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
+const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
   const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
   const router = useRouter();
   const [activeSubProduct, setactiveSubProduct] = useState<any>({});
@@ -118,34 +118,24 @@ const ProductDetails: React.FC<Props> = ({ productId, productItem }) => {
                 <Separator className="my-2" />
                 <Preview value={productItem?.description} />
                 <div className="flex gap-2 mt-5 justify-start items-center">
-                  <Link
-                    href={
-                      productItem?.playstoreLink
-                        ? productItem?.playstoreLink
-                        : "#"
-                    }
-                    target="_blank"
-                  >
-                    <Image
-                      className="  w-[100px] h-[30px] rounded-md shadow-sm "
-                      src={appStoreImage}
-                      alt="Logo"
-                    />
-                  </Link>
-                  <Link
-                    href={
-                      productItem?.appstoreLink
-                        ? productItem?.appstoreLink
-                        : "#"
-                    }
-                    target="_blank"
-                  >
-                    <Image
-                      className="  w-[100px] h-[30px]  rounded-md shadow-sm "
-                      src={googleStoreImage}
-                      alt="Logo"
-                    />
-                  </Link>
+                  {productItem?.playstoreLink && (
+                    <Link href={productItem?.playstoreLink} target="_blank">
+                      <Image
+                        className="  w-[100px] h-[30px] rounded-md shadow-sm "
+                        src={appStoreImage}
+                        alt="Logo"
+                      />
+                    </Link>
+                  )}
+                  {productItem?.appstoreLink && (
+                    <Link href={productItem?.appstoreLink} target="_blank">
+                      <Image
+                        className="  w-[100px] h-[30px]  rounded-md shadow-sm "
+                        src={googleStoreImage}
+                        alt="Logo"
+                      />
+                    </Link>
+                  )}
                 </div>
               </div>
             </CardContent>
