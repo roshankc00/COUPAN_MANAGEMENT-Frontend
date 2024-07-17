@@ -283,7 +283,7 @@ const EditProductForm = ({ id, singleData }: Props) => {
     <div className="pt-10 mb-72">
       <div>
         {!singleData?.isPublished && (
-          <Banner label="This course is not published. It will not be visible to the students" />
+          <Banner label="This Product is not published. It will not be visible to the Users" />
         )}
       </div>
       <AdminHeader title="New-Product" />
