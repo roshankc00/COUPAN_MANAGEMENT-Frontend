@@ -41,6 +41,8 @@ import AddSubproduct from "./AddSubproduct";
 import EditSubProductDrawer from "./editSubProduct/EditSubProductDrawer";
 import { Editor } from "@/components/editor";
 import FieldsList from "./FieldList";
+import DeleteProductButton from "../../../_component/Edit-Delete.button";
+import ChangeStatusProduct from "../../../_component/ChangeStatusProduct";
 
 type Props = {
   singleData: any;
@@ -276,12 +278,15 @@ const EditProductForm = ({ id, singleData }: Props) => {
     accept: { "image/png": [], "image/jpg": [], "image/jpeg": [] },
   });
 
-  console.log(fields);
   return (
     <div className="pt-10 mb-72">
       <AdminHeader title="New-Product" />
-      <div className="flex flex-row-reverse pr-10 mb-5">
-        <AddSubproduct productId={+id} />
+      <div className="flex justify-between items-center   mb-5">
+        <ChangeStatusProduct
+          id={singleData?.id}
+          isPublished={singleData?.isPublished}
+        />
+        <DeleteProductButton id={+id} />
       </div>
       <div>
         <Card className="mx-10">

@@ -3,11 +3,12 @@ import BlogSkeleton from "@/components/BlogSkeleton";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import ProductCard from "@/components/cards/ProductCard";
 import StoreSkeleton from "@/components/cards/StoreCardSkeleton";
+import { UseGetAllProductsforUser } from "@/hooks/react-query/products/get-all-product.foruser";
 import { UseGetAllProducts } from "@/hooks/react-query/products/get-all-products";
 import React from "react";
 
 const AllProduct = () => {
-  const { data, isFetching, isLoading } = UseGetAllProducts();
+  const { data, isFetching, isLoading } = UseGetAllProductsforUser();
   return (
     <div>
       <h1 className="text-3xl text-blue-500 capitalize text-center mt-10 mb-5">

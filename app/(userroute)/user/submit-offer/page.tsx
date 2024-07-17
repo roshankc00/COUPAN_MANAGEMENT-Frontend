@@ -56,9 +56,6 @@ const SubmitOffer = () => {
     expireDate: z
       .string()
       .min(3, { message: " must be at least 3 characters long" }),
-    status: z
-      .string()
-      .min(3, { message: " must be at least 3 characters long" }),
     image: z.instanceof(File).optional(),
   });
 
@@ -67,7 +64,6 @@ const SubmitOffer = () => {
     defaultValues: {
       code: "",
       tagLine: "",
-      status: "enabled",
       image: new File([""], "filename"),
     },
   });
@@ -94,7 +90,6 @@ const SubmitOffer = () => {
       formData.append("startDate", values.startDate);
       formData.append("expireDate", values.expireDate);
       formData.append("url", values.url);
-      formData.append("status", values.status);
       mutateAsync(formData as any)
         .then(() => {
           toast.success("Offer Send successfully");
@@ -261,39 +256,6 @@ const SubmitOffer = () => {
                               placeholder="Enter the ExpireDate"
                               {...field}
                             />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      </>
-                    )}
-                  />
-                  <FormField
-                    name="status"
-                    control={form.control}
-                    render={({ field }) => (
-                      <>
-                        <FormItem className="mb-3">
-                          <FormLabel className="">Status</FormLabel>
-                          <FormControl>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value.toString()}
-                            >
-                              <SelectTrigger className="">
-                                <SelectValue placeholder="Select the Status" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value={"enabled"}>
-                                  Enabled
-                                </SelectItem>
-                                <SelectItem value={"disabled"}>
-                                  Disabled
-                                </SelectItem>
-                                <SelectItem value={"pending"}>
-                                  Pending
-                                </SelectItem>
-                              </SelectContent>
-                            </Select>
                           </FormControl>
                           <FormMessage />
                         </FormItem>

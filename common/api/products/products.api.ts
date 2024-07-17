@@ -5,7 +5,7 @@ export const getAllProductsWithType = async (type: string) => {
 };
 
 export const getAllHomePageProducts = async () => {
-  const { data } = await axios.get(`/products?no=4`);
+  const { data } = await axios.get(`/products/all/forUser?no=4`);
   return data;
 };
 export const getAllProducts = async () => {
@@ -28,5 +28,14 @@ export const editProduct = async (body: { id: number; values: any }) => {
 
 export const deleteProduct = async (id: number) => {
   const { data } = await axios.delete(`/products/${id}`);
+  return data;
+};
+
+export const changeProductStatus = async (id: number) => {
+  const { data } = await axios.patch(`/products/status/publish/${id}`);
+  return data;
+};
+export const getAllProductforUser = async () => {
+  const { data } = await axios.get(`/products/all/forUser`);
   return data;
 };
