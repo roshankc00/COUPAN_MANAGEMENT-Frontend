@@ -28,6 +28,6 @@
     ".next/types/**/*.ts",
     "app/(dashboard)/dashboard/_components/CouponAnalytics.tsx",
     "hooks/out-side.click"
-  ],
+, ".next/types/app/(dashboardroute)/admin/blogs/new/page.tsx"  ],
   "exclude": ["node_modules"]
 }
