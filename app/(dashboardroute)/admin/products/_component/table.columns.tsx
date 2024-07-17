@@ -30,6 +30,7 @@ import { CiCircleAlert } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import EditDeleteButton from "./Edit-Delete.button";
 import { Preview } from "@/components/Preview";
+import { cn } from "@/lib/utils";
 
 const dateFormat = moment();
 
@@ -89,6 +90,37 @@ export const columns: ColumnDef<ICategory>[] = [
     cell: ({ row }) => {
       const title: string = row.getValue("description");
       return <Preview value={title} />;
+    },
+  },
+
+  {
+    accessorKey: "isPublished",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="r"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const status: boolean = row.getValue("isPublished");
+      return (
+        <span className="">
+          <Badge
+            className={cn({
+              "bg-red-600": !status,
+              "bg-green-500": status,
+            })}
+          >
+            {status ? "Published" : "Draft"}
+          </Badge>
+        </span>
+      );
     },
   },
 

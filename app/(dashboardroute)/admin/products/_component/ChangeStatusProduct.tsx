@@ -33,7 +33,7 @@ const ChangeStatusProduct: React.FC<{ id: number; isPublished: boolean }> = ({
         disabled={isPending}
         onClick={() => mutateAsync(id)}
       >
-        Change Status
+        Change Status to {isPublished ? "draft" : "Publish"}
       </Button>
     </div>
   );
