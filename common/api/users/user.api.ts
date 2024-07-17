@@ -56,12 +56,12 @@ export const ReSendEmailVerificationMail = async (body: any) => {
 };
 
 export const changeUserName = async (body: { name: string }) => {
-  const { data } = await axios.patch(`/change/userDetails/name`, body);
+  const { data } = await axios.patch(`/users/change/userDetails/name`, body);
   return data;
 };
 
 export const changePassword = async (body: IChangePasswordBody) => {
-  const { data } = await axios.patch(`/change-password`, body);
+  const { data } = await axios.patch(`/users/change-password`, body);
   return data;
 };
 
@@ -79,9 +79,19 @@ export const toogleDeactivateUserApi = async (body: { userId: number }) => {
   const { data } = await axios.patch(`/users/change/userDetails/active`, body);
   return data;
 };
+
 export const toogleChangeUserVerificationApi = async (body: {
   userId: number;
 }) => {
   const { data } = await axios.patch(`/users/change/userDetails/verify`, body);
+  return data;
+};
+export const changePhoneNumberUserApi = async (body: {
+  phoneNumber: string;
+}) => {
+  const { data } = await axios.patch(
+    `/users/change/userDetails/phoneNumber`,
+    body
+  );
   return data;
 };

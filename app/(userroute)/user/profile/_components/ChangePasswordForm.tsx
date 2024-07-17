@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,7 +21,11 @@ import { UseChangeUserPassword } from "@/hooks/react-query/users/changeUserPassw
 import { useSelector } from "react-redux";
 import { IRootState } from "@/store";
 
-function ChangePassword() {
+type Props = {
+  setopenChangePassword: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function ChangePassword({ setopenChangePassword }: Props) {
   const { email } = useSelector((state: IRootState) => state.auth);
   const changePassword = UseChangeUserPassword();
   const router = useRouter();
@@ -53,6 +57,7 @@ function ChangePassword() {
         newPassword: values.newPassword,
         oldPassword: values.oldPassword,
       });
+      setopenChangePassword(false);
     } else {
       toast.error("newPassword and confirmPassword dont match");
     }

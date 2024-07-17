@@ -84,8 +84,8 @@ function LoginForm() {
   }, []);
 
   return (
-    <div>
-      <Card className="py-4 opacity-100">
+    <div className="bg-[#f0faf9]">
+      <Card className="">
         <CardHeader>
           <CardTitle className="text-center">Login User</CardTitle>
         </CardHeader>

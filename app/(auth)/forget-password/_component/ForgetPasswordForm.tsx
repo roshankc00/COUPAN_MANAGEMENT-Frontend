@@ -42,7 +42,7 @@ function ForgetPasswordForm() {
   };
 
   return (
-    <div className="flex justify-center mt-[10%]">
+    <div className="flex justify-center mt-10">
       <div className="w-[500px]">
         <Card className="py-4">
           <CardHeader>

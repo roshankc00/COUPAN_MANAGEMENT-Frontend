@@ -45,6 +45,11 @@ const LogoutButton = () => {
             </DropdownMenuItem>
           )}
           <Separator />
+          {isLogedInStatus && (
+            <DropdownMenuItem onClick={() => router.push("/user/profile")}>
+              My Profile
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem
             onClick={() => router.push("/user/userFollowedStore")}
           >

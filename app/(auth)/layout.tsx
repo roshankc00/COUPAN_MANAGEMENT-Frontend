@@ -11,7 +11,7 @@ export default function AuthLayout({
   return (
     <div>
       <Navbar />
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg-px-8">{children}</div>
+      <div className="bg-[#f0faf9]">{children}</div>
       <Footer />
     </div>
   );

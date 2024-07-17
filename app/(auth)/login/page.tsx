@@ -7,8 +7,8 @@ export const metadata = {
 };
 const Login = () => {
   return (
-    <div className="flex justify-center mt-2 backdrop-blur-3xl  ">
-      <div className="w-[500px] bg-white bg-opacity-75 p-6 rounded-lg ">
+    <div className="flex justify-center mt-2 backdrop-blur-3xl bg-[#f0faf9]  ">
+      <div className="w-[500px] bg-[#f0faf9] bg-opacity-75 p-6 rounded-lg ">
         <LoginForm />
       </div>
     </div>
