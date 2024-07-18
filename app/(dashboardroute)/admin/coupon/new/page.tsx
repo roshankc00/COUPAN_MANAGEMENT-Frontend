@@ -115,11 +115,11 @@ function NewCouponForm() {
     formData.append("description", values.description);
     formData.append("tagLine", values.tagLine);
     if (values?.code) {
-      // formData.append("code", values.code);
+      formData.append("code", values.code);
       formData.append("isDeal", "false");
     } else {
       if (values?.dealLink) {
-        // formData.append("dealLink", values?.dealLink);
+        formData.append("dealLink", values?.dealLink);
       }
       formData.append("isDeal", "true");
     }

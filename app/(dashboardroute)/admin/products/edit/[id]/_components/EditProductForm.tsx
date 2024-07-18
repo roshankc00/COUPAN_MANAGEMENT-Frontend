@@ -53,7 +53,7 @@ type Props = {
 
 const EditProductForm = ({ id, singleData }: Props) => {
   const router = useRouter();
-  const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>();
   const [tooltipPreview, setTooltipPreview] = useState<
     string | ArrayBuffer | null
   >("");
@@ -631,7 +631,7 @@ const EditProductForm = ({ id, singleData }: Props) => {
                             />
                           ) : (
                             <img
-                              src={`${singleData?.tooltipImageUrl}`}
+                              src={`${singleData?.toolTipImageUrl}`}
                               alt="Uploaded image"
                               className="max-h-[400px] rounded-lg"
                             />
