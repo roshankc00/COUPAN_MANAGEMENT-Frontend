@@ -149,9 +149,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
                 handleNavigateCouponAffiliateLink(
                   `${coupon?.store?.affiliateLink?.link}`,
                   coupon.store.slug,
-                  coupon.code,
-                  coupon.tagLine,
-                  coupon.description
+                  coupon.slug
                 );
               }}
             >

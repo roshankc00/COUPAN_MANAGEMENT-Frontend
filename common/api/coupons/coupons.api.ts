@@ -94,3 +94,10 @@ export const getLatestCoupons = async () => {
   const { data } = await axios.get(`/coupons/featured/coupons?no=20`);
   return data;
 };
+
+export const getCouponwithSlugApi = async (slug: string | null) => {
+  if (slug) {
+    const { data } = await axios.get(`/coupons/get/with-slug?slug=${slug}`);
+    return data;
+  }
+};
