@@ -19,6 +19,7 @@ import { Separator } from "@/components/ui/separator";
 import { useMutation } from "@tanstack/react-query";
 import { updateSubProductHeader } from "@/common/api/products/products.api";
 import { client } from "@/components/Provider";
+import toast from "react-hot-toast";
 
 type Props = {
   id: number;
@@ -43,6 +44,7 @@ const UpdateSubProductHeader: React.FC<Props> = ({ header, id }) => {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log({ ...values, id });
     mutateAsync({ id, data: values }).then(() => {
+      toast.success("Header updated successfully");
       client.invalidateQueries({ queryKey: ["get-all-products"] });
       client.invalidateQueries({ queryKey: ["get-single-product"] });
     });

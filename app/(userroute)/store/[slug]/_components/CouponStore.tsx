@@ -16,9 +16,7 @@ const CouponStore: React.FC<Props> = ({ slug }) => {
   if (!isFetching && !isLoading && !data) {
     router.back();
   }
-  useEffect(() => {
-    refetch();
-  }, [slug]);
+
   return (
     <div>
       {!isFetching && !isLoading && <CouponStoreDetails storeId={data?.id} />}

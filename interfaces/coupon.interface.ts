@@ -13,6 +13,7 @@ export interface ISEO {
 export interface ICoupon {
   id: number;
   createdAt: string;
+  slug: string;
   updatedAt: string;
   title: string;
   description: string;

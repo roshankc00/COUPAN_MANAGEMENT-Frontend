@@ -48,18 +48,21 @@ function EditCouponForm({ singleData, id }: Props) {
   const router = useRouter();
   const formSchema = z.object({
     title: z.string().min(3, {
-      message: "must be of 8 charecter ",
+      message: "must be of 3 charecter ",
     }),
     description: z.string().min(10, {
       message: " must be of 10 charecter ",
     }),
     tagLine: z.string().min(3, {
-      message: " must be of 8 charecter ",
+      message: " must be of 3 charecter ",
+    }),
+    slug: z.string().min(3, {
+      message: " must be of 3 charecter ",
     }),
     code: z.string().optional(),
     dealLink: z.string().optional(),
     startDate: z.string().min(3, {
-      message: " must be of 8 charecter ",
+      message: " must be of 3 charecter ",
     }),
     expireDate: z.string().min(10, {
       message: " must be of 10 charecter ",
@@ -87,6 +90,7 @@ function EditCouponForm({ singleData, id }: Props) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: singleData?.title,
+      slug: singleData?.slug,
       description: singleData?.description,
       tagLine: singleData?.tagLine,
       code: singleData?.code || undefined,
@@ -127,6 +131,7 @@ function EditCouponForm({ singleData, id }: Props) {
       const body: any = {
         title: values?.title,
         description: values?.description,
+        slug: values?.slug,
         tagLine: values?.tagLine,
         startDate: moment(values?.startDate).format("YYYY-MM-DD"),
         expireDate: moment(values?.expireDate).format("YYYY-MM-DD"),
@@ -167,6 +172,7 @@ function EditCouponForm({ singleData, id }: Props) {
     } else {
       const formData = new FormData();
       formData.append("title", values.title);
+      formData.append("slug", values.slug);
       formData.append("description", values.description);
       formData.append("tagLine", values.tagLine);
       if (values.code && values.dealLink) {
@@ -282,6 +288,25 @@ function EditCouponForm({ singleData, id }: Props) {
                             <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the description"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="slug"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Slug</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the slug"
                               {...field}
                             />
                           </FormControl>

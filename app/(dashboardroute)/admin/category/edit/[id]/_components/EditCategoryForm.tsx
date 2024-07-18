@@ -48,6 +48,9 @@ function EditCategoryForm({ id, singleData }: Props) {
     description: z.string().min(10, {
       message: "must be of 10 charecter ",
     }),
+    slug: z.string().min(3, {
+      message: "must be of 10 charecter ",
+    }),
     showInMenu: z.string(),
     featured: z.string(),
     seo: z.object({
@@ -66,6 +69,7 @@ function EditCategoryForm({ id, singleData }: Props) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: singleData?.title,
+      slug: singleData?.slug,
       description: singleData?.description,
       seo: {
         description: singleData?.seo?.description,
@@ -99,6 +103,7 @@ function EditCategoryForm({ id, singleData }: Props) {
     } else {
       const formData = new FormData();
       formData.append("title", values.title);
+      formData.append("slug", values.slug);
       formData.append("description", values.description);
       formData.append("status", values.status);
       formData.append("showInMenu", values.showInMenu);
@@ -194,6 +199,25 @@ function EditCategoryForm({ id, singleData }: Props) {
                             <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the description"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="slug"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Slug</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the Slug"
                               {...field}
                             />
                           </FormControl>

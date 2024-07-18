@@ -1,12 +1,12 @@
 export const handleNavigateCouponAffiliateLink = (
   link: string,
-  storeId: number,
+  slug: string,
   key: string,
   tagLine: string,
   description: string
 ) => {
   window.open(
-    `/store/${storeId}?key=${key}&tagLine=${tagLine}&description=${description}`,
+    `/store/${slug}?key=${key}&tagLine=${tagLine}&description=${description}`,
     "_blank"
   );
 

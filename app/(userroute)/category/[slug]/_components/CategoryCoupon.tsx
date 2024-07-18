@@ -10,14 +10,10 @@ type Props = {
 
 const CategoryCoupon: React.FC<Props> = ({ slug }) => {
   const router = useRouter();
-  const { data, isFetching, isLoading, refetch } =
-    UseGetSingleCategoryWithSlug(slug);
+  const { data, isFetching, isLoading } = UseGetSingleCategoryWithSlug(slug);
   if (!data && !isFetching && !isLoading) {
     router.back();
   }
-  useEffect(() => {
-    refetch();
-  }, [slug]);
   return (
     <div>
       {!isLoading && !isFetching && data?.id && (

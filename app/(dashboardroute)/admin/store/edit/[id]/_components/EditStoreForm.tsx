@@ -49,6 +49,9 @@ function EditStoreForm({ singleData, id }: Props) {
     description: z.string().min(10, {
       message: "must be of 10 charecter ",
     }),
+    slug: z.string().min(3, {
+      message: "must be of 3 charecter ",
+    }),
     featured: z.string(),
     seo: z.object({
       title: z.string().min(3, {
@@ -68,6 +71,7 @@ function EditStoreForm({ singleData, id }: Props) {
     defaultValues: {
       title: singleData?.title,
       description: singleData?.description,
+      slug: singleData?.slug,
       featured: singleData?.featured?.toString(),
       seo: {
         description: singleData?.seo?.description,
@@ -96,6 +100,7 @@ function EditStoreForm({ singleData, id }: Props) {
       const formData = new FormData();
       formData.append("title", values.title);
       formData.append("description", values.description);
+      formData.append("slug", values.slug);
       formData.append("status", values.status);
       formData.append("featured", values.featured);
       if (values?.image) {
@@ -184,7 +189,7 @@ function EditStoreForm({ singleData, id }: Props) {
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the description"
                               {...field}
-                            /> */}
+                              /> */}
                             <Editor {...field} />
                           </FormControl>
                           <FormMessage />
@@ -193,6 +198,25 @@ function EditStoreForm({ singleData, id }: Props) {
                     )}
                   />
 
+                  <FormField
+                    name="slug"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Slug</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the slug"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
                   <FormField
                     name="featured"
                     control={form.control}

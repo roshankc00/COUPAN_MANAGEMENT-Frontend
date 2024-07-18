@@ -47,6 +47,9 @@ function NewSubCategoryForm() {
     title: z.string().min(3, {
       message: " must be of 3 charecter ",
     }),
+    slug: z.string().min(3, {
+      message: " must be of 3 charecter ",
+    }),
     description: z.string().min(10, {
       message: "must be of 10 charecter ",
     }),
@@ -71,6 +74,7 @@ function NewSubCategoryForm() {
     defaultValues: {
       title: "",
       description: "",
+      slug: "",
       seo: {
         description: "",
         title: "",
@@ -87,6 +91,7 @@ function NewSubCategoryForm() {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     const formData = new FormData();
     formData.append("title", values.title);
+    formData.append("slug", values.slug);
     formData.append("description", values.description);
     formData.append("status", values.status);
     formData.append("showInMenu", values.showInMenu);
@@ -173,6 +178,25 @@ function NewSubCategoryForm() {
                             <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the description"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="slug"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Slug</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the Slug"
                               {...field}
                             />
                           </FormControl>

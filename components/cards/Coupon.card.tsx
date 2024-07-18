@@ -148,7 +148,7 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
               onClick={() => {
                 handleNavigateCouponAffiliateLink(
                   `${coupon?.store?.affiliateLink?.link}`,
-                  coupon.store.id,
+                  coupon.store.slug,
                   coupon.code,
                   coupon.tagLine,
                   coupon.description

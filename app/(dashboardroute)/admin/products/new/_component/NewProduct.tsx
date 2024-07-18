@@ -73,7 +73,7 @@ const AddNewProductsComponent = () => {
     appstoreLink: z.any().optional(),
     playstoreLink: z.any().optional(),
     slug: z.string().min(3, {
-      message: "Title must be at least 5 characters",
+      message: " must be at least 3 characters",
     }),
     image: z
       .instanceof(File)

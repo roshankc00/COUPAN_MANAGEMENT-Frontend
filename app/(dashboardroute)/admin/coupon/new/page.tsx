@@ -56,13 +56,16 @@ function NewCouponForm() {
     description: z.string().min(10, {
       message: " must be of 10 charecter ",
     }),
+    slug: z.string().min(3, {
+      message: " must be of 3 charecter ",
+    }),
     tagLine: z.string().min(3, {
-      message: " must be of 8 charecter ",
+      message: " must be of 3 charecter ",
     }),
     code: z.string().optional(),
     dealLink: z.string().optional(),
     startDate: z.string().min(3, {
-      message: " must be of 8 charecter ",
+      message: " must be of 3 charecter ",
     }),
     expireDate: z.string().min(10, {
       message: " must be of 10 charecter ",
@@ -92,6 +95,7 @@ function NewCouponForm() {
     defaultValues: {
       title: "",
       description: "",
+      slug: "",
       seo: {
         description: "",
         title: "",
@@ -105,11 +109,9 @@ function NewCouponForm() {
     mutationFn: postCoupon,
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    toast.success("ahah");
-    return;
     const formData = new FormData();
     formData.append("title", values.title);
+    formData.append("slug", values.slug);
     formData.append("description", values.description);
     formData.append("tagLine", values.tagLine);
     if (values?.code) {
@@ -221,6 +223,25 @@ function NewCouponForm() {
                             <Input
                               className="border border-[#d3d3d1]"
                               placeholder="Enter the description"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="slug"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>SLug</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the slug"
                               {...field}
                             />
                           </FormControl>

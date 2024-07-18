@@ -42,6 +42,9 @@ function NewStoreForm() {
       message: "must be of 10 charecter ",
     }),
     featured: z.string(),
+    slug: z.string().min(3, {
+      message: "must be of 3 charecter ",
+    }),
     seo: z.object({
       title: z.string().min(3, {
         message: " must be of 3 charecter ",
@@ -61,6 +64,7 @@ function NewStoreForm() {
     defaultValues: {
       title: "",
       description: "",
+      slug: "",
       seo: {
         description: "",
         title: "",
@@ -78,6 +82,7 @@ function NewStoreForm() {
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("description", values.description);
+    formData.append("slug", values.slug);
     formData.append("status", values.status);
     formData.append("featured", values.featured);
     formData.append("image", values.image);
@@ -164,6 +169,25 @@ function NewStoreForm() {
                               {...field}
                             /> */}
                             <Editor {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="slug"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Slug</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the slug"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
