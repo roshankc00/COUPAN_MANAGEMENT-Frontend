@@ -187,23 +187,28 @@ const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
                           )}
                       </div>
 
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <FaQuestion className="text-blue-600 " size={25} />
-                          </TooltipTrigger>
-                          <TooltipContent
-                            className="bg-black text-white"
-                            side="bottom"
-                          >
-                            <img
-                              src={productItem?.toolTipImageUrl}
-                              className="h-[50vh]"
-                              alt=""
-                            />
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                      {productItem?.toolTipImageUrl && (
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <FaQuestion
+                                className="text-blue-600 "
+                                size={25}
+                              />
+                            </TooltipTrigger>
+                            <TooltipContent
+                              className="bg-black text-white"
+                              side="bottom"
+                            >
+                              <img
+                                src={productItem?.toolTipImageUrl}
+                                className="h-[50vh]"
+                                alt=""
+                              />
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      )}
                     </form>
                   </Form>
                 </CardContent>
