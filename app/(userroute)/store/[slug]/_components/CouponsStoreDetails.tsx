@@ -153,7 +153,7 @@ const CouponStoreDetails: React.FC<Props> = ({ storeSlug }) => {
                   </p>
                   <div className="flex justify-center gap-2 my-1">
                     <h1 className="border-dashed border-2 border-blue-600 py-2 px-3 rounded-md text-xl">
-                      {modelCouponData?.key}
+                      {modelCouponData?.code}
                     </h1>
                     <button
                       className="bg-[#2563EB]  w-[100px]  rounded-md text-white text-[16px] font-medium"

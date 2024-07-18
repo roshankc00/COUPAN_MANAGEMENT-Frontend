@@ -153,7 +153,9 @@ const CouponCard: React.FC<Props> = ({ coupon }) => {
                 );
               }}
             >
-              <span className="z-10">........{coupon?.code?.slice(0, 6)}</span>
+              <span className="z-10 line-clamp-1">
+                ........{coupon?.code?.slice(0, 6)}
+              </span>
               <span className="-top-[9px] -left-8 absolute bg-blue-700 py-[5px] w-[100px] h-[42px] ml-3   rounded-md text-white text-[16px] font-medium my-2  hover:-ml-2 rounded-tr-2xl transition-all flex justify-center items-center text-center ">
                 Scratch
                 <span className="h-3 bg-transparent absolute w-3 right-0 top-[1px] border-r-[15px]   border-b-[20px] border-r-white border-b-blue-800 "></span>
