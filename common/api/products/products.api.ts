@@ -44,3 +44,16 @@ export const getProductWithSlugApi = async (slug: string) => {
   const { data } = await axios.get(`/products/get/with-slug?slug=${slug}`);
   return data;
 };
+
+export const updateSubProductHeader = async (body: {
+  id: number;
+  data: { subProductTitle: string };
+}) => {
+  const { data } = await axios.patch(
+    `/products/update/subproductHeader/${body.id}`,
+    {
+      subProductTitle: body?.data?.subProductTitle,
+    }
+  );
+  return data;
+};

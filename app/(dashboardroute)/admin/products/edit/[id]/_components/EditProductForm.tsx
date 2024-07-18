@@ -44,6 +44,7 @@ import FieldsList from "./FieldList";
 import DeleteProductButton from "../../../_component/Edit-Delete.button";
 import ChangeStatusProduct from "../../../_component/ChangeStatusProduct";
 import { Banner } from "@/components/Banner";
+import UpdateSubProductHeader from "./UpdateSubProductHeader";
 
 type Props = {
   singleData: any;
@@ -64,8 +65,6 @@ const EditProductForm = ({ id, singleData }: Props) => {
       order: number;
     }[]
   >([]);
-
-  console.log(singleData?.fields);
 
   useEffect(() => {
     if (singleData?.fields) {
@@ -677,6 +676,12 @@ const EditProductForm = ({ id, singleData }: Props) => {
 
             <div className="mt-10">
               <AdminHeader title="Sub-Product" />
+            </div>
+            <div>
+              <UpdateSubProductHeader
+                id={singleData?.id}
+                header={singleData?.subProductTitle}
+              />
             </div>
             <div className="border rounded-md mt-10 pb-10">
               <div className="flex justify-between items-center px-10 mt-5">

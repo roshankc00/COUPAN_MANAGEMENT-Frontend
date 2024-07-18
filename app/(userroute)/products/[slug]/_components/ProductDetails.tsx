@@ -215,9 +215,7 @@ const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
               {productItem?.product_type === "subscription" ? 2 : 1}
             </h1>
             <h1 className="absolute left-16 text-xl font-medium -mt-3">
-              {productItem?.product_type === "subscription"
-                ? "Select Recharge"
-                : "Select voucher"}
+              {productItem?.subProductTitle}
             </h1>
 
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 bg-white">
