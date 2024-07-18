@@ -9,6 +9,7 @@ export const UseItemExistInFollowerlist = (storeId: number) => {
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ["exist-in-followelist"],
     queryFn: () => existInFollowerList(storeId),
+    enabled: !!storeId,
   });
   return { data, isFetching, isLoading };
 };

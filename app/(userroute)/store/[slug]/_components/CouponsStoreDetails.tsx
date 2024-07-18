@@ -34,11 +34,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/Preview";
+import { UseGetStoreInfoWithSlug } from "@/hooks/react-query/stores/get-store.withslug";
 type Props = {
-  storeId: number;
+  storeSlug: string;
 };
 
-const CouponStoreDetails: React.FC<Props> = ({ storeId }) => {
+const CouponStoreDetails: React.FC<Props> = ({ storeSlug }) => {
   const params = useSearchParams();
   const [isCoppied, setisCoppied] = useState(false);
   const key = params.get("key");
@@ -55,7 +56,7 @@ const CouponStoreDetails: React.FC<Props> = ({ storeId }) => {
     isFetching,
     isLoading,
     refetch,
-  } = UseGetAllCouponsOfStore(storeId, paginationProps.currentPage, 30);
+  } = UseGetAllCouponsOfStore(storeSlug, paginationProps.currentPage, 30);
 
   const onSubmit = () => refetch();
   const debouncedSubmit = debounce(onSubmit, 400);
@@ -69,7 +70,7 @@ const CouponStoreDetails: React.FC<Props> = ({ storeId }) => {
     isFetching: storeDetailsLoading,
     isLoading: storeDetailsFetching,
     refetch: storeDetailsRefetch,
-  } = UseGetStoreInfo(storeId);
+  } = UseGetStoreInfoWithSlug(storeSlug);
 
   const { mutate: handleFollowUnFollowClick } = useMutation({
     mutationFn: followUnfollowstore,
@@ -90,10 +91,10 @@ const CouponStoreDetails: React.FC<Props> = ({ storeId }) => {
   useEffect(() => {
     storeDetailsRefetch();
     refetch();
-  }, [storeId]);
+  }, [storeSlug]);
 
   const { data: itemExist, isLoading: existLoading } =
-    UseItemExistInFollowerlist(storeId);
+    UseItemExistInFollowerlist(storeDetails?.id);
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: increaseCount,
@@ -121,134 +122,138 @@ const CouponStoreDetails: React.FC<Props> = ({ storeId }) => {
     }
   }
   return (
-    <div>
+    <>
       <div>
-        <Dialog open={open} onOpenChange={setopen}>
-          <DialogContent className="w-[30%]">
-            <div className="flex flex-col  items-center justify-center mb-10">
-              {storeDetails?.imageUrl && (
-                <img
-                  src={storeDetails.imageUrl}
-                  alt=""
-                  className="w-20 rounded-sm"
+        <div>
+          <Dialog open={open} onOpenChange={setopen}>
+            <DialogContent className="w-[30%]">
+              <div className="flex flex-col  items-center justify-center mb-10">
+                {storeDetails?.imageUrl && (
+                  <img
+                    src={storeDetails.imageUrl}
+                    alt=""
+                    className="w-20 rounded-sm"
+                  />
+                )}
+                <h1 className="text-xl -my-5">{tag}</h1>
+              </div>
+              <div>
+                <p className="text-center">
+                  Copy code and shop{" "}
+                  {storeDetails?.title && "at " + storeDetails?.title}
+                </p>
+                <div className="flex justify-center gap-2 my-1">
+                  <h1 className="border-dashed border-2 border-blue-600 py-2 px-3 rounded-md text-xl">
+                    {key}
+                  </h1>
+                  <button
+                    className="bg-[#2563EB]  w-[100px]  rounded-md text-white text-[16px] font-medium"
+                    onClick={() => copyToClipboard(key!)}
+                  >
+                    {isCoppied ? "Copied" : "Copy"}
+                  </button>
+                </div>
+              </div>
+              <Separator />
+              <p className="text-center">{couponDescription}</p>
+            </DialogContent>
+          </Dialog>
+        </div>
+
+        <div className="grid grid-cols-10 sm:grid-cols-7 gap-5">
+          <div className="col-span-4 sm:col-span-2 hidden sm:block shadow-sm rounded-md">
+            {!storeDetailsLoading && !storeDetailsFetching && (
+              <Card>
+                <CardContent className="mt-4">
+                  <div className="">
+                    <div className="rounded-md p-2 border flex justify-center">
+                      <img
+                        src={`${storeDetails?.imageUrl}`}
+                        alt=""
+                        className=" rounded-md"
+                      />
+                    </div>
+
+                    <div>
+                      <h1 className="font-bold text-center text-xl mx-2 mt-4 line-clamp-1">
+                        {storeDetails?.title}
+                      </h1>
+
+                      <div className="mt-4 flex gap-2 justify-center items-center">
+                        <div>
+                          {!existLoading &&
+                            isLogedInStatus &&
+                            storeDetails?.id && (
+                              <button
+                                className="p-1 w-[80px]  lg:w-[120px] bg-blue-600 text-white rounded-md shadow-sm"
+                                onClick={() =>
+                                  handleFollowUnFollowClick({
+                                    storeId: +storeDetails?.id,
+                                  })
+                                }
+                              >
+                                {itemExist?.exist ? "Unfollow" : "Follow"}
+                              </button>
+                            )}
+                        </div>
+                        <button
+                          className="border w-[80px] border-blue-600 p-1 lg:w-[120px] text-black rounded-md shadow-sm line-clamp-1"
+                          onClick={() => handleNavigate()}
+                        >
+                          Visit Store
+                        </button>
+                      </div>
+
+                      <div className="mt-5">
+                        <span className=" flex justify-between items-center border p-1 px-2 rounded-md shadow-sm">
+                          <span>Followers</span>
+                          <span>{storeDetails?.followers?.length}</span>
+                        </span>
+                        <span className="mt-2 px-2 flex justify-between items-center border p-1 rounded-md shadow-sm">
+                          <span>Coupons</span>
+                          <span>{storeDetails?.coupons?.length}</span>
+                        </span>
+                      </div>
+
+                      <div className="mt-5">
+                        <Separator />
+                        <Preview value={storeDetails?.description} />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          <div className="col-span-10 sm:col-span-5">
+            <div className="grid grid-cols-1 gap-2">
+              {isLoading &&
+                isFetching &&
+                new Array(12)
+                  .fill(null)
+                  .map((el, index) => <CouponSkeletonCard key={index} />)}
+              {!isLoading &&
+                !isLoading &&
+                allCoupons?.coupons?.map((item: ICoupon) => (
+                  <CouponCard key={item.id} coupon={item} />
+                ))}
+              {!isLoading && !isLoading && allCoupons?.coupons?.length <= 0 && (
+                <EmptyStateFilter />
+              )}
+            </div>
+            <div className="flex justify-center">
+              {!isLoading && !isFetching && allCoupons?.totalPage && (
+                <Pagination
+                  {...paginationProps}
+                  totalPages={allCoupons?.totalPage}
                 />
               )}
-              <h1 className="text-xl -my-5">{tag}</h1>
             </div>
-            <div>
-              <p className="text-center">
-                Copy code and shop{" "}
-                {storeDetails?.title && "at " + storeDetails?.title}
-              </p>
-              <div className="flex justify-center gap-2 my-1">
-                <h1 className="border-dashed border-2 border-blue-600 py-2 px-3 rounded-md text-xl">
-                  {key}
-                </h1>
-                <button
-                  className="bg-[#2563EB]  w-[100px]  rounded-md text-white text-[16px] font-medium"
-                  onClick={() => copyToClipboard(key!)}
-                >
-                  {isCoppied ? "Copied" : "Copy"}
-                </button>
-              </div>
-            </div>
-            <Separator />
-            <p className="text-center">{couponDescription}</p>
-          </DialogContent>
-        </Dialog>
-      </div>
-
-      <div className="grid grid-cols-10 sm:grid-cols-7 gap-5">
-        <div className="col-span-4 sm:col-span-2 hidden sm:block shadow-sm rounded-md">
-          {!storeDetailsLoading && !storeDetailsFetching && (
-            <Card>
-              <CardContent className="mt-4">
-                <div className="">
-                  <div className="rounded-md p-2 border flex justify-center">
-                    <img
-                      src={`${storeDetails?.imageUrl}`}
-                      alt=""
-                      className=" rounded-md"
-                    />
-                  </div>
-
-                  <div>
-                    <h1 className="font-bold text-center text-xl mx-2 mt-4 line-clamp-1">
-                      {storeDetails?.title}
-                    </h1>
-
-                    <div className="mt-4 flex gap-2 justify-center items-center">
-                      <div>
-                        {!existLoading && isLogedInStatus && (
-                          <button
-                            className="p-1 w-[80px]  lg:w-[120px] bg-blue-600 text-white rounded-md shadow-sm"
-                            onClick={() =>
-                              handleFollowUnFollowClick({
-                                storeId: +storeId,
-                              })
-                            }
-                          >
-                            {itemExist?.exist ? "Unfollow" : "Follow"}
-                          </button>
-                        )}
-                      </div>
-                      <button
-                        className="border w-[80px] border-blue-600 p-1 lg:w-[120px] text-black rounded-md shadow-sm line-clamp-1"
-                        onClick={() => handleNavigate()}
-                      >
-                        Visit Store
-                      </button>
-                    </div>
-
-                    <div className="mt-5">
-                      <span className=" flex justify-between items-center border p-1 px-2 rounded-md shadow-sm">
-                        <span>Followers</span>
-                        <span>{storeDetails?.followers?.length}</span>
-                      </span>
-                      <span className="mt-2 px-2 flex justify-between items-center border p-1 rounded-md shadow-sm">
-                        <span>Coupons</span>
-                        <span>{storeDetails?.coupons?.length}</span>
-                      </span>
-                    </div>
-
-                    <div className="mt-5">
-                      <Separator />
-                      <Preview value={storeDetails?.description} />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-
-        <div className="col-span-10 sm:col-span-5">
-          <div className="grid grid-cols-1 gap-2">
-            {isLoading &&
-              isFetching &&
-              new Array(12)
-                .fill(null)
-                .map((el, index) => <CouponSkeletonCard key={index} />)}
-            {!isLoading &&
-              !isLoading &&
-              allCoupons?.coupons?.map((item: ICoupon) => (
-                <CouponCard key={item.id} coupon={item} />
-              ))}
-            {!isLoading && !isLoading && allCoupons?.coupons?.length <= 0 && (
-              <EmptyStateFilter />
-            )}
-          </div>
-          <div className="flex justify-center">
-            {!isLoading && !isFetching && allCoupons?.totalPage && (
-              <Pagination
-                {...paginationProps}
-                totalPages={allCoupons?.totalPage}
-              />
-            )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -6,8 +6,8 @@ export const metadata = {
   description: "NepQue: Your CouponPartner",
 };
 
-const SingleCategoryBrowsePage = ({ params }: { params: { id: number } }) => {
-  return <SideFilter categoryId={params.id} />;
+const SingleCategoryBrowsePage = () => {
+  return <SideFilter />;
 };
 
 export default SingleCategoryBrowsePage;

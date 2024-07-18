@@ -24,17 +24,12 @@ type IFilter = {
   categoryIds: number[];
   storeIds: number[];
 };
-const SideFilter = ({ categoryId }: { categoryId: number }) => {
+const SideFilter = () => {
   const [filter, setfilter] = useState<IFilter>({
     categoryIds: [],
     storeIds: [],
   });
   const paginationProps = usePagination();
-  const {
-    data: allCat,
-    isLoading: catLoading,
-    isFetching: catFeteching,
-  } = UseGetAllCategory();
   const {
     data: allStore,
     isLoading: storeLoading,
@@ -47,7 +42,6 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
     isFetching: couponFetching,
     refetch,
   } = UseGetAllCouponsOfCatStore(
-    filter.categoryIds,
     filter.storeIds,
     paginationProps.currentPage,
     30
@@ -79,60 +73,7 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
     <main className=" max-w-7xl px-1">
       <div className="grid grid-cols-10 sm:grid-cols-7 gap-5">
         <div className="col-span-4 sm:col-span-2 hidden sm:block">
-          <div className="shadow-sm p-3 rounded-md bg-white ">
-            <h1 className="mb-3 font-medium">All SubCategory</h1>
-            <Separator />
-            <div className="mt-3 bg-white">
-              <ScrollArea className="h-[180px] w-full rounded-md  p-4">
-                <ul className="space-y-4">
-                  <li key="all" className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={`color-${"all"}`}
-                      className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                      onChange={() => {
-                        setfilter({
-                          ...filter,
-                          categoryIds: [],
-                        });
-                        _debounceSubmit();
-                      }}
-                      checked={filter.categoryIds.length === 0}
-                    />
-                    <label
-                      htmlFor={`checkbox`}
-                      className="ml-3 text-sm text-gray-600"
-                    >
-                      All
-                    </label>
-                  </li>
-                  {!catFeteching &&
-                    !catLoading &&
-                    allCat?.map((option: ICategory) => {
-                      return (
-                        <li key={option.id} className="flex items-center">
-                          <input
-                            type="checkbox"
-                            id={`color-${option.id}`}
-                            className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                            onChange={() => {
-                              handleChange("categoryIds", option.id);
-                            }}
-                            checked={filter.categoryIds.includes(option.id)}
-                          />
-                          <label
-                            htmlFor={`checkbox`}
-                            className="ml-3 text-sm text-gray-600"
-                          >
-                            {option.title}
-                          </label>
-                        </li>
-                      );
-                    })}
-                </ul>
-              </ScrollArea>
-            </div>
-          </div>
+          <div className="shadow-sm p-3 rounded-md bg-white "></div>
           <div className="shadow-sm p-3 rounded-md bg-white ">
             <h1 className="mb-3 font-medium text-xl ">All Stores</h1>
             <Separator />
@@ -191,62 +132,6 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
 
         <div className="sm:hidden block w-[90vw]  my-5 ">
           <div className="flex gap-2">
-            <Select onValueChange={(val) => console.log(val)}>
-              <SelectTrigger className="">
-                <SelectValue placeholder="Select Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <ScrollArea className="h-[150px] w-full rounded-md  p-4">
-                  <ul className="space-y-4">
-                    <li key="all" className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`color-${"all"}`}
-                        className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                        onChange={() => {
-                          setfilter({
-                            ...filter,
-                            categoryIds: [],
-                          });
-                          _debounceSubmit();
-                        }}
-                        checked={filter.categoryIds.length === 0}
-                      />
-                      <label
-                        htmlFor={`checkbox`}
-                        className="ml-3 text-sm text-gray-600"
-                      >
-                        All
-                      </label>
-                    </li>
-                    {!catFeteching &&
-                      !catLoading &&
-                      allCat?.map((option: ICategory) => {
-                        return (
-                          <li key={option.id} className="flex items-center">
-                            <input
-                              type="checkbox"
-                              id={`color-${option.id}`}
-                              className="h-4 w-4  rounded border-gray-300 text-indigo-600 focus:text-indigo-600"
-                              onChange={() => {
-                                handleChange("categoryIds", option.id);
-                              }}
-                              checked={filter.categoryIds.includes(option.id)}
-                            />
-                            <label
-                              htmlFor={`checkbox`}
-                              className="ml-3 text-sm text-gray-600"
-                            >
-                              {option.title}
-                            </label>
-                          </li>
-                        );
-                      })}
-                  </ul>
-                </ScrollArea>
-              </SelectContent>
-            </Select>
-
             <Select onValueChange={(val) => console.log(val)}>
               <SelectTrigger className="">
                 <SelectValue placeholder="Select Store" />

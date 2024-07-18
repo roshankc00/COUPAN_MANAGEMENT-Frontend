@@ -17,26 +17,32 @@ import CouponCard from "@/components/cards/Coupon.card";
 import EmptyStateFilter from "@/components/EmptyFilterState";
 import CouponSkeletonCard from "@/components/cards/CouponSkeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { UseGetSingleSubCategorywithSlug } from "@/hooks/react-query/sub-categories/get-subcategory-ofcategory.client";
 
-const SideFilter = ({ categoryId }: { categoryId: number }) => {
+const SideFilter = ({ categorySlug }: { categorySlug: string }) => {
   const paginationProps = usePagination();
   const [filter, setfilter] = useState<number[]>([]);
   const {
     data: allsubCat,
     isLoading: subCatLoading,
     isFetching: subCatFetching,
-  } = UseGetAllSubCategoryOfParticularCategory(categoryId);
+    refetch: refetchSubCategorylist,
+  } = UseGetSingleSubCategorywithSlug(categorySlug);
   const {
     data: allCoupons,
     isLoading: couponLoading,
     isFetching: couponFetching,
     refetch,
   } = UseGetAllCouponsOfCatSubcat(
-    categoryId,
+    categorySlug,
     filter,
     paginationProps.currentPage,
     30
   );
+  useEffect(() => {
+    refetch();
+    refetchSubCategorylist();
+  }, [categorySlug]);
 
   const handleChange = (id: number) => {
     if (filter.includes(id)) {
@@ -50,12 +56,13 @@ const SideFilter = ({ categoryId }: { categoryId: number }) => {
     _debounceSubmit();
   };
   const onSubmit = () => refetch();
-
   const debouncedSubmit = debounce(onSubmit, 400);
   const _debounceSubmit = useCallback(debouncedSubmit, []);
   useEffect(() => {
     _debounceSubmit();
   }, [paginationProps.currentPage]);
+
+  console.log(allCoupons, "qosq");
   return (
     <main className="mx-auto max-w-7xl px-1">
       <div className="grid grid-cols-10 sm:grid-cols-7 gap-5">

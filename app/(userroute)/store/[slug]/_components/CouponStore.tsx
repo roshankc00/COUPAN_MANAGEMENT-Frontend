@@ -9,19 +9,7 @@ type Props = {
 };
 
 const CouponStore: React.FC<Props> = ({ slug }) => {
-  const router = useRouter();
-  const { data, isFetching, isLoading, refetch } =
-    UseGetStoreInfoWithSlug(slug);
-
-  if (!isFetching && !isLoading && !data) {
-    router.back();
-  }
-
-  return (
-    <div>
-      {!isFetching && !isLoading && <CouponStoreDetails storeId={data?.id} />}
-    </div>
-  );
+  return <div>{<CouponStoreDetails storeSlug={slug} />}</div>;
 };
 
 export default CouponStore;

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllCouponsOfCategoryAndSubcategory } from "@/common/api/coupons/coupons.api";
 
 export const UseGetAllCouponsOfCatSubcat = (
-  categoryId: number,
+  categorySlug: string,
   subCategoryIds: number[],
   page: number,
   pageSize: number
@@ -12,7 +12,7 @@ export const UseGetAllCouponsOfCatSubcat = (
     queryKey: ["cat-subcat-coupons"],
     queryFn: () =>
       getAllCouponsOfCategoryAndSubcategory(
-        categoryId,
+        categorySlug,
         subCategoryIds,
         page,
         pageSize

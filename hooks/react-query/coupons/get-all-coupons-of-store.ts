@@ -3,13 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllCouponsOfStore } from "@/common/api/coupons/coupons.api";
 
 export const UseGetAllCouponsOfStore = (
-  id: number,
+  storeSlug: string,
   page: number,
   noOfPages: number
 ) => {
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["store-coupons"],
-    queryFn: () => getAllCouponsOfStore(id, page, noOfPages),
+    queryFn: () => getAllCouponsOfStore(storeSlug, page, noOfPages),
   });
   return { data, isFetching, isLoading, refetch };
 };

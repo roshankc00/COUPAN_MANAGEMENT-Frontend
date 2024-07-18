@@ -1,7 +1,6 @@
 import React from "react";
 import SideFilter from "./_components/SideFilter";
 import { Metadata, ResolvingMetadata } from "next";
-import CategoryCoupon from "./_components/CategoryCoupon";
 
 export async function generateMetadata(
   { params }: { params: { slug: string } },
@@ -32,7 +31,7 @@ export async function generateMetadata(
 }
 
 const SingleCategoryBrowsePage = ({ params }: { params: { slug: string } }) => {
-  return <CategoryCoupon slug={params.slug} />;
+  return <SideFilter categorySlug={params.slug} />;
 };
 
 export default SingleCategoryBrowsePage;

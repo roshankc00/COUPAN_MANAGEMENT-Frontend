@@ -7,24 +7,31 @@ export const getAllCoupons = async () => {
 };
 
 export const getAllCouponsOfCategoryAndSubcategory = async (
-  categoryId: number,
+  categorySlug: string,
   subCategoryIds: number[],
   page: number,
   pageSize: number
 ) => {
-  const { data } = await axios.get(
-    `/coupons?categoryId=${categoryId}&subCategoryIds=${subCategoryIds}&page=${page}&pageSize=${pageSize}`
-  );
-  return data;
+  if (subCategoryIds && subCategoryIds?.length > 0) {
+    const { data } = await axios.get(
+      `/coupons?categorySlug=${categorySlug}&subCategoryIds=${subCategoryIds}&page=${page}&pageSize=${pageSize}`
+    );
+    return data;
+  } else {
+    const { data } = await axios.get(
+      `/coupons?categorySlug=${categorySlug}&page=${page}&pageSize=${pageSize}`
+    );
+    return data;
+  }
 };
 
 export const getAllCouponsOfStore = async (
-  storeId: number,
+  storeSlug: string,
   page: number,
   pageSize: number
 ) => {
   const { data } = await axios.get(
-    `/coupons?storeId=${storeId}&page=${page}&pageSize=${pageSize}`
+    `/coupons?storeSlug=${storeSlug}&page=${page}&pageSize=${pageSize}`
   );
   return data;
 };
@@ -35,15 +42,21 @@ export const getAllUserWishlistCoupons = async (status: string) => {
 };
 
 export const getAllCouponsOfCategoryAndStore = async (
-  categoryIds: number[],
   storeIds: number[],
   page: number,
   pageSize: number
 ) => {
-  const { data } = await axios.get(
-    `/coupons?categoryIds=${categoryIds}&storeIds=${storeIds}&page=${page}&pageSize=${pageSize}`
-  );
-  return data;
+  if (storeIds && storeIds.length > 0) {
+    const { data } = await axios.get(
+      `/coupons?storeIds=${storeIds}&page=${page}&pageSize=${pageSize}`
+    );
+    return data;
+  } else {
+    const { data } = await axios.get(
+      `/coupons?page=${page}&pageSize=${pageSize}`
+    );
+    return data;
+  }
 };
 
 export const postCoupon = async (body: ICouponBody) => {

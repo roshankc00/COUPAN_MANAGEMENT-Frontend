@@ -45,3 +45,8 @@ export const getAllSubCategoriesForAdmin = async () => {
   const { data } = await axios.get(`/sub-categories/admin/all`);
   return data;
 };
+
+export const getAllSubcategoriesCategoryInClient = async (slug: string) => {
+  const { data } = await axios.get(`/category/get/with-slug?slug=${slug}`);
+  return data?.subcategories;
+};
