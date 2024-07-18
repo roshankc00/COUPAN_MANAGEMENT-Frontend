@@ -65,6 +65,8 @@ const EditProductForm = ({ id, singleData }: Props) => {
     }[]
   >([]);
 
+  console.log(singleData?.fields);
+
   useEffect(() => {
     if (singleData?.fields) {
       const fieldsArray = Object.keys(singleData.fields).map((key) => ({
@@ -72,7 +74,12 @@ const EditProductForm = ({ id, singleData }: Props) => {
         type: singleData.fields[key].type,
         order: singleData.fields[key].order,
       }));
-      setfields([...fieldsArray, ...fields]);
+
+      const updatedFields = [...fieldsArray, ...fields].sort(
+        (a, b) => a.order - b.order
+      );
+
+      setfields(updatedFields);
     }
     if (singleData?.tags) {
       settags([...singleData?.tags, ...tags]);
@@ -87,6 +94,9 @@ const EditProductForm = ({ id, singleData }: Props) => {
     }),
     product_type: z.string().min(5, {
       message: "Product type must be at least 5 characters",
+    }),
+    slug: z.string().min(3, {
+      message: "slug must be at least 3 characters",
     }),
     appstoreLink: z.any().optional(),
     playstoreLink: z.any().optional(),
@@ -106,10 +116,9 @@ const EditProductForm = ({ id, singleData }: Props) => {
       appstoreLink: singleData?.appstoreLink,
       playstoreLink: singleData?.playstoreLink,
       product_type: singleData?.product_type,
+      slug: singleData?.slug,
     },
   });
-
-  console.log(singleData?.product_type);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     if (
@@ -124,6 +133,7 @@ const EditProductForm = ({ id, singleData }: Props) => {
     if (values?.image || values?.tooltipImage) {
       const formData = new FormData();
       formData.append("title", values.title);
+      formData.append("slug", values.slug);
       formData.append("description", values.description);
       formData.append("product_type", values.product_type);
       if (values.appstoreLink) {
@@ -167,6 +177,7 @@ const EditProductForm = ({ id, singleData }: Props) => {
       const body: {
         title: string;
         description: string;
+        slug: string;
         product_type: string;
         appstoreLink: string | undefined;
         playstoreLink: string | undefined;
@@ -182,6 +193,7 @@ const EditProductForm = ({ id, singleData }: Props) => {
         playstoreLink: values?.playstoreLink,
         isImage: false,
         isTooltipImage: false,
+        slug: values?.slug,
         tags,
       };
       if (values.product_type === "subscription") {
@@ -336,6 +348,25 @@ const EditProductForm = ({ id, singleData }: Props) => {
                               {...field}
                             /> */}
                             <Editor {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="slug"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Slug</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the description"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -653,16 +684,18 @@ const EditProductForm = ({ id, singleData }: Props) => {
                 <AddSubproduct productId={singleData?.id} />
               </div>
               <div className="mt-10 mx-20 ">
-                {singleData?.subProductItems?.map((item: any) => (
-                  <div
-                    className="grid grid-cols-5 place-content-center gap-10 gap-y-4 mt-5"
-                    key={item?.id}
-                  >
-                    <Input value={item?.title} className="col-span-2" />
-                    <Input value={item?.price} className="col-span-2" />
-                    <EditSubProductDrawer item={item} />
-                  </div>
-                ))}
+                {singleData?.subProductItems
+                  ?.sort((a: any, b: any) => a.price - b.price)
+                  ?.map((item: any) => (
+                    <div
+                      className="grid grid-cols-5 place-content-center gap-10 gap-y-4 mt-5"
+                      key={item?.id}
+                    >
+                      <Input value={item?.title} className="col-span-2" />
+                      <Input value={item?.price} className="col-span-2" />
+                      <EditSubProductDrawer item={item} />
+                    </div>
+                  ))}
               </div>
             </div>
           </CardContent>

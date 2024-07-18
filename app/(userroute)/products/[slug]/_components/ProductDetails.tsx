@@ -148,7 +148,6 @@ const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
                 1
               </h1>
               <h1 className="absolute left-16 text-xl font-medium mt-2">
-                Enter{" "}
                 {productItem?.fields &&
                   customSortKeys(productItem?.fields)[0]?.key}
               </h1>
@@ -175,7 +174,7 @@ const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
                                       <FormControl>
                                         <Input
                                           className="border border-[#d3d3d1]"
-                                          placeholder={`Enter ${item?.key}`}
+                                          placeholder={`${item?.key}`}
                                           {...field}
                                         />
                                       </FormControl>
@@ -223,23 +222,25 @@ const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
 
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 bg-white">
               {productItem?.subProductItems &&
-                productItem?.subProductItems.map((item: any) => (
-                  <div
-                    key={item.id}
-                    onClick={() => setactiveSubProduct(item)}
-                    className={`shadow-sm p-2  rounded-md mt-2 border cursor-pointer  ${
-                      activeSubProduct.id === item.id
-                        ? "bg-slate-50  border-blue-500 border-2"
-                        : ""
-                    }`}
-                  >
-                    <p className="text-center font-semibold">{item.title}</p>
-                    <Separator className="mt-5" />
-                    <p className="text-right text-red-600 font-medium py-1">
-                      Rs {item.price}
-                    </p>
-                  </div>
-                ))}
+                productItem?.subProductItems
+                  ?.sort((a: any, b: any) => a.price - b.price)
+                  ?.map((item: any) => (
+                    <div
+                      key={item.id}
+                      onClick={() => setactiveSubProduct(item)}
+                      className={`shadow-sm p-2  rounded-md mt-2 border cursor-pointer  ${
+                        activeSubProduct.id === item.id
+                          ? "bg-slate-50  border-blue-500 border-2"
+                          : ""
+                      }`}
+                    >
+                      <p className="text-center font-semibold">{item.title}</p>
+                      <Separator className="mt-5" />
+                      <p className="text-right text-red-600 font-medium py-1">
+                        Rs {item.price}
+                      </p>
+                    </div>
+                  ))}
             </div>
           </div>
 

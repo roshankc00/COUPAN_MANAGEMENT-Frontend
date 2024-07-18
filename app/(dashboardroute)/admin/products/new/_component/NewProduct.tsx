@@ -63,6 +63,7 @@ const AddNewProductsComponent = () => {
     title: z.string().min(3, {
       message: "Title must be at least 5 characters",
     }),
+
     description: z.string().min(3, {
       message: "Description must be at least 3 characters",
     }),
@@ -71,6 +72,9 @@ const AddNewProductsComponent = () => {
     }),
     appstoreLink: z.any().optional(),
     playstoreLink: z.any().optional(),
+    slug: z.string().min(3, {
+      message: "Title must be at least 5 characters",
+    }),
     image: z
       .instanceof(File)
       .refine((file) => file.size !== 0, "Please upload an image"),
@@ -90,18 +94,14 @@ const AddNewProductsComponent = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    if (
-      values.product_type === "subscription" &&
-      fields.length < 1 &&
-      !fields[0].order &&
-      !fields[0].key
-    ) {
+    if (values.product_type === "subscription" && fields.length < 1) {
       return toast.error("Provide some fields ");
     }
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("description", values.description);
     formData.append("product_type", values.product_type);
+    formData.append("slug", values.slug);
     if (values.appstoreLink) {
       formData.append("appstoreLink", values.appstoreLink);
     }
@@ -123,7 +123,6 @@ const AddNewProductsComponent = () => {
     if (values.product_type === "subscription" && values?.tooltipImage) {
       formData.append("files", values?.tooltipImage);
     }
-    console.log(formData);
     mutateAsync(formData).then(() => {
       toast.success("Product created successfully");
       router.push("/admin/products");
@@ -248,6 +247,25 @@ const AddNewProductsComponent = () => {
                               {...field}
                             /> */}
                             <Editor {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </>
+                    )}
+                  />
+                  <FormField
+                    name="slug"
+                    control={form.control}
+                    render={({ field }) => (
+                      <>
+                        <FormItem className="mb-3">
+                          <FormLabel>Slug</FormLabel>
+                          <FormControl>
+                            <Input
+                              className="border border-[#d3d3d1]"
+                              placeholder="Enter the Slug"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
