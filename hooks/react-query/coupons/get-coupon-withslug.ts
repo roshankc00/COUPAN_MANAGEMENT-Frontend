@@ -10,3 +10,5 @@ export const UseGetCouponInfoWithSlug = (slug: string | null) => {
   });
   return { data, isFetching, isLoading, refetch };
 };
+
+//
