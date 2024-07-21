@@ -52,7 +52,7 @@ const SearchBar = () => {
         </DialogTrigger>
         <DialogContent className=" ml-0 xl:-ml-8   w-[100vw]">
           <div>
-            <div className="relative mt-3">
+            <div className="relative mt-[150px]  sm:mt-3">
               <Input
                 value={searchText}
                 onChange={(e) => {
@@ -115,7 +115,7 @@ const SearchBar = () => {
                   <ScrollArea className="h-[250px] -ms-10 w-full rounded-md  p-4">
                     {/* categories */}
                     <div>
-                      <div className="grid grid-cols-4 gap-2 ">
+                      <div className="grid grid-cols-3 md:grid-cols-4 gap-2 ">
                         {data?.categories?.map((item: ICategory) => (
                           <div
                             className="border border-slate-200 p-2 rounded-md flex  justify-center items-center cursor-pointer"
