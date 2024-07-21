@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useRef, useState } from "react";
 import { Input } from "./ui/input";
-import { File, Search } from "lucide-react";
+import { File, Search, X } from "lucide-react";
 import { useOnClickOutside } from "@/hooks/out-side.click";
 import { UseSeachCategoryStore } from "@/hooks/react-query/stores/search-cat-store";
 import { Separator } from "./ui/separator";
@@ -52,7 +52,12 @@ const SearchBar = () => {
         </DialogTrigger>
         <DialogContent className=" ml-0 xl:-ml-8   w-[100vw]">
           <div>
-            <div className="relative mt-[200px]  sm:mt-3">
+            <div className=" mt-[200px]  sm:mt-3">
+              <div className="flex flex-row-reverse my-4">
+                <X onClick={() => setshowDialog(false)} />
+              </div>
+            </div>
+            <div className="relative">
               <Input
                 value={searchText}
                 onChange={(e) => {
