@@ -52,7 +52,7 @@ const SearchBar = () => {
         </DialogTrigger>
         <DialogContent className=" ml-0 xl:-ml-8   w-[100vw]">
           <div>
-            <div className="relative mt-[150px]  sm:mt-3">
+            <div className="relative mt-[200px]  sm:mt-3">
               <Input
                 value={searchText}
                 onChange={(e) => {
