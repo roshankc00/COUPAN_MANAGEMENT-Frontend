@@ -135,7 +135,7 @@ const CouponStoreDetails: React.FC<Props> = ({ storeSlug }) => {
         <div>
           <div>
             <Dialog open={open} onOpenChange={setopen}>
-              <DialogContent className="w-[30%]">
+              <DialogContent className="2xl:w-[30%] sm:w-[80%] w-[95%] rounded-md">
                 <div className="flex flex-col  items-center justify-center mb-10">
                   {storeDetails?.imageUrl && (
                     <img
