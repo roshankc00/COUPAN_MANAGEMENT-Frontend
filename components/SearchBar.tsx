@@ -53,7 +53,7 @@ const SearchBar = () => {
         <DialogContent className=" ml-0 xl:-ml-8   w-[100vw]">
           <div>
             <div className=" mt-[200px]  sm:mt-3">
-              <div className="flex flex-row-reverse my-4">
+              <div className="flex flex-row-reverse my-4 mt-5">
                 <X onClick={() => setshowDialog(false)} />
               </div>
             </div>
