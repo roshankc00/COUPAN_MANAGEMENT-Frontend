@@ -88,8 +88,33 @@ const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
 
   return (
     <div className="mt-10">
+      <div className="flex justify-center items-center">
+        <div className="block md:hidden">
+          <img
+            src={productItem?.imageUrl}
+            className=" h-[300px] rounded-md"
+            alt=""
+          />
+          <h1 className=" font-bold text-xl my-4 text-center">
+            {productItem?.title}
+          </h1>
+          <div className="flex gap-1 flex-wrap justify-center items-center  mb-4">
+            {productItem &&
+              productItem?.tags &&
+              productItem?.tags.map((item: string) => (
+                <Button
+                  variant={"outline"}
+                  className=" text-[10px]   cursor-default"
+                  key={item}
+                >
+                  {item}
+                </Button>
+              ))}
+          </div>
+        </div>
+      </div>
       <div className="grid grid-cols-7 md:grid-cols-9 gap-10">
-        <div className="col-span-3 md:col-span-3 shadow-sm rounded-sm pb-10 ">
+        <div className="hidden sm:block md:col-span-3 shadow-sm rounded-sm pb-10 ">
           <Card className="bg-white">
             <CardContent className="p-3">
               <div>
@@ -141,7 +166,7 @@ const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
             </CardContent>
           </Card>
         </div>
-        <div className="col-span-4 md:col-span-6 ">
+        <div className="col-span-7 md:col-span-6 ">
           {productItem && productItem?.product_type === "subscription" && (
             <div className=" relative bg-white">
               <h1 className="w-10 h-10 rounded-full shadow-sm bg-blue-500 m-1 absolute text-white flex justify-center items-center left-2 -top-5 text-2xl font-bold">
