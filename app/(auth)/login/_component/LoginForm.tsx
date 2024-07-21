@@ -133,7 +133,7 @@ function LoginForm() {
               <Button type="submit" className="w-full">
                 Login
               </Button>
-              <Button
+              {/* <Button
                 type="button"
                 variant="outline"
                 onClick={() => handleLogin()}
@@ -144,7 +144,7 @@ function LoginForm() {
                   alt=""
                 />{" "}
                 Login With Google
-              </Button>
+              </Button> */}
             </form>
           </Form>
         </CardContent>
