@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 const SearchBar = () => {
   const [showSuggestions, setshowSuggestions] = useState(false);
   const [searchText, setsearchText] = useState("");
+  const [showDialog, setshowDialog] = useState(false);
   const router = useRouter();
   const { data, isFetching, isLoading, refetch } =
     UseSeachCategoryStore(searchText);
@@ -33,7 +34,7 @@ const SearchBar = () => {
 
   return (
     <div className="relative">
-      <Dialog>
+      <Dialog open={showDialog} onOpenChange={setshowDialog}>
         <DialogTrigger>
           <div>
             <Input
@@ -76,7 +77,10 @@ const SearchBar = () => {
                       {data?.stores?.map((item: IStore) => (
                         <div
                           key={item.id}
-                          onClick={() => router.push(`/store/${item.id}`)}
+                          onClick={() => {
+                            router.push(`/store/${item.slug}`);
+                            setshowDialog(false);
+                          }}
                           className="cursor-pointer"
                         >
                           <div className="flex justify-between items-center">
@@ -111,14 +115,17 @@ const SearchBar = () => {
                   <ScrollArea className="h-[250px] -ms-10 w-full rounded-md  p-4">
                     {/* categories */}
                     <div>
-                      <div className="grid grid-cols-4  ">
+                      <div className="grid grid-cols-4 gap-2 ">
                         {data?.categories?.map((item: ICategory) => (
                           <div
-                            className="border border-slate-200 p-2 rounded-md flex justify-center items-center cursor-pointer"
+                            className="border border-slate-200 p-2 rounded-md flex  justify-center items-center cursor-pointer"
                             key={item.id}
-                            onClick={() => router.push(`/category/${item.id}`)}
+                            onClick={() => {
+                              router.push(`/category/${item.slug}`);
+                              setshowDialog(false);
+                            }}
                           >
-                            <h1 className="text=[17px]">{item.title}</h1>
+                            <h1 className="text=[17px] px-2">{item.title}</h1>
                           </div>
                         ))}
                       </div>
