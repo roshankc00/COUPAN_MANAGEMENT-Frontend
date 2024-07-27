@@ -13,7 +13,7 @@ import SliderSkeletion from "./SliderSkeletion";
 const Silder = () => {
   const { data, isFetching, isLoading } = UseGetAllHomeDetails();
   return (
-    <div className="shadow-sm rounded-2xl">
+    <div className="shadow-sm w-full rounded-2xl">
       <Carousel>
         <CarouselContent>
           {isLoading && isFetching && (

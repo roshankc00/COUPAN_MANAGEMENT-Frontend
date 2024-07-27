@@ -37,6 +37,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { customSortKeys } from "@/common/helpers/sort";
 import { Preview } from "@/components/Preview";
+import { X } from "lucide-react";
 
 type Props = {
   productItem: any;
@@ -47,6 +48,7 @@ const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
   const { isLogedInStatus } = useSelector((state: IRootState) => state.auth);
   const router = useRouter();
   const [activeSubProduct, setactiveSubProduct] = useState<any>({});
+  const [showTooltip, setShowTooltip] = useState(false);
   const formSchema = z.object({
     fields: z.record(z.string()),
   });
@@ -213,26 +215,51 @@ const ProductDetails: React.FC<Props> = ({ slug, productItem }) => {
                       </div>
 
                       {productItem?.toolTipImageUrl && (
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger>
-                              <FaQuestion
-                                className="text-blue-600 "
-                                size={25}
-                              />
-                            </TooltipTrigger>
-                            <TooltipContent
-                              className="bg-black text-white"
-                              side="bottom"
-                            >
-                              <img
-                                src={productItem?.toolTipImageUrl}
-                                className="h-[50vh]"
-                                alt=""
-                              />
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
+                        <>
+                          <div className="hidden sm:block">
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <FaQuestion
+                                    className="text-blue-600 "
+                                    size={25}
+                                  />
+                                </TooltipTrigger>
+                                <TooltipContent
+                                  className=" text-white"
+                                  side="bottom"
+                                >
+                                  <img
+                                    src={productItem?.toolTipImageUrl}
+                                    className="h-[50vh]"
+                                    alt=""
+                                  />
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                          <div className="block sm:hidden relative">
+                            <FaQuestion
+                              className="text-blue-600"
+                              size={25}
+                              onClick={() => setShowTooltip(!showTooltip)}
+                            />
+                            {showTooltip && (
+                              <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-50">
+                                <div className="bg-white p-4 rounded-md relative">
+                                  <div className="absolute top-0 right-0 m-2 mb-4">
+                                    <X onClick={() => setShowTooltip(false)} />
+                                  </div>
+                                  <img
+                                    src={productItem?.toolTipImageUrl}
+                                    className="h-[50vh] mt-5 rounded-md"
+                                    alt=""
+                                  />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </>
                       )}
                     </form>
                   </Form>

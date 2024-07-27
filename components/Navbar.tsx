@@ -34,7 +34,7 @@ const Navbar = () => {
             }}
           >
             <Image
-              className="w-[120px] h-[80px] rounded-md shadow-sm"
+              className="w-[100px] ms-1 sm:ms-0 h-[80px] sm:h-[80px] sm:w-[120px] rounded-md shadow-sm"
               src={Logo}
               alt="Logo"
             />
@@ -79,22 +79,45 @@ const Navbar = () => {
           {isLogedInStatus ? (
             <LogoutButton />
           ) : (
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                className="w-[40px] text-[11px] sm:text-[14px] sm:w-[70px]"
-                onClick={() => router.push("/login")}
+            <>
+              <div
+                className="hidden
+               sm:flex gap-2 "
               >
-                Login
-              </Button>
-              <Button
-                className="w-[40px] text-[11px] sm:text-[14px] sm:w-[70px]"
-                variant="outline"
-                onClick={() => router.push("/signup")}
-              >
-                Signup
-              </Button>
-            </div>
+                <Button
+                  variant="outline"
+                  className="w-[40px] text-[11px] sm:text-[14px] sm:w-[70px]"
+                  onClick={() => router.push("/login")}
+                >
+                  Login
+                </Button>
+                <Button
+                  className="w-[40px] text-[11px] sm:text-[14px] sm:w-[70px]"
+                  variant="outline"
+                  onClick={() => router.push("/signup")}
+                >
+                  Signup
+                </Button>
+              </div>
+              <div className="flex gap-2 mx-1 sm:hidden">
+                <Button
+                  variant="outline"
+                  size={"sm"}
+                  className="w-[40px] text-[11px] sm:text-[14px] sm:w-[70px]"
+                  onClick={() => router.push("/login")}
+                >
+                  Login
+                </Button>
+                <Button
+                  className="w-[40px] text-[11px] sm:text-[14px] sm:w-[70px]"
+                  variant="outline"
+                  size={"sm"}
+                  onClick={() => router.push("/signup")}
+                >
+                  Signup
+                </Button>
+              </div>
+            </>
           )}
         </div>
       </div>
