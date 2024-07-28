@@ -3,7 +3,7 @@ import { getStoreWithOutAffilatedLink } from "../../../common/api/stores/store.a
 
 export const UseGetAllStoreWithOutAffilatedLink = () => {
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: ["store"],
+    queryKey: ["store-without-link"],
     queryFn: () => getStoreWithOutAffilatedLink(),
   });
   return { data, isFetching, isLoading };
