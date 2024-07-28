@@ -91,7 +91,7 @@ function NewStoreForm() {
     mutateAsync(formData as any)
       .then(() => {
         toast.success("Store created successfully");
-        router.push("/store");
+        router.push("/admin/store");
         client.invalidateQueries({ queryKey: ["admin-store"] });
       })
       .catch(() => {

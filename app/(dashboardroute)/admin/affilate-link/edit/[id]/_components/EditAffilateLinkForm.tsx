@@ -32,6 +32,7 @@ import { updateAffilateLink } from "@/common/api/affilate-link/affilate-link.api
 import { UseGetAllStore } from "@/hooks/react-query/stores/get_all_store_hook";
 import { IStore } from "@/interfaces/Store.interface";
 import DeleteAffliatedLinkButton from "../../../_component/Edit-Delete.button";
+import { UseGetAllStoreWithOutAffilatedLink } from "@/hooks/react-query/stores/get-store-without-link";
 
 type Props = {
   singleData: any;
@@ -90,7 +91,8 @@ function EditAffilateLinkForm({ id, singleData }: Props) {
       });
   };
 
-  const { data: allstore, isLoading: storeLoading } = UseGetAllStore();
+  const { data: allstore, isLoading: storeLoading } =
+    UseGetAllStoreWithOutAffilatedLink();
 
   return (
     <div className="pt-10">
